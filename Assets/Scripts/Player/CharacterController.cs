@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class PlayerController : MonoBehaviour
+public class CharacterController : MonoBehaviour
 {
     [SerializeField]
     float walkingSpeed = 2.25f;
@@ -24,10 +24,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         // Assign input controls to player movement.
-        input.Movement.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
-        input.Movement.Move.canceled += _ => Stop();
-        input.Movement.Run.performed += _ => Run();
-        input.Movement.Run.canceled += _ => Walk();
+        input.Character.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
+        input.Character.Move.canceled += _ => Stop();
+        input.Character.Run.started += _ => Run();
+        input.Character.Run.canceled += _ => Walk();
+        input.Character.Interact.performed += _ => Interact();
     }
 
     void LateUpdate()
@@ -58,6 +59,11 @@ public class PlayerController : MonoBehaviour
     void Walk()
     {
         isRunning = false;
+    }
+
+    void Interact()
+    {
+
     }
 
     public float Speed
