@@ -94,10 +94,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5902971270548390587, guid: 5411a1abc1cf37e42bd5285fea8626e6,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5902971270548390587, guid: 5411a1abc1cf37e42bd5285fea8626e6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5411a1abc1cf37e42bd5285fea8626e6,
         type: 3}
       propertyPath: m_Name
       value: OfficeDeskGfx
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996001955324183369, guid: 5411a1abc1cf37e42bd5285fea8626e6,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996001955324183369, guid: 5411a1abc1cf37e42bd5285fea8626e6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5411a1abc1cf37e42bd5285fea8626e6, type: 3}

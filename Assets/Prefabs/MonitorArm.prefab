@@ -99,6 +99,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: MonitorArmGfx
       objectReference: {fileID: 0}
+    - target: {fileID: 6413430945410268847, guid: e1275553355e21541b4438bf4a5943fb,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6413430945410268847, guid: e1275553355e21541b4438bf4a5943fb,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1275553355e21541b4438bf4a5943fb, type: 3}
 --- !u!4 &8364711656225716348 stripped
