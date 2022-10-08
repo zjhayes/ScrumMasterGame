@@ -1,7 +1,8 @@
 using UnityEngine;
-using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
+
+[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
+[RequireComponent(typeof(CharacterInteraction))]
 public class CharacterController : MonoBehaviour
 {
     [SerializeField]
@@ -10,15 +11,17 @@ public class CharacterController : MonoBehaviour
     float runningSpeed = 5f;
 
     PlayerInput input;
-    NavMeshAgent agent;
+    UnityEngine.AI.NavMeshAgent agent;
+    CharacterInteraction interaction;
     bool isRunning = false;
     float moveVerticle = 0.0f;
     float moveHorizontal = 0.0f;
 
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         input = new PlayerInput();
+        interaction = GetComponent<CharacterInteraction>();
     }
 
     void Start()
@@ -63,7 +66,7 @@ public class CharacterController : MonoBehaviour
 
     void Interact()
     {
-
+        interaction.Interact();
     }
 
     public float Speed

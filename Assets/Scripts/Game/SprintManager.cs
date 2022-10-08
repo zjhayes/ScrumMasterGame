@@ -17,11 +17,6 @@ public class SprintManager : Singleton<SprintManager>
         StartSprint();
     }
 
-    void Update()
-    {
-        Debug.Log(clock.CurrentTime);
-    }
-
     private void StartSprint()
     {
         clock.Start();
