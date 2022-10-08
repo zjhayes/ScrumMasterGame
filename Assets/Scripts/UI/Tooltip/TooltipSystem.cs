@@ -2,26 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TooltipSystem : MonoBehaviour
+public class TooltipSystem : Singleton<TooltipSystem>
 {
-    private static TooltipSystem current;
 
     [SerializeField]
     private Tooltip tooltip;
+    [SerializeField]
+    private float delay = 2.0f;
 
-    public void Awake()
-    {
-        current = this; // Singleton reference.
-    }
+    private DelayedAction showAfterDelay;
 
     public static void Show(string content, string header = "")
     {
-        current.tooltip.SetText(content, header);
-        current.tooltip.gameObject.SetActive(true);
+        if(!Instance.tooltip.gameObject.activeSelf)
+        {
+            CancelDelay();
+            Instance.tooltip.SetText(content, header);
+            Instance.showAfterDelay = new DelayedAction(Instance.ShowTooltip, Instance.delay);
+            ActionManager.Instance.Add(Instance.showAfterDelay);
+        }
+    }
+
+    private void ShowTooltip()
+    {
+        Debug.Log("Called SHOW");
+        Instance.tooltip.gameObject.SetActive(true);
     }
 
     public static void Hide()
     {
-        current.tooltip.gameObject.SetActive(false);
+        CancelDelay();
+        Instance.tooltip.gameObject.SetActive(false);
+    }
+
+    private static void CancelDelay()
+    {
+        Instance.showAfterDelay?.Cancel();
     }
 }
