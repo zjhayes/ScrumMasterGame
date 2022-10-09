@@ -8,7 +8,7 @@ public class Interactable : MonoBehaviour
     public delegate void OnInteract(CharacterInteraction invoker);
     public OnInteract onInteract;
 
-    public void Interact(CharacterInteraction invoker)
+    public virtual void Interact(CharacterInteraction invoker)
     {
         onInteract?.Invoke(invoker);
     }

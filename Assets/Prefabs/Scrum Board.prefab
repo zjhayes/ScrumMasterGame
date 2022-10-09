@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 2943767472195475424}
   - component: {fileID: 768688609}
   - component: {fileID: 768688607}
-  - component: {fileID: 768688608}
   m_Layer: 3
   m_Name: Scrum Board
   m_TagString: Interactable
@@ -140,18 +139,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cartridgePrefab: {fileID: 0}
   playerHold: {fileID: 0}
---- !u!114 &768688608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5956794344987119182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4848ec6d68220164f9e0ba899ce09161, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &913571093280574656
 PrefabInstance:
   m_ObjectHideFlags: 0
