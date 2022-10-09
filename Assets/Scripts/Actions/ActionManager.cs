@@ -4,54 +4,53 @@ using UnityEngine;
 
 public class ActionManager : Singleton<ActionManager>
 {
-    List<IAction> actions;
-    List<IAction> pendingActions;
+    ActionList actionList;
+    ActionList pendingActions;
 
     protected override void Awake()
     {
         base.Awake();
-        CleanAll();
+        actionList = new ActionList();
+        pendingActions = new ActionList();
     }
 
     void Update()
     {
-        foreach (IAction action in actions)
+        foreach (IAction action in actionList.Actions)
         {
             action.Run();
         }
-        Clean();
+        actionList.Clean();
         AddPendingActions();
     }
 
     public void Add(IAction action)
     {
-        pendingActions.Add(action);
+        pendingActions.Actions.Add(action);
     }
 
     private void AddPendingActions()
     {
-        foreach (IAction action in pendingActions)
+        foreach (IAction action in pendingActions.Actions)
         {
-            actions.Add(action);
+            actionList.Actions.Add(action);
         }
         pendingActions.Clear();
     }
 
-    private void Clean()
+    // Set all actions as done.
+    public void CancelAll()
     {
-        List<IAction> actionsClone = new List<IAction>(actions);
-        foreach (IAction action in actionsClone)
+        AddPendingActions();
+        foreach (IAction action in actionList.Actions)
         {
-            if (action.IsDone())
-            {
-                actions.Remove(action);
-            }
+            action.Cancel();
         }
+        actionList.Clear();
     }
 
-    public void CleanAll()
+    void OnDisable()
     {
-        actions = new List<IAction>();
-        pendingActions = new List<IAction>();
+        CancelAll();
     }
 }

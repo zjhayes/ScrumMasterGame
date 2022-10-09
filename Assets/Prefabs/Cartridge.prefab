@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 1827610101682778448}
   - component: {fileID: 1868572605}
   - component: {fileID: 4691985103410425928}
+  - component: {fileID: 1979917221}
+  - component: {fileID: 1979917222}
   m_Layer: 0
   m_Name: Cartridge
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,8 +63,32 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1979917221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7174707449635838685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4848ec6d68220164f9e0ba899ce09161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1979917222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7174707449635838685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f1b8844e7f7ad4b947d735be144da8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4126665468385549236
 PrefabInstance:
   m_ObjectHideFlags: 0

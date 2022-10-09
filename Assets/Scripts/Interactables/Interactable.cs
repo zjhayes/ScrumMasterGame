@@ -5,9 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Interactable : MonoBehaviour
 {
+    public delegate void OnInteract(CharacterInteraction invoker);
+    public OnInteract onInteract;
 
-    private void OnTriggerEnter(Collider other)
+    public void Interact(CharacterInteraction invoker)
     {
-
+        onInteract?.Invoke(invoker);
     }
 }

@@ -15,7 +15,7 @@ public class CharacterInteraction : MonoBehaviour
     {
         if(awareness.HasTarget() && awareness.Target.tag == Tags.INTERACTABLE)
         {
-            Debug.Log("Test");
+            awareness.Target.GetComponent<Interactable>()?.Interact(this);
         }
     }
 }

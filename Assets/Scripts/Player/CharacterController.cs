@@ -84,6 +84,6 @@ public class CharacterController : MonoBehaviour
 
     void OnDisable()
     {
-        input.Disable();
+        input?.Disable();
     }
 }
