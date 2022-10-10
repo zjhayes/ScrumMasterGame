@@ -1,12 +1,12 @@
 using UnityEngine;
 
-[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
+[RequireComponent(typeof(CharacterController))]
 public class CharacterInventory : MonoBehaviour
 {
     [SerializeField]
     private GameObject inventory;
 
-    private UnityEngine.AI.NavMeshAgent agent;
+    private CharacterController character;
 
     void Awake()
     {
@@ -15,7 +15,7 @@ public class CharacterInventory : MonoBehaviour
             Debug.Log(string.Format("Character {0} does not have an inventory.", gameObject));
         }
 
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        character = GetComponent<CharacterController>();
     }
 
     public void PickUp(Pickup pickup)
@@ -48,9 +48,7 @@ public class CharacterInventory : MonoBehaviour
 
             // Move out of inventory.
             pickup.transform.parent = null;
-            Vector3 test = agent.velocity;
-            pickup.GetComponent<Rigidbody>().AddForce(test);
-            Debug.Log(agent.velocity);
+            pickup.GetComponent<Rigidbody>().AddForce(character.Direction * character.Speed);
 
         }
     }

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5811130446945747977}
-  - component: {fileID: 726060191532611218}
   m_Layer: 0
   m_Name: ComputerMonitor
   m_TagString: Untagged
@@ -33,19 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &726060191532611218
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8541631068417190892}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3, y: 2, z: 0.25}
-  m_Center: {x: 0, y: 0, z: 0.15}
 --- !u!1001 &3314595928095896093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -125,6 +111,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 577531267e92eb74fb92cf01aa52e4d6, type: 3}
+--- !u!1 &2395535388930314060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 577531267e92eb74fb92cf01aa52e4d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 3314595928095896093}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &2588781671036122986
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2395535388930314060}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5495902117074765545, guid: 577531267e92eb74fb92cf01aa52e4d6, type: 3}
 --- !u!4 &3059481341996422646 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 577531267e92eb74fb92cf01aa52e4d6,

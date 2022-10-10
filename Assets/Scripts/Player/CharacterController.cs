@@ -1,9 +1,7 @@
 using UnityEngine;
 
-
-[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 [RequireComponent(typeof(CharacterInteraction))]
-public class CharacterController : MonoBehaviour
+public class CharacterController : MonoBehaviour, IController
 {
     [SerializeField]
     float walkingSpeed = 2.25f;
@@ -11,41 +9,55 @@ public class CharacterController : MonoBehaviour
     float runningSpeed = 5f;
 
     PlayerInput input;
-    UnityEngine.AI.NavMeshAgent agent;
     CharacterInteraction interaction;
+    MovementHandler movementHandler;
     bool isRunning = false;
     float moveVerticle = 0.0f;
     float moveHorizontal = 0.0f;
 
     void Awake()
     {
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         input = new PlayerInput();
         interaction = GetComponent<CharacterInteraction>();
     }
 
     void Start()
     {
+        movementHandler = new MovementHandler(transform);
+
         // Assign input controls to player movement.
         input.Character.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
-        input.Character.Move.canceled += _ => Stop();
+        input.Character.Move.canceled += ctx => Stop();
         input.Character.Run.started += _ => Run();
         input.Character.Run.canceled += _ => Walk();
         input.Character.Interact.performed += _ => Interact();
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
-        Vector3 movement = new Vector3(-moveHorizontal, 0f, -moveVerticle);
-        Vector3 moveDestination = transform.position + movement;
-        agent.speed = this.Speed;
-        agent.destination = moveDestination;
+        movementHandler.Move(Direction, Speed);
     }
 
     void Move(Vector2 direction)
     {
         moveVerticle = direction.y;
         moveHorizontal = direction.x;
+    }
+
+    public Vector3 Direction
+    {
+        get
+        {
+            return new Vector3(-moveHorizontal, Numeric.ZERO, -moveVerticle);
+        }
+    }
+
+    public float Speed
+    {
+        get
+        {
+            return isRunning ? runningSpeed : walkingSpeed;
+        }
     }
 
     void Stop()
@@ -67,14 +79,6 @@ public class CharacterController : MonoBehaviour
     void Interact()
     {
         interaction.Interact();
-    }
-
-    public float Speed
-    {
-        get
-        {
-            return isRunning ? runningSpeed : walkingSpeed;
-        }
     }
 
     void OnEnable()
