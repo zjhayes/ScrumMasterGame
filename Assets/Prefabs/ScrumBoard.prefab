@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 768688609}
   - component: {fileID: 768688607}
   m_Layer: 3
-  m_Name: Scrum Board
+  m_Name: ScrumBoard
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

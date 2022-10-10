@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -37,8 +39,9 @@ public class CharacterInventory : MonoBehaviour
         
     }
 
-    public void Drop()
+    public List<Pickup> Drop()
     {
+        List<Pickup> dropped = new List<Pickup>();
         foreach(Transform pickup in inventory.transform)
         {
             // Enable pickup physics.
@@ -50,7 +53,9 @@ public class CharacterInventory : MonoBehaviour
             pickup.transform.parent = null;
             pickup.GetComponent<Rigidbody>().AddForce(character.Direction * character.Speed);
 
+            dropped.Add(pickup.GetComponent<Pickup>());
         }
+        return dropped;
     }
 
     public bool HasPickup()
