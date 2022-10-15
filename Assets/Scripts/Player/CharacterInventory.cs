@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(InteractionController))]
 public class CharacterInventory : MonoBehaviour
 {
     [SerializeField]
     private GameObject inventory;
 
     private CharacterController character;
+    private InteractionController interaction;
 
     void Awake()
     {
@@ -18,6 +20,12 @@ public class CharacterInventory : MonoBehaviour
         }
 
         character = GetComponent<CharacterController>();
+        interaction = GetComponent<InteractionController>();
+    }
+
+    void Start()
+    {
+        interaction.onInteract += DropOnNullInteraction;
     }
 
     public void PickUp(Pickup pickup)
@@ -37,6 +45,15 @@ public class CharacterInventory : MonoBehaviour
         pickup.transform.position = inventory.transform.position;
         pickup.transform.localEulerAngles = pickup.HoldRotation;
         
+    }
+
+    private void DropOnNullInteraction()
+    {
+        // Drop pickup when nothing else to do.
+        if (HasPickup() && !interaction.Target)
+        {
+            Drop();
+        }
     }
 
     public List<Pickup> Drop()

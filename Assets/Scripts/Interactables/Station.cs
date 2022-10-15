@@ -10,6 +10,7 @@ public class Station : MonoBehaviour
 
     CharacterController developer;
     CharacterController peerReviewer;
+    Cartridge cartridge;
 
     void Awake()
     {
@@ -46,6 +47,11 @@ public class Station : MonoBehaviour
     {
         if(developer == occupant)
         {
+            if(cartridge)
+            {
+                // Take cartridge.
+                developer.Inventory.PickUp(cartridge);
+            }
             developer = null;
         }
         else if(peerReviewer == occupant)
@@ -58,14 +64,19 @@ public class Station : MonoBehaviour
     {
         Pickup pickup = character.Inventory.Drop()[0]; // Get first pickup.
 
-        // Disable pickup physics.
-        pickup.GetComponent<Rigidbody>().useGravity = false;
-        pickup.GetComponent<Rigidbody>().isKinematic = true;
-        pickup.GetComponent<Collider>().enabled = false;
+        if(pickup is Cartridge)
+        {
+            // Disable pickup physics.
+            pickup.GetComponent<Rigidbody>().useGravity = false;
+            pickup.GetComponent<Rigidbody>().isKinematic = true;
+            pickup.GetComponent<Collider>().enabled = false;
 
-        // Move to intake position.
-        pickup.transform.parent = cartridgeIntake;
-        pickup.transform.position = cartridgeIntake.position;
-        pickup.transform.rotation = cartridgeIntake.rotation;
+            // Move to intake position.
+            pickup.transform.parent = cartridgeIntake;
+            pickup.transform.position = cartridgeIntake.position;
+            pickup.transform.rotation = cartridgeIntake.rotation;
+
+            cartridge = pickup as Cartridge;
+        }
     }
 }

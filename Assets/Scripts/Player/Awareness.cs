@@ -10,7 +10,7 @@ public class Awareness : MonoBehaviour
 
     private GameObject currentTarget;
 
-    public delegate void OnAwarenessChanged();
+    public delegate void OnAwarenessChanged(GameObject target);
     public OnAwarenessChanged onAwarenessChanged;
 
     public GameObject Target
@@ -66,7 +66,7 @@ public class Awareness : MonoBehaviour
 
     private void InvokeOnAwarenessUpdated()
     {
-        onAwarenessChanged?.Invoke();
+        onAwarenessChanged?.Invoke(currentTarget);
     }
 
     void OnDisable()

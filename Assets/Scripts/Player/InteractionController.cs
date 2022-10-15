@@ -6,23 +6,43 @@ public class InteractionController : MonoBehaviour
 {
     private CharacterController controller;
     private Awareness awareness;
-    
+    private Interactable currentTarget;
+
+    public delegate void OnInteract();
+    public OnInteract onInteract;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
         awareness = GetComponent<Awareness>();
     }
 
+    void Start()
+    {
+        awareness.onAwarenessChanged += UpdateTarget;
+    }
+
     public void Interact()
     {
-        if(awareness.HasTarget() && awareness.Target.tag == Tags.INTERACTABLE)
+        onInteract?.Invoke();
+        currentTarget?.Interact(controller);
+    }
+
+    private void UpdateTarget(GameObject target)
+    {
+        if (target?.tag == Tags.INTERACTABLE)
         {
-            awareness.Target.GetComponent<Interactable>()?.Interact(controller);
+            currentTarget = target.GetComponent<Interactable>();
         }
-        else if(controller.Inventory.HasPickup())
+        else
         {
-            // Drop inventory when nothing else to do.
-            controller.Inventory.Drop();
+            currentTarget = null;
         }
+    }
+
+    public Interactable Target
+    {
+        get { return currentTarget; }
+        set { currentTarget = value; }
     }
 }

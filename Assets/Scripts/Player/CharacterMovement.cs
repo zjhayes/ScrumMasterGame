@@ -11,8 +11,6 @@ public class CharacterMovement : MonoBehaviour
 	private float groundCheckDistance = 0.1f;
 
 	CharacterController controller;
-	float forwardAmount;
-	float turnAmount;
 	Vector3 groundNormal;
 
 	void Awake()
@@ -41,8 +39,8 @@ public class CharacterMovement : MonoBehaviour
 	void ApplyTurnRotation(Vector3 direction)
 	{
 		Vector3 turnDirection = transform.InverseTransformDirection(direction);
-		turnAmount = Mathf.Atan2(turnDirection.x, turnDirection.z);
-		forwardAmount = turnDirection.z;
+		float turnAmount = Mathf.Atan2(turnDirection.x, turnDirection.z);
+		float forwardAmount = turnDirection.z;
 
 		// This is in addition to root rotation in the animation.
 		float turnSpeed = Mathf.Lerp(stationaryTurnSpeed, movingTurnSpeed, forwardAmount);

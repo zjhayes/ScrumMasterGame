@@ -22,6 +22,10 @@ public class Chair : Interactable
             occupant = invoker;
             Sit();
         }
+        else if(occupant == invoker)
+        {
+            Stand();
+        }
     }
 
     private void Sit()
@@ -31,6 +35,10 @@ public class Chair : Interactable
         // Disable character physics.
         occupant.EnablePhysics(false);
         occupant.GetComponent<CharacterMovement>().enabled = false;
+
+        // Lock player interaction to this.
+        occupant.GetComponent<Awareness>().enabled = false;
+        occupant.GetComponent<InteractionController>().Target = this;
 
         // Move to seat.
         occupant.transform.parent = seat;
@@ -45,6 +53,10 @@ public class Chair : Interactable
         // Enable character physics.
         occupant.EnablePhysics(true);
         occupant.GetComponent<CharacterMovement>().enabled = true;
+
+        // Unlock player interaction.
+        occupant.GetComponent<Awareness>().enabled = true;
+        occupant.GetComponent<InteractionController>().Target = null;
 
         // Move to ground.
         occupant.transform.parent = null;
