@@ -5,7 +5,7 @@ public class Pickup : Interactable
     [SerializeField]
     private Vector3 holdRotation;
 
-    public override void Interact(CharacterInteraction invoker)
+    public override void Interact(CharacterController invoker)
     {
         CharacterInventory inventory = invoker.gameObject.GetComponent<CharacterInventory>();
         AddToInventory(inventory);

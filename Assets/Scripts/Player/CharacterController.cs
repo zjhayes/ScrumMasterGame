@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterInteraction))]
+[RequireComponent(typeof(CharacterInventory))]
 public class CharacterController : MonoBehaviour, IController
 {
     [SerializeField]
@@ -8,40 +8,36 @@ public class CharacterController : MonoBehaviour, IController
     [SerializeField]
     float runningSpeed = 5f;
 
-    PlayerInput input;
-    CharacterInteraction interaction;
-    MovementHandler movementHandler;
+    CharacterInventory inventory;
     bool isRunning = false;
     float moveVerticle = 0.0f;
     float moveHorizontal = 0.0f;
 
-    void Awake()
-    {
-        input = new PlayerInput();
-        interaction = GetComponent<CharacterInteraction>();
-    }
-
     void Start()
     {
-        movementHandler = new MovementHandler(transform);
-
-        // Assign input controls to player movement.
-        input.Character.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
-        input.Character.Move.canceled += ctx => Stop();
-        input.Character.Run.started += _ => Run();
-        input.Character.Run.canceled += _ => Walk();
-        input.Character.Interact.performed += _ => Interact();
+        inventory = GetComponent<CharacterInventory>();
     }
 
-    void FixedUpdate()
-    {
-        movementHandler.Move(Direction, Speed);
-    }
-
-    void Move(Vector2 direction)
+    public void Move(Vector2 direction)
     {
         moveVerticle = direction.y;
         moveHorizontal = direction.x;
+    }
+
+    public void Stop()
+    {
+        moveVerticle = 0f;
+        moveHorizontal = 0f;
+    }
+
+    public void Run()
+    {
+        isRunning = true;
+    }
+
+    public void Walk()
+    {
+        isRunning = false;
     }
 
     public Vector3 Direction
@@ -60,34 +56,15 @@ public class CharacterController : MonoBehaviour, IController
         }
     }
 
-    void Stop()
+    public CharacterInventory Inventory
     {
-        moveVerticle = 0f;
-        moveHorizontal = 0f;
+        get { return inventory; }
     }
 
-    void Run()
+    public void EnablePhysics(bool enable)
     {
-        isRunning = true;
-    }
-
-    void Walk()
-    {
-        isRunning = false;
-    }
-
-    void Interact()
-    {
-        interaction.Interact();
-    }
-
-    void OnEnable()
-    {
-        input.Enable();
-    }
-
-    void OnDisable()
-    {
-        input?.Disable();
+        GetComponent<Rigidbody>().useGravity = enable;
+        GetComponent<Rigidbody>().isKinematic = !enable;
+        GetComponent<Collider>().enabled = enable;
     }
 }

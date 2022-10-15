@@ -1,20 +1,27 @@
 using UnityEngine;
 
-public class MovementHandler
+[RequireComponent(typeof(CharacterController))]
+public class CharacterMovement : MonoBehaviour
 {
-	float stationaryTurnSpeed = 180;
-	float movingTurnSpeed = 360;
-	float groundCheckDistance = 0.1f;
+    [SerializeField]
+	private float stationaryTurnSpeed = 180;
+    [SerializeField]
+	private float movingTurnSpeed = 360;
+    [SerializeField]
+	private float groundCheckDistance = 0.1f;
 
-	Transform transform;
+	CharacterController controller;
 	float forwardAmount;
 	float turnAmount;
 	Vector3 groundNormal;
 
-
-	public MovementHandler(Transform transform)
+	void Awake()
     {
-		this.transform = transform;
+		controller = GetComponent<CharacterController>();
+    }
+	void FixedUpdate()
+	{
+		Move(controller.Direction, controller.Speed);
 	}
 
 	public void Move(Vector3 direction, float speed)
@@ -28,15 +35,15 @@ public class MovementHandler
 		transform.GetComponent<Rigidbody>().MovePosition(transform.position + direction * Time.deltaTime * speed);
 
 		// Rotate.
-		direction = transform.InverseTransformDirection(direction);
-		turnAmount = Mathf.Atan2(direction.x, direction.z);
-		forwardAmount = direction.z;
-
-		ApplyTurnRotation();
+		ApplyTurnRotation(direction);
 	}
 
-	void ApplyTurnRotation()
+	void ApplyTurnRotation(Vector3 direction)
 	{
+		Vector3 turnDirection = transform.InverseTransformDirection(direction);
+		turnAmount = Mathf.Atan2(turnDirection.x, turnDirection.z);
+		forwardAmount = turnDirection.z;
+
 		// This is in addition to root rotation in the animation.
 		float turnSpeed = Mathf.Lerp(stationaryTurnSpeed, movingTurnSpeed, forwardAmount);
 		transform.Rotate(0, turnAmount * turnSpeed * Time.deltaTime, Numeric.ZERO);
@@ -63,5 +70,4 @@ public class MovementHandler
 			//animation.OnGround(false);
 		}
 	}
-
 }

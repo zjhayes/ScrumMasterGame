@@ -7,7 +7,7 @@ public class ScrumBoardController : Interactable
     [SerializeField]
     private GameObject cartridgePrefab;
 
-    public override void Interact(CharacterInteraction invoker)
+    public override void Interact(CharacterController invoker)
     {
         base.Interact(invoker);
         CreateCartridge(invoker.GetComponent<CharacterInventory>());

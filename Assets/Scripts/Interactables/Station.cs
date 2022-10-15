@@ -1,56 +1,62 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Station : Interactable
+public class Station : MonoBehaviour
 {
     [SerializeField]
-    private Transform developerSeat;
-    [SerializeField]
-    private Transform peerSeat;
+    private List<Chair> chairs;
     [SerializeField]
     private Transform cartridgeIntake;
 
-    public override void Interact(CharacterInteraction invoker)
+    CharacterController developer;
+    CharacterController peerReviewer;
+
+    void Awake()
     {
-        base.Interact(invoker);
-        CharacterController character = invoker.GetComponent<CharacterController>();
-        CharacterInventory inventory = invoker.GetComponent<CharacterInventory>();
-        
-        if(!Occupied(developerSeat))
+        foreach(Chair chair in chairs)
         {
-            if(inventory.HasPickup())
-            {
-                InputCartridge(inventory);
-            }
-
-            Sit(character, developerSeat);
-        }
-        else if(!Occupied(peerSeat))
-        {
-            if(inventory.HasPickup())
-            {
-                inventory.Drop();
-            }
-
-            Sit(character, peerSeat);
+            chair.onSit += Sit;
+            chair.onStand += Stand;
         }
     }
 
-    private void Sit(CharacterController character, Transform seat)
+    private void Sit(CharacterController occupant)
     {
-        // Disable character physics.
-        character.GetComponent<Rigidbody>().useGravity = false;
-        character.GetComponent<Rigidbody>().isKinematic = true;
-        character.GetComponent<Collider>().enabled = false;
+        if(!developer)
+        {
+            developer = occupant;
 
-        // Move to seat.
-        character.transform.parent = seat;
-        character.transform.position = seat.position;
-        character.transform.rotation = seat.rotation;
+            if (developer.Inventory.HasPickup())
+            {
+                InputCartridge(developer);
+            }
+        }
+        else if(!peerReviewer)
+        {
+            peerReviewer = occupant;
+
+            if (peerReviewer.Inventory.HasPickup())
+            {
+                peerReviewer.Inventory.Drop();
+            }
+        }
     }
 
-    private void InputCartridge(CharacterInventory inventory)
+    private void Stand(CharacterController occupant)
     {
-        Pickup pickup = inventory.Drop()[0]; // Get first pickup.
+        if(developer == occupant)
+        {
+            developer = null;
+        }
+        else if(peerReviewer == occupant)
+        {
+            peerReviewer = null;
+        }
+    }
+
+    private void InputCartridge(CharacterController character)
+    {
+        Pickup pickup = character.Inventory.Drop()[0]; // Get first pickup.
 
         // Disable pickup physics.
         pickup.GetComponent<Rigidbody>().useGravity = false;
@@ -61,14 +67,5 @@ public class Station : Interactable
         pickup.transform.parent = cartridgeIntake;
         pickup.transform.position = cartridgeIntake.position;
         pickup.transform.rotation = cartridgeIntake.rotation;
-    }
-
-    private bool Occupied(Transform location)
-    {
-        if(location.transform.childCount > 0)
-        {
-            return true;
-        }
-        return false;
     }
 }
