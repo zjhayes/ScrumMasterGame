@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class WorkStation : Station
 { 
-
     [SerializeField]
-    private Transform cartridgeIntake;
+    Transform cartridgeIntake;
 
     CharacterController developer;
     CharacterController peerReviewer;
     Cartridge cartridge;
 
-    protected override void Sit(CharacterController occupant)
+    protected override void OnSit(CharacterController occupant)
     {
         if (!developer)
         {
@@ -32,7 +31,7 @@ public class WorkStation : Station
         }
     }
 
-    protected override void Stand(CharacterController occupant)
+    protected override void OnStand(CharacterController occupant)
     {
         if (developer == occupant)
         {
@@ -40,6 +39,7 @@ public class WorkStation : Station
             {
                 // Take cartridge.
                 developer.Inventory.PickUp(cartridge);
+                cartridge = null;
             }
             developer = null;
         }

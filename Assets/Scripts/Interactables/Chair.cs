@@ -31,7 +31,7 @@ public class Chair : Interactable
     private void Sit()
     {
         onSit?.Invoke(occupant);
-
+        
         // Disable character physics.
         occupant.EnablePhysics(false);
         occupant.GetComponent<CharacterMovement>().enabled = false;
@@ -61,6 +61,12 @@ public class Chair : Interactable
         // Move to ground.
         occupant.transform.parent = null;
         occupant = null;
+
+    }
+
+    public CharacterController Occupant
+    {
+        get { return occupant; }
     }
 
     public bool Occupied
