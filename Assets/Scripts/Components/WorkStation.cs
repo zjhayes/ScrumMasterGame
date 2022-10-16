@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Station : MonoBehaviour
-{
-    [SerializeField]
-    private List<Chair> chairs;
+public class WorkStation : Station
+{ 
+
     [SerializeField]
     private Transform cartridgeIntake;
 
@@ -12,18 +10,9 @@ public class Station : MonoBehaviour
     CharacterController peerReviewer;
     Cartridge cartridge;
 
-    void Awake()
+    protected override void Sit(CharacterController occupant)
     {
-        foreach(Chair chair in chairs)
-        {
-            chair.onSit += Sit;
-            chair.onStand += Stand;
-        }
-    }
-
-    private void Sit(CharacterController occupant)
-    {
-        if(!developer)
+        if (!developer)
         {
             developer = occupant;
 
@@ -32,7 +21,7 @@ public class Station : MonoBehaviour
                 InputCartridge(developer);
             }
         }
-        else if(!peerReviewer)
+        else if (!peerReviewer)
         {
             peerReviewer = occupant;
 
@@ -43,18 +32,18 @@ public class Station : MonoBehaviour
         }
     }
 
-    private void Stand(CharacterController occupant)
+    protected override void Stand(CharacterController occupant)
     {
-        if(developer == occupant)
+        if (developer == occupant)
         {
-            if(cartridge)
+            if (cartridge)
             {
                 // Take cartridge.
                 developer.Inventory.PickUp(cartridge);
             }
             developer = null;
         }
-        else if(peerReviewer == occupant)
+        else if (peerReviewer == occupant)
         {
             peerReviewer = null;
         }
@@ -64,7 +53,7 @@ public class Station : MonoBehaviour
     {
         Pickup pickup = character.Inventory.Drop()[0]; // Get first pickup.
 
-        if(pickup is Cartridge)
+        if (pickup is Cartridge)
         {
             // Disable pickup physics.
             pickup.GetComponent<Rigidbody>().useGravity = false;
