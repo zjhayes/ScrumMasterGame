@@ -7,7 +7,7 @@ using UnityEngine;
 public class CharacterInventory : MonoBehaviour
 {
     [SerializeField]
-    private GameObject inventory;
+    private Container inventory;
 
     private CharacterController character;
     private InteractionController interaction;
@@ -41,6 +41,7 @@ public class CharacterInventory : MonoBehaviour
         pickup.GetComponent<Collider>().enabled = false;
 
         // Move to inventory position.
+        inventory.Add(pickup.gameObject); // Set inventory as parent.
         pickup.transform.parent = inventory.transform;
         pickup.transform.position = inventory.transform.position;
         pickup.transform.localEulerAngles = pickup.HoldRotation;
@@ -59,7 +60,7 @@ public class CharacterInventory : MonoBehaviour
     public List<Pickup> Drop()
     {
         List<Pickup> dropped = new List<Pickup>();
-        foreach(Transform pickup in inventory.transform)
+        foreach(GameObject pickup in inventory.Get(Tags.INTERACTABLE))
         {
             // Enable pickup physics.
             pickup.GetComponent<Rigidbody>().useGravity = true;

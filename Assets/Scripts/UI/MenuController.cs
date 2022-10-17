@@ -9,7 +9,7 @@ public class MenuController : MonoBehaviour
 
     }
 
-    public void Show(CharacterController invoker)
+    public virtual void Show(CharacterController invoker)
     {
         this.gameObject.SetActive(true);
         // Lock player interaction to this.
@@ -19,7 +19,7 @@ public class MenuController : MonoBehaviour
         invoker.GetComponent<PlayerControls>().Input.Menu.Escape.started += _ => Hide(invoker);
     }
 
-    public void Hide(CharacterController invoker)
+    public virtual void Hide(CharacterController invoker)
     {
         this.gameObject.SetActive(false);
         invoker.GetComponent<Awareness>().enabled = true;
