@@ -25,7 +25,6 @@ public class TooltipSystem : Singleton<TooltipSystem>
 
     private void ShowTooltip()
     {
-        Debug.Log("Called SHOW");
         Instance.tooltip.gameObject.SetActive(true);
     }
 

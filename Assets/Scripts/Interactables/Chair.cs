@@ -5,6 +5,8 @@ public class Chair : Interactable
     [SerializeField]
     Transform seat;
 
+    Vector3 originalLocation;
+
     CharacterController occupant;
 
     public delegate void OnSit(CharacterController occupant);
@@ -41,6 +43,10 @@ public class Chair : Interactable
         occupant.GetComponent<InteractionController>().Target = this;
 
         // Move to seat.
+        originalLocation = new Vector3();
+        originalLocation.x = occupant.transform.position.x;
+        originalLocation.y = occupant.transform.position.y;
+        originalLocation.z = occupant.transform.position.z;
         occupant.transform.parent = seat;
         occupant.transform.position = seat.position;
         occupant.transform.rotation = seat.rotation;
@@ -58,8 +64,9 @@ public class Chair : Interactable
         occupant.GetComponent<Awareness>().enabled = true;
         occupant.GetComponent<InteractionController>().Target = null;
 
-        // Move to ground.
+        // Move to original location.
         occupant.transform.parent = null;
+        occupant.transform.position = originalLocation;
         occupant = null;
 
     }
