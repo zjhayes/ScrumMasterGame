@@ -10,10 +10,9 @@ public class ScrumBoardController : Interactable
     public override void Interact(CharacterController invoker)
     {
         base.Interact(invoker);
-        CreateCartridge(invoker.GetComponent<CharacterInventory>());
     }
 
-    private void CreateCartridge(CharacterInventory inventory)
+    public void CreateCartridge(CharacterInventory inventory)
     {
         GameObject cartridge = (GameObject) Instantiate(cartridgePrefab, transform.position, transform.rotation);
         inventory.PickUp(cartridge.GetComponent<Cartridge>());
