@@ -14,7 +14,7 @@ public class ScrumMenuController : MenuController
     public void Interact(CharacterController invoker)
     {
         boardController.CreateCartridge(invoker.GetComponent<CharacterInventory>());
-        invoker.GetComponent<InteractionController>().Target = null;
+        invoker.GetComponent<InteractionController>().Target = null; // set to something
     }
 
     public override void SetUp()
