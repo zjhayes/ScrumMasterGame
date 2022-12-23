@@ -1,7 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(InteractionController))]
 public class PlayerControls : MonoBehaviour
 {
     PlayerInput input;
@@ -23,6 +23,7 @@ public class PlayerControls : MonoBehaviour
         input.Character.Move.canceled += ctx => character.Stop();
         input.Character.Run.started += _ => character.Run();
         input.Character.Run.canceled += _ => character.Walk();
+        //input.Mouse.LeftClick.canceled += _ => OnLeftMouseClick();
 
         // Assign controls to character interactions.
         input.Character.Interact.started += _ => interaction.Interact();

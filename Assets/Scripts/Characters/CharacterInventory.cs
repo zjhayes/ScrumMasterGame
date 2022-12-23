@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(InteractionController))]
 public class CharacterInventory : MonoBehaviour
 {
     [SerializeField]

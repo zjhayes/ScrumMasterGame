@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScrumBoardController : Interactable
+public class ScrumBoardController : MonoBehaviour
 {
     [SerializeField]
     private GameObject cartridgePrefab;
@@ -12,11 +12,6 @@ public class ScrumBoardController : Interactable
     private Container inProgressContainer;
     [SerializeField]
     private Container doneContainer;
-
-    public override void Interact(CharacterController invoker)
-    {
-        base.Interact(invoker);
-    }
 
     public void CreateCartridge(CharacterInventory inventory)
     {

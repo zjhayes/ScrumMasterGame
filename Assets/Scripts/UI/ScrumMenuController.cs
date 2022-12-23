@@ -20,7 +20,7 @@ public class ScrumMenuController : MenuController
     public override void SetUp()
     {
         // Show on Scrum Board interactions.
-        boardController.onInteract += Show;
+        //boardController.onInteract += Show;
     }
 
     public override void Show(CharacterController invoker)

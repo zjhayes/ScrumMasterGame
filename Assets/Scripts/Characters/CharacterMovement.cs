@@ -20,6 +20,7 @@ public class CharacterMovement : MonoBehaviour
 	void FixedUpdate()
 	{
 		Move(controller.Direction, controller.Speed);
+		
 	}
 
 	public void Move(Vector3 direction, float speed)

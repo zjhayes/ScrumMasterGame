@@ -3,7 +3,22 @@ guid: 8d27b6e850bc9464ab4a5cd371775093
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Copper
+    second: {fileID: 2100000, guid: 5a3cb07f4d66c55419d059bd17230f65, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Label
+    second: {fileID: 2100000, guid: 58823dbc381184e4284d0273c3c2e563, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastic
+    second: {fileID: 2100000, guid: d10961332a03fb84ea6b50a053c7b041, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

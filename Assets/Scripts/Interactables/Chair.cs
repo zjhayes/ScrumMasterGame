@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Chair : Interactable
+public class Chair : MonoBehaviour
 {
     [SerializeField]
     Transform seat;
@@ -15,9 +15,8 @@ public class Chair : Interactable
     public delegate void OnStand(CharacterController occupant);
     public OnStand onStand;
 
-    public override void Interact(CharacterController invoker)
+    public void Interact(CharacterController invoker)
     {
-        base.Interact(invoker);
         
         if(!Occupied)
         {
@@ -40,7 +39,7 @@ public class Chair : Interactable
 
         // Lock player interaction to this.
         occupant.GetComponent<Awareness>().enabled = false;
-        occupant.GetComponent<InteractionController>().Target = this;
+        //occupant.GetComponent<InteractionController>().Target = this;
 
         // Move to seat.
         originalLocation = new Vector3();

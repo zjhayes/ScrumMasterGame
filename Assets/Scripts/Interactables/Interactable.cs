@@ -1,13 +1,53 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(Collider))]
-public class Interactable : MonoBehaviour
+public class Interactable : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public delegate void OnInteract(CharacterController invoker);
-    public OnInteract onInteract;
+    Renderer[] outlineMaterials;
 
-    public virtual void Interact(CharacterController invoker)
+    const string ENABLE_OUTLINE_PROPERTY = "_Enable_Outline";
+
+    void Start()
     {
-        onInteract?.Invoke(invoker);
+        ContextManager.Instance.onCharacterSelected += Enable;
+        ContextManager.Instance.onDeselect += Disable;
+        outlineMaterials = GetComponentsInChildren<Renderer>();
+        Disable();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        ContextManager.Instance.OnInteractableSelected(this, eventData);
+        
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        foreach(Renderer outlineMaterial in outlineMaterials)
+        {
+            outlineMaterial.material.SetInt(ENABLE_OUTLINE_PROPERTY, 1);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        foreach(Renderer outlineMaterial in outlineMaterials)
+        {
+            outlineMaterial.material.SetInt(ENABLE_OUTLINE_PROPERTY, 0);
+        }
+    }
+
+    private void Enable()
+    {
+        this.enabled = true;
+        Debug.Log("Enabled " + gameObject.name);
+    }
+
+    private void Disable()
+    {
+        this.enabled = false;
+        Debug.Log("Disabled " + gameObject.name);
     }
 }
