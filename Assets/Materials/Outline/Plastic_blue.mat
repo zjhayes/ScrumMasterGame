@@ -103,6 +103,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _Enable_Outline: 0
     - _EnvironmentReflections: 1
     - _Float: 3.18
     - _GlossMapScale: 1

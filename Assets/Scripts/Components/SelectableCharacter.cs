@@ -1,20 +1,20 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class SelectableCharacter : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class SelectableCharacter : Selectable
 {
-    public void OnPointerClick(PointerEventData eventData)
+    protected override void Select()
     {
-        ContextManager.Instance.SwitchToCharacterContext(this, eventData);
+        ContextManager.Instance.SwitchToCharacterContext(this);
+        base.Select();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    protected override void HoverEnter()
     {
-
+        base.HoverEnter();
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    protected override void HoverExit()
     {
-
+        base.HoverExit();
     }
 }

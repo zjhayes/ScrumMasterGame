@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4364338940078858265}
   - component: {fileID: 4524239868664230309}
   - component: {fileID: 2426260023145769862}
+  - component: {fileID: 7337243031817497407}
   m_Layer: 0
   m_Name: Station
   m_TagString: Untagged
@@ -67,7 +68,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4848ec6d68220164f9e0ba899ce09161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMaterial: {fileID: 0}
+--- !u!114 &7337243031817497407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4364338940078858264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a406f829864768448e8df8b95ce30b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4364338940148967137
 PrefabInstance:
   m_ObjectHideFlags: 0

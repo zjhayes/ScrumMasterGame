@@ -14,15 +14,15 @@ public class ContextManager : Singleton<ContextManager>
         Debug.Log(eventData.position);
     }*/
 
-    public void SwitchToCharacterContext(SelectableCharacter character, PointerEventData eventData)
+    public void SwitchToCharacterContext(SelectableCharacter character)
     {
         onCharacterSelected?.Invoke();
         Debug.Log("Switching Contexts: Character");
     }
 
-    public void OnInteractableSelected(Interactable target, PointerEventData eventData)
+    public void OnInteractableSelected(Interactable target)
     {
-        Debug.Log(eventData.position);
+        Debug.Log("Selected " + target.gameObject.name);
     }
 
     public void SwitchToNoContext(PointerEventData eventData)
