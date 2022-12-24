@@ -18,7 +18,7 @@ public class Interactable : Selectable
         if(ContextManager.Instance.CurrentCharacter)
         {
             CharacterController character = ContextManager.Instance.CurrentCharacter;
-            InteractWith(character);
+            character.GoInteractWith(this);
             base.Select();
         }
     }

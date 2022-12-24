@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 public class CharacterMovement : MonoBehaviour
 {
     [SerializeField]
@@ -10,13 +10,22 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField]
 	private float groundCheckDistance = 0.1f;
 
-	CharacterController controller;
+	UnityEngine.AI.NavMeshAgent agent;
 	Vector3 groundNormal;
 
 	void Awake()
     {
-		controller = GetComponent<CharacterController>();
+		agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
+
+	public void GoTo(Vector3 target)
+	{
+		Debug.Log(this.gameObject.name + " goes to " + target);
+		agent.destination = target;
+	}
+
+
+	/*
 	void FixedUpdate()
 	{
 		Move(controller.Direction, controller.Speed);
@@ -68,5 +77,5 @@ public class CharacterMovement : MonoBehaviour
 			//animation.ApplyRootMotion = false;
 			//animation.OnGround(false);
 		}
-	}
+	}*/
 }

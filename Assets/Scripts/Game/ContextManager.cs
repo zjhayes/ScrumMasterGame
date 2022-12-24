@@ -22,15 +22,6 @@ public class ContextManager : Singleton<ContextManager>
         onCharacterSelected?.Invoke();
         Debug.Log("Switching Contexts: Character");
     }
-    /*
-    public void OnInteractableSelected(Interactable target)
-    {
-        if(currentCharacter)
-        {
-            currentCharacter.GoTo(target);
-        }
-        Debug.Log("Selected " + target.gameObject.name);
-    }*/
 
     public void SwitchToNoContext(PointerEventData eventData)
     {

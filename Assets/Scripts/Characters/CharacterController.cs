@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Selectable))]
+[RequireComponent(typeof(CharacterMovement))]
 [RequireComponent(typeof(CharacterInventory))]
 public class CharacterController : MonoBehaviour
 {
@@ -9,16 +10,18 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     float runningSpeed = 5f;
 
+    Selectable selectability;
+    CharacterMovement movement;
     CharacterInventory inventory;
+
     bool isRunning = false;
     float moveVerticle = 0.0f;
     float moveHorizontal = 0.0f;
 
-    Selectable selectability;
-
     void Awake()
     {
         selectability = GetComponent<Selectable>();
+        movement = GetComponent<CharacterMovement>();
         inventory = GetComponent<CharacterInventory>();
     }
 
@@ -32,9 +35,9 @@ public class CharacterController : MonoBehaviour
         ContextManager.Instance.SwitchToCharacterContext(this);
     }
 
-    public void GoTo(Interactable interactable)
+    public void GoInteractWith(Interactable interactable)
     {
-        Debug.Log(this.gameObject.name + " goes to " + interactable.gameObject.name);
+        movement.GoTo(interactable.transform.position);
     }
 
     /** OLD STUFF **/
@@ -75,6 +78,11 @@ public class CharacterController : MonoBehaviour
         {
             return isRunning ? runningSpeed : walkingSpeed;
         }
+    }
+
+    public CharacterMovement Movement
+    {
+        get { return movement; }
     }
 
     public CharacterInventory Inventory
