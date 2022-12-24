@@ -1,8 +1,10 @@
 using UnityEngine;
 
-/** An Interactable is a Selectable that requires a character to interact. **/
+/** An Interactable is a Selectable that requires another active Selectable to interact with. **/
 public class Interactable : Selectable
 {
+    public delegate void OnInteract(SelectableCharacter character);
+    public OnInteract onInteract;
 
     void Start()
     {
@@ -13,7 +15,17 @@ public class Interactable : Selectable
 
     protected override void Select()
     {
-        ContextManager.Instance.OnInteractableSelected(this);
-        base.Select();
+        if(ContextManager.Instance.CurrentSelection)
+        {
+            SelectableCharacter character = ContextManager.Instance.CurrentSelection;
+            InteractWith(character);
+            base.Select();
+        }
+    }
+
+    public void InteractWith(SelectableCharacter character)
+    {
+        Debug.Log(character.gameObject.name + " interacts with " + this.gameObject.name);
+        onInteract?.Invoke(character);
     }
 }
