@@ -4,16 +4,16 @@ using UnityEngine;
 public class SelectedIconController : MonoBehaviour
 {
     [SerializeField]
-    SelectedIcon icon;
-    [SerializeField]
     Transform iconLocation;
 
+    SelectedIcon icon;
     Selectable selectable;
     OngoingAction updatePositionAction;
 
     void Awake()
     {
         selectable = GetComponent<Selectable>();
+        icon = UIManager.Instance.SelectedCharacterIcon;
     }
 
     void Start()
