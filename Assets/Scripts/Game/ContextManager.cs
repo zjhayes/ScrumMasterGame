@@ -9,37 +9,37 @@ public class ContextManager : Singleton<ContextManager>
     public delegate void OnDeselect();
     public OnDeselect onDeselect;
 
-    SelectableCharacter currentSelection;
+    CharacterController currentCharacter;
 
     /*public void OnMenuSelected(MenuItem menuItem, PointerEventData eventData)
     {
         Debug.Log(eventData.position);
     }*/
 
-    public void SwitchToCharacterContext(SelectableCharacter character)
+    public void SwitchToCharacterContext(CharacterController character)
     {
-        currentSelection = character;
+        currentCharacter = character;
         onCharacterSelected?.Invoke();
         Debug.Log("Switching Contexts: Character");
     }
-
+    /*
     public void OnInteractableSelected(Interactable target)
     {
-        if(currentSelection)
+        if(currentCharacter)
         {
-            target.InteractWith(currentSelection);
+            currentCharacter.GoTo(target);
         }
         Debug.Log("Selected " + target.gameObject.name);
-    }
+    }*/
 
     public void SwitchToNoContext(PointerEventData eventData)
     {
-        currentSelection = null;
+        currentCharacter = null;
         onDeselect?.Invoke();
     }
 
-    public SelectableCharacter CurrentSelection
+    public CharacterController CurrentCharacter
     {
-        get { return currentSelection; }
+        get { return currentCharacter; }
     }
 }

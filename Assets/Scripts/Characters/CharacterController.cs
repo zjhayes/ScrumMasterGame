@@ -1,7 +1,8 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Selectable))]
 [RequireComponent(typeof(CharacterInventory))]
-public class CharacterController : MonoBehaviour, IController
+public class CharacterController : MonoBehaviour
 {
     [SerializeField]
     float walkingSpeed = 2.25f;
@@ -13,10 +14,30 @@ public class CharacterController : MonoBehaviour, IController
     float moveVerticle = 0.0f;
     float moveHorizontal = 0.0f;
 
-    void Start()
+    Selectable selectability;
+
+    void Awake()
     {
+        selectability = GetComponent<Selectable>();
         inventory = GetComponent<CharacterInventory>();
     }
+
+    void Start()
+    {
+        selectability.onSelect += OnSelect;
+    }
+
+    void OnSelect()
+    {
+        ContextManager.Instance.SwitchToCharacterContext(this);
+    }
+
+    public void GoTo(Interactable interactable)
+    {
+        Debug.Log(this.gameObject.name + " goes to " + interactable.gameObject.name);
+    }
+
+    /** OLD STUFF **/
 
     public void Move(Vector2 direction)
     {
