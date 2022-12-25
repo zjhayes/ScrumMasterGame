@@ -37,7 +37,7 @@ public class CharacterController : MonoBehaviour
 
     public void GoInteractWith(Interactable interactable)
     {
-        movement.GoTo(interactable.transform.position);
+        movement.GoTo(interactable.Position);
     }
 
     /** OLD STUFF **/
