@@ -26,7 +26,7 @@ public class Interactable : Selectable
         }
     }
 
-    private void InteractWith(CharacterController character)
+    public void InteractWith(CharacterController character)
     {
         Debug.Log(character.gameObject.name + " interacts with " + this.gameObject.name);
         onInteract?.Invoke(character);

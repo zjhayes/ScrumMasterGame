@@ -7,11 +7,11 @@ public class Pickup : MonoBehaviour
 
     public void Interact(CharacterController invoker)
     {
-        CharacterInventory inventory = invoker.gameObject.GetComponent<CharacterInventory>();
+        Inventory inventory = invoker.gameObject.GetComponent<Inventory>();
         AddToInventory(inventory);
     }
 
-    public void AddToInventory(CharacterInventory target)
+    public void AddToInventory(Inventory target)
     {
         target?.PickUp(this);
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class CharacterInventory : MonoBehaviour
+public class Inventory : MonoBehaviour
 {
     [SerializeField]
     private Container inventory;
@@ -68,7 +68,7 @@ public class CharacterInventory : MonoBehaviour
 
             // Move out of inventory.
             pickup.transform.parent = null;
-            pickup.GetComponent<Rigidbody>().AddForce(character.Direction * character.Speed);
+            //pickup.GetComponent<Rigidbody>().AddForce(character.Direction * character.Speed);
 
             dropped.Add(pickup.GetComponent<Pickup>());
         }

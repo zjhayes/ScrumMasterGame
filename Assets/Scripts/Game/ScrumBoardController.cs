@@ -13,7 +13,7 @@ public class ScrumBoardController : MonoBehaviour
     [SerializeField]
     private Container doneContainer;
 
-    public void CreateCartridge(CharacterInventory inventory)
+    public void CreateCartridge(Inventory inventory)
     {
         GameObject cartridge = (GameObject) Instantiate(cartridgePrefab, transform.position, transform.rotation);
         inventory.PickUp(cartridge.GetComponent<Cartridge>());

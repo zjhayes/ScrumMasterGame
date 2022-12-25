@@ -2,27 +2,22 @@ using UnityEngine;
 
 [RequireComponent(typeof(Selectable))]
 [RequireComponent(typeof(CharacterMovement))]
-[RequireComponent(typeof(CharacterInventory))]
-public class CharacterController : MonoBehaviour
+[RequireComponent(typeof(Inventory))]
+public class CharacterController : MonoBehaviour, IController
 {
-    [SerializeField]
-    float walkingSpeed = 2.25f;
-    [SerializeField]
-    float runningSpeed = 5f;
-
     Selectable selectability;
     CharacterMovement movement;
-    CharacterInventory inventory;
+    Inventory inventory;
+    StateContext<CharacterController> stateContext;
 
-    bool isRunning = false;
-    float moveVerticle = 0.0f;
-    float moveHorizontal = 0.0f;
+    Interactable currentInteractable;
 
     void Awake()
     {
         selectability = GetComponent<Selectable>();
         movement = GetComponent<CharacterMovement>();
-        inventory = GetComponent<CharacterInventory>();
+        inventory = GetComponent<Inventory>();
+        stateContext = new StateContext<CharacterController>(this);
     }
 
     void Start()
@@ -35,13 +30,57 @@ public class CharacterController : MonoBehaviour
         ContextManager.Instance.SwitchToCharacterContext(this);
     }
 
-    public void GoInteractWith(Interactable interactable)
+    public void Idle()
     {
-        movement.GoTo(interactable.Position);
+        currentInteractable = null;
+        stateContext.Transition<IdleState>();
     }
 
-    /** OLD STUFF **/
+    public void GoInteractWith(Interactable interactable)
+    {
+        currentInteractable = interactable;
+        stateContext.Transition<GoToInteractableState>();
+        
+    }
 
+    public void InteractWithCurrent()
+    {
+        stateContext.Transition<InteractionState>();
+    }
+
+    public CharacterMovement Movement
+    {
+        get { return movement; }
+    }
+
+    public Inventory Inventory
+    {
+        get { return inventory; }
+    }
+
+    public Interactable CurrentInteractable
+    {
+        get { return currentInteractable; }
+    }
+
+    public void EnablePhysics(bool enable)
+    {
+        GetComponent<Rigidbody>().useGravity = enable;
+        GetComponent<Rigidbody>().isKinematic = !enable;
+        GetComponent<Collider>().enabled = enable;
+    }
+
+    /** OLD STUFF
+
+
+    [SerializeField]
+    float walkingSpeed = 2.25f;
+    [SerializeField]
+    float runningSpeed = 5f;
+
+    bool isRunning = false;
+    float moveVerticle = 0.0f;
+    float moveHorizontal = 0.0f;
     public void Move(Vector2 direction)
     {
         moveVerticle = direction.y;
@@ -95,5 +134,5 @@ public class CharacterController : MonoBehaviour
         GetComponent<Rigidbody>().useGravity = enable;
         GetComponent<Rigidbody>().isKinematic = !enable;
         GetComponent<Collider>().enabled = enable;
-    }
+    }**/
 }

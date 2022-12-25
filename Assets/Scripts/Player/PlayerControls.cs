@@ -19,10 +19,10 @@ public class PlayerControls : MonoBehaviour
     void Start()
     { 
         // Assign controls to character movement.
-        input.Character.Move.performed += ctx => character.Move(ctx.ReadValue<Vector2>());
-        input.Character.Move.canceled += ctx => character.Stop();
-        input.Character.Run.started += _ => character.Run();
-        input.Character.Run.canceled += _ => character.Walk();
+        //input.Character.Move.performed += ctx => character.Move(ctx.ReadValue<Vector2>());
+       // input.Character.Move.canceled += ctx => character.Stop();
+       // input.Character.Run.started += _ => character.Run();
+       // input.Character.Run.canceled += _ => character.Walk();
         //input.Mouse.LeftClick.canceled += _ => OnLeftMouseClick();
 
         // Assign controls to character interactions.

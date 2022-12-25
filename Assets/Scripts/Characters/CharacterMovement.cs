@@ -1,31 +1,61 @@
 using UnityEngine;
+using UnityEngine.AI;
 
-[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class CharacterMovement : MonoBehaviour
 {
-    [SerializeField]
-	private float stationaryTurnSpeed = 180;
-    [SerializeField]
-	private float movingTurnSpeed = 360;
-    [SerializeField]
-	private float groundCheckDistance = 0.1f;
-
-	UnityEngine.AI.NavMeshAgent agent;
+	NavMeshAgent agent;
 	Vector3 groundNormal;
+	bool moving = false; // TODO: Use State system.
+
+	public delegate void OnArrivedAtDestination();
+	public OnArrivedAtDestination onArrivedAtDestination;
 
 	void Awake()
     {
-		agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+		agent = GetComponent<NavMeshAgent>();
+    }
+
+	void FixedUpdate()
+    {
+		if(moving && AtDestination())
+        {
+			moving = false;
+			onArrivedAtDestination?.Invoke();
+        }
     }
 
 	public void GoTo(Vector3 target)
 	{
 		Debug.Log(this.gameObject.name + " goes to " + target);
 		agent.destination = target;
+		moving = true;
+	}
+
+	public bool AtDestination()
+    {
+		if (!agent.pathPending)
+		{
+			if (agent.remainingDistance <= agent.stoppingDistance)
+			{
+				if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 
 	/*
+	 * 
+	 *     [SerializeField]
+	private float stationaryTurnSpeed = 180;
+    [SerializeField]
+	private float movingTurnSpeed = 360;
+    [SerializeField]
+	private float groundCheckDistance = 0.1f;
 	void FixedUpdate()
 	{
 		Move(controller.Direction, controller.Speed);

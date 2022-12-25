@@ -13,7 +13,7 @@ public class ScrumMenuController : MenuController
 
     public void Interact(CharacterController invoker)
     {
-        boardController.CreateCartridge(invoker.GetComponent<CharacterInventory>());
+        boardController.CreateCartridge(invoker.GetComponent<Inventory>());
         invoker.GetComponent<InteractionController>().Target = null; // set to something
     }
 
