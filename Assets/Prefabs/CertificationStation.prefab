@@ -41,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8836276681719050030}
   - component: {fileID: 8836276681719049937}
-  - component: {fileID: 5087717379773450098}
   - component: {fileID: 4442605120380452576}
   m_Layer: 0
   m_Name: CertificationStation
@@ -81,23 +80,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b27d690ee28cc5140ae62878405d17b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goToPosition: {fileID: 3778996848605837693}
   chairs:
   - {fileID: 6583792133846723051}
   closedBook: {fileID: 8530287197981798686}
   openBook: {fileID: 8530287196900958284}
---- !u!114 &5087717379773450098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8836276681719050031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4848ec6d68220164f9e0ba899ce09161, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goToPosition: {fileID: 3778996848605837693}
 --- !u!114 &4442605120380452576
 MonoBehaviour:
   m_ObjectHideFlags: 0

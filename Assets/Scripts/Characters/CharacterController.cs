@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Selectable))]
 [RequireComponent(typeof(CharacterMovement))]
@@ -8,6 +9,7 @@ public class CharacterController : MonoBehaviour, IController
     Selectable selectability;
     CharacterMovement movement;
     Inventory inventory;
+    CharacterStatus status;
     StateContext<CharacterController> stateContext;
 
     Interactable currentInteractable;
@@ -33,18 +35,21 @@ public class CharacterController : MonoBehaviour, IController
     public void Idle()
     {
         currentInteractable = null;
+        status = CharacterStatus.IDLE;
         stateContext.Transition<IdleState>();
     }
 
     public void GoInteractWith(Interactable interactable)
     {
         currentInteractable = interactable;
+        status = CharacterStatus.MOVING;
         stateContext.Transition<GoToInteractableState>();
         
     }
 
     public void InteractWithCurrent()
     {
+        status = CharacterStatus.WORKING;
         stateContext.Transition<InteractionState>();
     }
 
@@ -63,11 +68,17 @@ public class CharacterController : MonoBehaviour, IController
         get { return currentInteractable; }
     }
 
+    public CharacterStatus Status
+    {
+        get { return status; }
+    }
+
     public void EnablePhysics(bool enable)
     {
         GetComponent<Rigidbody>().useGravity = enable;
         GetComponent<Rigidbody>().isKinematic = !enable;
         GetComponent<Collider>().enabled = enable;
+        GetComponent<NavMeshAgent>().enabled = enable;
     }
 
     /** OLD STUFF
@@ -135,4 +146,11 @@ public class CharacterController : MonoBehaviour, IController
         GetComponent<Rigidbody>().isKinematic = !enable;
         GetComponent<Collider>().enabled = enable;
     }**/
+}
+
+public enum CharacterStatus
+{
+    IDLE,
+    MOVING,
+    WORKING
 }

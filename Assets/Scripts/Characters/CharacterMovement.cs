@@ -34,7 +34,7 @@ public class CharacterMovement : MonoBehaviour
 
 	public bool AtDestination()
     {
-		if (!agent.pathPending)
+		if (agent.enabled && !agent.pathPending)
 		{
 			if (agent.remainingDistance <= agent.stoppingDistance)
 			{

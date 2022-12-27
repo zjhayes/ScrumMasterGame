@@ -9,7 +9,6 @@ public class Inventory : MonoBehaviour
     private Container inventory;
 
     private CharacterController character;
-    private InteractionController interaction;
 
     void Awake()
     {
@@ -19,12 +18,6 @@ public class Inventory : MonoBehaviour
         }
 
         character = GetComponent<CharacterController>();
-        interaction = GetComponent<InteractionController>();
-    }
-
-    void Start()
-    {
-        interaction.onInteract += DropOnNullInteraction;
     }
 
     public void PickUp(Pickup pickup)
@@ -50,7 +43,7 @@ public class Inventory : MonoBehaviour
     private void DropOnNullInteraction()
     {
         // Drop pickup when nothing else to do.
-        if (HasPickup() && !interaction.Target)
+        if (HasPickup() /*&& !interaction.Target*/)
         {
             Drop();
         }

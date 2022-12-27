@@ -9,27 +9,27 @@ public class CertificationStation : Station
 
     protected override void OnSit(CharacterController occupant)
     {
+        if (occupant.Inventory.HasPickup())
+        {
+            occupant.Inventory.Drop();
+        }
+
         base.OnSit(occupant);
 
         if (CountOccupants() == 1)
         { // This is the first player to sit.
             OnFirstOccupant();
         }
-
-        if (occupant.Inventory.HasPickup())
-        {
-            occupant.Inventory.Drop();
-        }
     }
 
     protected override void OnStand(CharacterController occupant)
-    {
-        base.OnStand(occupant);
-        
+    {   
         if (CountOccupants() == 1)
         { // This is the last occupant.
             OnUnoccupied();
         }
+
+        base.OnStand(occupant);
     }
 
     private void OnFirstOccupant()

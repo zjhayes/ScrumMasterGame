@@ -8,7 +8,7 @@ public class WorkStation : Station
     CharacterController developer;
     CharacterController peerReviewer;
     Cartridge cartridge;
-
+    
     protected override void OnSit(CharacterController occupant)
     {
         if (!developer)
@@ -29,6 +29,7 @@ public class WorkStation : Station
                 peerReviewer.Inventory.Drop();
             }
         }
+        base.OnSit(developer);
     }
 
     protected override void OnStand(CharacterController occupant)
@@ -47,6 +48,7 @@ public class WorkStation : Station
         {
             peerReviewer = null;
         }
+        base.OnStand(occupant);
     }
 
     private void InputCartridge(CharacterController character)
