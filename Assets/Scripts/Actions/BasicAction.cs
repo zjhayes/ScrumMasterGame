@@ -26,7 +26,6 @@ public class BasicAction : IAction
 
     public virtual void Cancel()
     {
-        Debug.Log("Cancelled.");
         done = true;
     }
 }

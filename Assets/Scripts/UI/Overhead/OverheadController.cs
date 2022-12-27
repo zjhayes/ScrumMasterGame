@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/** A character's Overhead is where icons, emotes and progress indicators will appear. */
 public class OverheadController : MonoBehaviour
 {
     [SerializeField]

@@ -16,7 +16,6 @@ public class ActionManager : Singleton<ActionManager>
 
     void Update()
     {
-        Debug.Log("Total Actions: " + actionList.Actions.Count);
         foreach (IAction action in actionList.Actions)
         {
             action.Run();

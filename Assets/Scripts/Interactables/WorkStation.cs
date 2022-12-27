@@ -29,7 +29,7 @@ public class WorkStation : Station
                 peerReviewer.Inventory.Drop();
             }
         }
-        base.OnSit(developer);
+        base.OnSit(occupant);
     }
 
     protected override void OnStand(CharacterController occupant)

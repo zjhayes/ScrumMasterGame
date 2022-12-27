@@ -25,6 +25,7 @@ public class SelectedIcon : MonoBehaviour
 
     void UpdatePosition()
     {
+        // Set position to current selected character's UI overhead position.
         transform.position = ContextManager.Instance.CurrentCharacter.GetComponent<OverheadController>().GetIconPosition();
     }
 
