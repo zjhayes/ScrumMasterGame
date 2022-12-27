@@ -1,5 +1,7 @@
 ﻿using System;
 
+using UnityEngine;
+
 public class BasicAction : IAction
 {
     protected Action action;
@@ -24,6 +26,7 @@ public class BasicAction : IAction
 
     public virtual void Cancel()
     {
+        Debug.Log("Cancelled.");
         done = true;
     }
 }

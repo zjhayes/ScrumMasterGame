@@ -230,8 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56b3cdcb56a244e4596f3e9514a5a60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  iconLocation: {fileID: 7311766226109123515}
+  overheadLocation: {fileID: 7311766226109123515}
 --- !u!114 &5553784004352064292
 MonoBehaviour:
   m_ObjectHideFlags: 0

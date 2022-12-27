@@ -34,4 +34,9 @@ public class ActionList
     {
         actions.Clear();
     }
+
+    public bool IsEmpty()
+    {
+        return actions.Count == 0;
+    }
 }

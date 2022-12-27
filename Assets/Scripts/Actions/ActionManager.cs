@@ -16,17 +16,20 @@ public class ActionManager : Singleton<ActionManager>
 
     void Update()
     {
+        Debug.Log("Total Actions: " + actionList.Actions.Count);
         foreach (IAction action in actionList.Actions)
         {
             action.Run();
         }
         actionList.Clean();
         AddPendingActions();
+        DisableIfNothingToDo();
     }
 
     public void Add(IAction action)
     {
         pendingActions.Actions.Add(action);
+        EnableIfDisabled();
     }
 
     private void AddPendingActions()
@@ -52,5 +55,21 @@ public class ActionManager : Singleton<ActionManager>
     void OnDisable()
     {
         CancelAll();
+    }
+
+    void DisableIfNothingToDo()
+    {
+        if(actionList.IsEmpty() && pendingActions.IsEmpty())
+        {
+            this.enabled = false;
+        }
+    }
+
+    void EnableIfDisabled()
+    {
+        if(!this.enabled)
+        {
+            this.enabled = true;
+        }
     }
 }

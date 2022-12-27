@@ -20,7 +20,6 @@ public class ContextManager : Singleton<ContextManager>
     {
         currentCharacter = character;
         onCharacterSelected?.Invoke();
-        Debug.Log("Switching Contexts: Character");
     }
 
     public void SwitchToNoContext(PointerEventData eventData)
