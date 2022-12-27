@@ -3597,6 +3597,7 @@ GameObject:
   - component: {fileID: 1018710657}
   - component: {fileID: 1018710661}
   - component: {fileID: 1018710662}
+  - component: {fileID: 1018710663}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3682,6 +3683,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedCharacterIcon: {fileID: 1845002656}
+--- !u!114 &1018710663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018710654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c588a66a467e0984bb047f5dcc38d606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1200524340
 GameObject:
   m_ObjectHideFlags: 0
@@ -6189,6 +6202,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7662154713758442358, guid: 746671e9b77ecdb4f9dd8613138ad6c5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 746671e9b77ecdb4f9dd8613138ad6c5, type: 3}

@@ -16,7 +16,7 @@ public class MenuController : MonoBehaviour
         invoker.GetComponent<Awareness>().enabled = false;
         invoker.GetComponent<CharacterMovement>().enabled = false;
         //invoker.GetComponent<InteractionController>().Target = this;
-        invoker.GetComponent<PlayerControls>().Input.Menu.Escape.started += _ => Hide(invoker);
+        //invoker.GetComponent<PlayerControls>().Input.Menu.Escape.started += _ => Hide(invoker);
     }
 
     public virtual void Hide(CharacterController invoker)

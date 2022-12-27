@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class ScrumMenuController : MenuController
 {
+    
     [SerializeField]
     ScrumBoardController boardController;
     [SerializeField]
@@ -45,4 +46,5 @@ public class ScrumMenuController : MenuController
             taskPanel.GetComponent<TaskPanel>().Task = task;
         }
     }
+    
 }

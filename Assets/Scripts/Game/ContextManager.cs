@@ -15,7 +15,7 @@ public class ContextManager : Singleton<ContextManager>, IController
     void Awake()
     {
         stateContext = new StateContext<ContextManager>(this);
-        NoSelection();
+        Deselect();
     }
 
     public void CharacterSelected(CharacterController character)
@@ -24,7 +24,7 @@ public class ContextManager : Singleton<ContextManager>, IController
         stateContext.Transition<SelectedCharacterState>();
     }
 
-    public void NoSelection()
+    public void Deselect()
     {
         stateContext.Transition<NoSelectionState>();
     }
