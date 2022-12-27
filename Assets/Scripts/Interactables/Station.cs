@@ -18,7 +18,6 @@ public class Station : Interactable
 
     protected virtual void OnSit(CharacterController occupant)
     {
-        Debug.Log("SITTING " + occupant);
         foreach(Chair chair in chairs)
         {
             if(!chair.Occupied)

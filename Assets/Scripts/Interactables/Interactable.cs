@@ -11,8 +11,8 @@ public class Interactable : Selectable
 
     void Start()
     {
-        ContextManager.Instance.onCharacterSelected += Enable;
-        ContextManager.Instance.onDeselect += Disable;
+        ContextManager.Instance.onEnableInteractables += Enable;
+        ContextManager.Instance.onDisableInteractables += Disable;
         Disable();
     }
 
@@ -28,7 +28,6 @@ public class Interactable : Selectable
 
     public virtual void InteractWith(CharacterController character)
     {
-        Debug.Log(character.gameObject.name + " interacts with " + this.gameObject.name);
         onInteract?.Invoke(character);
     }
 

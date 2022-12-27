@@ -29,7 +29,7 @@ public class CharacterController : MonoBehaviour, IController
 
     void OnSelect()
     {
-        ContextManager.Instance.SwitchToCharacterContext(this);
+        ContextManager.Instance.CharacterSelected(this);
     }
 
     public void Idle()

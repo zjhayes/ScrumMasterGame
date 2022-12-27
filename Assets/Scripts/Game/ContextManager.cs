@@ -1,35 +1,47 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ContextManager : Singleton<ContextManager>
+public class ContextManager : Singleton<ContextManager>, IController
 {
-    public delegate void OnCharacterSelected();
-    public OnCharacterSelected onCharacterSelected;
+    public delegate void OnEnableInteractables();
+    public OnEnableInteractables onEnableInteractables;
 
-    public delegate void OnDeselect();
-    public OnDeselect onDeselect;
+    public delegate void OnDisableInteractables();
+    public OnDisableInteractables onDisableInteractables;
 
+    StateContext<ContextManager> stateContext;
     CharacterController currentCharacter;
 
-    /*public void OnMenuSelected(MenuItem menuItem, PointerEventData eventData)
+    void Awake()
     {
-        Debug.Log(eventData.position);
-    }*/
-
-    public void SwitchToCharacterContext(CharacterController character)
-    {
-        currentCharacter = character;
-        onCharacterSelected?.Invoke();
+        stateContext = new StateContext<ContextManager>(this);
+        NoSelection();
     }
 
-    public void SwitchToNoContext(PointerEventData eventData)
+    public void CharacterSelected(CharacterController character)
     {
-        currentCharacter = null;
-        onDeselect?.Invoke();
+        currentCharacter = character;
+        stateContext.Transition<SelectedCharacterState>();
+    }
+
+    public void NoSelection()
+    {
+        stateContext.Transition<NoSelectionState>();
     }
 
     public CharacterController CurrentCharacter
     {
         get { return currentCharacter; }
+        set { currentCharacter = value; }
+    }
+
+    public void EnableInteractables()
+    {
+        onEnableInteractables?.Invoke();
+    }
+
+    public void DisableInteractables()
+    {
+        onDisableInteractables.Invoke();
     }
 }

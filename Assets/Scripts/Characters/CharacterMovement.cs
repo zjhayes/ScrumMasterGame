@@ -18,18 +18,17 @@ public class CharacterMovement : MonoBehaviour
 
 	void FixedUpdate()
     {
-		if(moving && AtDestination())
+		if(AtDestination())
         {
-			moving = false;
+			this.enabled = false;
 			onArrivedAtDestination?.Invoke();
         }
     }
 
 	public void GoTo(Vector3 target)
 	{
-		Debug.Log(this.gameObject.name + " goes to " + target);
 		agent.destination = target;
-		moving = true;
+		this.enabled = true;
 	}
 
 	public bool AtDestination()
