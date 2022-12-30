@@ -26,7 +26,9 @@ public class Station : Interactable
                 return;
             }
         }
-        // TODO: Handle fully occupied
+
+        // Character can't interact.
+        occupant.Frustrated();
     }
 
     protected virtual void OnStand(CharacterController occupant)

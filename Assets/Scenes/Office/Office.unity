@@ -5038,7 +5038,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f484ec0eb4e9d9b40b1b5916e0436a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overheadCanvas: {fileID: 974409950}
   selectedCharacterIcon: {fileID: 1845002656}
+  frustrationSpeechBubblePrefab: {fileID: 483245442297707115, guid: f853f9113002e2040833808ff2dfcea6,
+    type: 3}
 --- !u!114 &1018710663
 MonoBehaviour:
   m_ObjectHideFlags: 0

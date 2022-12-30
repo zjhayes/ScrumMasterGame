@@ -53,6 +53,12 @@ public class CharacterController : MonoBehaviour, IController
         stateContext.Transition<InteractionState>();
     }
 
+    public void Frustrated()
+    {
+        GetComponent<OverheadController>()?.ShowFrustrationBubble();
+        Idle();
+    }
+
     public CharacterMovement Movement
     {
         get { return movement; }

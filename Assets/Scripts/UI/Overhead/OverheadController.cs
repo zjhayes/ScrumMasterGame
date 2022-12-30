@@ -10,4 +10,9 @@ public class OverheadController : MonoBehaviour
     {
         return Camera.main.WorldToScreenPoint(overheadLocation.position);
     }
+
+    public void ShowFrustrationBubble()
+    {
+        UIManager.Instance.CreateFrustrationSpeechBubble(this);
+    }
 }
