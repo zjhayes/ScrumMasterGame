@@ -3664,6 +3664,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portraitPanel: {fileID: 1652490663}
+  frontendProgressBar: {fileID: 1955884654}
+  backendProgressBar: {fileID: 999892001}
+  problemSolvingProgressBar: {fileID: 2055465762}
+  timeManagementProgressBar: {fileID: 2105910317}
 --- !u!1 &761693690
 GameObject:
   m_ObjectHideFlags: 0
@@ -4447,7 +4451,7 @@ PrefabInstance:
     - target: {fileID: 1741448105972714001, guid: 9b697aa8012aea948a7e6a8ce09f0583,
         type: 3}
       propertyPath: m_Name
-      value: DesignBar
+      value: BackendBar
       objectReference: {fileID: 0}
     - target: {fileID: 1741448105972714002, guid: 9b697aa8012aea948a7e6a8ce09f0583,
         type: 3}
@@ -4567,6 +4571,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 999891999}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &999892001 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1741448105972714003, guid: 9b697aa8012aea948a7e6a8ce09f0583,
+    type: 3}
+  m_PrefabInstance: {fileID: 999891999}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb41eee14dd9c948a21e045f5d81073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1018710654
 GameObject:
   m_ObjectHideFlags: 0
@@ -6942,7 +6958,7 @@ PrefabInstance:
     - target: {fileID: 1741448105972714001, guid: 9b697aa8012aea948a7e6a8ce09f0583,
         type: 3}
       propertyPath: m_Name
-      value: QualityBar
+      value: ProblemSolvingBar
       objectReference: {fileID: 0}
     - target: {fileID: 1741448105972714002, guid: 9b697aa8012aea948a7e6a8ce09f0583,
         type: 3}
@@ -7379,6 +7395,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925260374}
   m_CullTransparentMesh: 1
+--- !u!114 &1955884654 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1741448105972714003, guid: 9b697aa8012aea948a7e6a8ce09f0583,
+    type: 3}
+  m_PrefabInstance: {fileID: 1741448105735377944}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb41eee14dd9c948a21e045f5d81073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2055465762 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1741448105972714003, guid: 9b697aa8012aea948a7e6a8ce09f0583,
+    type: 3}
+  m_PrefabInstance: {fileID: 1810408519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb41eee14dd9c948a21e045f5d81073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2056500469
 GameObject:
   m_ObjectHideFlags: 0
@@ -8075,7 +8115,7 @@ PrefabInstance:
     - target: {fileID: 1741448105972714001, guid: 9b697aa8012aea948a7e6a8ce09f0583,
         type: 3}
       propertyPath: m_Name
-      value: BackendBar
+      value: TimeManagementBar
       objectReference: {fileID: 0}
     - target: {fileID: 1741448105972714002, guid: 9b697aa8012aea948a7e6a8ce09f0583,
         type: 3}
@@ -8195,6 +8235,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2105910315}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2105910317 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1741448105972714003, guid: 9b697aa8012aea948a7e6a8ce09f0583,
+    type: 3}
+  m_PrefabInstance: {fileID: 2105910315}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb41eee14dd9c948a21e045f5d81073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &198722691987489352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8366,6 +8418,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2008855294698922825, guid: dc572c4523986534b8566425481b12a2,
+        type: 3}
+      propertyPath: backend
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008855294698922825, guid: dc572c4523986534b8566425481b12a2,
+        type: 3}
+      propertyPath: frontend
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008855294698922825, guid: dc572c4523986534b8566425481b12a2,
+        type: 3}
+      propertyPath: problemSolving
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008855294698922825, guid: dc572c4523986534b8566425481b12a2,
+        type: 3}
+      propertyPath: timeManagement
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2980695790877055930, guid: dc572c4523986534b8566425481b12a2,
         type: 3}
       propertyPath: m_Name
@@ -8445,6 +8517,26 @@ PrefabInstance:
       propertyPath: icon
       value: 
       objectReference: {fileID: 1845002656}
+    - target: {fileID: 4136353124914673933, guid: 3071926b16b174c4793068e9a44d1fbf,
+        type: 3}
+      propertyPath: backend
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4136353124914673933, guid: 3071926b16b174c4793068e9a44d1fbf,
+        type: 3}
+      propertyPath: frontend
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4136353124914673933, guid: 3071926b16b174c4793068e9a44d1fbf,
+        type: 3}
+      propertyPath: problemSolving
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4136353124914673933, guid: 3071926b16b174c4793068e9a44d1fbf,
+        type: 3}
+      propertyPath: timeManagement
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4612469534677205907, guid: 3071926b16b174c4793068e9a44d1fbf,
         type: 3}
       propertyPath: m_RootOrder
@@ -8532,7 +8624,7 @@ PrefabInstance:
     - target: {fileID: 1741448105972714001, guid: 9b697aa8012aea948a7e6a8ce09f0583,
         type: 3}
       propertyPath: m_Name
-      value: ProgrammingBar
+      value: FrontendBar
       objectReference: {fileID: 0}
     - target: {fileID: 1741448105972714002, guid: 9b697aa8012aea948a7e6a8ce09f0583,
         type: 3}
@@ -9040,6 +9132,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4841138065736990631, guid: b0ad1bde130aaa745b79e5e5961ed239,
+        type: 3}
+      propertyPath: backend
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841138065736990631, guid: b0ad1bde130aaa745b79e5e5961ed239,
+        type: 3}
+      propertyPath: frontend
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841138065736990631, guid: b0ad1bde130aaa745b79e5e5961ed239,
+        type: 3}
+      propertyPath: problemSolving
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841138065736990631, guid: b0ad1bde130aaa745b79e5e5961ed239,
+        type: 3}
+      propertyPath: timeManagement
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8446485770194908146, guid: b0ad1bde130aaa745b79e5e5961ed239,
         type: 3}
       propertyPath: icon
@@ -9054,6 +9166,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3674502728550102783, guid: 6639ef869c3f5674c89070df9a566170,
+        type: 3}
+      propertyPath: backend
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3674502728550102783, guid: 6639ef869c3f5674c89070df9a566170,
+        type: 3}
+      propertyPath: frontend
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3674502728550102783, guid: 6639ef869c3f5674c89070df9a566170,
+        type: 3}
+      propertyPath: problemSolving
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3674502728550102783, guid: 6639ef869c3f5674c89070df9a566170,
+        type: 3}
+      propertyPath: timeManagement
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5448224261289020513, guid: 6639ef869c3f5674c89070df9a566170,
         type: 3}
       propertyPath: m_RootOrder

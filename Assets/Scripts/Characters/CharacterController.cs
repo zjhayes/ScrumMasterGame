@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(Selectable))]
+[RequireComponent(typeof(CharacterStats))]
 [RequireComponent(typeof(CharacterMovement))]
+[RequireComponent(typeof(Selectable))]
 [RequireComponent(typeof(Inventory))]
 public class CharacterController : MonoBehaviour, IController
 {
     [SerializeField]
     Sprite portrait;
 
-    Selectable selectability;
+    CharacterStats stats;
     CharacterMovement movement;
+    Selectable selectability;
     Inventory inventory;
     CharacterStatus status;
     StateContext<CharacterController> stateContext;
@@ -19,8 +21,9 @@ public class CharacterController : MonoBehaviour, IController
 
     void Awake()
     {
-        selectability = GetComponent<Selectable>();
+        stats = GetComponent<CharacterStats>();
         movement = GetComponent<CharacterMovement>();
+        selectability = GetComponent<Selectable>();
         inventory = GetComponent<Inventory>();
         stateContext = new StateContext<CharacterController>(this);
     }
@@ -60,6 +63,11 @@ public class CharacterController : MonoBehaviour, IController
     {
         GetComponent<OverheadController>()?.ShowFrustrationBubble();
         Idle();
+    }
+
+    public CharacterStats Stats
+    {
+        get { return stats; }
     }
 
     public CharacterMovement Movement
