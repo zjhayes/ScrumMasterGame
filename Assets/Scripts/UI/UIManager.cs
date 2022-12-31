@@ -8,6 +8,8 @@ public class UIManager : Singleton<UIManager>
     SelectedIcon selectedCharacterIcon;
     [SerializeField]
     GameObject frustrationSpeechBubblePrefab;
+    [SerializeField]
+    CharacterCardController characterCard;
 
     public Canvas OverheadCanvas
     {
@@ -27,8 +29,8 @@ public class UIManager : Singleton<UIManager>
         frustrationSpeechBubble.GetComponent<SpeechBubble>().Show(controller);
     }
 
-    public GameObject FrustrationSpeechBubblePrefab
+    public CharacterCardController CharacterCard
     {
-        get { return frustrationSpeechBubblePrefab; }
+        get { return characterCard; }
     }
 }

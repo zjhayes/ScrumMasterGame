@@ -6,6 +6,9 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Inventory))]
 public class CharacterController : MonoBehaviour, IController
 {
+    [SerializeField]
+    Sprite portrait;
+
     Selectable selectability;
     CharacterMovement movement;
     Inventory inventory;
@@ -79,11 +82,16 @@ public class CharacterController : MonoBehaviour, IController
         get { return status; }
     }
 
+    public Sprite Portrait
+    {
+        get { return portrait; }
+    }
+
     public void EnablePhysics(bool enable)
     {
         GetComponent<Rigidbody>().useGravity = enable;
         GetComponent<Rigidbody>().isKinematic = !enable;
-        GetComponent<Collider>().enabled = enable;
+        //GetComponent<Collider>().enabled = enable;
         GetComponent<NavMeshAgent>().enabled = enable;
     }
 

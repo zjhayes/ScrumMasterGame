@@ -19,6 +19,7 @@ public class SelectedCharacterState : MonoBehaviour, IState<ContextManager>
         }
         
         UIManager.Instance.SelectedCharacterIcon.Show();
+        UIManager.Instance.CharacterCard.Show(controller.CurrentCharacter);
     }
 
     public void Destroy()

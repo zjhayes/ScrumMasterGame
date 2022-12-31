@@ -16,6 +16,7 @@ public class NoSelectionState : MonoBehaviour, IState<ContextManager>
         controller.CurrentCharacter = null;
         controller.DisableInteractables();
         UIManager.Instance.SelectedCharacterIcon.Hide();
+        UIManager.Instance.CharacterCard.Hide();
     }
 
     public void Destroy()
