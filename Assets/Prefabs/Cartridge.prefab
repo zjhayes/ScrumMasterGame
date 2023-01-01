@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1868572605}
   - component: {fileID: 4691985103410425928}
   - component: {fileID: 1979917222}
-  - component: {fileID: 6703478856298458855}
   - component: {fileID: 4129389091846278709}
   m_Layer: 0
   m_Name: Cartridge
@@ -78,20 +77,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f1b8844e7f7ad4b947d735be144da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goToPosition: {fileID: 0}
   holdRotation: {x: -90, y: 0, z: 0}
   assignee: {fileID: 0}
---- !u!114 &6703478856298458855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7174707449635838685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4848ec6d68220164f9e0ba899ce09161, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4129389091846278709
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,9 +4,9 @@ public class GoToInteractableState : MonoBehaviour, IState<CharacterController>
 {
     private CharacterController character;
 
-    public void Handle(CharacterController _controller)
+    public void Handle(CharacterController controller)
     {
-        character = _controller;
+        character = controller;
         character.Movement.GoTo(character.CurrentInteractable.Position);
     }
 
@@ -25,6 +25,7 @@ public class GoToInteractableState : MonoBehaviour, IState<CharacterController>
 
         if(character.Movement.AtDestination())
         {
+            Debug.Log("At destination");
             character.InteractWithCurrent();
         }
     }

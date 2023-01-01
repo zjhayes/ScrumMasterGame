@@ -2584,7 +2584,7 @@ GameObject:
   - component: {fileID: 533528031}
   - component: {fileID: 533528030}
   m_Layer: 5
-  m_Name: ProgrammingIcon (3)
+  m_Name: TimeManagementIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2650,7 +2650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f82d2a9d407311547b7942a315abc347, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0ac1492aeafbbc4d90f1ecafbc52fc6, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3600,7 +3600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.84313726}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5752,7 +5752,7 @@ GameObject:
   - component: {fileID: 1372993392}
   - component: {fileID: 1372993391}
   m_Layer: 5
-  m_Name: ProgrammingIcon (1)
+  m_Name: BackendIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5818,7 +5818,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f82d2a9d407311547b7942a315abc347, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e13a61561114375498bf6bac373abe16, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -6853,7 +6853,7 @@ GameObject:
   - component: {fileID: 1782493596}
   - component: {fileID: 1782493595}
   m_Layer: 5
-  m_Name: ProgrammingIcon
+  m_Name: FrontendIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6919,7 +6919,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f82d2a9d407311547b7942a315abc347, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 577dbfa0bcbe90745a4f4136b7308236, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -7244,7 +7244,7 @@ GameObject:
   - component: {fileID: 1875777015}
   - component: {fileID: 1875777014}
   m_Layer: 5
-  m_Name: ProgrammingIcon (2)
+  m_Name: ProblemSolvingIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7310,7 +7310,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f82d2a9d407311547b7942a315abc347, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 664b31e638b24b44ab43ffe6a708a578, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

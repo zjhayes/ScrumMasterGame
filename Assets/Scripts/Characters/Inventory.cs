@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
     {
         if(inventory == null)
         {
-            Debug.Log(string.Format("Character {0} does not have an inventory.", gameObject));
+            Debug.Log(string.Format("Character {0} does not have an inventory container.", gameObject));
         }
 
         character = GetComponent<CharacterController>();
@@ -22,7 +22,7 @@ public class Inventory : MonoBehaviour
 
     public void PickUp(Pickup pickup)
     {
-        if(HasPickup())
+        if(HasPickup()) // Swap pickups if one carried.
         {
             Drop();
         }

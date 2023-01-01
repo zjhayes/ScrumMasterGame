@@ -18,7 +18,7 @@ public class Interactable : Selectable
 
     protected override void Select()
     {
-        if(ContextManager.Instance.CurrentCharacter)
+        if(ContextManager.Instance.CurrentCharacter) // A character must be selected.
         {
             CharacterController character = ContextManager.Instance.CurrentCharacter;
             character.GoInteractWith(this);

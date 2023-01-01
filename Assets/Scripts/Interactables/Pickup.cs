@@ -1,19 +1,20 @@
 using UnityEngine;
 
-public class Pickup : MonoBehaviour
+public class Pickup : Interactable
 {
     [SerializeField]
     private Vector3 holdRotation;
 
-    public void Interact(CharacterController invoker)
+    public override void InteractWith(CharacterController character)
     {
-        Inventory inventory = invoker.gameObject.GetComponent<Inventory>();
-        AddToInventory(inventory);
+        Debug.Log("Pick up");
+        AddToInventory(character.Inventory);
+        base.InteractWith(character);
     }
 
-    public void AddToInventory(Inventory target)
+    public void AddToInventory(Inventory inventory)
     {
-        target?.PickUp(this);
+        inventory?.PickUp(this);
     }
 
     public Vector3 HoldRotation { get { return holdRotation; } }
