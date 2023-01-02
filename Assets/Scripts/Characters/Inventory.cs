@@ -27,50 +27,20 @@ public class Inventory : MonoBehaviour
             Drop();
         }
 
-        // Disable pickup physics.
-        pickup.GetComponent<Rigidbody>().useGravity = false;
-        pickup.GetComponent<Rigidbody>().isKinematic = true;
-        pickup.GetComponent<Collider>().enabled = false;
-
-        // Move to inventory position.
-        inventory.Add(pickup.gameObject); // Set inventory as parent.
-        pickup.transform.parent = inventory.transform;
-        pickup.transform.position = inventory.transform.position;
-        pickup.transform.localEulerAngles = pickup.HoldRotation;
-        
+        // Move to inventory.
+        inventory.Add(pickup);
     }
 
-    private void DropOnNullInteraction()
+    public Pickup Drop()
     {
-        // Drop pickup when nothing else to do.
-        if (HasPickup() /*&& !interaction.Target*/)
-        {
-            Drop();
-        }
-    }
-
-    public List<Pickup> Drop()
-    {
-        List<Pickup> dropped = new List<Pickup>();
-        foreach(GameObject pickup in inventory.Get(Tags.INTERACTABLE))
-        {
-            // Enable pickup physics.
-            pickup.GetComponent<Rigidbody>().useGravity = true;
-            pickup.GetComponent<Rigidbody>().isKinematic = false;
-            pickup.GetComponent<Collider>().enabled = true;
-
-            // Move out of inventory.
-            pickup.transform.parent = null;
-            //pickup.GetComponent<Rigidbody>().AddForce(character.Direction * character.Speed);
-
-            dropped.Add(pickup.GetComponent<Pickup>());
-        }
-        return dropped;
+        Pickup pickup = inventory.Get<Pickup>(true) as Pickup;
+        pickup.EnablePhysics(true);
+        return pickup;
     }
 
     public bool HasPickup()
     {
-        if(inventory.transform.childCount > 0)
+        if(!inventory.IsEmpty)
         {
             return true;
         }

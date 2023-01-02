@@ -5,28 +5,21 @@ public class WorkStation : Station
     [SerializeField]
     Transform cartridgeIntake;
 
-    CharacterController developer;
-    CharacterController peerReviewer;
     Cartridge cartridge;
     
     protected override void OnSit(CharacterController occupant)
     {
-        if (!developer)
+        // Get cartridge from character.
+        if(occupant.Inventory.HasPickup())
         {
-            developer = occupant;
-
-            if (developer.Inventory.HasPickup())
+            if(!cartridge)
             {
-                InputCartridge(developer);
+                InputCartridge(occupant);
             }
-        }
-        else if (!peerReviewer)
-        {
-            peerReviewer = occupant;
-
-            if (peerReviewer.Inventory.HasPickup())
+            else
             {
-                peerReviewer.Inventory.Drop();
+                // Character drops pickup if one present already.
+                occupant.Inventory.Drop();
             }
         }
         base.OnSit(occupant);
@@ -34,33 +27,23 @@ public class WorkStation : Station
 
     protected override void OnStand(CharacterController occupant)
     {
-        if (developer == occupant)
+        if(cartridge != null && cartridge.Assignee == occupant)
         {
-            if (cartridge)
-            {
-                // Take cartridge.
-                developer.Inventory.PickUp(cartridge);
-                cartridge = null;
-            }
-            developer = null;
-        }
-        else if (peerReviewer == occupant)
-        {
-            peerReviewer = null;
+            // Assignee takes cartridge.
+            occupant.Inventory.PickUp(cartridge);
+            cartridge = null;
         }
         base.OnStand(occupant);
     }
 
     private void InputCartridge(CharacterController character)
     {
-        Pickup pickup = character.Inventory.Drop()[0]; // Get first pickup.
+        Pickup pickup = character.Inventory.Drop(); // Get pickup.
 
         if (pickup is Cartridge)
         {
             // Disable pickup physics.
-            pickup.GetComponent<Rigidbody>().useGravity = false;
-            pickup.GetComponent<Rigidbody>().isKinematic = true;
-            pickup.GetComponent<Collider>().enabled = false;
+            pickup.EnablePhysics(false);
 
             // Move to intake position.
             pickup.transform.parent = cartridgeIntake;

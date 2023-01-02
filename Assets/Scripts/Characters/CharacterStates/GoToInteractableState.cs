@@ -25,7 +25,6 @@ public class GoToInteractableState : MonoBehaviour, IState<CharacterController>
 
         if(character.Movement.AtDestination())
         {
-            Debug.Log("At destination");
             character.InteractWithCurrent();
         }
     }
