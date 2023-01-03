@@ -3,16 +3,14 @@ using UnityEngine;
 public class WorkStation : Station
 { 
     [SerializeField]
-    Transform cartridgeIntake;
-
-    Cartridge cartridge;
+    Container cartridgeIntake;
     
     protected override void OnSit(CharacterController occupant)
     {
         // Get cartridge from character.
         if(occupant.Inventory.HasPickup())
         {
-            if(!cartridge)
+            if(cartridgeIntake.IsEmpty)
             {
                 InputCartridge(occupant);
             }
@@ -27,11 +25,10 @@ public class WorkStation : Station
 
     protected override void OnStand(CharacterController occupant)
     {
-        if(cartridge != null && cartridge.Assignee == occupant)
+        if(CurrentCartridge?.Assignee == occupant)
         {
             // Assignee takes cartridge.
-            occupant.Inventory.PickUp(cartridge);
-            cartridge = null;
+            occupant.Inventory.PickUp(CurrentCartridge);
         }
         base.OnStand(occupant);
     }
@@ -42,15 +39,15 @@ public class WorkStation : Station
 
         if (pickup is Cartridge)
         {
-            // Disable pickup physics.
-            pickup.EnablePhysics(false);
+            cartridgeIntake.Add(pickup);
+        }
+    }
 
-            // Move to intake position.
-            pickup.transform.parent = cartridgeIntake;
-            pickup.transform.position = cartridgeIntake.position;
-            pickup.transform.rotation = cartridgeIntake.rotation;
-
-            cartridge = pickup as Cartridge;
+    private Cartridge CurrentCartridge
+    {
+        get
+        {
+            return cartridgeIntake.Get<Cartridge>(true) as Cartridge;
         }
     }
 }
