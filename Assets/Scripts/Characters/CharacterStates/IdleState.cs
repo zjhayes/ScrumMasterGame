@@ -1,21 +1,16 @@
 using UnityEngine;
 
-public class IdleState : MonoBehaviour, IState<CharacterController>
+public class IdleState : CharacterState
 {
     private CharacterController character;
 
-    public void Handle(CharacterController _controller)
+    public override void Handle(CharacterController _controller)
     {
         character = _controller;
     }
 
-    void Start()
+    public override string Status
     {
-        if (!character) { Debug.Log("No controller set on state."); }
-    }
-
-    public void Destroy()
-    {
-        Destroy(this);
+        get { return "Idle"; }
     }
 }

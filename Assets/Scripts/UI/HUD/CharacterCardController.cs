@@ -13,22 +13,39 @@ public class CharacterCardController : MonoBehaviour
     ProgressBar problemSolvingProgressBar;
     [SerializeField]
     ProgressBar timeManagementProgressBar;
+    [SerializeField]
+    StatusBar statusBar;
 
 
     public void Show(CharacterController character)
     {
-        portraitPanel.sprite = character.Portrait;
-        frontendProgressBar.CurrentFill = character.Stats.Frontend;
-        backendProgressBar.CurrentFill = character.Stats.Backend;
-        problemSolvingProgressBar.CurrentFill = character.Stats.ProblemSolving;
-        timeManagementProgressBar.CurrentFill = character.Stats.TimeManagement;
+        UpdatePortrait(character);
+        UpdateStatus(character);
+        UpdateProgress(character);
 
-        gameObject.active = true;
+        gameObject.SetActive(true);
     }
 
     public void Hide()
     {
-        gameObject.active = false;
+        gameObject.SetActive(false);
     }
 
+    public void UpdatePortrait(CharacterController character)
+    {
+        portraitPanel.sprite = character.Portrait;
+    }
+
+    public void UpdateStatus(CharacterController character)
+    {
+        statusBar.UpdateStatusText(character.State.Status);
+    }
+
+    public void UpdateProgress(CharacterController character)
+    {
+        frontendProgressBar.CurrentFill = character.Stats.Frontend;
+        backendProgressBar.CurrentFill = character.Stats.Backend;
+        problemSolvingProgressBar.CurrentFill = character.Stats.ProblemSolving;
+        timeManagementProgressBar.CurrentFill = character.Stats.TimeManagement;
+    }
 }

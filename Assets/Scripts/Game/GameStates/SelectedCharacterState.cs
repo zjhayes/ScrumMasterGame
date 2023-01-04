@@ -1,29 +1,25 @@
 using UnityEngine;
 
-public class SelectedCharacterState : MonoBehaviour, IState<ContextManager>
+public class SelectedCharacterState : GameState
 {
     private ContextManager controller;
 
-    public void Handle(ContextManager _controller)
+    public override void Handle(ContextManager _controller)
     {
         controller = _controller;
-    }
 
-    void Start()
-    {
-        if (!controller) { Debug.Log("No controller set on state."); }
 
-        if(controller.CurrentCharacter.Status == CharacterStatus.IDLE)
-        {
-            controller.EnableInteractables();
-        }
-        
+        controller.EnableInteractables(); // TODO: This depends on character status.
+
+        controller.CurrentCharacter.StateContext.onTransition += onCharacterStateChange;
+
         UIManager.Instance.SelectedCharacterIcon.Show();
         UIManager.Instance.CharacterCard.Show(controller.CurrentCharacter);
     }
 
-    public void Destroy()
+    void onCharacterStateChange()
     {
-        Destroy(this);
+        UIManager.Instance.CharacterCard.UpdateStatus(controller.CurrentCharacter);
     }
+
 }

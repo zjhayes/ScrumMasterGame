@@ -14,7 +14,6 @@ public class CharacterController : MonoBehaviour, IController
     CharacterMovement movement;
     Selectable selectability;
     Inventory inventory;
-    CharacterStatus status;
     StateContext<CharacterController> stateContext;
 
     Interactable currentInteractable;
@@ -31,6 +30,7 @@ public class CharacterController : MonoBehaviour, IController
     void Start()
     {
         selectability.onSelect += OnSelect;
+        Idle();
     }
 
     void OnSelect()
@@ -41,21 +41,18 @@ public class CharacterController : MonoBehaviour, IController
     public void Idle()
     {
         currentInteractable = null;
-        status = CharacterStatus.IDLE;
         stateContext.Transition<IdleState>();
     }
 
     public void GoInteractWith(Interactable interactable)
     {
         currentInteractable = interactable;
-        status = CharacterStatus.MOVING;
         stateContext.Transition<GoToInteractableState>();
         
     }
 
     public void InteractWithCurrent()
     {
-        status = CharacterStatus.WORKING;
         stateContext.Transition<InteractionState>();
     }
 
@@ -85,9 +82,14 @@ public class CharacterController : MonoBehaviour, IController
         get { return currentInteractable; }
     }
 
-    public CharacterStatus Status
+    public StateContext<CharacterController> StateContext
     {
-        get { return status; }
+        get { return stateContext; }
+    }
+
+    public CharacterState State
+    {
+        get { return stateContext.CurrentState as CharacterState; }
     }
 
     public Sprite Portrait
@@ -102,77 +104,4 @@ public class CharacterController : MonoBehaviour, IController
         //GetComponent<Collider>().enabled = enable;
         GetComponent<NavMeshAgent>().enabled = enable;
     }
-
-    /** OLD STUFF
-
-
-    [SerializeField]
-    float walkingSpeed = 2.25f;
-    [SerializeField]
-    float runningSpeed = 5f;
-
-    bool isRunning = false;
-    float moveVerticle = 0.0f;
-    float moveHorizontal = 0.0f;
-    public void Move(Vector2 direction)
-    {
-        moveVerticle = direction.y;
-        moveHorizontal = direction.x;
-    }
-
-    public void Stop()
-    {
-        moveVerticle = 0f;
-        moveHorizontal = 0f;
-    }
-
-    public void Run()
-    {
-        isRunning = true;
-    }
-
-    public void Walk()
-    {
-        isRunning = false;
-    }
-
-    public Vector3 Direction
-    {
-        get
-        {
-            return new Vector3(-moveHorizontal, Numeric.ZERO, -moveVerticle);
-        }
-    }
-
-    public float Speed
-    {
-        get
-        {
-            return isRunning ? runningSpeed : walkingSpeed;
-        }
-    }
-
-    public CharacterMovement Movement
-    {
-        get { return movement; }
-    }
-
-    public CharacterInventory Inventory
-    {
-        get { return inventory; }
-    }
-
-    public void EnablePhysics(bool enable)
-    {
-        GetComponent<Rigidbody>().useGravity = enable;
-        GetComponent<Rigidbody>().isKinematic = !enable;
-        GetComponent<Collider>().enabled = enable;
-    }**/
-}
-
-public enum CharacterStatus
-{
-    IDLE,
-    MOVING,
-    WORKING
 }

@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /** Add to object with Renderer and materials using Outline shader. **/
 [RequireComponent(typeof(Renderer))]
 public class OutlineRenderer : MonoBehaviour
 {
+
     Renderer renderer;
 
     const string ENABLE_OUTLINE_PROPERTY = "_Enable_Outline";
@@ -22,11 +21,11 @@ public class OutlineRenderer : MonoBehaviour
 
     public void Show()
     {
-        renderer.material.SetInt(ENABLE_OUTLINE_PROPERTY, 1);
+        GetComponent<Renderer>().material.SetInt(ENABLE_OUTLINE_PROPERTY, 1);
     }
 
     public void Hide()
     {
-        renderer.material.SetInt(ENABLE_OUTLINE_PROPERTY, 0);
+        GetComponent<Renderer>().material.SetInt(ENABLE_OUTLINE_PROPERTY, 0);
     }
 }

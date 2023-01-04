@@ -1,18 +1,16 @@
 using UnityEngine;
 
-public class InteractionState : MonoBehaviour, IState<CharacterController>
+public class InteractionState : CharacterState
 {
     private CharacterController character;
 
-    public void Handle(CharacterController _controller)
+    public override void Handle(CharacterController _controller)
     {
         character = _controller;
     }
 
     void Start()
     {
-        if (!character) { Debug.Log("No controller set on state."); }
-
         if (!character.CurrentInteractable)
         {
             character.Idle();
@@ -23,8 +21,8 @@ public class InteractionState : MonoBehaviour, IState<CharacterController>
         }
     }
 
-    public void Destroy()
+    public override string Status
     {
-        Destroy(this);
+        get { return "Working"; }
     }
 }

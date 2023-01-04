@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 public class StateContext<T> where T : IController
 {
+    public delegate void OnTransition();
+    public OnTransition onTransition;
+
     public IState<T> CurrentState
     {
         get; set;
@@ -17,6 +20,7 @@ public class StateContext<T> where T : IController
     public void Transition()
     {
         CurrentState.Handle(controller);
+        onTransition?.Invoke();
     }
 
     public void Transition<U>() where U : Component, IState<T>
@@ -28,5 +32,6 @@ public class StateContext<T> where T : IController
 
         CurrentState = controller.gameObject.AddComponent<U>();
         CurrentState.Handle(controller);
+        onTransition?.Invoke();
     }
 }

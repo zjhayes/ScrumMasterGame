@@ -1,18 +1,13 @@
 using UnityEngine;
 
-public class GoToInteractableState : MonoBehaviour, IState<CharacterController>
+public class GoToInteractableState : CharacterState
 {
-    private CharacterController character;
+    protected CharacterController character;
 
-    public void Handle(CharacterController controller)
+    public override void Handle(CharacterController controller)
     {
         character = controller;
         character.Movement.GoTo(character.CurrentInteractable.Position);
-    }
-
-    void Start()
-    {
-        if (!character) { Debug.Log("No controller set on state."); }
     }
 
     void Update()
@@ -29,8 +24,8 @@ public class GoToInteractableState : MonoBehaviour, IState<CharacterController>
         }
     }
 
-    public void Destroy()
-    {
-        Destroy(this);
+    public override string Status 
+    { 
+        get { return "Walking"; }
     }
 }

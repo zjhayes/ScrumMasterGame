@@ -12,9 +12,14 @@ public class ContextManager : Singleton<ContextManager>, IController
     StateContext<ContextManager> stateContext;
     CharacterController currentCharacter;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         stateContext = new StateContext<ContextManager>(this);
+    }
+
+    void Start()
+    {
         Deselect();
     }
 
@@ -42,6 +47,6 @@ public class ContextManager : Singleton<ContextManager>, IController
 
     public void DisableInteractables()
     {
-        onDisableInteractables.Invoke();
+        onDisableInteractables?.Invoke();
     }
 }

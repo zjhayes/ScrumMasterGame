@@ -43,7 +43,7 @@ public class WorkStation : Station
         }
     }
 
-    private Cartridge CurrentCartridge
+    public Cartridge CurrentCartridge
     {
         get
         {
