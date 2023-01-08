@@ -1,13 +1,48 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class Interactable : MonoBehaviour
+/** An Interactable is a Selectable that requires a Character to interact with. **/
+public class Interactable : Selectable
 {
-    public delegate void OnInteract(CharacterController invoker);
+    [SerializeField]
+    Transform goToPosition; // Optional, position character will walk to.
+
+    public delegate void OnInteract(CharacterController character);
     public OnInteract onInteract;
 
-    public virtual void Interact(CharacterController invoker)
+    void Start()
     {
-        onInteract?.Invoke(invoker);
+        ContextManager.Instance.onEnableInteractables += Enable;
+        ContextManager.Instance.onDisableInteractables += Disable;
+        Disable();
+    }
+
+    protected override void Select()
+    {
+        if(ContextManager.Instance.CurrentCharacter) // A character must be selected.
+        {
+            CharacterController character = ContextManager.Instance.CurrentCharacter;
+            character.GoInteractWith(this);
+            base.Select();
+        }
+    }
+
+    public virtual void InteractWith(CharacterController character)
+    {
+        onInteract?.Invoke(character);
+    }
+
+    public Vector3 Position
+    {
+        get
+        {
+            if(goToPosition)
+            {
+                return goToPosition.position;
+            }
+            else
+            {
+                return transform.position;
+            }
+        }
     }
 }

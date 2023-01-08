@@ -5,13 +5,8 @@ public class Cartridge : Pickup
     [SerializeField]
     private CharacterController assignee;
 
-    public override void Interact(CharacterController invoker)
+    public CharacterController Assignee
     {
-        base.Interact(invoker);
-
-        if(assignee == null)
-        {
-            assignee = invoker.GetComponent<CharacterController>();
-        }
+        get { return assignee; }
     }
 }

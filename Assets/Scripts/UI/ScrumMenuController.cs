@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class ScrumMenuController : MenuController
 {
+    
     [SerializeField]
     ScrumBoardController boardController;
     [SerializeField]
@@ -13,14 +14,14 @@ public class ScrumMenuController : MenuController
 
     public void Interact(CharacterController invoker)
     {
-        boardController.CreateCartridge(invoker.GetComponent<CharacterInventory>());
+        boardController.CreateCartridge(invoker.GetComponent<Inventory>());
         invoker.GetComponent<InteractionController>().Target = null; // set to something
     }
 
     public override void SetUp()
     {
         // Show on Scrum Board interactions.
-        boardController.onInteract += Show;
+        //boardController.onInteract += Show;
     }
 
     public override void Show(CharacterController invoker)
@@ -45,4 +46,5 @@ public class ScrumMenuController : MenuController
             taskPanel.GetComponent<TaskPanel>().Task = task;
         }
     }
+    
 }

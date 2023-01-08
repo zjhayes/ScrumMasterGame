@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1573409270498646516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8360760346305081535}
+  m_Layer: 0
+  m_Name: ExitToPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8360760346305081535
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573409270498646516}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -3.285}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 530130720394097678}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3540478305393840668
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,7 +71,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 530130720394097678}
-  - component: {fileID: 1112589141078235531}
   - component: {fileID: 2449561013696649674}
   m_Layer: 0
   m_Name: OfficeChair
@@ -63,23 +93,10 @@ Transform:
   m_Children:
   - {fileID: 7896729177900016960}
   - {fileID: 8268893959232352331}
+  - {fileID: 8360760346305081535}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1112589141078235531
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7267007649861821369}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 1
-  m_Height: 3
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &2449561013696649674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seat: {fileID: 8268893959232352331}
+  exitToPosition: {fileID: 8360760346305081535}
 --- !u!1001 &7646100772245734059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -262,6 +280,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6264831526926562434, guid: 1650c699a2e756045a837424aa53c632, type: 3}
+--- !u!114 &5921410245432266802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2288154568281028557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8903bf9bbbbb5604c8c60bebac7ccdef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2777268574303603003 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3704563456361051248, guid: 1650c699a2e756045a837424aa53c632,
@@ -282,6 +312,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -9189612823058448048, guid: 1650c699a2e756045a837424aa53c632, type: 3}
+--- !u!114 &1710533186325267234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2777268574303603003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8903bf9bbbbb5604c8c60bebac7ccdef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5813722226533952162 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4993905172991875063, guid: 1650c699a2e756045a837424aa53c632,

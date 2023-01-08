@@ -1,14 +1,14 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
+//using UnityEngine.EventSystems;
 
-public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class TooltipTrigger : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     [Multiline()]
     private string content;
     [SerializeField]
     private string header;
-
+    /*
     public void OnPointerEnter(PointerEventData eventData)
     {
         Show();
@@ -17,7 +17,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerExit(PointerEventData eventData)
     {
         Hide();
-    }
+    }*/
 
     private void Show()
     {
