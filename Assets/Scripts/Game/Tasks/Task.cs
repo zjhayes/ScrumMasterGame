@@ -7,6 +7,12 @@ public class Task : MonoBehaviour
     [SerializeField]
     private string summary;
     [SerializeField]
+    private string description;
+    [SerializeField]
+    private int storyPoints;
+    [SerializeField]
+    private CharacterController assignee;
+    [SerializeField]
     private ProductionStats stats;
     [SerializeField]
     private Cartridge cartridge;

@@ -3,37 +3,37 @@ using System.Collections.Generic;
 
 public class ProductionStats
 {
-    private float usability;
-    private float stability;
-    private float database;
-    private float security;
+    private int usability;
+    private int stability;
+    private int functionality;
+    private int maintainability;
 
-    public ProductionStats(float usability, float stability, float database, float security)
+    public ProductionStats(int usability, int stability, int functionality, int maintainability)
     {
         this.usability = usability;
         this.stability = stability;
-        this.database = database;
-        this.security = security;
+        this.functionality = functionality;
+        this.maintainability = maintainability;
     }
 
-    public float Usability { get { return usability; } set { usability = value; } }
-    public float Stability { get { return stability; } set { stability = value; } }
-    public float Database { get { return database; } set { database = value; } }
-    public float Security { get { return security; } set { security = value; } }
+    public int Usability { get { return usability; } set { usability = value; } }
+    public int Stability { get { return stability; } set { stability = value; } }
+    public int Functionality { get { return functionality; } set { functionality = value; } }
+    public int Maintainability { get { return maintainability; } set { maintainability = value; } }
 
     public void Add(ProductionStats other)
     {
         this.Usability += other.Usability;
         this.Stability += other.Stability;
-        this.Database += other.Database;
-        this.Security += other.Security;
+        this.Functionality += other.Functionality;
+        this.Maintainability += other.Maintainability;
     }
 
     public void Subtract(ProductionStats other)
     {
         this.Usability -= other.Usability;
         this.Stability -= other.Stability;
-        this.Database -= other.Database;
-        this.Security -= other.Security;
+        this.Functionality -= other.Functionality;
+        this.Maintainability -= other.Maintainability;
     }
 }
