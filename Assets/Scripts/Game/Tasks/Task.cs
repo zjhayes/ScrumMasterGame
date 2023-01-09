@@ -1,23 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(ProductionStats))]
 public class Task : MonoBehaviour
 {
     [SerializeField]
-    private string summary;
+    Sprite taskTypeIcon;
     [SerializeField]
-    private string description;
+    string summary;
     [SerializeField]
-    private int storyPoints;
+    string description;
     [SerializeField]
-    private CharacterController assignee;
+    int storyPoints;
     [SerializeField]
-    private ProductionStats stats;
+    CharacterController assignee;
     [SerializeField]
-    private Cartridge cartridge;
+    Cartridge cartridge;
 
-    private bool complete = false;
+    ProductionStats stats;
+    bool complete = false;
+
+    void Awake()
+    {
+        stats = GetComponent<ProductionStats>();
+    }
+
+    public string Summary
+    {
+        get { return summary; }
+    }
+
+    public string Description
+    {
+        get { return description; } 
+    }
+
+    public int StoryPoints
+    {
+        get { return storyPoints; } 
+    }
+
+    public CharacterController Assignee
+    {
+        get { return assignee; }
+    }
+
+    public ProductionStats Stats
+    {
+        get { return stats; }
+    }
+
+    public Sprite TaskTypeIcon
+    {
+        get { return taskTypeIcon; }
+    }
 
     public Cartridge Cartridge
     {

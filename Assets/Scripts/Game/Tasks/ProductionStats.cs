@@ -1,20 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
-public class ProductionStats
+public class ProductionStats : MonoBehaviour
 {
+    [SerializeField]
     private int usability;
+    [SerializeField]
     private int stability;
+    [SerializeField]
     private int functionality;
+    [SerializeField]
     private int maintainability;
-
-    public ProductionStats(int usability, int stability, int functionality, int maintainability)
-    {
-        this.usability = usability;
-        this.stability = stability;
-        this.functionality = functionality;
-        this.maintainability = maintainability;
-    }
 
     public int Usability { get { return usability; } set { usability = value; } }
     public int Stability { get { return stability; } set { stability = value; } }
