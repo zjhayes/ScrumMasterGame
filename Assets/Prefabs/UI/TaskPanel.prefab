@@ -895,6 +895,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   task: {fileID: 0}
+  taskTypeIcon: {fileID: 1215975917}
+  summaryText: {fileID: 81929728}
+  assigneeImage: {fileID: 7632604961074406819}
+  defaultAssigneePortrait: {fileID: 21300000, guid: c67112f024df39c4d9b4522a13dcd87c,
+    type: 3}
+  storyPointsText: {fileID: 750838017}
 --- !u!114 &1200715950
 MonoBehaviour:
   m_ObjectHideFlags: 0
