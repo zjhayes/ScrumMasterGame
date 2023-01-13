@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+[RequireComponent(typeof(ButtonController))]
 public class TaskPanel : MonoBehaviour
 {
     [SerializeField]
@@ -17,25 +18,46 @@ public class TaskPanel : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI storyPointsText;
 
+    ButtonController button;
+
     public Task Task
     {
         get { return task; }
         set { task = value; }
     }
 
+    void Awake()
+    {
+        button = GetComponent<ButtonController>();
+    }
+
     void Start()
     {
         UpdateDetails();
+        UpdateTaskTypeIcon();
+        UpdateAssigneePortrait();
+        button.onClick += OnSelect;
+    }
 
+    void OnSelect()
+    {
+        Debug.Log("Selected");
     }
 
     void UpdateDetails()
     {
-        taskTypeIcon.sprite = task.TaskTypeIcon;
         summaryText.text = task.Summary;
         storyPointsText.text = task.StoryPoints.ToString();
+    }
 
-        if(task.Assignee)
+    void UpdateTaskTypeIcon()
+    {
+        taskTypeIcon.sprite = task.TaskTypeIcon;
+    }
+
+    void UpdateAssigneePortrait()
+    {
+        if (task.Assignee)
         {
             assigneeImage.sprite = task.Assignee?.Portrait;
         }

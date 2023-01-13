@@ -18,9 +18,9 @@ public class Task : MonoBehaviour
     CharacterController assignee;
     [SerializeField]
     Cartridge cartridge;
-
+    [SerializeField]
+    TaskStatus status = TaskStatus.INACTIVE;
     ProductionStats stats;
-    bool complete = false;
 
     void Awake()
     {
@@ -47,6 +47,12 @@ public class Task : MonoBehaviour
         get { return assignee; }
     }
 
+    public TaskStatus Status
+    {
+        get { return status; }
+        set { status = value; }
+    }
+
     public ProductionStats Stats
     {
         get { return stats; }
@@ -63,4 +69,13 @@ public class Task : MonoBehaviour
         set { cartridge = value; }
     }
 
+}
+
+public enum TaskStatus
+{
+    INACTIVE,
+    BACKLOG,
+    TO_DO,
+    IN_PROGRESS,
+    DONE
 }
