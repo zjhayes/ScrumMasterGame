@@ -11,4 +11,9 @@ public class SprintDetailsPanel : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    public bool IsShowing
+    {
+        get { return gameObject.active; }
+    }
 }

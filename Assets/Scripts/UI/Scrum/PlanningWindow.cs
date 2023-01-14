@@ -7,9 +7,10 @@ public class PlanningWindow : MonoBehaviour
     [SerializeField]
     Container inSprintContainer;
     [SerializeField]
-    TaskDetailsPanel taskDetails;
+    TaskDetailsPanel taskDetailsPanel;
     [SerializeField]
     SprintDetailsPanel sprintDetailsPanel;
+
 
     void Start()
     {
@@ -24,8 +25,24 @@ public class PlanningWindow : MonoBehaviour
 
     public void ShowTaskDetails(Task task)
     {
-        taskDetails.Task = task;
-        taskDetails.Show();
-        sprintDetailsPanel.Hide();
+        taskDetailsPanel.Task = task;
+
+        if(taskDetailsPanel.IsShowing)
+        {
+            taskDetailsPanel.UpdateDetails();
+            taskDetailsPanel.UpdateAssignee();
+        }
+        else
+        {
+            taskDetailsPanel.Show();
+        }
+
+        if(sprintDetailsPanel.IsShowing)
+        {
+            sprintDetailsPanel.Hide();
+        }
     }
+
+
+
 }

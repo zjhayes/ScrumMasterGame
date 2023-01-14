@@ -22,6 +22,10 @@ public class Task : MonoBehaviour, IContainable
     TaskStatus status = TaskStatus.INACTIVE;
     ProductionStats stats;
 
+    public delegate void OnAssigneeChanged();
+    public event OnAssigneeChanged onAssigneeChanged;
+
+
     void Awake()
     {
         stats = GetComponent<ProductionStats>();
@@ -45,7 +49,11 @@ public class Task : MonoBehaviour, IContainable
     public CharacterController Assignee
     {
         get { return assignee; }
-        set { assignee = value; }
+        set 
+        { 
+            assignee = value;
+            onAssigneeChanged?.Invoke();
+        }
     }
 
     public TaskStatus Status
