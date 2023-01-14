@@ -16,12 +16,32 @@ public class Pickup : Interactable, IContainable
         inventory.PickUp(this);
     }
 
-    public void EnablePhysics(bool enable)
+    public void OnContained(Container container)
+    {
+        EnablePhysics(false);
+        SetPositionToContainer(container);
+        SetToHoldRotation();
+    }
+
+    public void OnRemoved(Container container)
+    {
+        EnablePhysics(true);
+    }
+
+    private void EnablePhysics(bool enable)
     {
         gameObject.GetComponent<Rigidbody>().useGravity = enable;
         gameObject.GetComponent<Rigidbody>().isKinematic = !enable;
         gameObject.GetComponent<Collider>().enabled = enable;
     }
 
-    public Vector3 ContainerRotation { get { return holdRotation; } }
+    private void SetPositionToContainer(Container container)
+    {
+        gameObject.transform.position = container.gameObject.transform.position;
+    }
+
+    private void SetToHoldRotation()
+    {
+        gameObject.transform.localEulerAngles = holdRotation;
+    }
 }

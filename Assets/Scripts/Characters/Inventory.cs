@@ -33,8 +33,8 @@ public class Inventory : MonoBehaviour
 
     public Pickup Drop()
     {
-        Pickup pickup = inventory.Get<Pickup>(true) as Pickup;
-        pickup.EnablePhysics(true);
+        Pickup pickup = inventory.GetFirst<Pickup>(true) as Pickup;
+        inventory.Remove(pickup);
         return pickup;
     }
 

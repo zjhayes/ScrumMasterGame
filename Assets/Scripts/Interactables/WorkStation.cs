@@ -47,7 +47,7 @@ public class WorkStation : Station
     {
         get
         {
-            return cartridgeIntake.Get<Cartridge>(true) as Cartridge;
+            return cartridgeIntake.GetFirst<Cartridge>(true) as Cartridge;
         }
     }
 }
