@@ -12,6 +12,8 @@ public class UIManager : Singleton<UIManager>
     CharacterCardController characterCard;
     [SerializeField]
     GameObject taskPanelPrefab;
+    [SerializeField]
+    PlanningWindow planningWindow;
 
     public TaskPanel CreateTaskPanel(Task task, Transform parent)
     {
@@ -40,5 +42,10 @@ public class UIManager : Singleton<UIManager>
     public CharacterCardController CharacterCard
     {
         get { return characterCard; }
+    }
+
+    public PlanningWindow PlanningWindow
+    {
+        get { return planningWindow; }
     }
 }

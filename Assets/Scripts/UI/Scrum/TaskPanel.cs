@@ -42,7 +42,7 @@ public class TaskPanel : MonoBehaviour
 
     void OnSelect()
     {
-        Debug.Log("Selected");
+        UIManager.Instance.PlanningWindow.ShowTaskDetails(task);
     }
 
     void UpdateDetails()

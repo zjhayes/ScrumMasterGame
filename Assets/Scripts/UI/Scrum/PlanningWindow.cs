@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlanningWindow : MonoBehaviour
@@ -10,6 +8,8 @@ public class PlanningWindow : MonoBehaviour
     Container inSprintContainer;
     [SerializeField]
     TaskDetailsPanel taskDetails;
+    [SerializeField]
+    SprintDetailsPanel sprintDetailsPanel;
 
     void Start()
     {
@@ -20,7 +20,11 @@ public class PlanningWindow : MonoBehaviour
                 TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, backlogContainer.gameObject.transform);
             }
         }
+    }
 
-        //taskDetails.UpdateDetails(selectedTask);
+    public void ShowTaskDetails(Task task)
+    {
+        taskDetails.Show(task);
+        sprintDetailsPanel.Hide();
     }
 }

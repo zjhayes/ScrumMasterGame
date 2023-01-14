@@ -42,6 +42,12 @@ PrefabInstance:
       propertyPath: m_text
       value: In Sprint
       objectReference: {fileID: 0}
+    - target: {fileID: 2429409906170786984, guid: a52b4297da4797b42b7fed8c477c8cca,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d7c2cfd9b416ee94e96cc01d98440e0d,
+        type: 3}
     - target: {fileID: 2429409906170786987, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}
       propertyPath: m_Pivot.x
@@ -328,6 +334,31 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2079282551640310004, guid: e6defe843fed50e4a9ab73c4a5106ab0,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079282551640310004, guid: e6defe843fed50e4a9ab73c4a5106ab0,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079282551640310004, guid: e6defe843fed50e4a9ab73c4a5106ab0,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079282551640310004, guid: e6defe843fed50e4a9ab73c4a5106ab0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079282551640310004, guid: e6defe843fed50e4a9ab73c4a5106ab0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6196349153739164848, guid: e6defe843fed50e4a9ab73c4a5106ab0,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -462,6 +493,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TaskPanel (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043538264509048862, guid: e6defe843fed50e4a9ab73c4a5106ab0,
+        type: 3}
+      propertyPath: task
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7186744028215149510, guid: e6defe843fed50e4a9ab73c4a5106ab0,
         type: 3}

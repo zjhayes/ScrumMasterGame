@@ -150,7 +150,7 @@ PrefabInstance:
     - target: {fileID: 2429409906170786988, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}
       propertyPath: m_Name
-      value: SprintDetails
+      value: SprintDetails Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2429409906170786988, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}
@@ -244,3 +244,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52b4297da4797b42b7fed8c477c8cca, type: 3}
+--- !u!1 &1412181733087898094 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2429409906170786988, guid: a52b4297da4797b42b7fed8c477c8cca,
+    type: 3}
+  m_PrefabInstance: {fileID: 3616369326486986050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2172252207342043055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412181733087898094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd6c4ff979d1d841881736f064fae84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
