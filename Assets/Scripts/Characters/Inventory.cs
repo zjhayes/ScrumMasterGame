@@ -29,12 +29,16 @@ public class Inventory : MonoBehaviour
 
         // Move to inventory.
         inventory.Add(pickup);
+        pickup.EnablePhysics(false);
+        pickup.SetPositionToContainer(inventory);
+        pickup.SetToHoldRotation();
     }
 
     public Pickup Drop()
     {
         Pickup pickup = inventory.GetFirst<Pickup>(true) as Pickup;
         inventory.Remove(pickup);
+        pickup.EnablePhysics(true);
         return pickup;
     }
 

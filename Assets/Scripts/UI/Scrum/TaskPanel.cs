@@ -36,6 +36,7 @@ public class TaskPanel : MonoBehaviour
         UpdateDetails();
         UpdateTaskTypeIcon();
         UpdateAssigneePortrait();
+
         button.onClick += OnSelect;
     }
 

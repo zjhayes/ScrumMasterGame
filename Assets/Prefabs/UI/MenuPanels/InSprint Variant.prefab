@@ -255,6 +255,24 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3830045128606707702}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1482232594226111255 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2429409907410930913, guid: a52b4297da4797b42b7fed8c477c8cca,
+    type: 3}
+  m_PrefabInstance: {fileID: 3830045128606707702}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &855514952959542558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482232594226111255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4feae93890d3e4da1d30ba97d68bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4726519463808440782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -281,6 +299,14 @@ PrefabInstance:
     - target: {fileID: 81929726, guid: e6defe843fed50e4a9ab73c4a5106ab0, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 81929728, guid: e6defe843fed50e4a9ab73c4a5106ab0, type: 3}
+      propertyPath: m_text
+      value: 'This task has a bit of a longer summary to test if any of those changes '
+      objectReference: {fileID: 0}
+    - target: {fileID: 81929728, guid: e6defe843fed50e4a9ab73c4a5106ab0, type: 3}
+      propertyPath: m_fontSize
+      value: 23.3
       objectReference: {fileID: 0}
     - target: {fileID: 1215975915, guid: e6defe843fed50e4a9ab73c4a5106ab0, type: 3}
       propertyPath: m_AnchorMax.y

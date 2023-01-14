@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(ProductionStats))]
-public class Task : MonoBehaviour
+public class Task : MonoBehaviour, IContainable
 {
     [SerializeField]
     Sprite taskTypeIcon;

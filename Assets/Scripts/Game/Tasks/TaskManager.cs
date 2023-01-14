@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class TaskManager : Singleton<TaskManager>
 {
+    [SerializeField]
+    Container taskContainer;
     public List<Task> GetTasksWithStatus(TaskStatus status)
     {
         List<Task> tasksWithStatus = new List<Task>();
-        foreach(Task task in GetAllTasks())
+        foreach(Task task in Tasks)
         {
             if(task.Status == status)
             {
@@ -17,8 +19,11 @@ public class TaskManager : Singleton<TaskManager>
         return tasksWithStatus;
     }
 
-    public Task[] GetAllTasks()
+    public List<Task> Tasks
     {
-        return GetComponentsInChildren<Task>();
+        get
+        {
+            return taskContainer.Get<Task>();
+        }
     }
 }

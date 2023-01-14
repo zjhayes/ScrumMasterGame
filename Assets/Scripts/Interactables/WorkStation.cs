@@ -40,6 +40,9 @@ public class WorkStation : Station
         if (pickup is Cartridge)
         {
             cartridgeIntake.Add(pickup);
+            pickup.EnablePhysics(false);
+            pickup.SetPositionToContainer(cartridgeIntake);
+            pickup.SetToHoldRotation();
         }
     }
 
@@ -47,7 +50,7 @@ public class WorkStation : Station
     {
         get
         {
-            return cartridgeIntake.GetFirst<Cartridge>(true) as Cartridge;
+            return cartridgeIntake.GetFirst<Cartridge>() as Cartridge;
         }
     }
 }

@@ -10,6 +10,22 @@ public class UIManager : Singleton<UIManager>
     GameObject frustrationSpeechBubblePrefab;
     [SerializeField]
     CharacterCardController characterCard;
+    [SerializeField]
+    GameObject taskPanelPrefab;
+
+    public TaskPanel CreateTaskPanel(Task task, Transform parent)
+    {
+        taskPanelPrefab.GetComponent<TaskPanel>().Task = task;
+        TaskPanel taskPanel = Instantiate(taskPanelPrefab, parent).GetComponent<TaskPanel>();
+        return taskPanel;
+    }
+
+    public void CreateFrustrationSpeechBubble(OverheadController controller)
+    {
+        GameObject frustrationSpeechBubble = Instantiate(frustrationSpeechBubblePrefab);
+        frustrationSpeechBubble.transform.SetParent(overheadCanvas.transform);
+        frustrationSpeechBubble.GetComponent<SpeechBubble>().Show(controller);
+    }
 
     public Canvas OverheadCanvas
     {
@@ -19,14 +35,6 @@ public class UIManager : Singleton<UIManager>
     public SelectedIcon SelectedCharacterIcon
     {
         get { return selectedCharacterIcon; }
-    }
-
-    public void CreateFrustrationSpeechBubble(OverheadController controller)
-    {
-        GameObject frustrationSpeechBubble = Instantiate(frustrationSpeechBubblePrefab);
-        frustrationSpeechBubble.transform.SetParent(overheadCanvas.transform);
-        //frustrationSpeechBubble.transform.parent = overheadCanvas.transform;
-        frustrationSpeechBubble.GetComponent<SpeechBubble>().Show(controller);
     }
 
     public CharacterCardController CharacterCard
