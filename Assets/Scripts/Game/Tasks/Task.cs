@@ -45,6 +45,7 @@ public class Task : MonoBehaviour, IContainable
     public CharacterController Assignee
     {
         get { return assignee; }
+        set { assignee = value; }
     }
 
     public TaskStatus Status

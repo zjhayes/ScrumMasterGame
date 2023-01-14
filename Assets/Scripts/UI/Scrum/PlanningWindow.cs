@@ -24,7 +24,8 @@ public class PlanningWindow : MonoBehaviour
 
     public void ShowTaskDetails(Task task)
     {
-        taskDetails.Show(task);
+        taskDetails.Task = task;
+        taskDetails.Show();
         sprintDetailsPanel.Hide();
     }
 }
