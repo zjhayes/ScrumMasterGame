@@ -1,13 +1,16 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerControls : MonoBehaviour
+public class PlayerControls : Singleton<PlayerControls>
 {
     PlayerInput input;
 
+    public delegate void OnEscape();
+    public OnEscape onEscape;
 
     void Awake()
     {
+        base.Awake();
         input = new PlayerInput();
     }
 
@@ -18,14 +21,14 @@ public class PlayerControls : MonoBehaviour
         // input.Character.Move.canceled += ctx => character.Stop();
         // input.Character.Run.started += _ => character.Run();
         // input.Character.Run.canceled += _ => character.Walk();
-        input.Player.Escape.canceled += _ => OnEscape();
+        input.Player.Escape.canceled += _ => Escape();
 
         
     }
 
-    void OnEscape()
+    void Escape()
     {
-        ContextManager.Instance.Deselect();
+        onEscape?.Invoke();
     }
 
     void OnEnable()

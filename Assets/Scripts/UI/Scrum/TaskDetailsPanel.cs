@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TaskDetailsPanel : PanelController
+public class TaskDetailsPanel : MenuController
 {
     [SerializeField]
     Image taskTypeIcon;
@@ -52,7 +52,7 @@ public class TaskDetailsPanel : PanelController
     public delegate void OnRemoveFromSprint(Task task);
     public OnRemoveFromSprint onRemoveFromSprint;
 
-    void Awake()
+    public override void SetUp()
     {
         // Set up assignee selection.
         if (characterCache == null || characterCache.Count <= 0)
@@ -61,27 +61,23 @@ public class TaskDetailsPanel : PanelController
         }
 
         assigneeSelection.onValueChanged.AddListener(delegate { OnAssigneeSelected(); });
+        base.SetUp();
     }
 
     public override void Show()
     {
-        if(task != null)
-        {
-            gameObject.SetActive(true);
-            UpdateDetails();
-            UpdateAssignee();
-            UpdateActionButton();
-        }
-        else
-        {
-            Debug.Log("No task set on Task Details panel.");
-        }
+        base.Show();
+        SetActive(true);
+        UpdateDetails();
+        UpdateAssignee();
+        UpdateActionButton();
     }
 
     public override void Hide()
     {
         task = null;
-        gameObject.SetActive(false);
+        base.Hide();
+        SetActive(false);
     }
 
     public void OnAssigneeSelected()

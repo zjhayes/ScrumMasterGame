@@ -6,23 +6,31 @@ public class SprintClock : MonoBehaviour
     float currentTime;
     bool isRunning;
 
+    void Start()
+    {
+        Stop(); // Stopped by default.
+    }
+
     void Update()
     {
-        if(isRunning)
+        currentTime -= Time.deltaTime;
+        Debug.Log(currentTime);
+
+        if(currentTime <= 0)
         {
-            currentTime -= Time.deltaTime;
+            Expired();
         }
     }
 
-    public void Start()
+    public void Begin()
     {
         currentTime = totalTime;
-        isRunning = true;
+        this.enabled = true;
     }
 
     public void Stop()
     {
-        isRunning = false;
+        this.enabled = false; ;
     }
 
     public float TotalTime 
@@ -36,6 +44,11 @@ public class SprintClock : MonoBehaviour
     }
     public bool IsRunning
     {
-        get { return isRunning; }
+        get { return this.enabled; }
+    }
+
+    private void Expired()
+    {
+        Stop();
     }
 }

@@ -15,6 +15,18 @@ public class UIManager : Singleton<UIManager>
     [SerializeField]
     PlanningWindow planningWindow;
 
+    /**void Start()
+    {
+        SprintManager.Instance.onBeginPlanning += ShowPlanningWindow;
+        SprintManager.Instance.onStartSprint += PlanningWindow.Hide;
+    }
+
+    void ShowPlanningWindow()
+    {
+        Debug.Log("Showing planning window");
+        planningWindow.Show();
+    }*/
+
     public TaskPanel CreateTaskPanel(Task task, Transform parent)
     {
         taskPanelPrefab.GetComponent<TaskPanel>().Task = task;
@@ -28,11 +40,11 @@ public class UIManager : Singleton<UIManager>
         frustrationSpeechBubble.transform.SetParent(overheadCanvas.transform);
         frustrationSpeechBubble.GetComponent<SpeechBubble>().Show(controller);
     }
-
+    /*
     public Canvas OverheadCanvas
     {
         get { return overheadCanvas; }
-    }
+    }*/
 
     public SelectedIcon SelectedCharacterIcon
     {

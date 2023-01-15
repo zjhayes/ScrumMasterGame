@@ -21,6 +21,8 @@ public class ContextManager : Singleton<ContextManager>, IController
     void Start()
     {
         Deselect();
+        // Deselect all when player hits Escape.
+        PlayerControls.Instance.onEscape += Deselect;
     }
 
     public void CharacterSelected(CharacterController character)

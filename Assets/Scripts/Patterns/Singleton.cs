@@ -34,7 +34,8 @@ public class Singleton<T> : MonoBehaviour where T : Component
         }
         else
         {
-            Destroy(gameObject);
+            Debug.Log("Multiple instances of " + instance);
+            Destroy(instance);
         }
     }
 }

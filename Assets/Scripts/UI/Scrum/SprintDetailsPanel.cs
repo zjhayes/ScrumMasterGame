@@ -1,7 +1,13 @@
 using UnityEngine;
 
-public class SprintDetailsPanel : PanelController
+public class SprintDetailsPanel : ExpandablePanel
 {
+    public delegate void OnBeginSprint();
+    public OnBeginSprint onBeginSprint;
 
-    
+    public void BeginSprint()
+    {
+        onBeginSprint?.Invoke();
+    }
+
 }

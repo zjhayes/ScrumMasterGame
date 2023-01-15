@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 
 [RequireComponent(typeof(ButtonController))]
-public class TaskPanel : PanelController, IContainable
+public class TaskPanel : MonoBehaviour, IContainable
 {
     [SerializeField]
     private Task task;
@@ -20,6 +20,9 @@ public class TaskPanel : PanelController, IContainable
 
     ButtonController button;
 
+    public delegate void OnSelected(TaskPanel taskPanel);
+    public OnSelected onSelected;
+
     public Task Task
     {
         get { return task; }
@@ -29,6 +32,7 @@ public class TaskPanel : PanelController, IContainable
     void Awake()
     {
         button = GetComponent<ButtonController>();
+        button.onClick += Selected;
     }
 
     void Start()
@@ -38,12 +42,11 @@ public class TaskPanel : PanelController, IContainable
         UpdateAssigneePortrait();
 
         task.onAssigneeChanged += UpdateAssigneePortrait;
-        button.onClick += OnSelect;
     }
 
-    void OnSelect()
+    void Selected()
     {
-        UIManager.Instance.PlanningWindow.ShowTaskDetails(task);
+        onSelected?.Invoke(this);
     }
 
     void UpdateDetails()
@@ -67,5 +70,10 @@ public class TaskPanel : PanelController, IContainable
         {
             assigneeImage.sprite = defaultAssigneePortrait;
         }
+    }
+
+    public ButtonController Button
+    {
+        get { return button; }
     }
 }
