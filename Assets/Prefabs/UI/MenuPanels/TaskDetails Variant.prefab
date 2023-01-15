@@ -4347,6 +4347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f64d139a97b5549b30678759524866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  escapable: 1
   taskTypeIcon: {fileID: 1026515963}
   summaryText: {fileID: 29459464}
   descriptionText: {fileID: 729833817}

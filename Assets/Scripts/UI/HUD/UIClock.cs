@@ -26,19 +26,6 @@ public class UIClock : MonoBehaviour
 
     void Update()
     {
-        float time = SprintManager.Instance.Clock.CurrentTime;
-        string clockText = BeautifyTime(time);
-        Debug.Log(clockText);
-        timeText.text = clockText;
-    }
-
-    string BeautifyTime(float time)
-    {
-        int parsedTime = (int) time;
-        int minutes = parsedTime / 60;
-        int seconds = parsedTime % 60;
-        Debug.Log(minutes);
-        Debug.Log(seconds);
-        return string.Format("{0:0}:{1:00}", minutes, seconds);
+        timeText.text = SprintManager.Instance.Clock.BeautifulTime;
     }
 }

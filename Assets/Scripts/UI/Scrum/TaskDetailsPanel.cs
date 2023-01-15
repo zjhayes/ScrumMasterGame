@@ -80,6 +80,11 @@ public class TaskDetailsPanel : MenuController
         SetActive(false);
     }
 
+    public override void Escape()
+    {
+        Hide();
+    }
+
     public void OnAssigneeSelected()
     { 
         if(characterCache.ContainsKey(assigneeSelection.value))

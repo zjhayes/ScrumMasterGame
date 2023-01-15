@@ -51,6 +51,15 @@ public class PlanningWindow : MenuController
         base.SetUp();
     }
 
+    public override void Escape()
+    {
+        taskDetailsPanel.Escape();
+        sprintDetailsPanel.Escape();
+        inSprintPanel.Escape();
+        base.Escape();
+
+    }
+
     void OnTaskPanelSelected(TaskPanel taskPanel)
     {
         taskDetailsPanel.Task = taskPanel.Task;

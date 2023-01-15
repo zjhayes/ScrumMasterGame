@@ -25,6 +25,14 @@ public class MenuController : MonoBehaviour
         onHide?.Invoke(this);
     }
 
+    public virtual void Escape()
+    {
+        if(escapable)
+        {
+            Hide();
+        }
+    }
+
     public void SetActive(bool active)
     {
         gameObject.SetActive(active);

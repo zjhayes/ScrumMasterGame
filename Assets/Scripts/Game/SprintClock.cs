@@ -46,6 +46,17 @@ public class SprintClock : MonoBehaviour
         get { return currentTime; }
     }
 
+    public string BeautifulTime
+    {
+        get
+        {
+            int time = (int) currentTime;
+            int minutes = time / 60;
+            int seconds = time % 60;
+            return string.Format("{0:0}:{1:00}", minutes, seconds);
+        }
+    }
+
     public bool IsRunning
     {
         get { return this.enabled; }

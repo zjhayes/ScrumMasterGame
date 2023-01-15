@@ -43,10 +43,7 @@ public class CanvasController : MonoBehaviour
     {
         foreach(MenuController menu in menus)
         {
-            if(menu.Escapable)
-            {
-                menu.Hide();
-            }
+            menu.Escape();
         }
     }
 
