@@ -8,16 +8,17 @@ public class PlanningWindow : MonoBehaviour
     [SerializeField]
     Container backlogContainer;
     [SerializeField]
-    Container inSprintContainer;
-    [SerializeField]
     TaskDetailsPanel taskDetailsPanel;
     [SerializeField]
     SprintDetailsPanel sprintDetailsPanel;
+    [SerializeField]
+    InSprintPanel inSprintPanel;
 
     Dictionary<Task, TaskPanel> taskPanelCache;
     
     void Start()
     {
+        // Add tasks to board.
         taskPanelCache = new Dictionary<Task, TaskPanel>();
         foreach(Task task in TaskManager.Instance.Tasks)
         {
@@ -28,7 +29,7 @@ public class PlanningWindow : MonoBehaviour
             }
             else if(task.Status == TaskStatus.TO_DO || task.Status == TaskStatus.IN_PROGRESS)
             {
-                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, inSprintContainer.gameObject.transform);
+                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, inSprintPanel.Container.gameObject.transform);
                 taskPanelCache.Add(task, taskPanel);
             }
         }
@@ -51,21 +52,21 @@ public class PlanningWindow : MonoBehaviour
             taskDetailsPanel.Show();
         }
 
-        sprintDetailsPanel.Minify();
+        inSprintPanel.Minify();
     }
 
     private void OnAddToSprint(Task task)
     {
         taskDetailsPanel.Hide();
-        sprintDetailsPanel.Expand();
+        inSprintPanel.Expand();
         TaskPanel taskPanel = taskPanelCache[task];
-        inSprintContainer.Add(taskPanel);
+        inSprintPanel.Container.Add(taskPanel);
     }
 
     private void OnRemoveFromSprint(Task task)
     {
         taskDetailsPanel.Hide();
-        sprintDetailsPanel.Expand();
+        inSprintPanel.Expand();
         TaskPanel taskPanel = taskPanelCache[task];
         backlogContainer.Add(taskPanel);
     }

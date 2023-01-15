@@ -21,11 +21,11 @@ public class OutlineRenderer : MonoBehaviour
 
     public void Show()
     {
-        GetComponent<Renderer>().material.SetInt(ENABLE_OUTLINE_PROPERTY, 1);
+        renderer.material.SetInt(ENABLE_OUTLINE_PROPERTY, 1);
     }
 
     public void Hide()
     {
-        GetComponent<Renderer>().material.SetInt(ENABLE_OUTLINE_PROPERTY, 0);
+        renderer.material.SetInt(ENABLE_OUTLINE_PROPERTY, 0);
     }
 }

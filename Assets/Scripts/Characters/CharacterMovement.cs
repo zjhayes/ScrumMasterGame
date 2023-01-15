@@ -6,7 +6,6 @@ public class CharacterMovement : MonoBehaviour
 {
 	NavMeshAgent agent;
 	Vector3 groundNormal;
-	bool moving = false; // TODO: Use State system.
 
 	public delegate void OnArrivedAtDestination();
 	public OnArrivedAtDestination onArrivedAtDestination;

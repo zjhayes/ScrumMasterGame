@@ -14,6 +14,6 @@ public class PanelController : MonoBehaviour
 
     public bool IsShowing
     {
-        get { return gameObject.active; }
+        get { return gameObject.activeSelf; }
     }
 }
