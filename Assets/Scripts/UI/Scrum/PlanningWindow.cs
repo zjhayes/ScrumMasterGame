@@ -43,6 +43,8 @@ public class PlanningWindow : MenuController
             }
         }
 
+        ValidateSprintReadiness();
+
         SprintManager.Instance.onBeginPlanning += Show;
         SprintManager.Instance.onBeginSprint += Hide;
         sprintDetailsPanel.onBeginSprint += OnBeginSprint;
@@ -57,7 +59,6 @@ public class PlanningWindow : MenuController
         sprintDetailsPanel.Escape();
         inSprintPanel.Escape();
         base.Escape();
-
     }
 
     void OnTaskPanelSelected(TaskPanel taskPanel)
@@ -81,6 +82,7 @@ public class PlanningWindow : MenuController
         taskDetailsPanel.Hide();
         TaskPanel taskPanel = taskPanelCache[task];
         inSprintPanel.Container.Add(taskPanel);
+        ValidateSprintReadiness();
     }
 
     void OnRemoveFromSprint(Task task)
@@ -88,10 +90,17 @@ public class PlanningWindow : MenuController
         taskDetailsPanel.Hide();
         TaskPanel taskPanel = taskPanelCache[task];
         backlogContainer.Add(taskPanel);
+        ValidateSprintReadiness();
     }
 
     void OnBeginSprint()
     {
         SprintManager.Instance.BeginSprint();
+    }
+
+    void ValidateSprintReadiness()
+    {
+        // Disable 'Begin Sprint' when no tasks are in sprint.
+        sprintDetailsPanel.UpdateButtonInteraction(!inSprintPanel.Container.IsEmpty);
     }
 }

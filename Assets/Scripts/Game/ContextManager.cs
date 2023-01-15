@@ -21,8 +21,9 @@ public class ContextManager : Singleton<ContextManager>, IController
     void Start()
     {
         Deselect();
-        // Deselect all when player hits Escape.
+        // Deselect all when player hits Escape, and when sprint ends.
         PlayerControls.Instance.onEscape += Deselect;
+        SprintManager.Instance.onBeginRetrospective += Deselect;
     }
 
     public void CharacterSelected(CharacterController character)
