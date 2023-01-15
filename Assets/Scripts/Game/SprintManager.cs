@@ -3,22 +3,25 @@ using UnityEngine;
 [RequireComponent(typeof(SprintClock))]
 public class SprintManager : Singleton<SprintManager>
 {
-    Sprint currentSprint;
+    int sprintNumber = 1;
+    float sprintTime = 10.0f;
     SprintClock clock;
-
-    float sprintTime = 2.0f;
 
     public delegate void OnBeginPlanning();
     public OnBeginPlanning onBeginPlanning;
 
-    public delegate void OnStartSprint();
-    public OnStartSprint onStartSprint;
+    public delegate void OnBeginSprint();
+    public OnBeginSprint onBeginSprint;
+
+    public delegate void OnBeginRetrospective();
+    public OnBeginRetrospective onBeginRetrospective;
 
     protected override void Awake()
     {
         base.Awake();
         clock = GetComponent<SprintClock>();
         clock.TotalTime = sprintTime;
+        clock.onExpiration += BeginRetrospective;
     }
 
     void Start()
@@ -31,9 +34,21 @@ public class SprintManager : Singleton<SprintManager>
         onBeginPlanning?.Invoke();
     }
 
-    public void StartSprint()
+    public void BeginSprint()
     {
         clock.Begin();
-        onStartSprint?.Invoke();
+        onBeginSprint?.Invoke();
+    }
+
+    public void BeginRetrospective()
+    {
+        sprintNumber++;
+        onBeginRetrospective?.Invoke();
+        BeginPlanning(); // TODO: Move this.
+    }
+
+    public SprintClock Clock
+    {
+        get { return clock; }
     }
 }

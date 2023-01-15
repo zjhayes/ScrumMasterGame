@@ -44,7 +44,7 @@ public class PlanningWindow : MenuController
         }
 
         SprintManager.Instance.onBeginPlanning += Show;
-        SprintManager.Instance.onStartSprint += Hide;
+        SprintManager.Instance.onBeginSprint += Hide;
         sprintDetailsPanel.onBeginSprint += OnBeginSprint;
         taskDetailsPanel.onAddToSprint += OnAddToSprint;
         taskDetailsPanel.onRemoveFromSprint += OnRemoveFromSprint;
@@ -83,6 +83,6 @@ public class PlanningWindow : MenuController
 
     void OnBeginSprint()
     {
-        SprintManager.Instance.StartSprint();
+        SprintManager.Instance.BeginSprint();
     }
 }

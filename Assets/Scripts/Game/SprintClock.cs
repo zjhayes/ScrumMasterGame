@@ -6,6 +6,9 @@ public class SprintClock : MonoBehaviour
     float currentTime;
     bool isRunning;
 
+    public delegate void OnExpiration();
+    public event OnExpiration onExpiration;
+
     void Start()
     {
         Stop(); // Stopped by default.
@@ -14,7 +17,6 @@ public class SprintClock : MonoBehaviour
     void Update()
     {
         currentTime -= Time.deltaTime;
-        Debug.Log(currentTime);
 
         if(currentTime <= 0)
         {
@@ -38,10 +40,12 @@ public class SprintClock : MonoBehaviour
         get { return totalTime; } 
         set { totalTime = value; }
     }
+
     public float CurrentTime 
     { 
         get { return currentTime; }
     }
+
     public bool IsRunning
     {
         get { return this.enabled; }
@@ -50,5 +54,6 @@ public class SprintClock : MonoBehaviour
     private void Expired()
     {
         Stop();
+        onExpiration?.Invoke();
     }
 }
