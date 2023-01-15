@@ -156,7 +156,7 @@ PrefabInstance:
     - target: {fileID: 2429409906170786988, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}
       propertyPath: m_Name
-      value: SprintDetails
+      value: SprintDetails Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2429409906170786988, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}
@@ -268,3 +268,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd6c4ff979d1d841881736f064fae84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minifiedPosition: {fileID: 0}
+  expandedPosition: {fileID: 0}

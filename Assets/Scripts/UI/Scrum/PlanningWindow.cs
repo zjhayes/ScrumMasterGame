@@ -51,16 +51,13 @@ public class PlanningWindow : MonoBehaviour
             taskDetailsPanel.Show();
         }
 
-        if(sprintDetailsPanel.IsShowing)
-        {
-            sprintDetailsPanel.Hide();
-        }
+        sprintDetailsPanel.Minify();
     }
 
     private void OnAddToSprint(Task task)
     {
         taskDetailsPanel.Hide();
-        sprintDetailsPanel.Show();
+        sprintDetailsPanel.Expand();
         TaskPanel taskPanel = taskPanelCache[task];
         inSprintContainer.Add(taskPanel);
     }
@@ -68,7 +65,7 @@ public class PlanningWindow : MonoBehaviour
     private void OnRemoveFromSprint(Task task)
     {
         taskDetailsPanel.Hide();
-        sprintDetailsPanel.Show();
+        sprintDetailsPanel.Expand();
         TaskPanel taskPanel = taskPanelCache[task];
         backlogContainer.Add(taskPanel);
     }

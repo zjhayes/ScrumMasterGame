@@ -1,19 +1,19 @@
 using UnityEngine;
 
-public class SprintDetailsPanel : MonoBehaviour
+public class SprintDetailsPanel : PanelController
 {
-    public void Show()
+    [SerializeField]
+    Transform minifiedPosition;
+    [SerializeField]
+    Transform expandedPosition;
+
+    public void Expand()
     {
-        gameObject.SetActive(true);
+        gameObject.transform.parent = expandedPosition;
     }
 
-    public void Hide()
+    public void Minify()
     {
-        gameObject.SetActive(false);
-    }
-
-    public bool IsShowing
-    {
-        get { return gameObject.active; }
+        gameObject.transform.parent = minifiedPosition;
     }
 }
