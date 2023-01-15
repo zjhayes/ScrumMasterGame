@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TaskDetailsPanel : MonoBehaviour
+public class TaskDetailsPanel : PanelController
 {
     [SerializeField]
     Image taskTypeIcon;
@@ -13,6 +13,8 @@ public class TaskDetailsPanel : MonoBehaviour
     TextMeshProUGUI summaryText;
     [SerializeField]
     TextMeshProUGUI descriptionText;
+    [SerializeField]
+    TextMeshProUGUI storyPointsText;
     [SerializeField]
     ProgressBar usabilityProgressBar;
     [SerializeField]
@@ -35,29 +37,40 @@ public class TaskDetailsPanel : MonoBehaviour
     TextMeshProUGUI functionalityModifier;
     [SerializeField]
     TextMeshProUGUI maintainabilityModifier;
+    [SerializeField]
+    Button addToSprintButton;
+    [SerializeField]
+    Button removeFromSprintButton;
+    
 
     Task task;
     Dictionary<int, CharacterController> characterCache;
 
-    void Start()
-    {
-        assigneeSelection.onValueChanged.AddListener(delegate { OnAssigneeSelected(); });
+    public delegate void OnAddToSprint(Task task);
+    public OnAddToSprint onAddToSprint;
 
+    public delegate void OnRemoveFromSprint(Task task);
+    public OnRemoveFromSprint onRemoveFromSprint;
+
+    void Awake()
+    {
         // Set up assignee selection.
         if (characterCache == null || characterCache.Count <= 0)
         {
             AddCharactersToAssigneeOptions();
         }
 
-        UpdateDetails();
-        UpdateAssignee();
+        assigneeSelection.onValueChanged.AddListener(delegate { OnAssigneeSelected(); });
     }
 
-    public void Show()
+    public override void Show()
     {
         if(task != null)
         {
             gameObject.SetActive(true);
+            UpdateDetails();
+            UpdateAssignee();
+            UpdateActionButton();
         }
         else
         {
@@ -65,7 +78,7 @@ public class TaskDetailsPanel : MonoBehaviour
         }
     }
 
-    public void Hide()
+    public override void Hide()
     {
         task = null;
         gameObject.SetActive(false);
@@ -84,6 +97,19 @@ public class TaskDetailsPanel : MonoBehaviour
             task.Assignee = null;
         }
         ClearModifiers();
+        UpdateActionButton();
+    }
+
+    public void AddToSprint()
+    {
+        task.Status = TaskStatus.TO_DO;
+        onAddToSprint?.Invoke(task);
+    }
+
+    public void RemoveFromSprint()
+    {
+        task.Status = TaskStatus.BACKLOG;
+        onRemoveFromSprint?.Invoke(task);
     }
 
     public void UpdateAssignee()
@@ -91,6 +117,7 @@ public class TaskDetailsPanel : MonoBehaviour
         // Find task assignee's option index in character cache.
         int assigneeKey = characterCache.FirstOrDefault(x => x.Value == task.Assignee).Key;
         assigneeSelection.value = assigneeKey;
+        UpdateActionButton();
     }
 
     public void UpdateDetails()
@@ -98,6 +125,7 @@ public class TaskDetailsPanel : MonoBehaviour
         taskTypeIcon.sprite = task.TaskTypeIcon;
         summaryText.text = task.Summary;
         descriptionText.text = task.Description;
+        storyPointsText.text = task.StoryPoints.ToString();
         usabilityProgressBar.CurrentFill = task.Stats.Usability;
         stabilityProgressBar.CurrentFill = task.Stats.Stability;
         functionalityProgressBar.CurrentFill = task.Stats.Functionality;
@@ -135,7 +163,6 @@ public class TaskDetailsPanel : MonoBehaviour
         {
             modifierText.text = "+" + modifier.ToString();
             modifierText.color = positiveColor;
-            Debug.Log(modifierText.text);
         }
         else
         {
@@ -146,7 +173,24 @@ public class TaskDetailsPanel : MonoBehaviour
 
     int CalculateModifier(int productionStat, int characterStat1, int characterStat2 = 0)
     {
-        return productionStat - (characterStat1 + characterStat2);
+        return (characterStat1 + characterStat2) - productionStat;
+    }
+
+    public void UpdateActionButton()
+    {
+        if(task.Status == TaskStatus.BACKLOG)
+        {
+            addToSprintButton.gameObject.SetActive(true);
+            removeFromSprintButton.gameObject.SetActive(false);
+
+            // Button is only interactable when assignee is selected.
+            addToSprintButton.interactable = (task.Assignee != null);
+        }
+        else
+        {
+            addToSprintButton.gameObject.SetActive(false);
+            removeFromSprintButton.gameObject.SetActive(true);
+        }
     }
 
     void AddCharactersToAssigneeOptions()
@@ -166,10 +210,5 @@ public class TaskDetailsPanel : MonoBehaviour
     {
         get { return task; }
         set { task = value; }
-    }
-
-    public bool IsShowing
-    {
-        get { return gameObject.active; }
     }
 }

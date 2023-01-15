@@ -39,12 +39,11 @@ public class Container : MonoBehaviour
     public void Remove(IContainable containable)
     {
         containable.gameObject.transform.parent = null;
-
     }
 
     public void Add(IContainable containable)
     {
-        containable.gameObject.transform.parent = gameObject.transform;
+        containable.gameObject.transform.SetParent(gameObject.transform);
     }
 
     // Checks if container currently contains provided containable.

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 
 [RequireComponent(typeof(ButtonController))]
-public class TaskPanel : MonoBehaviour
+public class TaskPanel : PanelController, IContainable
 {
     [SerializeField]
     private Task task;
@@ -57,7 +57,7 @@ public class TaskPanel : MonoBehaviour
         taskTypeIcon.sprite = task.TaskTypeIcon;
     }
 
-    void UpdateAssigneePortrait()
+    public void UpdateAssigneePortrait()
     {
         if (task.Assignee)
         {
