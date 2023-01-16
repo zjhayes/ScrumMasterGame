@@ -12,6 +12,8 @@ public class ScrumMenuController : MenuController
     Container inProgressContainer;
     [SerializeField]
     Container doneContainer;
+    [SerializeField]
+    CameraController camera;
 
     Dictionary<Task, TaskPanel> taskPanelCache;
 
@@ -20,9 +22,53 @@ public class ScrumMenuController : MenuController
         // Set up panels.
         taskDetailsPanel.SetUp();
         LoadTaskPanels();
+
+        // Set controls for displaying window.
+        PlayerControls.Instance.onShowBoard += ToggleBoard;
     }
 
-    private void LoadTaskPanels()
+    public override void Show()
+    {
+        camera.SwitchToBoardCamera();
+        base.Show();
+    }
+
+    public override void Hide()
+    {
+        if (taskDetailsPanel.IsShowing)
+        {
+            taskDetailsPanel.Hide();
+        }
+        camera.SwitchToOverworldCamera();
+        base.Hide();
+    }
+
+    public override void Escape()
+    {
+        // Don't close this window if sub-window open.
+        if (taskDetailsPanel.IsShowing)
+        {
+            taskDetailsPanel.Escape();
+        }
+        else
+        {
+            base.Escape();
+        }
+    }
+
+    void ToggleBoard()
+    {
+        if(IsShowing)
+        {
+            Hide();
+        }
+        else
+        {
+            Show();
+        }
+    }
+
+    void LoadTaskPanels()
     {
         // Add tasks to board.
         taskPanelCache = new Dictionary<Task, TaskPanel>();
@@ -46,19 +92,6 @@ public class ScrumMenuController : MenuController
                 taskPanel.onSelected += OnTaskPanelSelected;
                 taskPanelCache.Add(task, taskPanel);
             }
-        }
-    }
-
-    public override void Escape()
-    {
-        // Don't close this window if sub-window open.
-        if(taskDetailsPanel.IsShowing)
-        {
-            taskDetailsPanel.Escape();
-        }
-        else
-        {
-            base.Escape();
         }
     }
 

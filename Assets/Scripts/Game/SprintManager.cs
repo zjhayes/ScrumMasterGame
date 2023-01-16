@@ -4,7 +4,7 @@ using UnityEngine;
 public class SprintManager : Singleton<SprintManager>
 {
     int sprintNumber = 1;
-    float sprintTime = 10.0f;
+    float sprintTime = 120.0f;
     SprintClock clock;
 
     public delegate void OnBeginPlanning();

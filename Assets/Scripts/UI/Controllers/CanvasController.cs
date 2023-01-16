@@ -25,16 +25,19 @@ public class CanvasController : MonoBehaviour
 
     public void ShowMenu(MenuController menu)
     {
-        ShowTint(true);
+        if(menu.Tinted)
+        {
+            ShowTint(true);
+        }
         menu.SetActive(true);
     }
 
     public void HideMenu(MenuController menu)
     {
         menu.SetActive(false);
-
-        if(ActiveCount == 0)
+        if(!ActiveTinted)
         {
+            // Hide tint when no menus require it.
             ShowTint(false);
         }
     }
@@ -57,11 +60,24 @@ public class CanvasController : MonoBehaviour
         get
         {
             int count = 0;
-            foreach(MenuController menuController in menus)
+            foreach(MenuController menu in menus)
             {
-                if(menuController.IsShowing) { count++; }
+                if(menu.IsShowing) { count++; }
             }
             return count;
+        }
+    }
+
+    // True if one or more active menus requires tint.
+    public bool ActiveTinted
+    {
+        get
+        {
+            foreach(MenuController menu in menus)
+            {
+                if(menu.IsShowing && menu.Tinted) { return true; }
+            }
+            return false;
         }
     }
 }

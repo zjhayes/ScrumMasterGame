@@ -39,6 +39,12 @@ public class PlanningWindow : MenuController
         base.SetUp();
     }
 
+    public override void Hide()
+    {
+        taskDetailsPanel.Hide();
+        base.Hide();
+    }
+
     public override void Escape()
     {
         taskDetailsPanel.Escape();

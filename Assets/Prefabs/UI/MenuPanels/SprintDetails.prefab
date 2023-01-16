@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 1412181733087898091}
   - component: {fileID: 1412181733087898088}
   m_Layer: 5
-  m_Name: SprintDetails Variant
+  m_Name: SprintDetails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

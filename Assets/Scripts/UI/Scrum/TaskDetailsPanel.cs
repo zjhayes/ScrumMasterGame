@@ -205,9 +205,6 @@ public class TaskDetailsPanel : MenuController
             characterCache.Add(index++, character);
             portraits.Add(character.Portrait);
         }
-        Debug.Log("Assignee Selection " + assigneeSelection);
-        Debug.Log("Cache " + characterCache);
-        Debug.Log("Portraits " + portraits);
         assigneeSelection.AddOptions(portraits);
     }
 
