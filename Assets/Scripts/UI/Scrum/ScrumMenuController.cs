@@ -4,47 +4,68 @@ using UnityEngine.UI;
 
 public class ScrumMenuController : MenuController
 {
-    
     [SerializeField]
-    ScrumBoardController boardController;
+    TaskDetailsPanel taskDetailsPanel;
     [SerializeField]
-    VerticalLayoutGroup toDoColumn;
+    Container toDoContainer;
     [SerializeField]
-    GameObject taskPanelPrefab;
+    Container inProgressContainer;
+    [SerializeField]
+    Container doneContainer;
 
-    public void Interact(CharacterController invoker)
-    {
-        boardController.CreateCartridge(invoker.GetComponent<Inventory>());
-    }
+    Dictionary<Task, TaskPanel> taskPanelCache;
 
     public override void SetUp()
     {
-        base.SetUp();
-        // Show on Scrum Board interactions.
-        //boardController.onInteract += Show;
+        // Set up panels.
+        taskDetailsPanel.SetUp();
+        LoadTaskPanels();
     }
 
-    public override void Show()
+    private void LoadTaskPanels()
     {
-        base.Show();
-        Load();
-    }
-
-    private void Load()
-    {
-        // Add 'To Do' tasks to board.
-        List<Task> toDoTasks = boardController.ToDo;
-        AddTasksToCanvas(toDoTasks, toDoColumn);
-    }
-
-    private void AddTasksToCanvas(List<Task> tasks, VerticalLayoutGroup column)
-    {
-        foreach (Task task in tasks)
+        // Add tasks to board.
+        taskPanelCache = new Dictionary<Task, TaskPanel>();
+        foreach (Task task in TaskManager.Instance.Tasks)
         {
-            GameObject taskPanel = (GameObject) Instantiate(taskPanelPrefab, transform.position, transform.rotation);
-            taskPanel.transform.SetParent(column.gameObject.transform);
-            taskPanel.GetComponent<TaskPanel>().Task = task;
+            if (task.Status == TaskStatus.TO_DO)
+            {
+                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, toDoContainer.gameObject.transform);
+                taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
+                taskPanelCache.Add(task, taskPanel);
+            }
+            else if (task.Status == TaskStatus.IN_PROGRESS)
+            {
+                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, inProgressContainer.gameObject.transform);
+                taskPanel.onSelected += OnTaskPanelSelected;
+                taskPanelCache.Add(task, taskPanel);
+            }
+            else if (task.Status == TaskStatus.DONE)
+            {
+                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, doneContainer.gameObject.transform);
+                taskPanel.onSelected += OnTaskPanelSelected;
+                taskPanelCache.Add(task, taskPanel);
+            }
         }
     }
-    
+
+    public override void Escape()
+    {
+        // Don't close this window if sub-window open.
+        if(taskDetailsPanel.IsShowing)
+        {
+            taskDetailsPanel.Escape();
+        }
+        else
+        {
+            base.Escape();
+        }
+    }
+
+    void OnTaskPanelSelected(TaskPanel taskPanel)
+    {
+        taskDetailsPanel.Task = taskPanel.Task;
+        taskDetailsPanel.Show();
+    }
+
 }

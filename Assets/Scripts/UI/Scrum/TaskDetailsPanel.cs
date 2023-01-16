@@ -179,6 +179,7 @@ public class TaskDetailsPanel : MenuController
 
     public void UpdateActionButton()
     {
+        if(addToSprintButton == null || removeFromSprintButton == null) { return; } // TODO: Separate button logic from task detail panel.
         if(task.Status == TaskStatus.BACKLOG)
         {
             addToSprintButton.gameObject.SetActive(true);

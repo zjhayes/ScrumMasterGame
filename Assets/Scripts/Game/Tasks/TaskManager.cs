@@ -6,6 +6,7 @@ public class TaskManager : Singleton<TaskManager>
 {
     [SerializeField]
     Container taskContainer;
+
     public List<Task> GetTasksWithStatus(TaskStatus status)
     {
         List<Task> tasksWithStatus = new List<Task>();

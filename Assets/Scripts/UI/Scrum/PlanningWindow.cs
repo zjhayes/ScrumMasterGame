@@ -27,21 +27,7 @@ public class PlanningWindow : MenuController
         taskDetailsPanel.onHide += OnHideTaskDetails;
 
         // Add tasks to board.
-        taskPanelCache = new Dictionary<Task, TaskPanel>();
-        foreach(Task task in TaskManager.Instance.Tasks)
-        {
-            if (task.Status == TaskStatus.BACKLOG)
-            {
-                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, backlogContainer.gameObject.transform);
-                taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
-                taskPanelCache.Add(task, taskPanel);
-            }
-            else if(task.Status == TaskStatus.TO_DO || task.Status == TaskStatus.IN_PROGRESS)
-            {
-                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, inSprintPanel.Container.gameObject.transform);
-                taskPanelCache.Add(task, taskPanel);
-            }
-        }
+        LoadTaskPanels();
 
         ValidateSprintReadiness();
 
@@ -102,5 +88,25 @@ public class PlanningWindow : MenuController
     {
         // Disable 'Begin Sprint' when no tasks are in sprint.
         sprintDetailsPanel.UpdateButtonInteraction(!inSprintPanel.Container.IsEmpty);
+    }
+
+    void LoadTaskPanels()
+    {
+        taskPanelCache = new Dictionary<Task, TaskPanel>();
+        foreach (Task task in TaskManager.Instance.Tasks)
+        {
+            if (task.Status == TaskStatus.BACKLOG)
+            {
+                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, backlogContainer.gameObject.transform);
+                taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
+                taskPanelCache.Add(task, taskPanel);
+            }
+            else if (task.Status == TaskStatus.TO_DO || task.Status == TaskStatus.IN_PROGRESS)
+            {
+                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, inSprintPanel.Container.gameObject.transform);
+                taskPanel.onSelected += OnTaskPanelSelected;
+                taskPanelCache.Add(task, taskPanel);
+            }
+        }
     }
 }
