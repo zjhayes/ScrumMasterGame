@@ -75,8 +75,8 @@ public class TaskDetailsPanel : MenuController
 
     public override void Hide()
     {
-        task = null;
         base.Hide();
+        task = null;
         SetActive(false);
     }
 

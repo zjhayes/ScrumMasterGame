@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 
 [RequireComponent(typeof(ButtonController))]
-public class TaskPanel : MonoBehaviour, IContainable
+public class TaskPanel : MenuController, IContainable
 {
     [SerializeField]
     private Task task;
@@ -33,6 +33,18 @@ public class TaskPanel : MonoBehaviour, IContainable
     {
         button = GetComponent<ButtonController>();
         button.onClick += Selected;
+    }
+
+    public override void Show()
+    {
+        base.Show();
+        SetActive(true);
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+        SetActive(false);
     }
 
     void Start()

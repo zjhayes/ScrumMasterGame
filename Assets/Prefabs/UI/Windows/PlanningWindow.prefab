@@ -69,6 +69,8 @@ MonoBehaviour:
   taskDetailsPanel: {fileID: 3767097071386370132}
   sprintDetailsPanel: {fileID: 3412107678293489697}
   inSprintPanel: {fileID: 8494049588273636268}
+  taskPanelPrefab: {fileID: 6701040268791389722, guid: e6defe843fed50e4a9ab73c4a5106ab0,
+    type: 3}
 --- !u!114 &9202146682052118756
 MonoBehaviour:
   m_ObjectHideFlags: 0

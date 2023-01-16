@@ -13,6 +13,8 @@ public class PlanningWindow : MenuController
     SprintDetailsPanel sprintDetailsPanel;
     [SerializeField]
     InSprintPanel inSprintPanel;
+    [SerializeField]
+    GameObject taskPanelPrefab;
 
     Dictionary<Task, TaskPanel> taskPanelCache;
     
@@ -59,12 +61,12 @@ public class PlanningWindow : MenuController
         taskDetailsPanel.Show();
     }
 
-    void OnShowTaskDetails(MenuController taskPanel)
+    void OnShowTaskDetails(MenuController taskDetails)
     {
         sprintDetailsPanel.Minify();
     }
 
-    void OnHideTaskDetails(MenuController taskPanel)
+    void OnHideTaskDetails(MenuController taskDetails)
     {
         sprintDetailsPanel.Expand();
     }
@@ -103,16 +105,23 @@ public class PlanningWindow : MenuController
         {
             if (task.Status == TaskStatus.BACKLOG)
             {
-                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, backlogContainer.gameObject.transform);
+                TaskPanel taskPanel = CreateTaskPanel(task, backlogContainer.gameObject.transform);
                 taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
                 taskPanelCache.Add(task, taskPanel);
             }
             else if (task.Status == TaskStatus.TO_DO || task.Status == TaskStatus.IN_PROGRESS)
             {
-                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, inSprintPanel.Container.gameObject.transform);
+                TaskPanel taskPanel = CreateTaskPanel(task, inSprintPanel.Container.gameObject.transform);
                 taskPanel.onSelected += OnTaskPanelSelected;
                 taskPanelCache.Add(task, taskPanel);
             }
         }
+    }
+
+    public TaskPanel CreateTaskPanel(Task task, Transform parent)
+    {
+        taskPanelPrefab.GetComponent<TaskPanel>().Task = task;
+        TaskPanel taskPanel = Instantiate(taskPanelPrefab, parent).GetComponent<TaskPanel>();
+        return taskPanel;
     }
 }

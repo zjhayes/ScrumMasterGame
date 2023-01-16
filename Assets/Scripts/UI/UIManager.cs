@@ -11,16 +11,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField]
     CharacterCardController characterCard;
     [SerializeField]
-    GameObject taskPanelPrefab;
-    [SerializeField]
     PlanningWindow planningWindow;
-
-    public TaskPanel CreateTaskPanel(Task task, Transform parent)
-    {
-        taskPanelPrefab.GetComponent<TaskPanel>().Task = task;
-        TaskPanel taskPanel = Instantiate(taskPanelPrefab, parent).GetComponent<TaskPanel>();
-        return taskPanel;
-    }
 
     public void CreateFrustrationSpeechBubble(OverheadController controller)
     {

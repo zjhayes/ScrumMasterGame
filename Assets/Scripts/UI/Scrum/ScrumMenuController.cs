@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,13 +15,18 @@ public class ScrumMenuController : MenuController
     Container doneContainer;
     [SerializeField]
     CameraController camera;
+    [SerializeField]
+    GameObject taskPanelPrefab;
 
     Dictionary<Task, TaskPanel> taskPanelCache;
 
     public override void SetUp()
     {
-        // Set up panels.
+        // Set up sub-panels.
         taskDetailsPanel.SetUp();
+        taskDetailsPanel.onHide += OnHideTaskDetails;
+
+        // Add tasks to board.
         LoadTaskPanels();
 
         // Set controls for displaying window.
@@ -45,7 +51,7 @@ public class ScrumMenuController : MenuController
 
     public override void Escape()
     {
-        // Don't close this window if sub-window open.
+        // Don't close this window if sub-panel open.
         if (taskDetailsPanel.IsShowing)
         {
             taskDetailsPanel.Escape();
@@ -68,6 +74,34 @@ public class ScrumMenuController : MenuController
         }
     }
 
+    void OnTaskPanelSelected(TaskPanel taskPanel)
+    {
+        ShowPreviouslySelectedTaskPanel(); // Show previously selected task, if any.
+        taskDetailsPanel.Task = taskPanel.Task;
+        // Replace task panel with task details panel.
+        taskDetailsPanel.gameObject.transform.SetParent(taskPanel.gameObject.transform.parent);
+        taskDetailsPanel.gameObject.transform.SetSiblingIndex(taskPanel.gameObject.transform.GetSiblingIndex());
+        taskPanel.Hide();
+        taskDetailsPanel.Show();
+    }
+
+    void OnHideTaskDetails(MenuController taskDetails)
+    {
+        // Show hidden task panel.
+        ShowPreviouslySelectedTaskPanel();
+    }
+
+    void ShowPreviouslySelectedTaskPanel()
+    {
+        // Check if there's a selected task, then show it.
+        if(taskDetailsPanel.Task && taskPanelCache.ContainsKey(taskDetailsPanel.Task))
+        {
+            // Get and show task panel for current task in task details panel.
+            TaskPanel selectedTaskPanel = taskPanelCache[taskDetailsPanel.Task];
+            selectedTaskPanel.Show();
+        }
+    }
+
     void LoadTaskPanels()
     {
         // Add tasks to board.
@@ -76,29 +110,29 @@ public class ScrumMenuController : MenuController
         {
             if (task.Status == TaskStatus.TO_DO)
             {
-                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, toDoContainer.gameObject.transform);
+                TaskPanel taskPanel = CreateTaskPanel(task, toDoContainer.gameObject.transform);
                 taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
                 taskPanelCache.Add(task, taskPanel);
             }
             else if (task.Status == TaskStatus.IN_PROGRESS)
             {
-                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, inProgressContainer.gameObject.transform);
+                TaskPanel taskPanel = CreateTaskPanel(task, inProgressContainer.gameObject.transform);
                 taskPanel.onSelected += OnTaskPanelSelected;
                 taskPanelCache.Add(task, taskPanel);
             }
             else if (task.Status == TaskStatus.DONE)
             {
-                TaskPanel taskPanel = UIManager.Instance.CreateTaskPanel(task, doneContainer.gameObject.transform);
+                TaskPanel taskPanel = CreateTaskPanel(task, doneContainer.gameObject.transform);
                 taskPanel.onSelected += OnTaskPanelSelected;
                 taskPanelCache.Add(task, taskPanel);
             }
         }
     }
 
-    void OnTaskPanelSelected(TaskPanel taskPanel)
+    public TaskPanel CreateTaskPanel(Task task, Transform parent)
     {
-        taskDetailsPanel.Task = taskPanel.Task;
-        taskDetailsPanel.Show();
+        taskPanelPrefab.GetComponent<TaskPanel>().Task = task;
+        TaskPanel taskPanel = Instantiate(taskPanelPrefab, parent).GetComponent<TaskPanel>();
+        return taskPanel;
     }
-
 }
