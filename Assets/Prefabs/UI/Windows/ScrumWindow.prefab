@@ -1535,6 +1535,26 @@ PrefabInstance:
       propertyPath: m_text
       value: Done
       objectReference: {fileID: 0}
+    - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.21176471
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.20392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.1764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4281742381
+      objectReference: {fileID: 0}
     - target: {fileID: 2429409906170786984, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}
       propertyPath: m_Enabled
@@ -1817,6 +1837,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: To Do
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.21176471
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.20392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.1764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4281742381
       objectReference: {fileID: 0}
     - target: {fileID: 2429409906170786984, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}
@@ -2121,6 +2161,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: In Progress
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.21176471
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.20392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.1764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4281742381
       objectReference: {fileID: 0}
     - target: {fileID: 2429409906170786984, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}

@@ -219,7 +219,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -382,8 +382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2759706d8ce6f0449accf5b207df128b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overworldCamera: {fileID: 8955580300247323910}
   animator: {fileID: 8955580301948350042}
-  scrumBoard: {fileID: 0}
 --- !u!1 &8955580301429228582
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,9 @@ using UnityEngine.EventSystems;
 
 public class ContextManager : Singleton<ContextManager>, IController
 {
+    [SerializeField]
+    CameraController camera;
+
     public delegate void OnEnableInteractables();
     public OnEnableInteractables onEnableInteractables;
 
@@ -29,11 +32,13 @@ public class ContextManager : Singleton<ContextManager>, IController
     public void CharacterSelected(CharacterController character)
     {
         currentCharacter = character;
+        camera.SwitchToFollowCamera(character.gameObject.transform);
         stateContext.Transition<SelectedCharacterState>();
     }
 
     public void Deselect()
     {
+        camera.SwitchToOverworldCamera();
         stateContext.Transition<NoSelectionState>();
     }
 
