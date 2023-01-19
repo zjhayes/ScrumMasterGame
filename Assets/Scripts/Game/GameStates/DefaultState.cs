@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NoSelectionState : GameState
+public class DefaultState : GameState
 { 
     private ContextManager controller;
 
@@ -12,5 +12,12 @@ public class NoSelectionState : GameState
         controller.DisableInteractables();
         UIManager.Instance.SelectedCharacterIcon.Hide();
         UIManager.Instance.CharacterCard.Hide();
+
+        controller.Camera.SwitchToOverworldCamera();
+    }
+
+    public override void Escape()
+    {
+        // TODO: Show settings menu.
     }
 }

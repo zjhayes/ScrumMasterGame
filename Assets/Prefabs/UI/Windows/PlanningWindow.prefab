@@ -2251,6 +2251,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8105534015316462624, guid: ed4beb6f26528dd46a56d0ce9d8ee26c,
+        type: 3}
+      propertyPath: taskProgressionPanel
+      value: 
+      objectReference: {fileID: 59370546660592112}
     - target: {fileID: 8385535822141527878, guid: ed4beb6f26528dd46a56d0ce9d8ee26c,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2483,6 +2488,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed4beb6f26528dd46a56d0ce9d8ee26c, type: 3}
+--- !u!114 &59370546660592112 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4965539494913500548, guid: ed4beb6f26528dd46a56d0ce9d8ee26c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4916750940468325492}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37d9857444ef5984b9fe9efd85c67199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1771476119583959091 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6678348737154974791, guid: ed4beb6f26528dd46a56d0ce9d8ee26c,

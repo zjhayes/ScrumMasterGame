@@ -9,9 +9,11 @@ public class UIManager : Singleton<UIManager>
     [SerializeField]
     GameObject frustrationSpeechBubblePrefab;
     [SerializeField]
-    CharacterCardController characterCard;
+    CharacterCard characterCard;
     [SerializeField]
     PlanningWindow planningWindow;
+    [SerializeField]
+    ScrumMenuController scrumMenu;
 
     public void CreateFrustrationSpeechBubble(OverheadController controller)
     {
@@ -30,7 +32,7 @@ public class UIManager : Singleton<UIManager>
         get { return selectedCharacterIcon; }
     }
 
-    public CharacterCardController CharacterCard
+    public CharacterCard CharacterCard
     {
         get { return characterCard; }
     }
@@ -38,5 +40,10 @@ public class UIManager : Singleton<UIManager>
     public PlanningWindow PlanningWindow
     {
         get { return planningWindow; }
+    }
+
+    public ScrumMenuController ScrumMenu
+    {
+        get { return scrumMenu; }
     }
 }

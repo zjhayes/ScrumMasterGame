@@ -14,8 +14,6 @@ public class ScrumMenuController : MenuController
     [SerializeField]
     Container doneContainer;
     [SerializeField]
-    CameraController camera;
-    [SerializeField]
     GameObject taskPanelPrefab;
 
     Dictionary<Task, TaskPanel> taskPanelCache;
@@ -28,14 +26,10 @@ public class ScrumMenuController : MenuController
 
         // Add tasks to board.
         LoadTaskPanels();
-
-        // Set controls for displaying window.
-        PlayerControls.Instance.onShowBoard += ToggleBoard;
     }
 
     public override void Show()
     {
-        camera.SwitchToBoardCamera();
         base.Show();
     }
 
@@ -45,7 +39,6 @@ public class ScrumMenuController : MenuController
         {
             taskDetailsPanel.Hide();
         }
-        camera.SwitchToOverworldCamera();
         base.Hide();
     }
 
@@ -58,19 +51,7 @@ public class ScrumMenuController : MenuController
         }
         else
         {
-            base.Escape();
-        }
-    }
-
-    void ToggleBoard()
-    {
-        if(IsShowing)
-        {
-            Hide();
-        }
-        else
-        {
-            Show();
+            base.Escape(); // Scrum Menu is not escapable.
         }
     }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CharacterCardController : MonoBehaviour
+public class CharacterCard : MenuController
 {
     [SerializeField]
     Image portraitPanel;
@@ -23,12 +23,7 @@ public class CharacterCardController : MonoBehaviour
         UpdateStatus(character);
         UpdateProgress(character);
 
-        gameObject.SetActive(true);
-    }
-
-    public void Hide()
-    {
-        gameObject.SetActive(false);
+        base.Show();
     }
 
     public void UpdatePortrait(CharacterController character)

@@ -16,32 +16,13 @@ public class TaskDetailsPanel : MenuController
     [SerializeField]
     TextMeshProUGUI storyPointsText;
     [SerializeField]
-    ProgressBar usabilityProgressBar;
-    [SerializeField]
-    ProgressBar stabilityProgressBar;
-    [SerializeField]
-    ProgressBar functionalityProgressBar;
-    [SerializeField]
-    ProgressBar maintainabilityProgressBar;
-    [SerializeField]
     TMP_Dropdown assigneeSelection;
     [SerializeField]
-    Color positiveColor;
-    [SerializeField]
-    Color negativeColor;
-    [SerializeField]
-    TextMeshProUGUI usabilityModifier;
-    [SerializeField]
-    TextMeshProUGUI stabilityModifier;
-    [SerializeField]
-    TextMeshProUGUI functionalityModifier;
-    [SerializeField]
-    TextMeshProUGUI maintainabilityModifier;
+    TaskProgressionPanel taskProgressionPanel;
     [SerializeField]
     Button addToSprintButton;
     [SerializeField]
     Button removeFromSprintButton;
-    
 
     Task task;
     Dictionary<int, CharacterController> characterCache;
@@ -60,7 +41,9 @@ public class TaskDetailsPanel : MenuController
             AddCharactersToAssigneeOptions();
         }
 
+        // Listen to assignee dropdown.
         assigneeSelection.onValueChanged.AddListener(delegate { OnAssigneeSelected(); });
+
         base.SetUp();
     }
 
@@ -97,7 +80,7 @@ public class TaskDetailsPanel : MenuController
             // Task has been unassigned.
             task.Assignee = null;
         }
-        ClearModifiers();
+        taskProgressionPanel.ClearModifiers();
         UpdateActionButton();
     }
 
@@ -127,10 +110,7 @@ public class TaskDetailsPanel : MenuController
         summaryText.text = task.Summary;
         descriptionText.text = task.Description;
         storyPointsText.text = task.StoryPoints.ToString();
-        usabilityProgressBar.CurrentFill = task.Stats.Usability;
-        stabilityProgressBar.CurrentFill = task.Stats.Stability;
-        functionalityProgressBar.CurrentFill = task.Stats.Functionality;
-        maintainabilityProgressBar.CurrentFill = task.Stats.Maintainability;
+        taskProgressionPanel.UpdateProgression(task.Stats);
         ClearModifiers();
     }
 
@@ -139,10 +119,7 @@ public class TaskDetailsPanel : MenuController
         if(characterCache.ContainsKey(assigneeIndex))
         {
             CharacterController assignee = characterCache[assigneeIndex];
-            UpdateModifier(usabilityModifier, CalculateModifier(task.Stats.Usability, assignee.Stats.Frontend));
-            UpdateModifier(stabilityModifier, CalculateModifier(task.Stats.Stability, assignee.Stats.Backend, assignee.Stats.ProblemSolving));
-            UpdateModifier(functionalityModifier, CalculateModifier(task.Stats.Functionality, assignee.Stats.Frontend, assignee.Stats.Backend));
-            UpdateModifier(maintainabilityModifier, CalculateModifier(task.Stats.Maintainability, assignee.Stats.ProblemSolving));
+            taskProgressionPanel.UpdateModifiers(task.Stats, assignee.Stats);
         }
         else
         {
@@ -152,29 +129,7 @@ public class TaskDetailsPanel : MenuController
 
     public void ClearModifiers()
     {
-        usabilityModifier.text = "";
-        stabilityModifier.text = "";
-        functionalityModifier.text = "";
-        maintainabilityModifier.text = "";
-    }
-
-    void UpdateModifier(TextMeshProUGUI modifierText, int modifier)
-    {
-        if (modifier >= 0)
-        {
-            modifierText.text = "+" + modifier.ToString();
-            modifierText.color = positiveColor;
-        }
-        else
-        {
-            modifierText.text = modifier.ToString();
-            modifierText.color = negativeColor;
-        }
-    }
-
-    int CalculateModifier(int productionStat, int characterStat1, int characterStat2 = 0)
-    {
-        return (characterStat1 + characterStat2) - productionStat;
+        taskProgressionPanel.ClearModifiers();
     }
 
     public void UpdateActionButton()

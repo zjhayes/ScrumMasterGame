@@ -12,6 +12,9 @@ public class ContextManager : Singleton<ContextManager>, IController
     public delegate void OnDisableInteractables();
     public OnDisableInteractables onDisableInteractables;
 
+    public delegate void OnStateTransitioned(GameState state);
+    public OnStateTransitioned onStateTransitioned;
+
     StateContext<ContextManager> stateContext;
     CharacterController currentCharacter;
 
@@ -23,31 +26,43 @@ public class ContextManager : Singleton<ContextManager>, IController
 
     void Start()
     {
-        Deselect();
+        Default();
         // Deselect all when player hits Escape, and when sprint ends.
-        PlayerControls.Instance.onEscape += Deselect;
-        SprintManager.Instance.onBeginRetrospective += Deselect;
+        PlayerControls.Instance.onEscape += EscapeCurrentState;
+        SprintManager.Instance.onBeginRetrospective += Default;
+        // Set controls for displaying window.
+        PlayerControls.Instance.onShowBoard += ToggleBoardView;
+    }
+
+    public void Default()
+    {
+        stateContext.Transition<DefaultState>();
+    }
+
+    public void ToggleBoardView()
+    {
+        if(CurrentState is BoardViewState)
+        {
+            Default(); // Back out to default view.
+        }
+        else
+        {
+            stateContext.Transition<BoardViewState>();
+        }
     }
 
     public void CharacterSelected(CharacterController character)
     {
         currentCharacter = character;
-        camera.SwitchToFollowCamera(character.gameObject.transform);
         stateContext.Transition<SelectedCharacterState>();
     }
 
-    public void Deselect()
+    public void EscapeCurrentState()
     {
-        camera.SwitchToOverworldCamera();
-        stateContext.Transition<NoSelectionState>();
+        CurrentState.Escape();
     }
 
-    public CharacterController CurrentCharacter
-    {
-        get { return currentCharacter; }
-        set { currentCharacter = value; }
-    }
-
+    // TODO: Move interactable logic to own controller
     public void EnableInteractables()
     {
         onEnableInteractables?.Invoke();
@@ -56,5 +71,21 @@ public class ContextManager : Singleton<ContextManager>, IController
     public void DisableInteractables()
     {
         onDisableInteractables?.Invoke();
+    }
+
+    public GameState CurrentState
+    {
+        get { return (GameState)stateContext.CurrentState; }
+    }
+
+    public CharacterController CurrentCharacter
+    {
+        get { return currentCharacter; }
+        set { currentCharacter = value; }
+    }
+
+    public CameraController Camera
+    {
+        get { return camera; }
     }
 }

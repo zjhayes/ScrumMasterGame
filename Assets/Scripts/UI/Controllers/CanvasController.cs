@@ -7,28 +7,39 @@ public class CanvasController : MonoBehaviour
     [SerializeField]
     List<MenuController> menus;
 
-    void Awake()
+    public delegate void OnShowFirstMenu();
+    public OnShowFirstMenu onShowFirstMenu;
+
+    public delegate void OnHideLastMenu();
+    public OnHideLastMenu onHideLastMenu;
+
+    void Start()
     {
         // Initiate hidden menus.
-        foreach(MenuController menu in menus)
+        foreach (MenuController menu in menus)
         {
             menu.SetUp();
             menu.onShow += ShowMenu;
             menu.onHide += HideMenu;
         }
-    }
 
-    void Start()
-    {
         PlayerControls.Instance.onEscape += OnEscape;
     }
 
     public void ShowMenu(MenuController menu)
     {
-        if(menu.Tinted)
+        // Check if menus not already open.
+        if(ActiveCount <= 0)
+        {
+            onShowFirstMenu?.Invoke();
+        }
+
+        // Show back tint if necessary. TODO: Tint may no longer be needed.
+        if (menu.Tinted)
         {
             ShowTint(true);
         }
+
         menu.SetActive(true);
     }
 
@@ -39,6 +50,11 @@ public class CanvasController : MonoBehaviour
         {
             // Hide tint when no menus require it.
             ShowTint(false);
+        }
+        // Check if all menus hiden.
+        if(ActiveCount <= 0)
+        {
+            onHideLastMenu?.Invoke();
         }
     }
 
