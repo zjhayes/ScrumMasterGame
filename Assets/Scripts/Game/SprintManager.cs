@@ -31,6 +31,7 @@ public class SprintManager : Singleton<SprintManager>
 
     public void BeginPlanning()
     {
+        ContextManager.Instance.SwitchToPlanningView();
         onBeginPlanning?.Invoke();
     }
 

@@ -8,11 +8,6 @@ public class DefaultState : GameState
     {
         controller = _controller;
 
-        controller.CurrentCharacter = null;
-        controller.DisableInteractables();
-        UIManager.Instance.SelectedCharacterIcon.Hide();
-        UIManager.Instance.CharacterCard.Hide();
-
         controller.Camera.SwitchToOverworldCamera();
     }
 

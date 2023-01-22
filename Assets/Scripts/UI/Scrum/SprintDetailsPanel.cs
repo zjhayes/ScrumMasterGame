@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class SprintDetailsPanel : ExpandablePanel
+public class SprintDetailsPanel : MenuController
 {
     [SerializeField]
     Button beginSprintButton;
@@ -10,7 +10,7 @@ public class SprintDetailsPanel : ExpandablePanel
     public delegate void OnBeginSprint();
     public OnBeginSprint onBeginSprint;
 
-    public void BeginSprint()
+    public void BeginSprintPressed()
     {
         onBeginSprint?.Invoke();
     }

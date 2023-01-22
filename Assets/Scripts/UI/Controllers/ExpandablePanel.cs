@@ -1,6 +1,7 @@
 using UnityEngine;
 
 // Moves panel between parents to expand and minify.
+/** DEPRECATED **/
 public class ExpandablePanel : MenuController
 {
     [SerializeField]

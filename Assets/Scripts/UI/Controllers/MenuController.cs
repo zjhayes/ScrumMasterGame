@@ -4,8 +4,6 @@ public class MenuController : MonoBehaviour
 {
     [SerializeField]
     bool escapable = false;
-    [SerializeField]
-    bool tint = false; // Include black backdrop?
 
     public delegate void OnShow(MenuController menu);
     public OnShow onShow;
@@ -48,10 +46,5 @@ public class MenuController : MonoBehaviour
     public bool Escapable
     {
         get { return escapable; }
-    }
-
-    public bool Tinted
-    {
-        get { return tint; }
     }
 }

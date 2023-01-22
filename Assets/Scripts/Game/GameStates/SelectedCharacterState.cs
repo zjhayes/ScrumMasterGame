@@ -28,4 +28,14 @@ public class SelectedCharacterState : GameState
     {
         UIManager.Instance.CharacterCard.UpdateStatus(controller.CurrentCharacter);
     }
+
+    public override void Destroy()
+    {
+        // Deselect character when state changed.
+        controller.CurrentCharacter = null;
+        controller.DisableInteractables();
+        UIManager.Instance.SelectedCharacterIcon.Hide();
+        UIManager.Instance.CharacterCard.Hide();
+        base.Destroy();
+    }
 }

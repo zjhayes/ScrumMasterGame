@@ -11,7 +11,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField]
     CharacterCard characterCard;
     [SerializeField]
-    PlanningWindow planningWindow;
+    PlanningMenuController planningMenu;
     [SerializeField]
     ScrumMenuController scrumMenu;
 
@@ -37,9 +37,9 @@ public class UIManager : Singleton<UIManager>
         get { return characterCard; }
     }
 
-    public PlanningWindow PlanningWindow
+    public PlanningMenuController PlanningMenu
     {
-        get { return planningWindow; }
+        get { return planningMenu; }
     }
 
     public ScrumMenuController ScrumMenu

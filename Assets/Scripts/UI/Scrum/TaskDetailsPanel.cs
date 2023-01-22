@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//* DEPRECATED *//
 public class TaskDetailsPanel : MenuController
 {
     [SerializeField]

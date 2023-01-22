@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlanningWindow : MenuController
-{ 
-    [SerializeField]
-    Container backlogContainer;
+public class PlanningMenuController : MenuController
+{
     [SerializeField]
     TaskDetailsPanel taskDetailsPanel;
     [SerializeField]
     SprintDetailsPanel sprintDetailsPanel;
     [SerializeField]
-    InSprintPanel inSprintPanel;
+    Container backlogContainer;
+    [SerializeField]
+    Container inSprintContainer;
     [SerializeField]
     GameObject taskPanelPrefab;
 
@@ -22,60 +22,81 @@ public class PlanningWindow : MenuController
     {
         // Set up panels.
         taskDetailsPanel.SetUp();
-        sprintDetailsPanel.SetUp();
-        inSprintPanel.SetUp();
-
-        taskDetailsPanel.onShow += OnShowTaskDetails;
+        taskDetailsPanel.Hide(); // Hidden by default.
         taskDetailsPanel.onHide += OnHideTaskDetails;
+
+        sprintDetailsPanel.SetUp();
 
         // Add tasks to board.
         LoadTaskPanels();
 
         ValidateSprintReadiness();
 
-        SprintManager.Instance.onBeginPlanning += Show;
-        SprintManager.Instance.onBeginSprint += Hide;
-        sprintDetailsPanel.onBeginSprint += OnBeginSprint;
+        sprintDetailsPanel.onBeginSprint += OnBeginSprintPressed;
         taskDetailsPanel.onAddToSprint += OnAddToSprint;
         taskDetailsPanel.onRemoveFromSprint += OnRemoveFromSprint;
         base.SetUp();
     }
 
+    public override void Show()
+    {
+        base.Show();
+    }
+
     public override void Hide()
     {
-        taskDetailsPanel.Hide();
+        if (taskDetailsPanel.IsShowing)
+        {
+            taskDetailsPanel.Hide();
+        }
         base.Hide();
     }
 
     public override void Escape()
     {
-        taskDetailsPanel.Escape();
-        sprintDetailsPanel.Escape();
-        inSprintPanel.Escape();
-        base.Escape();
+        if (taskDetailsPanel.IsShowing)
+        {
+            taskDetailsPanel.Escape();
+        }
+        else
+        {
+            base.Escape(); // Planning Menu is not escapable.
+        }
     }
 
     void OnTaskPanelSelected(TaskPanel taskPanel)
     {
+        ShowPreviouslySelectedTaskPanel(); // Show previously selected task, if any.
         taskDetailsPanel.Task = taskPanel.Task;
+        // Replace task panel with task details panel.
+        taskDetailsPanel.gameObject.transform.SetParent(taskPanel.gameObject.transform.parent);
+        taskDetailsPanel.gameObject.transform.SetSiblingIndex(taskPanel.gameObject.transform.GetSiblingIndex());
+        taskPanel.Hide();
         taskDetailsPanel.Show();
-    }
-
-    void OnShowTaskDetails(MenuController taskDetails)
-    {
-        sprintDetailsPanel.Minify();
     }
 
     void OnHideTaskDetails(MenuController taskDetails)
     {
-        sprintDetailsPanel.Expand();
+        // Show hidden task panel.
+        ShowPreviouslySelectedTaskPanel();
+    }
+
+    void ShowPreviouslySelectedTaskPanel()
+    {
+        // Check if there's a selected task, then show it.
+        if (taskDetailsPanel.Task && taskPanelCache.ContainsKey(taskDetailsPanel.Task))
+        {
+            // Get and show task panel for current task in task details panel.
+            TaskPanel selectedTaskPanel = taskPanelCache[taskDetailsPanel.Task];
+            selectedTaskPanel.Show();
+        }
     }
 
     void OnAddToSprint(Task task)
     {
         taskDetailsPanel.Hide();
         TaskPanel taskPanel = taskPanelCache[task];
-        inSprintPanel.Container.Add(taskPanel);
+        inSprintContainer.Add(taskPanel);
         ValidateSprintReadiness();
     }
 
@@ -87,7 +108,7 @@ public class PlanningWindow : MenuController
         ValidateSprintReadiness();
     }
 
-    void OnBeginSprint()
+    void OnBeginSprintPressed()
     {
         SprintManager.Instance.BeginSprint();
     }
@@ -95,7 +116,7 @@ public class PlanningWindow : MenuController
     void ValidateSprintReadiness()
     {
         // Disable 'Begin Sprint' when no tasks are in sprint.
-        sprintDetailsPanel.UpdateButtonInteraction(!inSprintPanel.Container.IsEmpty);
+        sprintDetailsPanel.UpdateButtonInteraction(!inSprintContainer.IsEmpty);
     }
 
     void LoadTaskPanels()
@@ -111,7 +132,7 @@ public class PlanningWindow : MenuController
             }
             else if (task.Status == TaskStatus.TO_DO || task.Status == TaskStatus.IN_PROGRESS)
             {
-                TaskPanel taskPanel = CreateTaskPanel(task, inSprintPanel.Container.gameObject.transform);
+                TaskPanel taskPanel = CreateTaskPanel(task, inSprintContainer.gameObject.transform);
                 taskPanel.onSelected += OnTaskPanelSelected;
                 taskPanelCache.Add(task, taskPanel);
             }

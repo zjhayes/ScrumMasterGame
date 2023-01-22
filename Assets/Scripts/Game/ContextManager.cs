@@ -22,15 +22,14 @@ public class ContextManager : Singleton<ContextManager>, IController
     {
         base.Awake();
         stateContext = new StateContext<ContextManager>(this);
+
+        Default();
     }
 
     void Start()
     {
-        Default();
-        // Deselect all when player hits Escape, and when sprint ends.
+        // Listen to player controls.
         PlayerControls.Instance.onEscape += EscapeCurrentState;
-        SprintManager.Instance.onBeginRetrospective += Default;
-        // Set controls for displaying window.
         PlayerControls.Instance.onShowBoard += ToggleBoardView;
     }
 
@@ -49,6 +48,11 @@ public class ContextManager : Singleton<ContextManager>, IController
         {
             stateContext.Transition<BoardViewState>();
         }
+    }
+
+    public void SwitchToPlanningView()
+    {
+        stateContext.Transition<PlanningViewState>();
     }
 
     public void CharacterSelected(CharacterController character)

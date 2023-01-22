@@ -45,7 +45,6 @@ public class ScrumMenuController : MenuController
 
     public override void Escape()
     {
-        // Don't close this window if sub-panel open.
         if (taskDetailsPanel.IsShowing)
         {
             taskDetailsPanel.Escape();

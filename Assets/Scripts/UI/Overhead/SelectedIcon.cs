@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
-public class SelectedIcon : MonoBehaviour
+public class SelectedIcon : MenuController
 {
     Image icon;
 
-    void Awake()
+    public void SetUp()
     {
         icon = GetComponent<Image>();
         Hide();
@@ -14,25 +14,24 @@ public class SelectedIcon : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Should not update when no character selected.");
         UpdatePosition();
+    }
+
+    public void Show()
+    {
+        UpdatePosition();
+        base.Show();
+    }
+
+    public void Hide()
+    {
+        base.Hide();
     }
 
     void UpdatePosition()
     {
         // Set position to current selected character's UI overhead position.
         transform.position = ContextManager.Instance.CurrentCharacter.GetComponent<OverheadController>().GetIconPosition();
-    }
-
-    public void Show()
-    {
-        UpdatePosition();
-        this.enabled = true;
-        icon.enabled = true;
-    }
-
-    public void Hide()
-    {
-        icon.enabled = false;
-        this.enabled = false;
     }
 }

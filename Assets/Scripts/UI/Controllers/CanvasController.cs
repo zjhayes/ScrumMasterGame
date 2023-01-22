@@ -34,23 +34,13 @@ public class CanvasController : MonoBehaviour
             onShowFirstMenu?.Invoke();
         }
 
-        // Show back tint if necessary. TODO: Tint may no longer be needed.
-        if (menu.Tinted)
-        {
-            ShowTint(true);
-        }
-
         menu.SetActive(true);
     }
 
     public void HideMenu(MenuController menu)
     {
         menu.SetActive(false);
-        if(!ActiveTinted)
-        {
-            // Hide tint when no menus require it.
-            ShowTint(false);
-        }
+
         // Check if all menus hiden.
         if(ActiveCount <= 0)
         {
@@ -66,11 +56,6 @@ public class CanvasController : MonoBehaviour
         }
     }
 
-    public void ShowTint(bool show)
-    {
-        gameObject.GetComponent<Image>().enabled = show;
-    }
-
     public int ActiveCount
     {
         get
@@ -81,19 +66,6 @@ public class CanvasController : MonoBehaviour
                 if(menu.IsShowing) { count++; }
             }
             return count;
-        }
-    }
-
-    // True if one or more active menus requires tint.
-    public bool ActiveTinted
-    {
-        get
-        {
-            foreach(MenuController menu in menus)
-            {
-                if(menu.IsShowing && menu.Tinted) { return true; }
-            }
-            return false;
         }
     }
 }
