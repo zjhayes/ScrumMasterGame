@@ -15,7 +15,8 @@ public class SelectedCharacterState : GameState
         UIManager.Instance.SelectedCharacterIcon.Show();
         UIManager.Instance.CharacterCard.Show(controller.CurrentCharacter);
 
-        controller.Camera.SwitchToFollowCamera(controller.CurrentCharacter.gameObject.transform);
+        //controller.Camera.SwitchToFollowCamera(controller.CurrentCharacter.gameObject.transform);
+        controller.Default(); // TODO: Fix Follow Camera, delete this line.
     }
 
     public override void Escape()

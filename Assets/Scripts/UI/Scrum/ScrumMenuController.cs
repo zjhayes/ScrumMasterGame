@@ -22,6 +22,7 @@ public class ScrumMenuController : MenuController
     {
         // Set up sub-panels.
         taskDetailsPanel.SetUp();
+        taskDetailsPanel.Hide(); // Hidden by default.
         taskDetailsPanel.onHide += OnHideTaskDetails;
 
         // Add tasks to board.
