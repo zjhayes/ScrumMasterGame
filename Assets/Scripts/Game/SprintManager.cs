@@ -37,6 +37,7 @@ public class SprintManager : Singleton<SprintManager>
 
     public void BeginSprint()
     {
+        ContextManager.Instance.Default();
         clock.Begin();
         onBeginSprint?.Invoke();
     }
