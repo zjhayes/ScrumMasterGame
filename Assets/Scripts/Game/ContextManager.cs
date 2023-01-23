@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class ContextManager : Singleton<ContextManager>, IController
 {
     [SerializeField]
-    CameraController camera;
+    CameraController cameraController;
 
     public delegate void OnEnableInteractables();
     public OnEnableInteractables onEnableInteractables;
@@ -90,6 +90,6 @@ public class ContextManager : Singleton<ContextManager>, IController
 
     public CameraController Camera
     {
-        get { return camera; }
+        get { return cameraController; }
     }
 }

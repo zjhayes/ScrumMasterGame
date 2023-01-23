@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 9cb906b7a538bf548b5549e39d081f2b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Super Webcomic Bros.
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4260c4b77c4462b4ab9d2b952673c4da, type: 3}
+  - {fileID: 12800000, guid: 467c88a9554d68b4bba0343b2fec230e, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -69,8 +69,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Begin Sprint
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 081ed4942f8d4bc46b179e00308a7f79, type: 2}
+  m_sharedMaterial: {fileID: 9105137136976631360, guid: 081ed4942f8d4bc46b179e00308a7f79,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -94,14 +95,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 63
+  m_fontSizeBase: 63
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -130,7 +131,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -92.852715, y: 0, z: -48.216347, w: 0}
+  m_margin: {x: -69.716, y: 0, z: -85.79666, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -596,8 +597,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Planning
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ddbf3984aba096b4ca340d2f500bc2df, type: 2}
-  m_sharedMaterial: {fileID: 1496326930933131414, guid: ddbf3984aba096b4ca340d2f500bc2df,
+  m_fontAsset: {fileID: 11400000, guid: 081ed4942f8d4bc46b179e00308a7f79, type: 2}
+  m_sharedMaterial: {fileID: 9105137136976631360, guid: 081ed4942f8d4bc46b179e00308a7f79,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -622,8 +623,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 110.23
+  m_fontSizeBase: 110.23
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1397,7 +1398,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: ddbf3984aba096b4ca340d2f500bc2df,
+      objectReference: {fileID: 11400000, guid: 608e1372af990d04dba135f384faec3d,
         type: 2}
     - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}
@@ -1418,7 +1419,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 1496326930933131414, guid: ddbf3984aba096b4ca340d2f500bc2df,
+      objectReference: {fileID: -3872885666278308300, guid: 608e1372af990d04dba135f384faec3d,
         type: 2}
     - target: {fileID: 2429409906155786630, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}

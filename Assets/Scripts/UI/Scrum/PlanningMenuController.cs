@@ -27,19 +27,15 @@ public class PlanningMenuController : MenuController
 
         sprintDetailsPanel.SetUp();
 
-        // Add tasks to board.
-        LoadTaskPanels();
-
         ValidateSprintReadiness();
 
         sprintDetailsPanel.onBeginSprint += OnBeginSprintPressed;
-        taskDetailsPanel.onAddToSprint += OnAddToSprint;
-        taskDetailsPanel.onRemoveFromSprint += OnRemoveFromSprint;
         base.SetUp();
     }
 
     public override void Show()
     {
+        LoadTaskPanels();
         base.Show();
     }
 
@@ -92,35 +88,19 @@ public class PlanningMenuController : MenuController
         }
     }
 
-    void OnAddToSprint(Task task)
-    {
-        taskDetailsPanel.Hide();
-        TaskPanel taskPanel = taskPanelCache[task];
-        inSprintContainer.Add(taskPanel);
-        ValidateSprintReadiness();
-    }
-
-    void OnRemoveFromSprint(Task task)
-    {
-        taskDetailsPanel.Hide();
-        TaskPanel taskPanel = taskPanelCache[task];
-        backlogContainer.Add(taskPanel);
-        ValidateSprintReadiness();
-    }
-
     void OnBeginSprintPressed()
     {
         SprintManager.Instance.BeginSprint();
     }
 
-    void ValidateSprintReadiness()
-    {
-        // Disable 'Begin Sprint' when no tasks are in sprint.
-        sprintDetailsPanel.UpdateButtonInteraction(!inSprintContainer.IsEmpty);
-    }
-
     void LoadTaskPanels()
     {
+        // Clear existing task panels.
+        if (taskPanelCache != null)
+        {
+            ClearBoard();
+        }
+        // Add tasks to board.
         taskPanelCache = new Dictionary<Task, TaskPanel>();
         foreach (Task task in TaskManager.Instance.Tasks)
         {
@@ -129,20 +109,57 @@ public class PlanningMenuController : MenuController
                 TaskPanel taskPanel = CreateTaskPanel(task, backlogContainer.gameObject.transform);
                 taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
                 taskPanelCache.Add(task, taskPanel);
+                task.onAssigneeChanged += UpdateSelectedTaskPanel;
             }
             else if (task.Status == TaskStatus.TO_DO || task.Status == TaskStatus.IN_PROGRESS)
             {
                 TaskPanel taskPanel = CreateTaskPanel(task, inSprintContainer.gameObject.transform);
                 taskPanel.onSelected += OnTaskPanelSelected;
                 taskPanelCache.Add(task, taskPanel);
+                task.onAssigneeChanged += UpdateSelectedTaskPanel;
             }
         }
     }
 
-    public TaskPanel CreateTaskPanel(Task task, Transform parent)
+    void ClearBoard()
+    {
+        foreach (KeyValuePair<Task, TaskPanel> taskPanelPair in taskPanelCache)
+        {
+            Destroy(taskPanelPair.Value.gameObject);
+        }
+        taskPanelCache = null;
+    }
+
+    void UpdateSelectedTaskPanel()
+    {
+        Task task = taskDetailsPanel.Task;
+        taskDetailsPanel.Hide(); // TODO: Move instead of hide.
+        TaskPanel taskPanel = taskPanelCache[task];
+        if(task.Assignee)
+        {
+            // Move to In Sprint if task assigned.
+            inSprintContainer.Add(taskPanel);
+            task.Status = TaskStatus.TO_DO;
+        }
+        else
+        {
+            // Move to backlog if no assignee.
+            backlogContainer.Add(taskPanel);
+            task.Status = TaskStatus.BACKLOG;
+        }
+        ValidateSprintReadiness();
+    }
+
+    TaskPanel CreateTaskPanel(Task task, Transform parent)
     {
         taskPanelPrefab.GetComponent<TaskPanel>().Task = task;
         TaskPanel taskPanel = Instantiate(taskPanelPrefab, parent).GetComponent<TaskPanel>();
         return taskPanel;
+    }
+
+    void ValidateSprintReadiness()
+    {
+        // Disable 'Begin Sprint' when no tasks are in sprint.
+        sprintDetailsPanel.UpdateButtonInteraction(inSprintContainer.Contains<TaskPanel>());
     }
 }

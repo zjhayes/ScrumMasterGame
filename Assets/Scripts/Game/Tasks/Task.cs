@@ -51,8 +51,11 @@ public class Task : MonoBehaviour, IContainable
         get { return assignee; }
         set 
         { 
-            assignee = value;
-            onAssigneeChanged?.Invoke();
+            if(assignee != value)
+            {
+                assignee = value;
+                onAssigneeChanged?.Invoke();
+            }
         }
     }
 

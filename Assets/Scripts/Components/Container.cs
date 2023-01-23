@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 // A Container treats a GameObject as storage for other GameObjects.
 public class Container : MonoBehaviour
@@ -50,6 +51,12 @@ public class Container : MonoBehaviour
     public bool Contains(IContainable containable)
     {
         return containable.gameObject.transform.parent == this.gameObject;
+    }
+
+    // Checks if container currently contains provided type.
+    public bool Contains<T>(bool includeInactive = INCLUDE_INACTIVE_DEFAULT) where T : IContainable
+    {
+        return Get<T>(includeInactive).Any();
     }
 
     public bool IsEmpty

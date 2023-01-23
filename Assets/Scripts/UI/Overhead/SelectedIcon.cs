@@ -6,7 +6,7 @@ public class SelectedIcon : MenuController
 {
     Image icon;
 
-    public void SetUp()
+    public override void SetUp()
     {
         icon = GetComponent<Image>();
         Hide();
@@ -18,13 +18,13 @@ public class SelectedIcon : MenuController
         UpdatePosition();
     }
 
-    public void Show()
+    public override void Show()
     {
         UpdatePosition();
         base.Show();
     }
 
-    public void Hide()
+    public override void Hide()
     {
         base.Hide();
     }

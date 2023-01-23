@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//* DEPRECATED *//
 public class SprintInformation : MenuController
 {
     [SerializeField]
@@ -10,7 +11,7 @@ public class SprintInformation : MenuController
     RectTransform rectTransform;
     Vector2 expandedSize;
 
-    void SetUp()
+    public override void SetUp()
     {
         rectTransform = GetComponent<RectTransform>();
         expandedSize = rectTransform.sizeDelta;

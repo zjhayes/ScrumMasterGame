@@ -11,7 +11,7 @@ public class PlayerControls : Singleton<PlayerControls>
     public delegate void OnShowBoard();
     public OnShowBoard onShowBoard;
 
-    void Awake()
+    protected override void Awake()
     {
         base.Awake();
         input = new PlayerInput();

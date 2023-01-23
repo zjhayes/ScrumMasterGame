@@ -4,7 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(Renderer))]
 public class OutlineRenderer : MonoBehaviour
 {
-
     Renderer renderer;
 
     const string ENABLE_OUTLINE_PROPERTY = "_Enable_Outline";

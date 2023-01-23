@@ -28,12 +28,6 @@ public class TaskDetailsPanel : MenuController
     Task task;
     Dictionary<int, CharacterController> characterCache;
 
-    public delegate void OnAddToSprint(Task task);
-    public OnAddToSprint onAddToSprint;
-
-    public delegate void OnRemoveFromSprint(Task task);
-    public OnRemoveFromSprint onRemoveFromSprint;
-
     public override void SetUp()
     {
         // Set up assignee selection.
@@ -83,18 +77,6 @@ public class TaskDetailsPanel : MenuController
         }
         taskProgressionPanel.ClearModifiers();
         UpdateActionButton();
-    }
-
-    public void AddToSprint()
-    {
-        task.Status = TaskStatus.TO_DO;
-        onAddToSprint?.Invoke(task);
-    }
-
-    public void RemoveFromSprint()
-    {
-        task.Status = TaskStatus.BACKLOG;
-        onRemoveFromSprint?.Invoke(task);
     }
 
     public void UpdateAssignee()
