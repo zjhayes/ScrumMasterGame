@@ -38,13 +38,20 @@ public class TaskDetailsPanel : MenuController
         base.SetUp();
     }
 
+    public void Show(Task task)
+    {
+        this.task = task;
+        UpdateDetails();
+        UpdateAssignee();
+        UpdateActionButton();
+
+        Show();
+    }
+
     public override void Show()
     {
         base.Show();
         SetActive(true);
-        UpdateDetails();
-        UpdateAssignee();
-        UpdateActionButton();
     }
 
     public override void Hide()
@@ -146,6 +153,5 @@ public class TaskDetailsPanel : MenuController
     public Task Task
     {
         get { return task; }
-        set { task = value; }
     }
 }

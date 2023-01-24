@@ -58,7 +58,7 @@ public class TaskPanel : MenuController, IContainable
 
         task.onAssigneeChanged += OnAssigneeChanged;
     }
-
+    
     void Selected()
     {
         onSelected?.Invoke(this);

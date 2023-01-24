@@ -1,92 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class PlanningMenuController : MenuController
+public class PlanningMenuController : AbstractTaskMenu
 {
-    [SerializeField]
-    TaskDetailsPanel taskDetailsPanel;
     [SerializeField]
     SprintDetailsPanel sprintDetailsPanel;
     [SerializeField]
     Container backlogContainer;
     [SerializeField]
     Container inSprintContainer;
-    [SerializeField]
-    GameObject taskPanelPrefab;
-
-    Dictionary<Task, TaskPanel> taskPanelCache;
     
     public override void SetUp()
     {
-        // Set up panels.
-        taskDetailsPanel.SetUp();
-        taskDetailsPanel.Hide(); // Hidden by default.
-        taskDetailsPanel.onHide += OnHideTaskDetails;
-
         sprintDetailsPanel.SetUp();
+        // Listen to Begin Sprint button.
+        sprintDetailsPanel.onBeginSprint += OnBeginSprintPressed;
 
         ValidateSprintReadiness();
-
-        sprintDetailsPanel.onBeginSprint += OnBeginSprintPressed;
         base.SetUp();
-    }
-
-    public override void Show()
-    {
-        LoadTaskPanels();
-        base.Show();
-    }
-
-    public override void Hide()
-    {
-        if (taskDetailsPanel.IsShowing)
-        {
-            taskDetailsPanel.Hide();
-        }
-        ClearBoard();
-        base.Hide();
-    }
-
-    public override void Escape()
-    {
-        if (taskDetailsPanel.IsShowing)
-        {
-            taskDetailsPanel.Escape();
-        }
-        else
-        {
-            base.Escape(); // Planning Menu is not escapable.
-        }
-    }
-
-    void OnTaskPanelSelected(TaskPanel taskPanel)
-    {
-        ShowPreviouslySelectedTaskPanel(); // Show previously selected task, if any.
-        taskDetailsPanel.Task = taskPanel.Task;
-        // Replace task panel with task details panel.
-        taskDetailsPanel.gameObject.transform.SetParent(taskPanel.gameObject.transform.parent);
-        taskDetailsPanel.gameObject.transform.SetSiblingIndex(taskPanel.gameObject.transform.GetSiblingIndex());
-        taskPanel.Hide();
-        taskDetailsPanel.Show();
-    }
-
-    void OnHideTaskDetails(MenuController taskDetails)
-    {
-        // Show hidden task panel.
-        ShowPreviouslySelectedTaskPanel();
-    }
-
-    void ShowPreviouslySelectedTaskPanel()
-    {
-        // Check if there's a selected task, then show it.
-        if (taskDetailsPanel.Task && taskPanelCache.ContainsKey(taskDetailsPanel.Task))
-        {
-            // Get and show task panel for current task in task details panel.
-            TaskPanel selectedTaskPanel = taskPanelCache[taskDetailsPanel.Task];
-            selectedTaskPanel.Show();
-        }
     }
 
     void OnBeginSprintPressed()
@@ -94,41 +24,22 @@ public class PlanningMenuController : MenuController
         SprintManager.Instance.BeginSprint();
     }
 
-    void LoadTaskPanels()
+    protected override void HandleLoadingTaskPanel(Task task)
     {
-        // Clear existing task panels.
-        if (taskPanelCache != null)
+        if (task.Status == TaskStatus.BACKLOG)
         {
-            ClearBoard();
+            TaskPanel taskPanel = CreateTaskPanel(task, backlogContainer.gameObject.transform);
+            taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
+            taskPanelCache.Add(task, taskPanel);
+            taskPanel.onUpdated += UpdateTaskPanel;
         }
-        // Add tasks to board.
-        taskPanelCache = new Dictionary<Task, TaskPanel>();
-        foreach (Task task in TaskManager.Instance.Tasks)
+        else if (task.Status == TaskStatus.TO_DO || task.Status == TaskStatus.IN_PROGRESS)
         {
-            if (task.Status == TaskStatus.BACKLOG)
-            {
-                TaskPanel taskPanel = CreateTaskPanel(task, backlogContainer.gameObject.transform);
-                taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
-                taskPanelCache.Add(task, taskPanel);
-                taskPanel.onUpdated += UpdateTaskPanel;
-            }
-            else if (task.Status == TaskStatus.TO_DO || task.Status == TaskStatus.IN_PROGRESS)
-            {
-                TaskPanel taskPanel = CreateTaskPanel(task, inSprintContainer.gameObject.transform);
-                taskPanel.onSelected += OnTaskPanelSelected;
-                taskPanelCache.Add(task, taskPanel);
-                taskPanel.onUpdated += UpdateTaskPanel; // Problem.
-            }
+            TaskPanel taskPanel = CreateTaskPanel(task, inSprintContainer.gameObject.transform);
+            taskPanel.onSelected += OnTaskPanelSelected;
+            taskPanelCache.Add(task, taskPanel);
+            taskPanel.onUpdated += UpdateTaskPanel;
         }
-    }
-
-    void ClearBoard()
-    {
-        foreach (KeyValuePair<Task, TaskPanel> taskPanelPair in taskPanelCache)
-        {
-            Destroy(taskPanelPair.Value.gameObject);
-        }
-        taskPanelCache = null;
     }
 
     void UpdateTaskPanel(TaskPanel taskPanel)
@@ -145,14 +56,13 @@ public class PlanningMenuController : MenuController
             backlogContainer.Add(taskPanel);
             taskPanel.Task.Status = TaskStatus.BACKLOG;
         }
-        ValidateSprintReadiness();
-    }
 
-    TaskPanel CreateTaskPanel(Task task, Transform parent)
-    {
-        taskPanelPrefab.GetComponent<TaskPanel>().Task = task;
-        TaskPanel taskPanel = Instantiate(taskPanelPrefab, parent).GetComponent<TaskPanel>();
-        return taskPanel;
+        // Move Task Details Panel if associated with current task.
+        if(taskPanel.Task == taskDetailsPanel.Task)
+        {
+            MoveTaskDetailsPanelToTaskPanel(taskPanel);
+        }
+        ValidateSprintReadiness();
     }
 
     void ValidateSprintReadiness()
