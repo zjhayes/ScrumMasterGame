@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-//* DEPRECATED *//
 public class TaskDetailsPanel : MenuController
 {
     [SerializeField]
@@ -36,9 +35,6 @@ public class TaskDetailsPanel : MenuController
             AddCharactersToAssigneeOptions();
         }
 
-        // Listen to assignee dropdown.
-        assigneeSelection.onValueChanged.AddListener(delegate { OnAssigneeSelected(); });
-
         base.SetUp();
     }
 
@@ -63,6 +59,7 @@ public class TaskDetailsPanel : MenuController
         Hide();
     }
 
+    // Set assignee field event to call OnAssigneeSelected.
     public void OnAssigneeSelected()
     { 
         if(characterCache.ContainsKey(assigneeSelection.value))

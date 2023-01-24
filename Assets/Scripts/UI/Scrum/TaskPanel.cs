@@ -21,7 +21,10 @@ public class TaskPanel : MenuController, IContainable
     ButtonController button;
 
     public delegate void OnSelected(TaskPanel taskPanel);
-    public OnSelected onSelected;
+    public event OnSelected onSelected;
+
+    public delegate void OnUpdated(TaskPanel taskPanel);
+    public event OnUpdated onUpdated;
 
     public Task Task
     {
@@ -53,12 +56,18 @@ public class TaskPanel : MenuController, IContainable
         UpdateTaskTypeIcon();
         UpdateAssigneePortrait();
 
-        task.onAssigneeChanged += UpdateAssigneePortrait;
+        task.onAssigneeChanged += OnAssigneeChanged;
     }
 
     void Selected()
     {
         onSelected?.Invoke(this);
+    }
+    
+    void OnAssigneeChanged()
+    {
+        UpdateAssigneePortrait();
+        onUpdated?.Invoke(this);
     }
 
     void UpdateDetails()
@@ -87,5 +96,13 @@ public class TaskPanel : MenuController, IContainable
     public ButtonController Button
     {
         get { return button; }
+    }
+
+    void OnDestroy()
+    {
+        // Clear listeners.
+        onSelected = null;
+        onUpdated = null;
+        task.onAssigneeChanged -= OnAssigneeChanged;
     }
 }

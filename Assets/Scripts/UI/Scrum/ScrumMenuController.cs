@@ -24,13 +24,11 @@ public class ScrumMenuController : MenuController
         taskDetailsPanel.SetUp();
         taskDetailsPanel.Hide(); // Hidden by default.
         taskDetailsPanel.onHide += OnHideTaskDetails;
-
-        // Add tasks to board.
-        LoadTaskPanels();
     }
 
     public override void Show()
     {
+        // Add tasks to board.
         LoadTaskPanels();
         base.Show();
     }
@@ -41,6 +39,7 @@ public class ScrumMenuController : MenuController
         {
             taskDetailsPanel.Hide();
         }
+        ClearBoard();
         base.Hide();
     }
 
@@ -86,11 +85,7 @@ public class ScrumMenuController : MenuController
 
     void LoadTaskPanels()
     {
-        // Clear existing task panels.
-        if(taskPanelCache != null)
-        {
-            ClearBoard();
-        }
+        ClearBoard();
         // Add tasks to board.
         taskPanelCache = new Dictionary<Task, TaskPanel>();
         foreach (Task task in TaskManager.Instance.Tasks)
@@ -118,10 +113,17 @@ public class ScrumMenuController : MenuController
 
     void ClearBoard()
     {
+        if(taskPanelCache == null)
+        {
+            return; // Already clear.
+        }
+
         foreach(KeyValuePair<Task,TaskPanel> taskPanelPair in taskPanelCache)
         {
+            // Destroy task panel.
             Destroy(taskPanelPair.Value.gameObject);
         }
+        taskPanelCache = null;
     }
 
     public TaskPanel CreateTaskPanel(Task task, Transform parent)

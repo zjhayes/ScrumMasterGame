@@ -45,6 +45,7 @@ public class PlanningMenuController : MenuController
         {
             taskDetailsPanel.Hide();
         }
+        ClearBoard();
         base.Hide();
     }
 
@@ -109,14 +110,14 @@ public class PlanningMenuController : MenuController
                 TaskPanel taskPanel = CreateTaskPanel(task, backlogContainer.gameObject.transform);
                 taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
                 taskPanelCache.Add(task, taskPanel);
-                task.onAssigneeChanged += UpdateSelectedTaskPanel;
+                taskPanel.onUpdated += UpdateTaskPanel;
             }
             else if (task.Status == TaskStatus.TO_DO || task.Status == TaskStatus.IN_PROGRESS)
             {
                 TaskPanel taskPanel = CreateTaskPanel(task, inSprintContainer.gameObject.transform);
                 taskPanel.onSelected += OnTaskPanelSelected;
                 taskPanelCache.Add(task, taskPanel);
-                task.onAssigneeChanged += UpdateSelectedTaskPanel;
+                taskPanel.onUpdated += UpdateTaskPanel; // Problem.
             }
         }
     }
@@ -130,22 +131,19 @@ public class PlanningMenuController : MenuController
         taskPanelCache = null;
     }
 
-    void UpdateSelectedTaskPanel()
+    void UpdateTaskPanel(TaskPanel taskPanel)
     {
-        Task task = taskDetailsPanel.Task;
-        taskDetailsPanel.Hide(); // TODO: Move instead of hide.
-        TaskPanel taskPanel = taskPanelCache[task];
-        if(task.Assignee)
+        if(taskPanel.Task.Assignee)
         {
             // Move to In Sprint if task assigned.
             inSprintContainer.Add(taskPanel);
-            task.Status = TaskStatus.TO_DO;
+            taskPanel.Task.Status = TaskStatus.TO_DO;
         }
         else
         {
             // Move to backlog if no assignee.
             backlogContainer.Add(taskPanel);
-            task.Status = TaskStatus.BACKLOG;
+            taskPanel.Task.Status = TaskStatus.BACKLOG;
         }
         ValidateSprintReadiness();
     }
