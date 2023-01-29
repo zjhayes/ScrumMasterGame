@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(SprintClock))]
 public class SprintManager : Singleton<SprintManager>
 {
-    int sprintNumber = 1;
+    [SerializeField]
     float sprintTime = 120.0f;
+
+    int sprintNumber = 1;
     SprintClock clock;
 
     public delegate void OnBeginPlanning();
@@ -31,13 +34,13 @@ public class SprintManager : Singleton<SprintManager>
 
     public void BeginPlanning()
     {
-        ContextManager.Instance.SwitchToPlanningView();
+        //ContextManager.Instance.SwitchToPlanningView();
         onBeginPlanning?.Invoke();
     }
 
     public void BeginSprint()
     {
-        ContextManager.Instance.Default();
+        //ContextManager.Instance.Default();
         clock.Begin();
         onBeginSprint?.Invoke();
     }
@@ -46,6 +49,7 @@ public class SprintManager : Singleton<SprintManager>
     {
         sprintNumber++;
         onBeginRetrospective?.Invoke();
+        SceneManager.LoadScene(1); // Reload scene.
         BeginPlanning(); // TODO: Move this.
     }
 

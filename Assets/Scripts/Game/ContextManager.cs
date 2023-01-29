@@ -27,8 +27,12 @@ public class ContextManager : Singleton<ContextManager>, IController
         Default();
     }
 
-    void Start()
+    void OnEnable()
     {
+        // Listen to Sprint Manager.
+        SprintManager.Instance.onBeginPlanning += SwitchToPlanningView;
+        SprintManager.Instance.onBeginSprint += Default;
+
         // Listen to player controls.
         PlayerControls.Instance.onEscape += EscapeCurrentState;
         PlayerControls.Instance.onShowBoard += ToggleScrumBoard;
@@ -89,8 +93,19 @@ public class ContextManager : Singleton<ContextManager>, IController
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 #else
-        Application.Quit(); // original code to quit Unity player
+        Application.Quit();
 #endif
+    }
+
+    void OnDisable()
+    {
+        // Stop listening to Sprint Manager.
+        SprintManager.Instance.onBeginPlanning -= SwitchToPlanningView;
+        SprintManager.Instance.onBeginSprint -= Default;
+
+        // Stop listening to player controls.
+        PlayerControls.Instance.onEscape -= EscapeCurrentState;
+        PlayerControls.Instance.onShowBoard -= ToggleScrumBoard;
     }
 
     public GameState CurrentState
