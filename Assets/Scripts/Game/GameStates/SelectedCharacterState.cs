@@ -3,6 +3,7 @@ using UnityEngine;
 public class SelectedCharacterState : GameState
 {
     private ContextManager controller;
+    private CharacterController selectedCharacter;
 
     public override void Handle(ContextManager _controller)
     {
@@ -10,10 +11,12 @@ public class SelectedCharacterState : GameState
 
         controller.EnableInteractables(); // TODO: This depends on character status.
 
-        controller.CurrentCharacter.StateContext.onTransition += onCharacterStateChange;
+        // Listen to character and update status when state changed.
+        selectedCharacter = controller.CurrentCharacter;
+        selectedCharacter.StateContext.onTransition += onCharacterStateChange;
         
         UIManager.Instance.SelectedCharacterIcon.Show();
-        UIManager.Instance.CharacterCard.Show(controller.CurrentCharacter);
+        UIManager.Instance.CharacterCard.Show(selectedCharacter);
 
         //controller.Camera.SwitchToFollowCamera(controller.CurrentCharacter.gameObject.transform);
         controller.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
@@ -26,16 +29,19 @@ public class SelectedCharacterState : GameState
 
     void onCharacterStateChange()
     {
-        UIManager.Instance.CharacterCard.UpdateStatus(controller.CurrentCharacter);
+        UIManager.Instance.CharacterCard.UpdateStatus(selectedCharacter);
     }
 
     public override void Destroy()
     {
-        // Deselect character when state changed.
-        controller.CurrentCharacter = null;
+        // Stop listening to character.
+        selectedCharacter.StateContext.onTransition -= onCharacterStateChange;
+
+        // Revert state.
         controller.DisableInteractables();
         UIManager.Instance.SelectedCharacterIcon.Hide();
         UIManager.Instance.CharacterCard.Hide();
+
         base.Destroy();
     }
 }
