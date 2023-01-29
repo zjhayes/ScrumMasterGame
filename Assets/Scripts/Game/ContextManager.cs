@@ -31,6 +31,19 @@ public class ContextManager : Singleton<ContextManager>, IController
     {
         // Listen to player controls.
         PlayerControls.Instance.onEscape += EscapeCurrentState;
+        PlayerControls.Instance.onShowBoard += ToggleScrumBoard;
+    }
+
+    public void ToggleScrumBoard()
+    {
+        if (CurrentState is ScrumViewState)
+        {
+            Default();
+        }
+        else if (CurrentState is DefaultState || CurrentState is SelectedCharacterState)
+        {
+            SwitchToScrumView();
+        } // Else do nothing, invalid context.
     }
 
     public void Default()
@@ -38,9 +51,9 @@ public class ContextManager : Singleton<ContextManager>, IController
         stateContext.Transition<DefaultState>();
     }
 
-    public void ShowScrumBoard()
+    public void SwitchToScrumView()
     {
-        stateContext.Transition<BoardViewState>();
+        stateContext.Transition<ScrumViewState>();
     }
 
     public void SwitchToPlanningView()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BoardViewState : GameState
+public class ScrumViewState : GameState
 {
     private ContextManager controller;
 
@@ -18,9 +18,6 @@ public class BoardViewState : GameState
         }
 
         controller.Camera.SwitchToBoardCamera();
-
-        // Player can toggle board view.
-        PlayerControls.Instance.onShowBoard += controller.Default;
     }
 
     public override void Escape()
@@ -32,7 +29,6 @@ public class BoardViewState : GameState
     {
         // Escape Scrum Menu to default view when state changed.
         UIManager.Instance.ScrumMenu.Escape();
-        PlayerControls.Instance.onShowBoard -= controller.Default;
         base.Destroy();
     }
 }
