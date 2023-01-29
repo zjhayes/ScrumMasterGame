@@ -11,12 +11,12 @@ public class SelectedCharacterState : GameState
         controller.EnableInteractables(); // TODO: This depends on character status.
 
         controller.CurrentCharacter.StateContext.onTransition += onCharacterStateChange;
-
+        
         UIManager.Instance.SelectedCharacterIcon.Show();
         UIManager.Instance.CharacterCard.Show(controller.CurrentCharacter);
 
         //controller.Camera.SwitchToFollowCamera(controller.CurrentCharacter.gameObject.transform);
-        controller.Default(); // TODO: Fix Follow Camera, delete this line.
+        controller.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
     }
 
     public override void Escape()

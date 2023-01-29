@@ -33,7 +33,7 @@ public class CanvasController : MonoBehaviour
         {
             onShowFirstMenu?.Invoke();
         }
-
+        
         menu.SetActive(true);
     }
 

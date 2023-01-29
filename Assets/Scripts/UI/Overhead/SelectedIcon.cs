@@ -14,7 +14,6 @@ public class SelectedIcon : MenuController
 
     void Update()
     {
-        Debug.Log("Should not update when no character selected.");
         UpdatePosition();
     }
 
@@ -29,9 +28,25 @@ public class SelectedIcon : MenuController
         base.Hide();
     }
 
+    public override void SetActive(bool active)
+    {
+        this.enabled = active;
+    }
+
     void UpdatePosition()
     {
         // Set position to current selected character's UI overhead position.
         transform.position = ContextManager.Instance.CurrentCharacter.GetComponent<OverheadController>().GetIconPosition();
     }
+
+    void OnEnable()
+    {
+        icon.enabled = true;
+    }
+
+    void OnDisable()
+    {
+        icon.enabled = false;
+    }
+
 }

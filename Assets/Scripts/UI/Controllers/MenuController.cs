@@ -33,7 +33,7 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    public void SetActive(bool active)
+    public virtual void SetActive(bool active)
     {
         gameObject.SetActive(active);
     }
