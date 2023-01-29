@@ -32,7 +32,10 @@ public class ContextManager : Singleton<ContextManager>, IController
         // Listen to Sprint Manager.
         SprintManager.Instance.onBeginPlanning += SwitchToPlanningView;
         SprintManager.Instance.onBeginSprint += Default;
+    }
 
+    void Start()
+    {
         // Listen to player controls.
         PlayerControls.Instance.onEscape += EscapeCurrentState;
         PlayerControls.Instance.onShowBoard += ToggleScrumBoard;

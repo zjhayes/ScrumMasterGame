@@ -8,6 +8,7 @@ public class DefaultState : GameState
     {
         controller = _controller;
 
+        controller.CurrentCharacter = null;
         controller.Camera.SwitchToOverworldCamera();
     }
 
