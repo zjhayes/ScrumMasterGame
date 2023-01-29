@@ -23,6 +23,7 @@ public class CanvasController : MonoBehaviour
             menu.onHide += HideMenu;
         }
 
+        // Listen to player controls.
         PlayerControls.Instance.onEscape += OnEscape;
     }
 

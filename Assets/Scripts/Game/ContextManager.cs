@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEditor;
 
 public class ContextManager : Singleton<ContextManager>, IController
 {
@@ -30,7 +31,6 @@ public class ContextManager : Singleton<ContextManager>, IController
     {
         // Listen to player controls.
         PlayerControls.Instance.onEscape += EscapeCurrentState;
-        PlayerControls.Instance.onShowBoard += ToggleBoardView;
     }
 
     public void Default()
@@ -38,16 +38,9 @@ public class ContextManager : Singleton<ContextManager>, IController
         stateContext.Transition<DefaultState>();
     }
 
-    public void ToggleBoardView()
+    public void ShowScrumBoard()
     {
-        if(CurrentState is BoardViewState)
-        {
-            Default(); // Back out to default view.
-        }
-        else
-        {
-            stateContext.Transition<BoardViewState>();
-        }
+        stateContext.Transition<BoardViewState>();
     }
 
     public void SwitchToPlanningView()
@@ -75,6 +68,16 @@ public class ContextManager : Singleton<ContextManager>, IController
     public void DisableInteractables()
     {
         onDisableInteractables?.Invoke();
+    }
+
+    // Quit game.
+    public void Exit()
+    {
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
+        Application.Quit(); // original code to quit Unity player
+#endif
     }
 
     public GameState CurrentState

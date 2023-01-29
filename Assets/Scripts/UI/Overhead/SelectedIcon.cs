@@ -28,6 +28,7 @@ public class SelectedIcon : MenuController
         base.Hide();
     }
 
+    // Override to disable components rather than game object.
     public override void SetActive(bool active)
     {
         this.enabled = active;

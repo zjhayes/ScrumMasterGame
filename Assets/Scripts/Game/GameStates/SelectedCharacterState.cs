@@ -17,6 +17,9 @@ public class SelectedCharacterState : GameState
 
         //controller.Camera.SwitchToFollowCamera(controller.CurrentCharacter.gameObject.transform);
         controller.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
+
+        // Player can toggle board view.
+        PlayerControls.Instance.onShowBoard += controller.ShowScrumBoard;
     }
 
     public override void Escape()
@@ -36,6 +39,7 @@ public class SelectedCharacterState : GameState
         controller.DisableInteractables();
         UIManager.Instance.SelectedCharacterIcon.Hide();
         UIManager.Instance.CharacterCard.Hide();
+        PlayerControls.Instance.onShowBoard -= controller.ShowScrumBoard;
         base.Destroy();
     }
 }
