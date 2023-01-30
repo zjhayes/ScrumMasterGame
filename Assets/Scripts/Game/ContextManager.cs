@@ -23,22 +23,18 @@ public class ContextManager : Singleton<ContextManager>, IController
     {
         base.Awake();
         stateContext = new StateContext<ContextManager>(this);
-
         Default();
-    }
-
-    void OnEnable()
-    {
-        // Listen to Sprint Manager.
-        SprintManager.Instance.onBeginPlanning += SwitchToPlanningView;
-        SprintManager.Instance.onBeginSprint += Default;
     }
 
     void Start()
     {
+        // Listen to Sprint Manager.
+        GameManager.Instance.Sprint.onBeginPlanning += SwitchToPlanningView;
+        GameManager.Instance.Sprint.onBeginSprint += Default;
+
         // Listen to player controls.
-        PlayerControls.Instance.onEscape += EscapeCurrentState;
-        PlayerControls.Instance.onShowBoard += ToggleScrumBoard;
+        GameManager.Instance.Controls.onEscape += EscapeCurrentState;
+        GameManager.Instance.Controls.onShowBoard += ToggleScrumBoard;
     }
 
     public void ToggleScrumBoard()
@@ -103,12 +99,10 @@ public class ContextManager : Singleton<ContextManager>, IController
     void OnDisable()
     {
         // Stop listening to Sprint Manager.
-        SprintManager.Instance.onBeginPlanning -= SwitchToPlanningView;
-        SprintManager.Instance.onBeginSprint -= Default;
-
-        // Stop listening to player controls.
-        PlayerControls.Instance.onEscape -= EscapeCurrentState;
-        PlayerControls.Instance.onShowBoard -= ToggleScrumBoard;
+        GameManager.Instance.Sprint.onBeginPlanning -= SwitchToPlanningView;
+        GameManager.Instance.Sprint.onBeginSprint -= Default;
+        GameManager.Instance.Controls.onEscape -= EscapeCurrentState;
+        GameManager.Instance.Controls.onShowBoard -= ToggleScrumBoard;
     }
 
     public GameState CurrentState

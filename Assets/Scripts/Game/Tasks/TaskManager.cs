@@ -7,6 +7,12 @@ public class TaskManager : Singleton<TaskManager>
     [SerializeField]
     Container taskContainer;
 
+    protected override void Awake()
+    {
+        // Keep alive for duration of game.
+        DontDestroyOnLoad(gameObject);
+    }
+
     public List<Task> GetTasksWithStatus(TaskStatus status)
     {
         List<Task> tasksWithStatus = new List<Task>();

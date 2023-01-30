@@ -14,9 +14,9 @@ public class SelectedCharacterState : GameState
         // Listen to character and update status when state changed.
         selectedCharacter = controller.CurrentCharacter;
         selectedCharacter.StateContext.onTransition += onCharacterStateChange;
-        
-        UIManager.Instance.SelectedCharacterIcon.Show();
-        UIManager.Instance.CharacterCard.Show(selectedCharacter);
+
+        GameManager.Instance.UI.SelectedCharacterIcon.Show();
+        GameManager.Instance.UI.CharacterCard.Show(selectedCharacter);
 
         //controller.Camera.SwitchToFollowCamera(controller.CurrentCharacter.gameObject.transform);
         controller.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
@@ -29,7 +29,7 @@ public class SelectedCharacterState : GameState
 
     void onCharacterStateChange()
     {
-        UIManager.Instance.CharacterCard.UpdateStatus(selectedCharacter);
+        GameManager.Instance.UI.CharacterCard.UpdateStatus(selectedCharacter);
     }
 
     public override void Destroy()
@@ -39,8 +39,8 @@ public class SelectedCharacterState : GameState
 
         // Revert state.
         controller.DisableInteractables();
-        UIManager.Instance.SelectedCharacterIcon.Hide();
-        UIManager.Instance.CharacterCard.Hide();
+        GameManager.Instance.UI.SelectedCharacterIcon.Hide();
+        GameManager.Instance.UI.CharacterCard.Hide();
 
         base.Destroy();
     }

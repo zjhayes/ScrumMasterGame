@@ -9,8 +9,8 @@ public class UIClock : MonoBehaviour
 
     void Start()
     {
-        SprintManager.Instance.onBeginSprint += Show;
-        SprintManager.Instance.onBeginRetrospective += Hide;
+        GameManager.Instance.Sprint.onBeginSprint += Show;
+        GameManager.Instance.Sprint.onBeginRetrospective += Hide;
         Hide();
     }
 
@@ -26,6 +26,6 @@ public class UIClock : MonoBehaviour
 
     void Update()
     {
-        timeText.text = SprintManager.Instance.Clock.BeautifulTime;
+        timeText.text = GameManager.Instance.Sprint.Clock.BeautifulTime;
     }
 }

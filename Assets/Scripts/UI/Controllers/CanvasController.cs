@@ -24,7 +24,7 @@ public class CanvasController : MonoBehaviour
         }
 
         // Listen to player controls.
-        PlayerControls.Instance.onEscape += OnEscape;
+        GameManager.Instance.Controls.onEscape += OnEscape;
     }
 
     public void ShowMenu(MenuController menu)

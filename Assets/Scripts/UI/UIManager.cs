@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UIManager : Singleton<UIManager>
+public class UIManager : MonoBehaviour
 {
     [SerializeField]
     Canvas overheadCanvas;
@@ -15,6 +15,11 @@ public class UIManager : Singleton<UIManager>
     [SerializeField]
     ScrumMenuController scrumMenu;
 
+    void Start()
+    {
+        GameManager.Instance.UI = this;
+    }
+
     public void CreateFrustrationSpeechBubble(OverheadController controller)
     {
         GameObject frustrationSpeechBubble = Instantiate(frustrationSpeechBubblePrefab);
@@ -26,7 +31,7 @@ public class UIManager : Singleton<UIManager>
     {
         get { return overheadCanvas; }
     }*/
-
+    
     public SelectedIcon SelectedCharacterIcon
     {
         get { return selectedCharacterIcon; }

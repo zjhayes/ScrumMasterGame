@@ -21,7 +21,7 @@ public class PlanningMenuController : AbstractTaskMenu
 
     void OnBeginSprintPressed()
     {
-        SprintManager.Instance.BeginSprint();
+        GameManager.Instance.Sprint.BeginSprint();
     }
 
     protected override void HandleLoadingTaskPanel(Task task)

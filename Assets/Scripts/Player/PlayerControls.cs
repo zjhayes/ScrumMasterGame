@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerControls : Singleton<PlayerControls>
+public class PlayerControls : MonoBehaviour
 {
     PlayerInput input;
 
@@ -11,14 +11,10 @@ public class PlayerControls : Singleton<PlayerControls>
     public delegate void OnShowBoard();
     public OnShowBoard onShowBoard;
 
-    protected override void Awake()
+    void Awake()
     {
-        base.Awake();
         input = new PlayerInput();
-    }
 
-    void Start()
-    {
         input.Player.Escape.canceled += _ => Escape();
         input.Player.ShowBoard.canceled += _ => ShowBoard();
     }
