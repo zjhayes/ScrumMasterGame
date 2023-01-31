@@ -17,7 +17,7 @@ public class ScrumViewState : GameState
             GameManager.Instance.UI.CharacterCard.Hide();
         }
 
-        controller.Camera.SwitchToBoardCamera();
+        GameManager.Instance.Camera.SwitchToBoardCamera();
     }
 
     public override void Escape()

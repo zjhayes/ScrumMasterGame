@@ -36,7 +36,7 @@ public class CharacterController : MonoBehaviour, IController
     void OnSelect()
     {
         // Context Manager determines how to handle character selection.
-        ContextManager.Instance.CharacterSelected(this);
+        GameManager.Instance.Context.CharacterSelected(this);
     }
 
     public void Idle()

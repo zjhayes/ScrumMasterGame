@@ -11,16 +11,16 @@ public class Interactable : Selectable
 
     void Start()
     {
-        ContextManager.Instance.onEnableInteractables += Enable;
-        ContextManager.Instance.onDisableInteractables += Disable;
+        GameManager.Instance.Context.onEnableInteractables += Enable;
+        GameManager.Instance.Context.onDisableInteractables += Disable;
         Disable();
     }
 
     protected override void Select()
     {
-        if(ContextManager.Instance.CurrentCharacter) // A character must be selected.
+        if(GameManager.Instance.Context.CurrentCharacter) // A character must be selected.
         {
-            CharacterController character = ContextManager.Instance.CurrentCharacter;
+            CharacterController character = GameManager.Instance.Context.CurrentCharacter;
             character.GoInteractWith(this);
             base.Select();
         }

@@ -1,12 +1,8 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEditor;
 
-public class ContextManager : Singleton<ContextManager>, IController
+public class ContextManager : MonoBehaviour, IController
 {
-    [SerializeField]
-    CameraController cameraController;
-
     public delegate void OnEnableInteractables();
     public OnEnableInteractables onEnableInteractables;
 
@@ -19,15 +15,11 @@ public class ContextManager : Singleton<ContextManager>, IController
     StateContext<ContextManager> stateContext;
     CharacterController currentCharacter;
 
-    protected override void Awake()
+    void Awake()
     {
-        base.Awake();
         stateContext = new StateContext<ContextManager>(this);
         Default();
-    }
-
-    void Start()
-    {
+        
         // Listen to Sprint Manager.
         GameManager.Instance.Sprint.onBeginPlanning += SwitchToPlanningView;
         GameManager.Instance.Sprint.onBeginSprint += Default;
@@ -114,10 +106,5 @@ public class ContextManager : Singleton<ContextManager>, IController
     {
         get { return currentCharacter; }
         set { currentCharacter = value; }
-    }
-
-    public CameraController Camera
-    {
-        get { return cameraController; }
     }
 }

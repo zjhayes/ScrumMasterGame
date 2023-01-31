@@ -3,11 +3,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    Canvas overheadCanvas;
-    [SerializeField]
     SelectedIcon selectedCharacterIcon;
-    [SerializeField]
-    GameObject frustrationSpeechBubblePrefab;
     [SerializeField]
     CharacterCard characterCard;
     [SerializeField]
@@ -15,22 +11,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     ScrumMenuController scrumMenu;
 
-    void Start()
-    {
-        GameManager.Instance.UI = this;
-    }
+    public delegate void OnShowFrustrationEmote(OverheadController overheadController);
+    public event OnShowFrustrationEmote onShowFrustrationEmote;
 
-    public void CreateFrustrationSpeechBubble(OverheadController controller)
+    public void ShowFrustrationEmote(OverheadController overheadController)
     {
-        GameObject frustrationSpeechBubble = Instantiate(frustrationSpeechBubblePrefab);
-        frustrationSpeechBubble.transform.SetParent(overheadCanvas.transform);
-        frustrationSpeechBubble.GetComponent<SpeechBubble>().Show(controller);
+        onShowFrustrationEmote?.Invoke(overheadController);
     }
-    /*
-    public Canvas OverheadCanvas
-    {
-        get { return overheadCanvas; }
-    }*/
     
     public SelectedIcon SelectedCharacterIcon
     {

@@ -7,9 +7,10 @@ public class PlanningViewState : GameState
     public override void Handle(ContextManager _controller)
     {
         controller = _controller;
+        
         GameManager.Instance.UI.ScrumMenu.Hide();
         GameManager.Instance.UI.PlanningMenu.Show();
-        controller.Camera.SwitchToBoardCamera();
+        GameManager.Instance.Camera.SwitchToBoardCamera();
     }
 
     public override void Escape()

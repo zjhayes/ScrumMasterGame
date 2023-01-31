@@ -46,8 +46,8 @@ public class SprintManager : MonoBehaviour
     {
         sprintNumber++;
         onBeginRetrospective?.Invoke();
-        SceneManager.LoadScene(1); // Reload scene.
-        Debug.Log("Begin planning");
+        //SceneManager.LoadScene(1); // Reload scene.
+        
         BeginPlanning(); // TODO: Move this.
     }
 

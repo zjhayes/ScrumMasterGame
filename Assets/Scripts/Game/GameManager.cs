@@ -1,5 +1,6 @@
 using UnityEngine;
 // Game Service Locator
+[RequireComponent(typeof(UIManager))]
 [RequireComponent(typeof(PlayerControls))]
 [RequireComponent(typeof(SprintManager))]
 public class GameManager : Singleton<GameManager>
@@ -7,14 +8,19 @@ public class GameManager : Singleton<GameManager>
     UIManager ui;
     PlayerControls controls;
     SprintManager sprint;
+    ContextManager context;
+    CharacterManager characterManager;
+    CameraController cameraController;
 
     protected override void Awake()
     {
+        ui = GetComponent<UIManager>();
         controls = GetComponent<PlayerControls>();
         sprint = GetComponent<SprintManager>();
+        context = GetComponent<ContextManager>();
+        characterManager = GetComponent<CharacterManager>();
 
-        // Keep alive for duration of game.
-        DontDestroyOnLoad(gameObject);
+        cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
     }
 
     public UIManager UI
@@ -31,5 +37,15 @@ public class GameManager : Singleton<GameManager>
     public SprintManager Sprint
     {
         get { return sprint; } 
+    }
+
+    public ContextManager Context
+    {
+        get { return context; }
+    }
+
+    public CameraController Camera
+    {
+        get { return cameraController; }
     }
 }

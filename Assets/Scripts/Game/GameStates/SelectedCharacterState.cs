@@ -18,8 +18,7 @@ public class SelectedCharacterState : GameState
         GameManager.Instance.UI.SelectedCharacterIcon.Show();
         GameManager.Instance.UI.CharacterCard.Show(selectedCharacter);
 
-        //controller.Camera.SwitchToFollowCamera(controller.CurrentCharacter.gameObject.transform);
-        controller.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
+        GameManager.Instance.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
     }
 
     public override void Escape()
