@@ -29,11 +29,11 @@ public class Singleton<T> : MonoBehaviour where T : Component
         if (instance == null)
         {
             instance = this as T;
-            // Keep alive for duration of game.
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(instance);
         }
         else
         {
+            Debug.Log("Multiple instances of " + instance);
             Destroy(gameObject);
         }
     }

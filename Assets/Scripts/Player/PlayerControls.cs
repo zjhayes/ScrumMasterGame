@@ -5,27 +5,28 @@ public class PlayerControls : MonoBehaviour
 {
     PlayerInput input;
 
+    public delegate void OnEscape();
+    public OnEscape onEscape;
+
+    public delegate void OnShowBoard();
+    public OnShowBoard onShowBoard;
 
     void Awake()
     {
         input = new PlayerInput();
+
+        input.Player.Escape.canceled += _ => Escape();
+        input.Player.ShowBoard.canceled += _ => ShowBoard();
     }
 
-    void Start()
+    void ShowBoard()
     {
-        // Assign controls to character movement.
-        //input.Character.Move.performed += ctx => character.Move(ctx.ReadValue<Vector2>());
-        // input.Character.Move.canceled += ctx => character.Stop();
-        // input.Character.Run.started += _ => character.Run();
-        // input.Character.Run.canceled += _ => character.Walk();
-        input.Player.Escape.canceled += _ => OnEscape();
-
-        
+        onShowBoard?.Invoke();
     }
 
-    void OnEscape()
+    void Escape()
     {
-        ContextManager.Instance.Deselect();
+        onEscape?.Invoke();
     }
 
     void OnEnable()

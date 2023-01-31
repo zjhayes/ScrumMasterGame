@@ -23,5 +23,13 @@ public class Pickup : Interactable, IContainable
         gameObject.GetComponent<Collider>().enabled = enable;
     }
 
-    public Vector3 ContainerRotation { get { return holdRotation; } }
+    public void SetPositionToContainer(Container container)
+    {
+        gameObject.transform.position = container.gameObject.transform.position;
+    }
+
+    public void SetToHoldRotation()
+    {
+        gameObject.transform.localEulerAngles = holdRotation;
+    }
 }

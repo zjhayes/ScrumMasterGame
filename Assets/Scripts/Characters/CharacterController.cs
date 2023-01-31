@@ -35,7 +35,8 @@ public class CharacterController : MonoBehaviour, IController
 
     void OnSelect()
     {
-        ContextManager.Instance.CharacterSelected(this);
+        // Context Manager determines how to handle character selection.
+        GameManager.Instance.Context.CharacterSelected(this);
     }
 
     public void Idle()
@@ -44,6 +45,7 @@ public class CharacterController : MonoBehaviour, IController
         stateContext.Transition<IdleState>();
     }
 
+    // Character moves to interactable to interact.
     public void GoInteractWith(Interactable interactable)
     {
         currentInteractable = interactable;

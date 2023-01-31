@@ -53,7 +53,7 @@ public class ActionManager : Singleton<ActionManager>
 
     void OnDisable()
     {
-        CancelAll();
+        CancelAll(); // TODO: This might cause issues, test if actions should just pause.
     }
 
     void DisableIfNothingToDo()

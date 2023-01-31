@@ -7,11 +7,7 @@ public class ScrumBoardController : MonoBehaviour
     [SerializeField]
     private GameObject cartridgePrefab;
     [SerializeField]
-    private Container toDoContainer;
-    [SerializeField]
-    private Container inProgressContainer;
-    [SerializeField]
-    private Container doneContainer;
+    private Container tasks;
 
     public void CreateCartridge(Inventory inventory)
     {
@@ -23,18 +19,7 @@ public class ScrumBoardController : MonoBehaviour
     {
         get
         {
-            return CollectTasks(toDoContainer);
+            return TaskManager.Instance.GetTasksWithStatus(TaskStatus.TO_DO);
         }
-    }
-
-    private List<Task> CollectTasks(Container container)
-    {
-        List<Task> tasks = new List<Task>();
-        List<GameObject> taskObjects = container.Get(Tags.TASK);
-        foreach (GameObject task in taskObjects)
-        {
-            tasks.Add(task.GetComponent<Task>());
-        }
-        return tasks;
     }
 }

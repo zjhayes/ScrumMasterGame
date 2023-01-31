@@ -13,6 +13,6 @@ public class OverheadController : MonoBehaviour
 
     public void ShowFrustrationBubble()
     {
-        UIManager.Instance.CreateFrustrationSpeechBubble(this);
+        GameManager.Instance.UI.ShowFrustrationEmote(this);
     }
 }

@@ -1,17 +1,79 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Task : MonoBehaviour
+[RequireComponent(typeof(ProductionStats))]
+public class Task : MonoBehaviour, IContainable
 {
     [SerializeField]
-    private string summary;
+    Sprite taskTypeIcon;
     [SerializeField]
-    private ProductionStats stats;
+    string summary;
     [SerializeField]
-    private Cartridge cartridge;
+    string description;
+    [SerializeField]
+    int storyPoints;
+    [SerializeField]
+    CharacterController assignee;
+    [SerializeField]
+    Cartridge cartridge;
+    [SerializeField]
+    TaskStatus status = TaskStatus.INACTIVE;
+    ProductionStats stats;
 
-    private bool complete = false;
+    public delegate void OnAssigneeChanged();
+    public event OnAssigneeChanged onAssigneeChanged;
+
+
+    void Awake()
+    {
+        stats = GetComponent<ProductionStats>();
+    }
+
+    public string Summary
+    {
+        get { return summary; }
+    }
+
+    public string Description
+    {
+        get { return description; } 
+    }
+
+    public int StoryPoints
+    {
+        get { return storyPoints; } 
+    }
+
+    public CharacterController Assignee
+    {
+        get { return assignee; }
+        set 
+        { 
+            if(assignee != value)
+            {
+                assignee = value;
+                onAssigneeChanged?.Invoke();
+            }
+        }
+    }
+
+    public TaskStatus Status
+    {
+        get { return status; }
+        set { status = value; }
+    }
+
+    public ProductionStats Stats
+    {
+        get { return stats; }
+    }
+
+    public Sprite TaskTypeIcon
+    {
+        get { return taskTypeIcon; }
+    }
 
     public Cartridge Cartridge
     {
@@ -19,4 +81,13 @@ public class Task : MonoBehaviour
         set { cartridge = value; }
     }
 
+}
+
+public enum TaskStatus
+{
+    INACTIVE,
+    BACKLOG,
+    TO_DO,
+    IN_PROGRESS,
+    DONE
 }

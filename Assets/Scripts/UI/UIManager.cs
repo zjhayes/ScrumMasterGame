@@ -1,36 +1,41 @@
 using UnityEngine;
 
-public class UIManager : Singleton<UIManager>
+public class UIManager : MonoBehaviour
 {
-    [SerializeField]
-    Canvas overheadCanvas;
     [SerializeField]
     SelectedIcon selectedCharacterIcon;
     [SerializeField]
-    GameObject frustrationSpeechBubblePrefab;
+    CharacterCard characterCard;
     [SerializeField]
-    CharacterCardController characterCard;
+    PlanningMenuController planningMenu;
+    [SerializeField]
+    ScrumMenuController scrumMenu;
 
-    public Canvas OverheadCanvas
+    public delegate void OnShowFrustrationEmote(OverheadController overheadController);
+    public event OnShowFrustrationEmote onShowFrustrationEmote;
+
+    public void ShowFrustrationEmote(OverheadController overheadController)
     {
-        get { return overheadCanvas; }
+        onShowFrustrationEmote?.Invoke(overheadController);
     }
-
+    
     public SelectedIcon SelectedCharacterIcon
     {
         get { return selectedCharacterIcon; }
     }
 
-    public void CreateFrustrationSpeechBubble(OverheadController controller)
-    {
-        GameObject frustrationSpeechBubble = Instantiate(frustrationSpeechBubblePrefab);
-        frustrationSpeechBubble.transform.SetParent(overheadCanvas.transform);
-        //frustrationSpeechBubble.transform.parent = overheadCanvas.transform;
-        frustrationSpeechBubble.GetComponent<SpeechBubble>().Show(controller);
-    }
-
-    public CharacterCardController CharacterCard
+    public CharacterCard CharacterCard
     {
         get { return characterCard; }
+    }
+
+    public PlanningMenuController PlanningMenu
+    {
+        get { return planningMenu; }
+    }
+
+    public ScrumMenuController ScrumMenu
+    {
+        get { return scrumMenu; }
     }
 }

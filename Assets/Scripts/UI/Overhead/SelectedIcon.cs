@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
-public class SelectedIcon : MonoBehaviour
+public class SelectedIcon : MenuController
 {
     Image icon;
 
-    void Awake()
+    public override void SetUp()
     {
         icon = GetComponent<Image>();
         Hide();
@@ -17,22 +17,37 @@ public class SelectedIcon : MonoBehaviour
         UpdatePosition();
     }
 
+    public override void Show()
+    {
+        UpdatePosition();
+        base.Show();
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+    }
+
+    // Override to disable components rather than game object.
+    public override void SetActive(bool active)
+    {
+        this.enabled = active;
+    }
+
     void UpdatePosition()
     {
         // Set position to current selected character's UI overhead position.
-        transform.position = ContextManager.Instance.CurrentCharacter.GetComponent<OverheadController>().GetIconPosition();
+        transform.position = GameManager.Instance.Context.CurrentCharacter.GetComponent<OverheadController>().GetIconPosition();
     }
 
-    public void Show()
+    void OnEnable()
     {
-        UpdatePosition();
-        this.enabled = true;
         icon.enabled = true;
     }
 
-    public void Hide()
+    void OnDisable()
     {
         icon.enabled = false;
-        this.enabled = false;
     }
+
 }

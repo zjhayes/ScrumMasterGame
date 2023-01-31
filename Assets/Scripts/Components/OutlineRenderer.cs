@@ -4,14 +4,13 @@ using UnityEngine;
 [RequireComponent(typeof(Renderer))]
 public class OutlineRenderer : MonoBehaviour
 {
-
-    Renderer renderer;
+    Renderer materialRenderer;
 
     const string ENABLE_OUTLINE_PROPERTY = "_Enable_Outline";
 
     void Awake()
     {
-        renderer = GetComponent<Renderer>();
+        materialRenderer = GetComponent<Renderer>();
     }
 
     void Start()
@@ -21,11 +20,11 @@ public class OutlineRenderer : MonoBehaviour
 
     public void Show()
     {
-        GetComponent<Renderer>().material.SetInt(ENABLE_OUTLINE_PROPERTY, 1);
+        materialRenderer.material.SetInt(ENABLE_OUTLINE_PROPERTY, 1);
     }
 
     public void Hide()
     {
-        GetComponent<Renderer>().material.SetInt(ENABLE_OUTLINE_PROPERTY, 0);
+        materialRenderer.material.SetInt(ENABLE_OUTLINE_PROPERTY, 0);
     }
 }

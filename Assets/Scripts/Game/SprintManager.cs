@@ -1,24 +1,58 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(SprintClock))]
-public class SprintManager : Singleton<SprintManager>
+public class SprintManager : MonoBehaviour
 {
-    Sprint currentSprint;
+    [SerializeField]
+    float sprintTime = 120.0f;
+
+    int sprintNumber = 1;
     SprintClock clock;
 
-    float sprintTime = 2.0f;
+    public delegate void OnBeginPlanning();
+    public OnBeginPlanning onBeginPlanning;
 
-    protected override void Awake()
+    public delegate void OnBeginSprint();
+    public OnBeginSprint onBeginSprint;
+
+    public delegate void OnBeginRetrospective();
+    public OnBeginRetrospective onBeginRetrospective;
+
+    void Awake()
     {
         clock = GetComponent<SprintClock>();
         clock.TotalTime = sprintTime;
-        StartSprint();
+        clock.onExpiration += BeginRetrospective;
     }
 
-    private void StartSprint()
+    void Start()
     {
-        clock.Start();
+        BeginPlanning();
+    }
+
+    public void BeginPlanning()
+    {
+        onBeginPlanning?.Invoke();
+    }
+
+    public void BeginSprint()
+    {
+        clock.Begin();
+        onBeginSprint?.Invoke();
+    }
+
+    public void BeginRetrospective()
+    {
+        sprintNumber++;
+        onBeginRetrospective?.Invoke();
+        //SceneManager.LoadScene(1); // Reload scene.
+        
+        BeginPlanning(); // TODO: Move this.
+    }
+
+    public SprintClock Clock
+    {
+        get { return clock; }
     }
 }
