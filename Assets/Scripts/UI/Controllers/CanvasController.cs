@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CanvasController : MonoBehaviour
+public class CanvasController : GameBehaviour
 {
     [SerializeField]
     List<MenuController> menus;
@@ -24,7 +24,7 @@ public class CanvasController : MonoBehaviour
         }
 
         // Listen to player controls.
-        GameManager.Instance.Controls.onEscape += OnEscape;
+        gameManager.Controls.onEscape += OnEscape;
     }
 
     public void ShowMenu(MenuController menu)

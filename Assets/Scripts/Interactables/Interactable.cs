@@ -2,7 +2,7 @@ using UnityEngine;
 
 /** An Interactable is a Selectable that requires a Character to interact with. **/
 public class Interactable : Selectable
-{
+{ 
     [SerializeField]
     Transform goToPosition; // Optional, position character will walk to.
 
@@ -11,16 +11,16 @@ public class Interactable : Selectable
 
     void Start()
     {
-        GameManager.Instance.Context.onEnableInteractables += Enable;
-        GameManager.Instance.Context.onDisableInteractables += Disable;
+        gameManager.Context.onEnableInteractables += Enable;
+        gameManager.Context.onDisableInteractables += Disable;
         Disable();
     }
 
     protected override void Select()
     {
-        if(GameManager.Instance.Context.CurrentCharacter) // A character must be selected.
+        if(gameManager.Context.CurrentCharacter) // A character must be selected.
         {
-            CharacterController character = GameManager.Instance.Context.CurrentCharacter;
+            CharacterController character = gameManager.Context.CurrentCharacter;
             character.GoInteractWith(this);
             base.Select();
         }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /** A character's Overhead is where icons, emotes and progress indicators will appear. */
-public class OverheadController : MonoBehaviour
+public class OverheadController : GameBehaviour
 {
     [SerializeField]
     Transform overheadLocation;
@@ -13,6 +13,6 @@ public class OverheadController : MonoBehaviour
 
     public void ShowFrustrationBubble()
     {
-        GameManager.Instance.UI.ShowFrustrationEmote(this);
+        gameManager.UI.ShowFrustrationEmote(this);
     }
 }

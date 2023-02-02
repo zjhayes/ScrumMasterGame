@@ -13,11 +13,11 @@ public class ScrumViewState : GameState
         {
             controller.CurrentCharacter = null;
             controller.DisableInteractables();
-            GameManager.Instance.UI.SelectedCharacterIcon.Hide();
-            GameManager.Instance.UI.CharacterCard.Hide();
+            controller.GameManager.UI.SelectedCharacterIcon.Hide();
+            controller.GameManager.UI.CharacterCard.Hide();
         }
 
-        GameManager.Instance.Camera.SwitchToBoardCamera();
+        controller.GameManager.Camera.SwitchToBoardCamera();
     }
 
     public override void Escape()
@@ -28,7 +28,7 @@ public class ScrumViewState : GameState
     public override void Destroy()
     {
         // Escape Scrum Menu to default view when state changed.
-        GameManager.Instance.UI.ScrumMenu.Escape();
+        controller.GameManager.UI.ScrumMenu.Escape();
         base.Destroy();
     }
 }

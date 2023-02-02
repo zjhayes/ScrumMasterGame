@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(UIManager))]
 [RequireComponent(typeof(PlayerControls))]
 [RequireComponent(typeof(SprintManager))]
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour, IGameManager
 {
     UIManager ui;
     PlayerControls controls;
@@ -12,8 +12,11 @@ public class GameManager : Singleton<GameManager>
     CharacterManager characterManager;
     CameraController cameraController;
 
-    protected override void Awake()
+    void Awake()
     {
+        // Inject gameManager into dependents.
+        ServiceInjector.Resolve<IGameManager, GameBehaviour>(this);
+
         ui = GetComponent<UIManager>();
         controls = GetComponent<PlayerControls>();
         sprint = GetComponent<SprintManager>();

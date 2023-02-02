@@ -7,7 +7,7 @@ public class OverheadCanvasController : CanvasController
 
     void OnEnable()
     {
-        GameManager.Instance.UI.onShowFrustrationEmote += CreateFrustrationSpeechBubble;
+        gameManager.UI.onShowFrustrationEmote += CreateFrustrationSpeechBubble;
     }
 
     public void CreateFrustrationSpeechBubble(OverheadController controller)
@@ -19,6 +19,6 @@ public class OverheadCanvasController : CanvasController
 
     void OnDisable()
     {
-        GameManager.Instance.UI.onShowFrustrationEmote -= CreateFrustrationSpeechBubble;
+        gameManager.UI.onShowFrustrationEmote -= CreateFrustrationSpeechBubble;
     }
 }

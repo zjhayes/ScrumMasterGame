@@ -5580,18 +5580,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 9202146680643259819}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1544127825 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9202146682052118778, guid: 016fa4ce8b6a8b447abe93f646d1e6aa,
-    type: 3}
-  m_PrefabInstance: {fileID: 9202146680643259819}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e353f712033fc7c4ea5675e2d2d15d50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1589535274
 GameObject:
   m_ObjectHideFlags: 0
@@ -6547,7 +6535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menus:
-  - {fileID: 1544127825}
+  - {fileID: 0}
   - {fileID: 1353883014}
 --- !u!222 &2104359272
 CanvasRenderer:
@@ -12730,5 +12718,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlanningWindow
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9202146682052118778, guid: 016fa4ce8b6a8b447abe93f646d1e6aa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 016fa4ce8b6a8b447abe93f646d1e6aa, type: 3}

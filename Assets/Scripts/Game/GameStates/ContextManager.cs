@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-public class ContextManager : MonoBehaviour, IController
+public class ContextManager : GameBehaviour, IController
 {
     public delegate void OnEnableInteractables();
     public OnEnableInteractables onEnableInteractables;
@@ -19,14 +19,14 @@ public class ContextManager : MonoBehaviour, IController
     {
         stateContext = new StateContext<ContextManager>(this);
         Default();
-        
+
         // Listen to Sprint Manager.
-        GameManager.Instance.Sprint.onBeginPlanning += SwitchToPlanningView;
-        GameManager.Instance.Sprint.onBeginSprint += Default;
+        gameManager.Sprint.onBeginPlanning += SwitchToPlanningView;
+        gameManager.Sprint.onBeginSprint += Default;
 
         // Listen to player controls.
-        GameManager.Instance.Controls.onEscape += EscapeCurrentState;
-        GameManager.Instance.Controls.onShowBoard += ToggleScrumBoard;
+        gameManager.Controls.onEscape += EscapeCurrentState;
+        gameManager.Controls.onShowBoard += ToggleScrumBoard;
     }
 
     public void ToggleScrumBoard()
@@ -91,10 +91,10 @@ public class ContextManager : MonoBehaviour, IController
     void OnDisable()
     {
         // Stop listening to Sprint Manager.
-        GameManager.Instance.Sprint.onBeginPlanning -= SwitchToPlanningView;
-        GameManager.Instance.Sprint.onBeginSprint -= Default;
-        GameManager.Instance.Controls.onEscape -= EscapeCurrentState;
-        GameManager.Instance.Controls.onShowBoard -= ToggleScrumBoard;
+        gameManager.Sprint.onBeginPlanning -= SwitchToPlanningView;
+        gameManager.Sprint.onBeginSprint -= Default;
+        gameManager.Controls.onEscape -= EscapeCurrentState;
+        gameManager.Controls.onShowBoard -= ToggleScrumBoard;
     }
 
     public GameState CurrentState

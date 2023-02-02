@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 public class StateContext<T> where T : IController
 {
     public delegate void OnTransition();

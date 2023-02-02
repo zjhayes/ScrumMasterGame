@@ -15,10 +15,10 @@ public class SelectedCharacterState : GameState
         selectedCharacter = controller.CurrentCharacter;
         selectedCharacter.StateContext.onTransition += onCharacterStateChange;
 
-        GameManager.Instance.UI.SelectedCharacterIcon.Show();
-        GameManager.Instance.UI.CharacterCard.Show(selectedCharacter);
+        controller.GameManager.UI.SelectedCharacterIcon.Show();
+        controller.GameManager.UI.CharacterCard.Show(selectedCharacter);
 
-        GameManager.Instance.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
+        controller.GameManager.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
     }
 
     public override void Escape()
@@ -28,7 +28,7 @@ public class SelectedCharacterState : GameState
 
     void onCharacterStateChange()
     {
-        GameManager.Instance.UI.CharacterCard.UpdateStatus(selectedCharacter);
+        controller.GameManager.UI.CharacterCard.UpdateStatus(selectedCharacter);
     }
 
     public override void Destroy()
@@ -38,8 +38,8 @@ public class SelectedCharacterState : GameState
 
         // Revert state.
         controller.DisableInteractables();
-        GameManager.Instance.UI.SelectedCharacterIcon.Hide();
-        GameManager.Instance.UI.CharacterCard.Hide();
+        controller.GameManager.UI.SelectedCharacterIcon.Hide();
+        controller.GameManager.UI.CharacterCard.Hide();
 
         base.Destroy();
     }

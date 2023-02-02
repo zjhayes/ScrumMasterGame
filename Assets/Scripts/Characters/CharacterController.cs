@@ -5,7 +5,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CharacterMovement))]
 [RequireComponent(typeof(Selectable))]
 [RequireComponent(typeof(Inventory))]
-public class CharacterController : MonoBehaviour, IController
+public class CharacterController : GameBehaviour, IController
 {
     [SerializeField]
     Sprite portrait;
@@ -36,7 +36,7 @@ public class CharacterController : MonoBehaviour, IController
     void OnSelect()
     {
         // Context Manager determines how to handle character selection.
-        GameManager.Instance.Context.CharacterSelected(this);
+        gameManager.Context.CharacterSelected(this);
     }
 
     public void Idle()
