@@ -15,7 +15,7 @@ public class Task : MonoBehaviour, IContainable
     [SerializeField]
     int storyPoints;
     [SerializeField]
-    CharacterController assignee;
+    ICharacterController assignee;
     [SerializeField]
     Cartridge cartridge;
     [SerializeField]
@@ -46,7 +46,7 @@ public class Task : MonoBehaviour, IContainable
         get { return storyPoints; } 
     }
 
-    public CharacterController Assignee
+    public ICharacterController Assignee
     {
         get { return assignee; }
         set 

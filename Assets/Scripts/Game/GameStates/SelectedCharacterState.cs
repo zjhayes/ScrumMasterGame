@@ -3,7 +3,7 @@ using UnityEngine;
 public class SelectedCharacterState : GameState
 {
     private ContextManager controller;
-    private CharacterController selectedCharacter;
+    private ICharacterController selectedCharacter;
 
     public override void Handle(ContextManager _controller)
     {
@@ -15,10 +15,11 @@ public class SelectedCharacterState : GameState
         selectedCharacter = controller.CurrentCharacter;
         selectedCharacter.StateContext.onTransition += onCharacterStateChange;
 
-        controller.GameManager.UI.SelectedCharacterIcon.Show();
-        controller.GameManager.UI.CharacterCard.Show(selectedCharacter);
+        gameManager.UI.SelectedCharacterIcon.Show();
+        gameManager.UI.CharacterCard.Show(selectedCharacter);
 
-        controller.GameManager.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
+        gameManager.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
+        base.Handle(controller);
     }
 
     public override void Escape()
@@ -28,7 +29,7 @@ public class SelectedCharacterState : GameState
 
     void onCharacterStateChange()
     {
-        controller.GameManager.UI.CharacterCard.UpdateStatus(selectedCharacter);
+        gameManager.UI.CharacterCard.UpdateStatus(selectedCharacter);
     }
 
     public override void Destroy()
@@ -38,8 +39,8 @@ public class SelectedCharacterState : GameState
 
         // Revert state.
         controller.DisableInteractables();
-        controller.GameManager.UI.SelectedCharacterIcon.Hide();
-        controller.GameManager.UI.CharacterCard.Hide();
+        gameManager.UI.SelectedCharacterIcon.Hide();
+        gameManager.UI.CharacterCard.Hide();
 
         base.Destroy();
     }

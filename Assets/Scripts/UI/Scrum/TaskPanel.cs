@@ -83,7 +83,7 @@ public class TaskPanel : MenuController, IContainable
 
     public void UpdateAssigneePortrait()
     {
-        if (task.Assignee)
+        if (task.Assignee != null)
         {
             assigneeImage.sprite = task.Assignee?.Portrait;
         }

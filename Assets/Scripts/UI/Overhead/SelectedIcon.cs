@@ -37,7 +37,7 @@ public class SelectedIcon : MenuController
     void UpdatePosition()
     {
         // Set position to current selected character's UI overhead position.
-        transform.position = gameManager.Context.CurrentCharacter.GetComponent<OverheadController>().GetIconPosition();
+        transform.position = gameManager.Context.CurrentCharacter.OverHead.GetIconPosition();
     }
 
     void OnEnable()

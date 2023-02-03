@@ -10,13 +10,13 @@ public class Station : Interactable
     [SerializeField]
     protected List<Chair> chairs;
 
-    public override void InteractWith(CharacterController character)
+    public override void InteractWith(ICharacterController character)
     {
         OnSit(character);
         base.InteractWith(character);
     }
 
-    protected virtual void OnSit(CharacterController occupant)
+    protected virtual void OnSit(ICharacterController occupant)
     {
         foreach(Chair chair in chairs)
         {
@@ -31,7 +31,7 @@ public class Station : Interactable
         occupant.Frustrated();
     }
 
-    protected virtual void OnStand(CharacterController occupant)
+    protected virtual void OnStand(ICharacterController occupant)
     {
         foreach(Chair chair in chairs)
         {

@@ -3,9 +3,9 @@ using UnityEngine;
 public class Cartridge : Pickup
 {
     [SerializeField]
-    private CharacterController assignee;
+    private ICharacterController assignee;
 
-    public CharacterController Assignee
+    public ICharacterController Assignee
     {
         get { return assignee; }
     }

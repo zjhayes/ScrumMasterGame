@@ -9,7 +9,8 @@ public class DefaultState : GameState
         controller = _controller;
 
         controller.CurrentCharacter = null;
-        controller.GameManager.Camera.SwitchToOverworldCamera();
+        gameManager.Camera.SwitchToOverworldCamera();
+        base.Handle(controller);
     }
 
     public override void Escape()

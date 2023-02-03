@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class GoToInteractableState : CharacterState
 {
-    protected CharacterController character;
+    protected ICharacterController character;
 
-    public override void Handle(CharacterController controller)
+    public override void Handle(ICharacterController controller)
     {
         character = controller;
         character.Movement.GoTo(character.CurrentInteractable.Position);
+        base.Handle(controller);
     }
 
     void Update()

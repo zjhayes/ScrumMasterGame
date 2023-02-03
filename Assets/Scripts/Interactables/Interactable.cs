@@ -6,7 +6,7 @@ public class Interactable : Selectable
     [SerializeField]
     Transform goToPosition; // Optional, position character will walk to.
 
-    public delegate void OnInteract(CharacterController character);
+    public delegate void OnInteract(ICharacterController character);
     public OnInteract onInteract;
 
     void Start()
@@ -18,15 +18,15 @@ public class Interactable : Selectable
 
     protected override void Select()
     {
-        if(gameManager.Context.CurrentCharacter) // A character must be selected.
+        if(gameManager.Context.CurrentCharacter != null) // A character must be selected.
         {
-            CharacterController character = gameManager.Context.CurrentCharacter;
+            ICharacterController character = gameManager.Context.CurrentCharacter;
             character.GoInteractWith(this);
             base.Select();
         }
     }
 
-    public virtual void InteractWith(CharacterController character)
+    public virtual void InteractWith(ICharacterController character)
     {
         onInteract?.Invoke(character);
     }

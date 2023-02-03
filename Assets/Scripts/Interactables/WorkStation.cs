@@ -5,7 +5,7 @@ public class WorkStation : Station
     [SerializeField]
     Container cartridgeIntake;
     
-    protected override void OnSit(CharacterController occupant)
+    protected override void OnSit(ICharacterController occupant)
     {
         // Get cartridge from character.
         if(occupant.Inventory.HasPickup())
@@ -23,7 +23,7 @@ public class WorkStation : Station
         base.OnSit(occupant);
     }
 
-    protected override void OnStand(CharacterController occupant)
+    protected override void OnStand(ICharacterController occupant)
     {
         if(CurrentCartridge?.Assignee == occupant)
         {
@@ -33,7 +33,7 @@ public class WorkStation : Station
         base.OnStand(occupant);
     }
 
-    private void InputCartridge(CharacterController character)
+    private void InputCartridge(ICharacterController character)
     {
         Pickup pickup = character.Inventory.Drop(); // Get pickup.
 

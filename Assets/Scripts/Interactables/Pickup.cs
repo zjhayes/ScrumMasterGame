@@ -5,7 +5,7 @@ public class Pickup : Interactable, IContainable
     [SerializeField]
     private Vector3 holdRotation;
 
-    public override void InteractWith(CharacterController character)
+    public override void InteractWith(ICharacterController character)
     {
         AddToInventory(character.Inventory);
         base.InteractWith(character);

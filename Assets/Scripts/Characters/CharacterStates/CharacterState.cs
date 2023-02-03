@@ -1,13 +1,16 @@
 using UnityEngine;
 
-public abstract class CharacterState : MonoBehaviour, IState<CharacterController>
+public abstract class CharacterState : MonoBehaviour, ICharacterState
 {
     public abstract string Status { get; }
 
-    public abstract void Handle(CharacterController controller);
-
-    public void Destroy()
+    public virtual void Handle(ICharacterController controller)
     {
-        Destroy(this);
+        this.enabled = true;
+    }
+
+    public virtual void Destroy()
+    {
+        this.enabled = false;
     }
 }

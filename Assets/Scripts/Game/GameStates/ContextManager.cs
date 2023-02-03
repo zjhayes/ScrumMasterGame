@@ -1,19 +1,22 @@
 using UnityEngine;
 using UnityEditor;
 
-public class ContextManager : GameBehaviour, IController
+public class ContextManager : GameBehaviour, IContextManager
 {
-    public delegate void OnEnableInteractables();
-    public OnEnableInteractables onEnableInteractables;
-
-    public delegate void OnDisableInteractables();
-    public OnDisableInteractables onDisableInteractables;
-
-    public delegate void OnStateTransitioned(GameState state);
-    public OnStateTransitioned onStateTransitioned;
+    public event OnEnableInteractables onEnableInteractables;
+    public event OnDisableInteractables onDisableInteractables;
 
     StateContext<ContextManager> stateContext;
-    CharacterController currentCharacter;
+    ICharacterController currentCharacter;
+
+    [SerializeField]
+    GameState defaultState;
+    [SerializeField]
+    GameState scrumViewState;
+    [SerializeField]
+    GameState planningViewState;
+    [SerializeField]
+    GameState selectedCharacterState;
 
     void Awake()
     {
@@ -43,23 +46,23 @@ public class ContextManager : GameBehaviour, IController
 
     public void Default()
     {
-        stateContext.Transition<DefaultState>();
+        stateContext.Transition<GameState>(defaultState);
     }
 
     public void SwitchToScrumView()
     {
-        stateContext.Transition<ScrumViewState>();
+        stateContext.Transition<GameState>(scrumViewState);
     }
 
     public void SwitchToPlanningView()
     {
-        stateContext.Transition<PlanningViewState>();
+        stateContext.Transition<GameState>(planningViewState);
     }
 
-    public void CharacterSelected(CharacterController character)
+    public void CharacterSelected(ICharacterController character)
     {
         currentCharacter = character;
-        stateContext.Transition<SelectedCharacterState>();
+        stateContext.Transition<GameState>(selectedCharacterState);
     }
 
     public void EscapeCurrentState()
@@ -97,12 +100,12 @@ public class ContextManager : GameBehaviour, IController
         gameManager.Controls.onShowBoard -= ToggleScrumBoard;
     }
 
-    public GameState CurrentState
+    public IGameState CurrentState
     {
-        get { return (GameState)stateContext.CurrentState; }
+        get { return (IGameState)stateContext.CurrentState; }
     }
 
-    public CharacterController CurrentCharacter
+    public ICharacterController CurrentCharacter
     {
         get { return currentCharacter; }
         set { currentCharacter = value; }

@@ -7,7 +7,7 @@ public class CertificationStation : Station
     [SerializeField]
     GameObject openBook;
 
-    protected override void OnSit(CharacterController occupant)
+    protected override void OnSit(ICharacterController occupant)
     {
         if (occupant.Inventory.HasPickup())
         {
@@ -22,7 +22,7 @@ public class CertificationStation : Station
         }
     }
 
-    protected override void OnStand(CharacterController occupant)
+    protected override void OnStand(ICharacterController occupant)
     {   
         if (CountOccupants() == 1)
         { // This is the last occupant.

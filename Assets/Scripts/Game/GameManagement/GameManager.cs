@@ -3,12 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(UIManager))]
 [RequireComponent(typeof(PlayerControls))]
 [RequireComponent(typeof(SprintManager))]
+[RequireComponent(typeof(IContextManager))]
 public class GameManager : MonoBehaviour, IGameManager
 {
     UIManager ui;
     PlayerControls controls;
     SprintManager sprint;
-    ContextManager context;
+    IContextManager context;
     CharacterManager characterManager;
     CameraController cameraController;
 
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour, IGameManager
         ui = GetComponent<UIManager>();
         controls = GetComponent<PlayerControls>();
         sprint = GetComponent<SprintManager>();
-        context = GetComponent<ContextManager>();
+        context = GetComponent<IContextManager>();
         characterManager = GetComponent<CharacterManager>();
 
         cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
@@ -42,9 +43,14 @@ public class GameManager : MonoBehaviour, IGameManager
         get { return sprint; } 
     }
 
-    public ContextManager Context
+    public IContextManager Context
     {
         get { return context; }
+    }
+
+    public CharacterManager Team
+    {
+        get { return characterManager; }
     }
 
     public CameraController Camera

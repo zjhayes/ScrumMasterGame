@@ -44,7 +44,7 @@ public class PlanningMenuController : AbstractTaskMenu
 
     void UpdateTaskPanel(TaskPanel taskPanel)
     {
-        if(taskPanel.Task.Assignee)
+        if(taskPanel.Task.Assignee != null)
         {
             // Move to In Sprint if task assigned.
             inSprintContainer.Add(taskPanel);
