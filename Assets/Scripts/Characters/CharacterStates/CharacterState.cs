@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class CharacterState : MonoBehaviour, ICharacterState
+public abstract class CharacterState : GameBehaviour, ICharacterState
 {
     public abstract string Status { get; }
 

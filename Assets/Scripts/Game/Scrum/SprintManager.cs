@@ -6,6 +6,8 @@ public class SprintManager : MonoBehaviour
 {
     [SerializeField]
     float sprintTime = 120.0f;
+    [SerializeField]
+    TaskManager taskManager;
 
     int sprintNumber = 1;
     SprintClock clock;
@@ -49,6 +51,11 @@ public class SprintManager : MonoBehaviour
         //SceneManager.LoadScene(1); // Reload scene.
         
         BeginPlanning(); // TODO: Move this.
+    }
+
+    public TaskManager Board
+    {
+        get { return taskManager; }
     }
 
     public SprintClock Clock

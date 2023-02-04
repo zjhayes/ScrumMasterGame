@@ -8,8 +8,6 @@ public interface IContextManager : IController
 
     public event OnDisableInteractables onDisableInteractables;
 
-    public void ToggleScrumBoard();
-
     public void Default();
 
     public void SwitchToScrumView();
@@ -17,6 +15,8 @@ public interface IContextManager : IController
     public void SwitchToPlanningView();
 
     public void CharacterSelected(ICharacterController character);
+
+    public void ChangeView();
 
     public void EscapeCurrentState();
 
@@ -26,7 +26,7 @@ public interface IContextManager : IController
 
     public void Exit();
 
-    public IGameState CurrentState { get; }
+    public GameState CurrentState { get; }
 
     public ICharacterController CurrentCharacter { get; }
 }

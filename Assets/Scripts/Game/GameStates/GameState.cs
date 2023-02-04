@@ -9,6 +9,11 @@ public abstract class GameState : GameBehaviour, IState<ContextManager>
 
     public abstract void Escape();
 
+    public virtual void ChangeView()
+    {
+        // Override if view can be changed during state.
+    }
+
     public virtual void Destroy()
     {
         this.enabled = false;

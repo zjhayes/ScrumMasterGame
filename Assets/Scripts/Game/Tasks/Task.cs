@@ -29,6 +29,7 @@ public class Task : MonoBehaviour, IContainable
     void Awake()
     {
         stats = GetComponent<ProductionStats>();
+        UpdateEnablementBasedOnStatus();
     }
 
     public string Summary
@@ -62,7 +63,11 @@ public class Task : MonoBehaviour, IContainable
     public TaskStatus Status
     {
         get { return status; }
-        set { status = value; }
+        set 
+        { 
+            status = value;
+            UpdateEnablementBasedOnStatus();
+        }
     }
 
     public ProductionStats Stats
@@ -81,6 +86,18 @@ public class Task : MonoBehaviour, IContainable
         set { cartridge = value; }
     }
 
+    private void UpdateEnablementBasedOnStatus()
+    {
+        // Disable when inactive or archived.
+        if (status == TaskStatus.INACTIVE || status == TaskStatus.ARCHIVED)
+        {
+            this.enabled = false;
+        }
+        else
+        {
+            this.enabled = true;
+        }
+    }
 }
 
 public enum TaskStatus
@@ -89,5 +106,6 @@ public enum TaskStatus
     BACKLOG,
     TO_DO,
     IN_PROGRESS,
-    DONE
+    DONE,
+    ARCHIVED
 }

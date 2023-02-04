@@ -29,19 +29,7 @@ public class ContextManager : GameBehaviour, IContextManager
 
         // Listen to player controls.
         gameManager.Controls.onEscape += EscapeCurrentState;
-        gameManager.Controls.onShowBoard += ToggleScrumBoard;
-    }
-
-    public void ToggleScrumBoard()
-    {
-        if (CurrentState is ScrumViewState)
-        {
-            Default();
-        }
-        else if (CurrentState is DefaultState || CurrentState is SelectedCharacterState)
-        {
-            SwitchToScrumView();
-        } // Else do nothing, invalid context.
+        gameManager.Controls.onChangeView += ChangeView;
     }
 
     public void Default()
@@ -63,6 +51,11 @@ public class ContextManager : GameBehaviour, IContextManager
     {
         currentCharacter = character;
         stateContext.Transition<GameState>(selectedCharacterState);
+    }
+
+    public void ChangeView()
+    {
+        CurrentState.ChangeView();
     }
 
     public void EscapeCurrentState()
@@ -97,12 +90,12 @@ public class ContextManager : GameBehaviour, IContextManager
         gameManager.Sprint.onBeginPlanning -= SwitchToPlanningView;
         gameManager.Sprint.onBeginSprint -= Default;
         gameManager.Controls.onEscape -= EscapeCurrentState;
-        gameManager.Controls.onShowBoard -= ToggleScrumBoard;
+        gameManager.Controls.onChangeView -= ChangeView;
     }
 
-    public IGameState CurrentState
+    public GameState CurrentState
     {
-        get { return (IGameState)stateContext.CurrentState; }
+        get { return stateContext.CurrentState as GameState; }
     }
 
     public ICharacterController CurrentCharacter

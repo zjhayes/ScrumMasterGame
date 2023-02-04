@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TaskManager : Singleton<TaskManager>
+public class TaskManager : MonoBehaviour
 {
     [SerializeField]
     Container taskContainer;
+    [SerializeField]
+    bool cacheInactive = false;
 
-    protected override void Awake()
+    List<Task> cachedTasks;
+
+    void Awake()
     {
         // Keep alive for duration of game.
         DontDestroyOnLoad(gameObject);
+        UpdateCache();
     }
 
     public List<Task> GetTasksWithStatus(TaskStatus status)
@@ -26,11 +31,32 @@ public class TaskManager : Singleton<TaskManager>
         return tasksWithStatus;
     }
 
+    public List<Task> GetTasksWithAssignee(ICharacterController assignee)
+    {
+        List<Task> tasksWithAssignee = new List<Task>();
+        foreach(Task task in Tasks)
+        {
+            if(task.Assignee == assignee)
+            {
+                tasksWithAssignee.Add(task);
+            }
+        }
+        return tasksWithAssignee;
+    }
+
+    public void UpdateCache()
+    {
+        cachedTasks = new List<Task>();
+
+        cachedTasks = taskContainer.Get<Task>(cacheInactive);
+    }
+
     public List<Task> Tasks
     {
         get
         {
-            return taskContainer.Get<Task>();
+            if (cachedTasks == null) { UpdateCache(); }
+            return cachedTasks;
         }
     }
 }

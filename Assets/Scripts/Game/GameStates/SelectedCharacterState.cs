@@ -22,6 +22,12 @@ public class SelectedCharacterState : GameState
         base.Handle(controller);
     }
 
+    public override void ChangeView()
+    {
+        // Enter Scrum Board view.
+        controller.SwitchToScrumView();
+    }
+
     public override void Escape()
     {
         controller.Default();

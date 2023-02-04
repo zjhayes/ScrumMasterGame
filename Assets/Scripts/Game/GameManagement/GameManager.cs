@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour, IGameManager
         context = GetComponent<IContextManager>();
         characterManager = GetComponent<CharacterManager>();
 
-        cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
+        cameraController = FindObjectOfType<CameraController>();
     }
 
     public UIManager UI

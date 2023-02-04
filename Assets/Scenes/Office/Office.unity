@@ -1997,6 +1997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   taskContainer: {fileID: 463280175}
+  cacheInactive: 0
 --- !u!4 &463280174
 Transform:
   m_ObjectHideFlags: 0
@@ -4168,6 +4169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprintTime: 10
+  taskManager: {fileID: 463280173}
 --- !u!114 &1018710665
 MonoBehaviour:
   m_ObjectHideFlags: 0

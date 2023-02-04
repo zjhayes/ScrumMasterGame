@@ -21,6 +21,12 @@ public class ScrumViewState : GameState
         base.Handle(controller);
     }
 
+    public override void ChangeView()
+    {
+        // Exit Scrum Board view.
+        controller.Default();
+    }
+
     public override void Escape()
     {
         // TODO: Show settings menu.

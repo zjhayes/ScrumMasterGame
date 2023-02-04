@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScrumBoardController : MonoBehaviour
+public class ScrumBoardController : GameBehaviour
 {
     [SerializeField]
-    private GameObject cartridgePrefab;
+    TaskManager taskManager;
     [SerializeField]
-    private Container tasks;
+    GameObject cartridgePrefab;
+    [SerializeField]
+    Container tasks;
 
     public void CreateCartridge(Inventory inventory)
     {
@@ -19,7 +21,7 @@ public class ScrumBoardController : MonoBehaviour
     {
         get
         {
-            return TaskManager.Instance.GetTasksWithStatus(TaskStatus.TO_DO);
+            return taskManager.GetTasksWithStatus(TaskStatus.TO_DO);
         }
     }
 }
