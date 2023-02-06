@@ -8,9 +8,13 @@ public interface IGameManager : IService
 
     public SprintManager Sprint { get; }
 
+    public BoardManager Board { get; }
+
     public IContextManager Context { get; }
 
-    public CharacterManager Team { get; }
+    public TeamManager Team { get; }
+
+    public InteractableManager Interactables { get; }
 
     public CameraController Camera { get; }
 }

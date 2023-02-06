@@ -15,13 +15,52 @@ public class FindSomethingToDoState : CharacterState
 
     void Update()
     {
-        List<Task> assignedTasks = gameManager.Sprint.Board.GetTasksWithAssignee(character);
+        // Find open task to work on.
+        List<Task> assignedTasks = gameManager.Board.GetTasksWithAssignee(character);
+        foreach (Task task in assignedTasks)
+        {
+            if (task.Status == TaskStatus.IN_PROGRESS)
+            {
+                ContinueInProgressTask(task);
+                return;
+            }
+            else if (task.Status == TaskStatus.TO_DO)
+            {
+                // The board will determine which assigned task the player takes.
+                GetTaskFromBoard();
+                return;
+            }
+        }
+
+        // Find another developer to pair program with.
+        WorkStation pairProgrammingStation = gameManager.Interactables.FindPairProgrammingStation();
+        if(pairProgrammingStation != null)
+        {
+            character.GoInteractWith(pairProgrammingStation);
+            return;
+        }
+
+        // If good time management, go to certification station.
+        if(character.Stats.TimeManagement > 2) // TODO: Determine calculation for helpful perk.
+        {
+            character.GoInteractWith(gameManager.Interactables.CertificationStation);
+        }
+
+        // Else dilly dally, continue looking for something to do.'
+        // TODO: At emote for procrastination.
+    }
+
+    void ContinueInProgressTask(Task task)
+    {
         // If task in progress and in computer, go to station
         // If task in progress and on floor, pick up
-        // If assigned task in to do, go to scrum board.
-        // Dilly dally
-        // If someone working, paired program
-        // If good time management, go to certification station
+        //character.GoInteractWith(task.Cartridge); // TODO: figure out how to get to cartridge
+    }
+
+    void GetTaskFromBoard()
+    {
+        // Go get task from scrum board.
+        character.GoInteractWith(gameManager.Interactables.ScrumBoard);
     }
 
     public override string Status

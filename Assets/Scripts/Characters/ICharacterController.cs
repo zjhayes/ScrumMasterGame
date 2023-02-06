@@ -6,6 +6,8 @@ public interface ICharacterController : IController
 
     public void GoInteractWith(Interactable interactable);
 
+    public void FindSomethingToDo();
+
     public void InteractWithCurrent();
 
     public void Frustrated();

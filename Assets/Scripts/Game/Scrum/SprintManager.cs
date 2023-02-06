@@ -6,20 +6,18 @@ public class SprintManager : MonoBehaviour
 {
     [SerializeField]
     float sprintTime = 120.0f;
-    [SerializeField]
-    TaskManager taskManager;
 
     int sprintNumber = 1;
     SprintClock clock;
 
     public delegate void OnBeginPlanning();
-    public OnBeginPlanning onBeginPlanning;
+    public event OnBeginPlanning onBeginPlanning;
 
     public delegate void OnBeginSprint();
-    public OnBeginSprint onBeginSprint;
+    public event OnBeginSprint onBeginSprint;
 
     public delegate void OnBeginRetrospective();
-    public OnBeginRetrospective onBeginRetrospective;
+    public event OnBeginRetrospective onBeginRetrospective;
 
     void Awake()
     {
@@ -51,11 +49,6 @@ public class SprintManager : MonoBehaviour
         //SceneManager.LoadScene(1); // Reload scene.
         
         BeginPlanning(); // TODO: Move this.
-    }
-
-    public TaskManager Board
-    {
-        get { return taskManager; }
     }
 
     public SprintClock Clock

@@ -18,12 +18,12 @@ public class Station : Interactable
 
     protected virtual void OnSit(ICharacterController occupant)
     {
-        foreach(Chair chair in chairs)
+        foreach (Chair chair in chairs)
         {
             if(!chair.Occupied)
             {
                 chair.Sit(occupant);
-                return;
+                return; // Character found a chair.
             }
         }
 

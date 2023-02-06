@@ -8,10 +8,7 @@ public class InteractionState : CharacterState
     {
         character = controller;
         base.Handle(controller);
-    }
 
-    void Start()
-    {
         if (!character.CurrentInteractable)
         {
             character.Idle();

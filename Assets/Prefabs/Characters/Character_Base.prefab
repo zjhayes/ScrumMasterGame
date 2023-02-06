@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7278616370920601002}
   - component: {fileID: 2422948551570477371}
   - component: {fileID: 7471514786420491996}
+  - component: {fileID: 3038512528039855484}
   m_Layer: 0
   m_Name: CharacterStates
   m_TagString: Untagged
@@ -68,6 +69,18 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38c6136eb793a844aa844a89887ce36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3038512528039855484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3890257014442109914}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 355ee5b75e0fa4347ab15cde25e337db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6294234850732449225
@@ -269,6 +282,7 @@ MonoBehaviour:
   idleState: {fileID: 7278616370920601002}
   goToInteractableState: {fileID: 2422948551570477371}
   interactionState: {fileID: 7471514786420491996}
+  findSomethingToDoState: {fileID: 3038512528039855484}
   overheadController: {fileID: 6043434678734175951}
 --- !u!114 &2025796840576347535
 MonoBehaviour:

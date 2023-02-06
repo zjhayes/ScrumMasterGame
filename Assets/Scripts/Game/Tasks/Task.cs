@@ -17,8 +17,6 @@ public class Task : MonoBehaviour, IContainable
     [SerializeField]
     ICharacterController assignee;
     [SerializeField]
-    Cartridge cartridge;
-    [SerializeField]
     TaskStatus status = TaskStatus.INACTIVE;
     ProductionStats stats;
 
@@ -78,12 +76,6 @@ public class Task : MonoBehaviour, IContainable
     public Sprite TaskTypeIcon
     {
         get { return taskTypeIcon; }
-    }
-
-    public Cartridge Cartridge
-    {
-        get { return cartridge; }
-        set { cartridge = value; }
     }
 
     private void UpdateEnablementBasedOnStatus()

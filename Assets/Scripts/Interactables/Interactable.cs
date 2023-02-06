@@ -7,12 +7,12 @@ public class Interactable : Selectable
     Transform goToPosition; // Optional, position character will walk to.
 
     public delegate void OnInteract(ICharacterController character);
-    public OnInteract onInteract;
+    public event OnInteract onInteract;
 
     void Start()
     {
-        gameManager.Context.onEnableInteractables += Enable;
-        gameManager.Context.onDisableInteractables += Disable;
+        gameManager.Interactables.onEnableInteractables += Enable;
+        gameManager.Interactables.onDisableInteractables += Disable;
         Disable();
     }
 
@@ -29,6 +29,12 @@ public class Interactable : Selectable
     public virtual void InteractWith(ICharacterController character)
     {
         onInteract?.Invoke(character);
+    }
+
+    void OnDestroy()
+    {
+        gameManager.Interactables.onEnableInteractables -= Enable;
+        gameManager.Interactables.onDisableInteractables -= Disable;
     }
 
     public Vector3 Position

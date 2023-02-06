@@ -8,11 +8,11 @@ public class ScrumViewState : GameState
     {
         controller = _controller;
 
-        // Deselect current character.
+        // Deselect current character. TODO: This may be redundant
         if(controller.CurrentCharacter != null)
         {
             controller.CurrentCharacter = null;
-            controller.DisableInteractables();
+            gameManager.Interactables.DisableInteractables();
             gameManager.UI.SelectedCharacterIcon.Hide();
             gameManager.UI.CharacterCard.Hide();
         }

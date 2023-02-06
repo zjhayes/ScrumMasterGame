@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TaskManager : MonoBehaviour
+public class BoardManager : MonoBehaviour
 {
     [SerializeField]
     Container taskContainer;
@@ -13,8 +13,6 @@ public class TaskManager : MonoBehaviour
 
     void Awake()
     {
-        // Keep alive for duration of game.
-        DontDestroyOnLoad(gameObject);
         UpdateCache();
     }
 
@@ -44,10 +42,22 @@ public class TaskManager : MonoBehaviour
         return tasksWithAssignee;
     }
 
+    public Task GetFirstTaskWithAssignee(ICharacterController assignee)
+    {
+        foreach (Task task in Tasks)
+        {
+            if (task.Assignee == assignee)
+            {
+                return task;
+            }
+        }
+        return null;
+    }
+
     public void UpdateCache()
     {
         cachedTasks = new List<Task>();
-
+        
         cachedTasks = taskContainer.Get<Task>(cacheInactive);
     }
 

@@ -1,16 +1,21 @@
 using UnityEngine;
 // Game Service Locator
+[RequireComponent(typeof(IContextManager))]
 [RequireComponent(typeof(UIManager))]
+[RequireComponent(typeof(InteractableManager))]
 [RequireComponent(typeof(PlayerControls))]
 [RequireComponent(typeof(SprintManager))]
-[RequireComponent(typeof(IContextManager))]
+[RequireComponent(typeof(BoardManager))]
+[RequireComponent(typeof(TeamManager))]
 public class GameManager : MonoBehaviour, IGameManager
 {
     UIManager ui;
     PlayerControls controls;
     SprintManager sprint;
+    BoardManager board;
     IContextManager context;
-    CharacterManager characterManager;
+    TeamManager teamManager;
+    InteractableManager interactables;
     CameraController cameraController;
 
     void Awake()
@@ -18,19 +23,31 @@ public class GameManager : MonoBehaviour, IGameManager
         // Inject gameManager into dependents.
         ServiceInjector.Resolve<IGameManager, GameBehaviour>(this);
 
+        context = GetComponent<IContextManager>();
         ui = GetComponent<UIManager>();
+        interactables = GetComponent<InteractableManager>();
         controls = GetComponent<PlayerControls>();
         sprint = GetComponent<SprintManager>();
-        context = GetComponent<IContextManager>();
-        characterManager = GetComponent<CharacterManager>();
+        board = GetComponent<BoardManager>();
+        teamManager = GetComponent<TeamManager>();
 
         cameraController = FindObjectOfType<CameraController>();
+    }
+
+    public IContextManager Context
+    {
+        get { return context; }
     }
 
     public UIManager UI
     {
         get { return ui; }
         set { ui = value; }
+    }
+
+    public InteractableManager Interactables
+    {
+        get { return interactables; }
     }
 
     public PlayerControls Controls
@@ -43,14 +60,14 @@ public class GameManager : MonoBehaviour, IGameManager
         get { return sprint; } 
     }
 
-    public IContextManager Context
+    public BoardManager Board
     {
-        get { return context; }
+        get { return board; }
     }
 
-    public CharacterManager Team
+    public TeamManager Team
     {
-        get { return characterManager; }
+        get { return teamManager; }
     }
 
     public CameraController Camera

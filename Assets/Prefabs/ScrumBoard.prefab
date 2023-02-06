@@ -143,7 +143,6 @@ GameObject:
   - component: {fileID: 2943767472195475424}
   - component: {fileID: 768688609}
   - component: {fileID: 768688607}
-  - component: {fileID: 1052484608671796335}
   - component: {fileID: 3583366555102095676}
   m_Layer: 3
   m_Name: ScrumBoard
@@ -183,8 +182,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 11, y: 4, z: 1}
-  m_Center: {x: 0, y: -2, z: 0.5}
+  m_Size: {x: 12, y: 7, z: 2}
+  m_Center: {x: 0, y: -1, z: 1}
 --- !u!114 &768688607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,23 +196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ae5bfcc1c2e48442aa8e83d2f47952d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goToPosition: {fileID: 0}
   cartridgePrefab: {fileID: 7174707449635838685, guid: b7f67cd1d032db94c827acda5cf32bf7,
     type: 3}
-  toDoContainer: {fileID: 5412581325374982149}
-  inProgressContainer: {fileID: 79259285057777626}
-  doneContainer: {fileID: 8820858014996555593}
---- !u!114 &1052484608671796335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5956794344987119182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4848ec6d68220164f9e0ba899ce09161, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3583366555102095676
 MonoBehaviour:
   m_ObjectHideFlags: 0

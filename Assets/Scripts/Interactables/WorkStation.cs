@@ -4,7 +4,9 @@ public class WorkStation : Station
 { 
     [SerializeField]
     Container cartridgeIntake;
-    
+
+    bool claimed = false; // Character has claimed this station.
+
     protected override void OnSit(ICharacterController occupant)
     {
         // Get cartridge from character.
@@ -20,12 +22,14 @@ public class WorkStation : Station
                 occupant.Inventory.Drop();
             }
         }
+
+        claimed = false;
         base.OnSit(occupant);
     }
 
     protected override void OnStand(ICharacterController occupant)
     {
-        if(CurrentCartridge?.Assignee == occupant)
+        if(CurrentCartridge?.Task.Assignee == occupant)
         {
             // Assignee takes cartridge.
             occupant.Inventory.PickUp(CurrentCartridge);
@@ -44,6 +48,12 @@ public class WorkStation : Station
             pickup.SetPositionToContainer(cartridgeIntake);
             pickup.SetToHoldRotation();
         }
+    }
+
+    public bool Claimed
+    {
+        get { return claimed; }
+        set { claimed = value; }
     }
 
     public Cartridge CurrentCartridge

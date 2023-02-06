@@ -3,9 +3,6 @@ using UnityEditor;
 
 public class ContextManager : GameBehaviour, IContextManager
 {
-    public event OnEnableInteractables onEnableInteractables;
-    public event OnDisableInteractables onDisableInteractables;
-
     StateContext<ContextManager> stateContext;
     ICharacterController currentCharacter;
 
@@ -53,6 +50,7 @@ public class ContextManager : GameBehaviour, IContextManager
         stateContext.Transition<GameState>(selectedCharacterState);
     }
 
+    // TODO: State controls can be moved to own class.
     public void ChangeView()
     {
         CurrentState.ChangeView();
@@ -63,16 +61,6 @@ public class ContextManager : GameBehaviour, IContextManager
         CurrentState.Escape();
     }
 
-    // TODO: Move interactable logic to own controller
-    public void EnableInteractables()
-    {
-        onEnableInteractables?.Invoke();
-    }
-
-    public void DisableInteractables()
-    {
-        onDisableInteractables?.Invoke();
-    }
 
     // Quit game.
     public void Exit()

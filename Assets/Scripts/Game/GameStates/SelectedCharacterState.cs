@@ -9,7 +9,7 @@ public class SelectedCharacterState : GameState
     {
         controller = _controller;
 
-        controller.EnableInteractables(); // TODO: This depends on character status.
+        gameManager.Interactables.EnableInteractables(); // TODO: This depends on character status.
 
         // Listen to character and update status when state changed.
         selectedCharacter = controller.CurrentCharacter;
@@ -44,7 +44,7 @@ public class SelectedCharacterState : GameState
         selectedCharacter.StateContext.onTransition -= onCharacterStateChange;
 
         // Revert state.
-        controller.DisableInteractables();
+        gameManager.Interactables.DisableInteractables();
         gameManager.UI.SelectedCharacterIcon.Hide();
         gameManager.UI.CharacterCard.Hide();
 

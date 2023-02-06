@@ -16,6 +16,8 @@ public class CharacterController : GameBehaviour, ICharacterController
     [SerializeField]
     CharacterState interactionState;
     [SerializeField]
+    CharacterState findSomethingToDoState;
+    [SerializeField]
     OverheadController overheadController;
 
     CharacterStats stats;
@@ -53,12 +55,16 @@ public class CharacterController : GameBehaviour, ICharacterController
         stateContext.Transition<CharacterState>(idleState);
     }
 
+    public void FindSomethingToDo()
+    {
+        stateContext.Transition<CharacterState>(findSomethingToDoState);
+    }
+
     // Character moves to interactable to interact.
     public void GoInteractWith(Interactable interactable)
     {
         currentInteractable = interactable;
         stateContext.Transition<CharacterState>(goToInteractableState);
-        
     }
 
     public void InteractWithCurrent()
@@ -69,7 +75,7 @@ public class CharacterController : GameBehaviour, ICharacterController
     public void Frustrated()
     {
         overheadController.ShowFrustrationBubble();
-        Idle();
+        FindSomethingToDo();
     }
 
     public CharacterStats Stats
