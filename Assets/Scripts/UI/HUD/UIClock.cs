@@ -2,15 +2,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIClock : MonoBehaviour
+public class UIClock : GameBehaviour
 {
     [SerializeField]
     TextMeshProUGUI timeText;
 
     void Start()
     {
-        GameManager.Instance.Sprint.onBeginSprint += Show;
-        GameManager.Instance.Sprint.onBeginRetrospective += Hide;
+        gameManager.Sprint.onBeginSprint += Show;
+        gameManager.Sprint.onBeginRetrospective += Hide;
         Hide();
     }
 
@@ -26,6 +26,6 @@ public class UIClock : MonoBehaviour
 
     void Update()
     {
-        timeText.text = GameManager.Instance.Sprint.Clock.BeautifulTime;
+        timeText.text = gameManager.Sprint.Clock.BeautifulTime;
     }
 }

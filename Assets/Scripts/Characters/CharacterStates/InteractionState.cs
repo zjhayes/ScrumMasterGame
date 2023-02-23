@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class InteractionState : CharacterState
 {
-    private CharacterController character;
+    private ICharacterController character;
 
-    public override void Handle(CharacterController _controller)
+    public override void Handle(ICharacterController controller)
     {
-        character = _controller;
-    }
+        character = controller;
+        base.Handle(controller);
 
-    void Start()
-    {
         if (!character.CurrentInteractable)
         {
             character.Idle();

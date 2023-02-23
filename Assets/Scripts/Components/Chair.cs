@@ -7,7 +7,7 @@ public class Chair : MonoBehaviour
     [SerializeField]
     Transform exitToPosition;
 
-    public void Sit(CharacterController occupant)
+    public void Sit(ICharacterController occupant)
     {
         // Disable character physics.
         occupant.EnablePhysics(false);
@@ -20,8 +20,8 @@ public class Chair : MonoBehaviour
 
     public void Stand()
     {
-        CharacterController occupant = Occupant;
-        if (!occupant) { return; }
+        ICharacterController occupant = Occupant;
+        if (occupant == null) { return; }
 
         // Enable character physics.
         occupant.EnablePhysics(true);
@@ -31,11 +31,11 @@ public class Chair : MonoBehaviour
         occupant.transform.position = exitToPosition.transform.position;
     }
 
-    public CharacterController Occupant
+    public ICharacterController Occupant
     {
         get 
         {
-            return seat.GetComponentInChildren(typeof(CharacterController)) as CharacterController;
+            return seat.GetComponentInChildren(typeof(ICharacterController)) as ICharacterController;
         }
     }
 

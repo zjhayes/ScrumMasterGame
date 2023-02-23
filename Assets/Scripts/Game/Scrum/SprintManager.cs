@@ -11,13 +11,13 @@ public class SprintManager : MonoBehaviour
     SprintClock clock;
 
     public delegate void OnBeginPlanning();
-    public OnBeginPlanning onBeginPlanning;
+    public event OnBeginPlanning onBeginPlanning;
 
     public delegate void OnBeginSprint();
-    public OnBeginSprint onBeginSprint;
+    public event OnBeginSprint onBeginSprint;
 
     public delegate void OnBeginRetrospective();
-    public OnBeginRetrospective onBeginRetrospective;
+    public event OnBeginRetrospective onBeginRetrospective;
 
     void Awake()
     {

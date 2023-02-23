@@ -9,7 +9,14 @@ public class DefaultState : GameState
         controller = _controller;
 
         controller.CurrentCharacter = null;
-        GameManager.Instance.Camera.SwitchToOverworldCamera();
+        gameManager.Camera.SwitchToOverworldCamera();
+        base.Handle(controller);
+    }
+
+    public override void ChangeView()
+    {
+        // Enter Scrum Board view.
+        controller.SwitchToScrumView();
     }
 
     public override void Escape()

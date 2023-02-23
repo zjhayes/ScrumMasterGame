@@ -8,16 +8,23 @@ public class ScrumViewState : GameState
     {
         controller = _controller;
 
-        // Deselect current character.
+        // Deselect current character. TODO: This may be redundant
         if(controller.CurrentCharacter != null)
         {
             controller.CurrentCharacter = null;
-            controller.DisableInteractables();
-            GameManager.Instance.UI.SelectedCharacterIcon.Hide();
-            GameManager.Instance.UI.CharacterCard.Hide();
+            gameManager.Interactables.DisableInteractables();
+            gameManager.UI.SelectedCharacterIcon.Hide();
+            gameManager.UI.CharacterCard.Hide();
         }
 
-        GameManager.Instance.Camera.SwitchToBoardCamera();
+        controller.GameManager.Camera.SwitchToBoardCamera();
+        base.Handle(controller);
+    }
+
+    public override void ChangeView()
+    {
+        // Exit Scrum Board view.
+        controller.Default();
     }
 
     public override void Escape()
@@ -28,7 +35,7 @@ public class ScrumViewState : GameState
     public override void Destroy()
     {
         // Escape Scrum Menu to default view when state changed.
-        GameManager.Instance.UI.ScrumMenu.Escape();
+        gameManager.UI.ScrumMenu.Escape();
         base.Destroy();
     }
 }

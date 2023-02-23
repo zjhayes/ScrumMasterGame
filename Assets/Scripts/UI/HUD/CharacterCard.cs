@@ -17,7 +17,7 @@ public class CharacterCard : MenuController
     StatusBar statusBar;
 
 
-    public void Show(CharacterController character)
+    public void Show(ICharacterController character)
     {
         UpdatePortrait(character);
         UpdateStatus(character);
@@ -26,17 +26,17 @@ public class CharacterCard : MenuController
         base.Show();
     }
 
-    public void UpdatePortrait(CharacterController character)
+    public void UpdatePortrait(ICharacterController character)
     {
         portraitPanel.sprite = character.Portrait;
     }
 
-    public void UpdateStatus(CharacterController character)
+    public void UpdateStatus(ICharacterController character)
     {
         statusBar.UpdateStatusText(character.State.Status);
     }
 
-    public void UpdateProgress(CharacterController character)
+    public void UpdateProgress(ICharacterController character)
     {
         frontendProgressBar.CurrentFill = character.Stats.Frontend;
         backendProgressBar.CurrentFill = character.Stats.Backend;

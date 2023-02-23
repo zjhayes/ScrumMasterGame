@@ -7,10 +7,11 @@ public class PlanningViewState : GameState
     public override void Handle(ContextManager _controller)
     {
         controller = _controller;
-        
-        GameManager.Instance.UI.ScrumMenu.Hide();
-        GameManager.Instance.UI.PlanningMenu.Show();
-        GameManager.Instance.Camera.SwitchToBoardCamera();
+
+        gameManager.UI.ScrumMenu.Hide();
+        gameManager.UI.PlanningMenu.Show();
+        gameManager.Camera.SwitchToBoardCamera();
+        base.Handle(controller);
     }
 
     public override void Escape()
@@ -21,8 +22,8 @@ public class PlanningViewState : GameState
     public override void Destroy()
     {
         // Show scrum board when state changed.
-        GameManager.Instance.UI.PlanningMenu.Hide();
-        GameManager.Instance.UI.ScrumMenu.Show();
+        gameManager.UI.PlanningMenu.Hide();
+        gameManager.UI.ScrumMenu.Show();
         base.Destroy();
     }
 }

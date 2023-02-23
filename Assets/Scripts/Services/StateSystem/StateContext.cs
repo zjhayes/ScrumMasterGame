@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 public class StateContext<T> where T : IController
 {
     public delegate void OnTransition();
@@ -23,14 +24,14 @@ public class StateContext<T> where T : IController
         onTransition?.Invoke();
     }
 
-    public void Transition<U>() where U : Component, IState<T>
+    public void Transition<U>(U state) where U : Component, IState<T>
     {
         if (CurrentState != null)
         {
             CurrentState.Destroy();
         }
 
-        CurrentState = controller.gameObject.AddComponent<U>();
+        CurrentState = state;
         CurrentState.Handle(controller);
         onTransition?.Invoke();
     }

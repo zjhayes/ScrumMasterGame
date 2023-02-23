@@ -8,20 +8,20 @@ public class PlayerControls : MonoBehaviour
     public delegate void OnEscape();
     public OnEscape onEscape;
 
-    public delegate void OnShowBoard();
-    public OnShowBoard onShowBoard;
+    public delegate void OnChangeView();
+    public OnChangeView onChangeView;
 
     void Awake()
     {
         input = new PlayerInput();
 
         input.Player.Escape.canceled += _ => Escape();
-        input.Player.ShowBoard.canceled += _ => ShowBoard();
+        input.Player.ChangeView.canceled += _ => ChangeView();
     }
 
-    void ShowBoard()
+    void ChangeView()
     {
-        onShowBoard?.Invoke();
+        onChangeView?.Invoke();
     }
 
     void Escape()

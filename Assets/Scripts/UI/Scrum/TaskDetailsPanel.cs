@@ -25,7 +25,7 @@ public class TaskDetailsPanel : MenuController
     Button removeFromSprintButton;
 
     Task task;
-    Dictionary<int, CharacterController> characterCache;
+    Dictionary<int, ICharacterController> characterCache;
 
     public override void SetUp()
     {
@@ -105,7 +105,7 @@ public class TaskDetailsPanel : MenuController
     {
         if(characterCache.ContainsKey(assigneeIndex))
         {
-            CharacterController assignee = characterCache[assigneeIndex];
+            ICharacterController assignee = characterCache[assigneeIndex];
             taskProgressionPanel.UpdateModifiers(task.Stats, assignee.Stats);
         }
         else
@@ -139,10 +139,10 @@ public class TaskDetailsPanel : MenuController
 
     void AddCharactersToAssigneeOptions()
     {
-        characterCache = new Dictionary<int, CharacterController>();
+        characterCache = new Dictionary<int, ICharacterController>();
         List<Sprite> portraits = new List<Sprite>();
         int index = 1; // 0 Represents unassigned.
-        foreach (CharacterController character in CharacterManager.Instance.Characters)
+        foreach (ICharacterController character in gameManager.Team.Characters)
         {
             characterCache.Add(index++, character);
             portraits.Add(character.Portrait);

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MenuController : MonoBehaviour
+public class MenuController : GameBehaviour
 {
     [SerializeField]
     bool escapable = false;

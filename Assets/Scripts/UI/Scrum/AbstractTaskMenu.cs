@@ -74,7 +74,7 @@ public abstract class AbstractTaskMenu : MenuController
         ClearBoard();
         // Add tasks to board.
         taskPanelCache = new Dictionary<Task, TaskPanel>();
-        foreach (Task task in TaskManager.Instance.Tasks)
+        foreach (Task task in gameManager.Board.Tasks)
         {
             HandleLoadingTaskPanel(task);
         }

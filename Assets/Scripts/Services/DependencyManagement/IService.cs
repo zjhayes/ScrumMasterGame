@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IController
+public interface IService
 {
     GameObject gameObject { get; }
 }

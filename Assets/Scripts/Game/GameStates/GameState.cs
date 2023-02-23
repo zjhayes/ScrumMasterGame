@@ -1,13 +1,21 @@
 using UnityEngine;
 
-public abstract class GameState : MonoBehaviour, IState<ContextManager>
+public abstract class GameState : GameBehaviour, IState<ContextManager>
 {
-    public abstract void Handle(ContextManager controller);
+    public virtual void Handle(ContextManager controller)
+    {
+        this.enabled = true;
+    }
 
     public abstract void Escape();
 
+    public virtual void ChangeView()
+    {
+        // Override if view can be changed during state.
+    }
+
     public virtual void Destroy()
     {
-        Destroy(this);
+        this.enabled = false;
     }
 }

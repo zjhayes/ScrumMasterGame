@@ -5,16 +5,26 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CharacterMovement))]
 [RequireComponent(typeof(Selectable))]
 [RequireComponent(typeof(Inventory))]
-public class CharacterController : MonoBehaviour, IController
+public class CharacterController : GameBehaviour, ICharacterController
 {
     [SerializeField]
     Sprite portrait;
+    [SerializeField]
+    CharacterState idleState;
+    [SerializeField]
+    CharacterState goToInteractableState;
+    [SerializeField]
+    CharacterState interactionState;
+    [SerializeField]
+    CharacterState findSomethingToDoState;
+    [SerializeField]
+    OverheadController overheadController;
 
     CharacterStats stats;
     CharacterMovement movement;
     Selectable selectability;
     Inventory inventory;
-    StateContext<CharacterController> stateContext;
+    StateContext<ICharacterController> stateContext;
 
     Interactable currentInteractable;
 
@@ -24,7 +34,7 @@ public class CharacterController : MonoBehaviour, IController
         movement = GetComponent<CharacterMovement>();
         selectability = GetComponent<Selectable>();
         inventory = GetComponent<Inventory>();
-        stateContext = new StateContext<CharacterController>(this);
+        stateContext = new StateContext<ICharacterController>(this);
     }
 
     void Start()
@@ -36,32 +46,36 @@ public class CharacterController : MonoBehaviour, IController
     void OnSelect()
     {
         // Context Manager determines how to handle character selection.
-        GameManager.Instance.Context.CharacterSelected(this);
+        gameManager.Context.CharacterSelected(this);
     }
 
     public void Idle()
     {
         currentInteractable = null;
-        stateContext.Transition<IdleState>();
+        stateContext.Transition<CharacterState>(idleState);
+    }
+
+    public void FindSomethingToDo()
+    {
+        stateContext.Transition<CharacterState>(findSomethingToDoState);
     }
 
     // Character moves to interactable to interact.
     public void GoInteractWith(Interactable interactable)
     {
         currentInteractable = interactable;
-        stateContext.Transition<GoToInteractableState>();
-        
+        stateContext.Transition<CharacterState>(goToInteractableState);
     }
 
     public void InteractWithCurrent()
     {
-        stateContext.Transition<InteractionState>();
+        stateContext.Transition<CharacterState>(interactionState);
     }
 
     public void Frustrated()
     {
-        GetComponent<OverheadController>()?.ShowFrustrationBubble();
-        Idle();
+        overheadController.ShowFrustrationBubble();
+        FindSomethingToDo();
     }
 
     public CharacterStats Stats
@@ -84,7 +98,7 @@ public class CharacterController : MonoBehaviour, IController
         get { return currentInteractable; }
     }
 
-    public StateContext<CharacterController> StateContext
+    public StateContext<ICharacterController> StateContext
     {
         get { return stateContext; }
     }
@@ -97,6 +111,11 @@ public class CharacterController : MonoBehaviour, IController
     public Sprite Portrait
     {
         get { return portrait; }
+    }
+
+    public OverheadController OverHead
+    {
+        get { return overheadController; }
     }
 
     public void EnablePhysics(bool enable)

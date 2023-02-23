@@ -3,22 +3,29 @@ using UnityEngine;
 public class SelectedCharacterState : GameState
 {
     private ContextManager controller;
-    private CharacterController selectedCharacter;
+    private ICharacterController selectedCharacter;
 
     public override void Handle(ContextManager _controller)
     {
         controller = _controller;
 
-        controller.EnableInteractables(); // TODO: This depends on character status.
+        gameManager.Interactables.EnableInteractables(); // TODO: This depends on character status.
 
         // Listen to character and update status when state changed.
         selectedCharacter = controller.CurrentCharacter;
         selectedCharacter.StateContext.onTransition += onCharacterStateChange;
 
-        GameManager.Instance.UI.SelectedCharacterIcon.Show();
-        GameManager.Instance.UI.CharacterCard.Show(selectedCharacter);
+        gameManager.UI.SelectedCharacterIcon.Show();
+        gameManager.UI.CharacterCard.Show(selectedCharacter);
 
-        GameManager.Instance.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
+        gameManager.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
+        base.Handle(controller);
+    }
+
+    public override void ChangeView()
+    {
+        // Enter Scrum Board view.
+        controller.SwitchToScrumView();
     }
 
     public override void Escape()
@@ -28,7 +35,7 @@ public class SelectedCharacterState : GameState
 
     void onCharacterStateChange()
     {
-        GameManager.Instance.UI.CharacterCard.UpdateStatus(selectedCharacter);
+        gameManager.UI.CharacterCard.UpdateStatus(selectedCharacter);
     }
 
     public override void Destroy()
@@ -37,9 +44,9 @@ public class SelectedCharacterState : GameState
         selectedCharacter.StateContext.onTransition -= onCharacterStateChange;
 
         // Revert state.
-        controller.DisableInteractables();
-        GameManager.Instance.UI.SelectedCharacterIcon.Hide();
-        GameManager.Instance.UI.CharacterCard.Hide();
+        gameManager.Interactables.DisableInteractables();
+        gameManager.UI.SelectedCharacterIcon.Hide();
+        gameManager.UI.CharacterCard.Hide();
 
         base.Destroy();
     }

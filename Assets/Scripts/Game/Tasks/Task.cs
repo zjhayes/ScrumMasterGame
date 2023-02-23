@@ -15,9 +15,7 @@ public class Task : MonoBehaviour, IContainable
     [SerializeField]
     int storyPoints;
     [SerializeField]
-    CharacterController assignee;
-    [SerializeField]
-    Cartridge cartridge;
+    ICharacterController assignee;
     [SerializeField]
     TaskStatus status = TaskStatus.INACTIVE;
     ProductionStats stats;
@@ -29,6 +27,7 @@ public class Task : MonoBehaviour, IContainable
     void Awake()
     {
         stats = GetComponent<ProductionStats>();
+        UpdateEnablementBasedOnStatus();
     }
 
     public string Summary
@@ -46,7 +45,7 @@ public class Task : MonoBehaviour, IContainable
         get { return storyPoints; } 
     }
 
-    public CharacterController Assignee
+    public ICharacterController Assignee
     {
         get { return assignee; }
         set 
@@ -62,7 +61,11 @@ public class Task : MonoBehaviour, IContainable
     public TaskStatus Status
     {
         get { return status; }
-        set { status = value; }
+        set 
+        { 
+            status = value;
+            UpdateEnablementBasedOnStatus();
+        }
     }
 
     public ProductionStats Stats
@@ -75,12 +78,18 @@ public class Task : MonoBehaviour, IContainable
         get { return taskTypeIcon; }
     }
 
-    public Cartridge Cartridge
+    private void UpdateEnablementBasedOnStatus()
     {
-        get { return cartridge; }
-        set { cartridge = value; }
+        // Disable when inactive or archived.
+        if (status == TaskStatus.INACTIVE || status == TaskStatus.ARCHIVED)
+        {
+            this.enabled = false;
+        }
+        else
+        {
+            this.enabled = true;
+        }
     }
-
 }
 
 public enum TaskStatus
@@ -89,5 +98,6 @@ public enum TaskStatus
     BACKLOG,
     TO_DO,
     IN_PROGRESS,
-    DONE
+    DONE,
+    ARCHIVED
 }
