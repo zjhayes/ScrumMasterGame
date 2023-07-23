@@ -47,7 +47,7 @@ public class FindSomethingToDoState : CharacterState
         }
 
         // Else dilly dally, continue looking for something to do.'
-        // TODO: At emote for procrastination.
+        // TODO: Add emote for procrastination.
     }
 
     void ContinueInProgressTask(Task task)

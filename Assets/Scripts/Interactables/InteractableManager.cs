@@ -14,6 +14,8 @@ public class InteractableManager : MonoBehaviour
     public event OnEnableInteractables onEnableInteractables;
     public delegate void OnDisableInteractables();
     public event OnDisableInteractables onDisableInteractables;
+    public delegate void OnAdvertiseInteractable();
+    public event OnAdvertiseInteractable onAdvertiseInteractable;
 
     public void EnableInteractables()
     {
@@ -29,9 +31,8 @@ public class InteractableManager : MonoBehaviour
     {
         foreach(WorkStation workStation in workStations)
         {
-            if(workStation.CountOccupants() <= 0 && !workStation.Claimed)
+            if(workStation.CountOccupants() <= 0 && workStation.ClaimedBy == null)
             {
-                workStation.Claimed = true;
                 return workStation;
             }
         }

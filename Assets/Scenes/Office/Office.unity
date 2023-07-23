@@ -4191,7 +4191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d4fbb5f14e4c344bb30408c80e15273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprintTime: 10
+  sprintTime: 60
 --- !u!114 &1018710665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8093,6 +8093,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 405962395160575226, guid: b0ad1bde130aaa745b79e5e5961ed239,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9f035b95930a3074c814f39984257533, type: 2}
     - target: {fileID: 4200348484634494265, guid: b0ad1bde130aaa745b79e5e5961ed239,
         type: 3}
       propertyPath: m_RootOrder
@@ -11726,6 +11731,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 825669020085825715, guid: 6639ef869c3f5674c89070df9a566170,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ab9d4285ddfed24e9f58351c764305f, type: 2}
     - target: {fileID: 3674502728550102783, guid: 6639ef869c3f5674c89070df9a566170,
         type: 3}
       propertyPath: backend

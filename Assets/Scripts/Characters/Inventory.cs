@@ -38,6 +38,7 @@ public class Inventory : MonoBehaviour
     {
         Pickup pickup = inventory.GetFirst<Pickup>(true) as Pickup;
         inventory.Remove(pickup);
+        pickup.ClaimedBy = null;
         pickup.EnablePhysics(true);
         return pickup;
     }

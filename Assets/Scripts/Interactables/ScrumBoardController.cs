@@ -20,6 +20,7 @@ public class ScrumBoardController : Interactable
 
     public override void InteractWith(ICharacterController character)
     {
+        Debug.Log("Interact with");
         // Character takes assigned task.
         Task task = gameManager.Board.GetFirstTaskWithAssignee(character);
         if(task != null)

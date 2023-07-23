@@ -51,6 +51,11 @@ public class CharacterController : GameBehaviour, ICharacterController
 
     public void Idle()
     {
+        if(currentInteractable != null)
+        {
+            currentInteractable.ClaimedBy = null;
+        }
+
         currentInteractable = null;
         stateContext.Transition<CharacterState>(idleState);
     }
@@ -69,7 +74,16 @@ public class CharacterController : GameBehaviour, ICharacterController
 
     public void InteractWithCurrent()
     {
-        stateContext.Transition<CharacterState>(interactionState);
+        if (currentInteractable.ClaimedBy == null)
+        {
+            currentInteractable.ClaimedBy = this;
+            stateContext.Transition<CharacterState>(interactionState);
+        }
+        else
+        {
+            // Interactable is claimed by another character.
+            Frustrated();
+        }
     }
 
     public void Frustrated()

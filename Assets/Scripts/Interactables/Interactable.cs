@@ -4,7 +4,9 @@ using UnityEngine;
 public class Interactable : Selectable
 { 
     [SerializeField]
-    Transform goToPosition; // Optional, position character will walk to.
+    Transform goToPosition; // Optional, position character will stand to interact.
+
+    public ICharacterController claimedBy;
 
     public delegate void OnInteract(ICharacterController character);
     public event OnInteract onInteract;
@@ -36,6 +38,8 @@ public class Interactable : Selectable
         gameManager.Interactables.onEnableInteractables -= Enable;
         gameManager.Interactables.onDisableInteractables -= Disable;
     }
+
+    public ICharacterController ClaimedBy { get; set; }
 
     public Vector3 Position
     {
