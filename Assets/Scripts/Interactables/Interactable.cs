@@ -13,6 +13,7 @@ public class Interactable : Selectable
 
     void Start()
     {
+        gameManager.Interactables.AddOpenInteractable(this);
         gameManager.Interactables.onEnableInteractables += Enable;
         gameManager.Interactables.onDisableInteractables += Disable;
         Disable();
@@ -35,6 +36,7 @@ public class Interactable : Selectable
 
     void OnDestroy()
     {
+        gameManager.Interactables.RemoveOpenInteractable(this);
         gameManager.Interactables.onEnableInteractables -= Enable;
         gameManager.Interactables.onDisableInteractables -= Disable;
     }

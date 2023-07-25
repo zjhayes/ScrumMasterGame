@@ -50,6 +50,15 @@ public class FindSomethingToDoState : CharacterState
         // TODO: Add emote for procrastination.
     }
 
+    Interactable FindSomethingToDo()
+    {
+        foreach (Interactable interactable in gameManager.Interactables.OpenInteractables)
+        {
+            return interactable; // TODO
+        }
+        return null; // Nothing to do.
+    }
+
     void ContinueInProgressTask(Task task)
     {
         // If task in progress and in computer, go to station

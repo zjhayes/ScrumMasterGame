@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class InteractableManager : MonoBehaviour
@@ -10,12 +11,17 @@ public class InteractableManager : MonoBehaviour
     [SerializeField]
     CertificationStation certificationStation;
 
+    List<Interactable> openInteractables;
+
     public delegate void OnEnableInteractables();
     public event OnEnableInteractables onEnableInteractables;
     public delegate void OnDisableInteractables();
     public event OnDisableInteractables onDisableInteractables;
-    public delegate void OnAdvertiseInteractable();
-    public event OnAdvertiseInteractable onAdvertiseInteractable;
+
+    void Awake()
+    {
+        openInteractables = new List<Interactable>();
+    }
 
     public void EnableInteractables()
     {
@@ -65,5 +71,25 @@ public class InteractableManager : MonoBehaviour
     public Interactable ScrumBoard
     {
         get { return scrumBoard; }
+    }
+
+    // Enable interactable to advertise itself to characters.
+    public void AddOpenInteractable(Interactable interactable)
+    {
+        if (!openInteractables.Contains(interactable))
+        {
+            openInteractables.Add(interactable);
+        }
+    }
+
+    // Disable interactable from advertising itself to characters.
+    public void RemoveOpenInteractable(Interactable interactable)
+    {
+        openInteractables.Remove(interactable);
+    }
+
+    public List<Interactable> OpenInteractables
+    {
+        get { return openInteractables; }
     }
 }

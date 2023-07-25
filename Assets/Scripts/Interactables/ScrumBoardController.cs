@@ -10,17 +10,21 @@ public class ScrumBoardController : Interactable
     // Create cartridge, moving task to in progress.
     public void TakeTask(Task task, ICharacterController character)
     {
-        //GameObject cartridgeObject = (GameObject)Instantiate(cartridgePrefab, transform.position, transform.rotation);
-        GameObject cartridgeObject = BehaviourFactory.Create<Cartridge,IGameManager>(cartridgePrefab, gameManager, transform.position, transform.rotation);
+        InstantiateCartridge(task, character);
+        task.Status = TaskStatus.IN_PROGRESS;
+    }
+
+    public void InstantiateCartridge(Task task, ICharacterController character)
+    {
+        // Instantiate Cartridge prefab for this task.
+        GameObject cartridgeObject = BehaviourFactory.Create<Cartridge, IGameManager>(cartridgePrefab, gameManager, transform.position, transform.rotation);
         Cartridge cartridge = cartridgeObject.GetComponent<Cartridge>();
         cartridge.Task = task;
         cartridge.InteractWith(character);
-        task.Status = TaskStatus.IN_PROGRESS;
     }
 
     public override void InteractWith(ICharacterController character)
     {
-        Debug.Log("Interact with");
         // Character takes assigned task.
         Task task = gameManager.Board.GetFirstTaskWithAssignee(character);
         if(task != null)
