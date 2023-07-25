@@ -18,6 +18,8 @@ public class CharacterController : GameBehaviour, ICharacterController
     [SerializeField]
     CharacterState findSomethingToDoState;
     [SerializeField]
+    CharacterState frustratedState;
+    [SerializeField]
     OverheadController overheadController;
 
     CharacterStats stats;
@@ -88,8 +90,7 @@ public class CharacterController : GameBehaviour, ICharacterController
 
     public void Frustrated()
     {
-        overheadController.ShowFrustrationBubble();
-        FindSomethingToDo();
+        stateContext.Transition<CharacterState>(frustratedState);
     }
 
     public CharacterStats Stats

@@ -21,6 +21,16 @@ public class Cartridge : Pickup
         }
     }
 
+    public override int CalculatePriorityFor(ICharacterController character)
+    {
+        if(task.Assignee == character)
+        {
+            return 100;
+        }
+        // TODO: Return less if not carried.
+        return 0;
+    }
+
     public Task Task
     {
         get { return task; }

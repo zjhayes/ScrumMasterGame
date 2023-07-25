@@ -32,6 +32,16 @@ public class CertificationStation : Station
         base.OnStand(occupant);
     }
 
+    public override int CalculatePriorityFor(ICharacterController character)
+    {
+        // If character has free time and good management skills, they're more likely to use this station.
+        if(character.Stats.TimeManagement > 2) // TODO: Scale score with time management stat
+        {
+            return 30;
+        }
+        return 0;
+    }
+
     private void OnFirstOccupant()
     {
         OpenBook();

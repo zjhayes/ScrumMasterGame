@@ -3,22 +3,21 @@ using UnityEngine;
 public class OverheadCanvasController : CanvasController
 {
     [SerializeField]
+    GameObject idleSpeechBubblePrefab;
+    [SerializeField]
     GameObject frustrationSpeechBubblePrefab;
 
-    void OnEnable()
+    public SpeechBubble CreateIdleSpeechBubble()
     {
-        gameManager.UI.onShowFrustrationEmote += CreateFrustrationSpeechBubble;
+        GameObject idleSpeechBubble = Instantiate(idleSpeechBubblePrefab);
+        idleSpeechBubble.transform.SetParent(transform); // Set parent to canvas.
+        return idleSpeechBubble.GetComponent<SpeechBubble>();
     }
 
-    public void CreateFrustrationSpeechBubble(OverheadController controller)
+    public SpeechBubble CreateFrustrationSpeechBubble()
     {
         GameObject frustrationSpeechBubble = Instantiate(frustrationSpeechBubblePrefab);
-        frustrationSpeechBubble.transform.SetParent(transform);
-        frustrationSpeechBubble.GetComponent<SpeechBubble>().Show(controller);
-    }
-
-    void OnDisable()
-    {
-        gameManager.UI.onShowFrustrationEmote -= CreateFrustrationSpeechBubble;
+        frustrationSpeechBubble.transform.SetParent(transform); // Set parent to canvas.
+        return frustrationSpeechBubble.GetComponent<SpeechBubble>();
     }
 }

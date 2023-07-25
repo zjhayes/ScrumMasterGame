@@ -46,6 +46,21 @@ public class WorkStation : Station
         }
     }
 
+    public override int CalculatePriorityFor(ICharacterController character)
+    {
+        if(character.Inventory.CurrentPickup is Cartridge && this.HasVacancy()) //TODO: Find another way to determine character has task
+        {
+            // Character can work on task.
+            return 100;
+        }
+        else if(!character.Inventory.HasPickup() && this.CountOccupants() == 1)
+        {
+            // Character can pair program.
+            return 60;
+        }
+        return 0;
+    }
+
     public Cartridge CurrentCartridge
     {
         get

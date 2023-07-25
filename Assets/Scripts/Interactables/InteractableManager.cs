@@ -45,19 +45,6 @@ public class InteractableManager : MonoBehaviour
         return null;
     }
 
-    public WorkStation FindPairProgrammingStation()
-    {
-        foreach (WorkStation workStation in workStations)
-        {
-            if (workStation.CountOccupants() == 1)
-            {
-                // This station has room for a pair programmer.
-                return workStation;
-            }
-        }
-        return null;
-    }
-
     public List<WorkStation> WorkStations
     {
         get { return workStations; }

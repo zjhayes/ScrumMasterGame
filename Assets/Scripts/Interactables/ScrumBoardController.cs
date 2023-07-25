@@ -8,7 +8,7 @@ public class ScrumBoardController : Interactable
     GameObject cartridgePrefab;
 
     // Create cartridge, moving task to in progress.
-    public void TakeTask(Task task, ICharacterController character)
+    void TakeTask(Task task, ICharacterController character)
     {
         InstantiateCartridge(task, character);
         task.Status = TaskStatus.IN_PROGRESS;
@@ -26,7 +26,7 @@ public class ScrumBoardController : Interactable
     public override void InteractWith(ICharacterController character)
     {
         // Character takes assigned task.
-        Task task = gameManager.Board.GetFirstTaskWithAssignee(character);
+        Task task = gameManager.Board.GetFirstTaskWithStatusAndAssignee(character, TaskStatus.TO_DO);
         if(task != null)
         {
             TakeTask(task, character);
@@ -38,5 +38,18 @@ public class ScrumBoardController : Interactable
         }
 
         base.InteractWith(character);
+    }
+
+    public override int CalculatePriorityFor(ICharacterController character)
+    {
+        // Advertise to characters with assigned tasks on the board.
+        if(gameManager.Board.GetFirstTaskWithStatusAndAssignee(character, TaskStatus.TO_DO) != null)
+        {
+            return 50;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }

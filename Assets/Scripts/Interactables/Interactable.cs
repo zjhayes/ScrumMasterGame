@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /** An Interactable is a Selectable that requires a Character to interact with. **/
-public class Interactable : Selectable
+public abstract class Interactable : Selectable
 { 
     [SerializeField]
     Transform goToPosition; // Optional, position character will stand to interact.
@@ -33,6 +33,9 @@ public class Interactable : Selectable
     {
         onInteract?.Invoke(character);
     }
+
+    // Returns score based on how likely this character needs this interaction.
+    public abstract int CalculatePriorityFor(ICharacterController character);
 
     void OnDestroy()
     {

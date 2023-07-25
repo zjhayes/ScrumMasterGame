@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Pickup : Interactable, IContainable
+public abstract class Pickup : Interactable, IContainable
 {
     [SerializeField]
     private Vector3 holdRotation;

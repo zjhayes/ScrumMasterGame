@@ -54,6 +54,18 @@ public class BoardManager : MonoBehaviour
         return null;
     }
 
+    public Task GetFirstTaskWithStatusAndAssignee(ICharacterController assignee, TaskStatus status)
+    {
+        foreach (Task task in Tasks)
+        {
+            if (task.Assignee == assignee && task.Status == status)
+            {
+                return task;
+            }
+        }
+        return null;
+    }
+
     public void UpdateCache()
     {
         cachedTasks = new List<Task>();

@@ -36,7 +36,7 @@ public class Inventory : MonoBehaviour
 
     public Pickup Drop()
     {
-        Pickup pickup = inventory.GetFirst<Pickup>(true) as Pickup;
+        Pickup pickup = CurrentPickup;
         inventory.Remove(pickup);
         pickup.ClaimedBy = null;
         pickup.EnablePhysics(true);
@@ -50,5 +50,10 @@ public class Inventory : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public Pickup CurrentPickup
+    {
+        get { return inventory.GetFirst<Pickup>(true) as Pickup; }
     }
 }

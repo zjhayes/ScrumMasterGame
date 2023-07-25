@@ -5,7 +5,7 @@ using UnityEngine;
      A Station is an object which requires the character(s) to be stationary in a specific "seat".
      OnSit and OnStand are called by the Chair interactable.
 ***/
-public class Station : Interactable
+public abstract class Station : Interactable
 {
     [SerializeField]
     protected List<Chair> chairs;
@@ -40,6 +40,11 @@ public class Station : Interactable
                 chair.Stand();
             }
         }
+    }
+
+    public bool HasVacancy()
+    {
+        return (CountOccupants() > chairs.Count);
     }
 
     public int CountOccupants()

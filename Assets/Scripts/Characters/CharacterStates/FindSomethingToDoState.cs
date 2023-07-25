@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class FindSomethingToDoState : CharacterState
 {
+    [SerializeField]
+    private int numberOfPrioritiesConsidered = 3; // Increasing this number makes the character's actions more random.
+
     protected ICharacterController character;
 
     public override void Handle(ICharacterController controller)
@@ -15,61 +19,78 @@ public class FindSomethingToDoState : CharacterState
 
     void Update()
     {
-        // Find open task to work on.
-        List<Task> assignedTasks = gameManager.Board.GetTasksWithAssignee(character);
-        foreach (Task task in assignedTasks)
-        {
-            if (task.Status == TaskStatus.IN_PROGRESS)
-            {
-                ContinueInProgressTask(task);
-                return;
-            }
-            else if (task.Status == TaskStatus.TO_DO)
-            {
-                // The board will determine which assigned task the player takes.
-                GetTaskFromBoard();
-                return;
-            }
-        }
+        // Determine this character's current priority.
+        Interactable priority = FindSomethingToDo();
 
-        // Find another developer to pair program with.
-        WorkStation pairProgrammingStation = gameManager.Interactables.FindPairProgrammingStation();
-        if(pairProgrammingStation != null)
+        if (priority != null)
         {
-            character.GoInteractWith(pairProgrammingStation);
-            return;
+            StopIdleEmote();
+            character.GoInteractWith(priority);
         }
-
-        // If good time management, go to certification station.
-        if(character.Stats.TimeManagement > 2) // TODO: Determine calculation for helpful perk.
+        else 
         {
-            character.GoInteractWith(gameManager.Interactables.CertificationStation);
+            // Dilly dally, continue looking for something to do.
+            StartIdleEmote();
         }
-
-        // Else dilly dally, continue looking for something to do.'
-        // TODO: Add emote for procrastination.
     }
 
     Interactable FindSomethingToDo()
     {
+        // Get scores advertised to character by open interactables.
+        Dictionary<Interactable, int> advertisements = new Dictionary<Interactable, int>();
         foreach (Interactable interactable in gameManager.Interactables.OpenInteractables)
         {
-            return interactable; // TODO
+            int priorityScore = interactable.CalculatePriorityFor(character);
+            advertisements.Add(interactable, priorityScore);
         }
-        return null; // Nothing to do.
+
+        // Sort positive interactable advertisements by score, take only a given number of the higher scored advertisements.
+        IEnumerable<KeyValuePair<Interactable,int>> priorities = advertisements.Where(pair => pair.Value > 0).OrderByDescending(pair => pair.Value).Take(numberOfPrioritiesConsidered);
+        
+        if(priorities.Any())
+        {
+            // Weigh the highest scores and choose at random.
+            return WeighPriorityDecision(priorities);
+            //int randomPriorityIndex = Random.Range(0, priorities.Count());
+            //return priorities?.ElementAt(randomPriorityIndex).Key;
+        }
+        else
+        {
+            return null; // Nothing to do.
+        }
     }
 
-    void ContinueInProgressTask(Task task)
+    void StartIdleEmote()
     {
-        // If task in progress and in computer, go to station
-        // If task in progress and on floor, pick up
-        //character.GoInteractWith(task.Cartridge); // TODO: figure out how to get to cartridge
+        if(!character.OverHead.HasSpeechBubble())
+        {
+            character.OverHead.ShowIdleBubble();
+        }
     }
 
-    void GetTaskFromBoard()
+    void StopIdleEmote()
     {
-        // Go get task from scrum board.
-        character.GoInteractWith(gameManager.Interactables.ScrumBoard);
+        character.OverHead.HideIdleBubble();
+    }
+
+    // Choose from priorities, weighing their priority scores.
+    Interactable WeighPriorityDecision(IEnumerable<KeyValuePair<Interactable, int>> priorities)
+    {
+        int cumulativeScore = priorities.Sum(pair => pair.Value);
+        int randomValue = Random.Range(1, cumulativeScore + 1);
+        
+        int currentSum = 0;
+        foreach (var pair in priorities)
+        {
+            currentSum += pair.Value;
+            if(randomValue <= currentSum)
+            {
+                return pair.Key;
+            }
+        }
+
+        Debug.Log("Unable to find something to do.");
+        return null;
     }
 
     public override string Status

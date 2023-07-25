@@ -4,9 +4,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class SpeechBubble : MonoBehaviour
 {
-    [SerializeField]
-    float time = 2.0f;
-
     Image graphic;
     OverheadController controller;
 
@@ -14,13 +11,6 @@ public class SpeechBubble : MonoBehaviour
     {
         graphic = GetComponent<Image>();
         Hide();
-    }
-
-    void Start()
-    {
-        // Destroy after given amount of time.
-        Object.Destroy(gameObject, time);
-        UpdatePosition();
     }
 
     void Update()
@@ -34,15 +24,26 @@ public class SpeechBubble : MonoBehaviour
         transform.position = controller.GetIconPosition();
     }
 
-    public void Show(OverheadController _controller)
+    public void AssignController(OverheadController controller)
     {
-        controller = _controller;
-        graphic.enabled = true;
+        this.controller = controller;
     }
 
+    public void Show()
+    {
+        UpdatePosition();
+        graphic.enabled = true;
+        gameObject.SetActive(true);
+    }
 
     public void Hide()
     {
         graphic.enabled = false;
+        gameObject.SetActive(false);
+    }
+
+    public bool IsShowing()
+    {
+        return graphic.enabled;
     }
 }
