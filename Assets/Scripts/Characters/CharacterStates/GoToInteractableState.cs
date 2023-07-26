@@ -13,9 +13,9 @@ public class GoToInteractableState : CharacterState
 
     void Update()
     {
-        if(!character.TargetInteractable)
+        if(character.TargetInteractable == null)
         {
-            character.Idle();
+            character.FindSomethingToDo();
             return;
         }
 

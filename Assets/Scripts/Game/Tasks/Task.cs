@@ -20,6 +20,8 @@ public class Task : MonoBehaviour, IContainable
     TaskStatus status = TaskStatus.INACTIVE;
     ProductionStats stats;
 
+    float completeness = 0f; // Percent of finished work.
+
     public delegate void OnAssigneeChanged();
     public event OnAssigneeChanged onAssigneeChanged;
 
@@ -80,6 +82,17 @@ public class Task : MonoBehaviour, IContainable
     public Sprite TaskTypeIcon
     {
         get { return taskTypeIcon; }
+    }
+
+    public float Completeness
+    {
+        get { return completeness; }
+        set { completeness = value; }
+    }
+
+    public bool IsReadyForProduction
+    {
+        get { return completeness >= Numeric.ONE_HUNDRED_PERCENT; }
     }
 
     private void UpdateEnablementBasedOnStatus()

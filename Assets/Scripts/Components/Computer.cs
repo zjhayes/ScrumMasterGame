@@ -5,7 +5,7 @@ public abstract class Computer : MonoBehaviour
     [SerializeField]
     Container cartridgeIntake;
 
-    void Awake()
+    protected virtual void Awake()
     {
         Sleep();
         cartridgeIntake.onRemove += CartridgeRemoved;

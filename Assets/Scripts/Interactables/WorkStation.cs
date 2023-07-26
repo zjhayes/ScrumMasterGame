@@ -10,13 +10,14 @@ public class WorkStation : Station
         computer = GetComponent<TaskComputer>();
     }
 
-    protected override void OnSit(ICharacterController occupant)
+    protected override void Sit(ICharacterController occupant)
     {
         // Get cartridge from character.
         if(occupant.Inventory.HasPickup())
         {
             if(computer.CartridgeIntake.IsEmpty && occupant.Inventory.CurrentPickup is Cartridge)
             {
+                // Slot cartridge into computer intake.
                 computer.InputCartridge(occupant.Inventory.CurrentPickup as Cartridge);
             }
             else
@@ -24,10 +25,15 @@ public class WorkStation : Station
                 // Character drops pickup and is frustrated.
                 occupant.Inventory.Drop();
                 occupant.Frustrated();
-                return;
+                return; // Don't sit.
             }
         }
-        base.OnSit(occupant);
+        base.Sit(occupant);
+    }
+
+    protected override void OnSit(ICharacterController occupant)
+    {
+        computer.SignInDeveloper(occupant);
     }
 
     protected override void OnStand(ICharacterController occupant)
@@ -37,7 +43,8 @@ public class WorkStation : Station
             // Assignee takes cartridge.
             occupant.Inventory.PickUp(computer.CurrentCartridge);
         }
-        base.OnStand(occupant);
+
+        computer.SignOutDeveloper(occupant);
     }
 
     public override int CalculatePriorityFor(ICharacterController character)

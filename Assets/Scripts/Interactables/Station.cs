@@ -12,40 +12,52 @@ public abstract class Station : Interactable
 
     public override void InteractWith(ICharacterController character)
     {
-        OnSit(character);
+        Sit(character);
         base.InteractWith(character);
     }
 
-    protected virtual void OnSit(ICharacterController occupant)
+    // Returns true if character is able to sit.
+    protected virtual void Sit(ICharacterController occupant)
     {
         foreach (Chair chair in chairs)
         {
             if (!chair.Occupied)
             {
+                OnFoundChair(occupant);
                 chair.Sit(occupant);
-                OnSuccessfulSit(occupant);
-                return; // Character found a chair.
+                OnSit(occupant); // Character found a chair.
+                return;
             }
         }
-
-        // Character can't interact.
-        occupant.Frustrated();
+        occupant.Frustrated(); // Else, unable to sit.
+        return;
     }
-
-    protected virtual void OnSuccessfulSit(ICharacterController occupant)
+    
+    protected virtual void OnSit(ICharacterController occupant)
     {
-        return; // Override to run
+        return; // Called only when character finds a chair.
     }
 
-    protected virtual void OnStand(ICharacterController occupant)
+    protected virtual void OnFoundChair(ICharacterController occupant)
+    {
+        return; // Called when character finds unoccupied chair.
+    }
+
+    protected virtual void Stand(ICharacterController occupant)
     {
         foreach (Chair chair in chairs)
         {
             if (chair.Occupied && chair.Occupant == occupant)
             {
                 chair.Stand();
+                OnStand(occupant);
             }
         }
+    }
+
+    protected virtual void OnStand(ICharacterController occupant)
+    {
+        return; // Called after character stands.
     }
 
     public bool HasVacancy()

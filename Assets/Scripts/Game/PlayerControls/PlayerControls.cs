@@ -19,6 +19,15 @@ public class PlayerControls : MonoBehaviour
         input.Player.ChangeView.canceled += _ => ChangeView();
     }
 
+    void Start()
+    {
+        input.Enable();
+    }
+
+    void OnDisable()
+    {
+        input?.Disable();
+    }
     void ChangeView()
     {
         onChangeView?.Invoke();
@@ -27,16 +36,6 @@ public class PlayerControls : MonoBehaviour
     void Escape()
     {
         onEscape?.Invoke();
-    }
-
-    void OnEnable()
-    {
-        input.Enable();
-    }
-
-    void OnDisable()
-    {
-        input?.Disable();
     }
 
     public PlayerInput Input
