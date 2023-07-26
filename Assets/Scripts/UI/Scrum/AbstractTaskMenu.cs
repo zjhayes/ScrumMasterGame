@@ -21,6 +21,9 @@ public abstract class AbstractTaskMenu : MenuController
         taskDetailsPanel.Hide(); // Hidden by default.
         taskDetailsPanel.onHide += OnHideTaskDetails;
 
+        // Reload task panels when global task cache is updated.
+        gameManager.Board.onBoardUpdated += LoadTaskPanels;
+
         base.SetUp();
     }
 
@@ -117,5 +120,14 @@ public abstract class AbstractTaskMenu : MenuController
             Destroy(taskPanelPair.Value.gameObject);
         }
         taskPanelCache = null;
+    }
+
+    protected TaskPanel GetPanelForTask(Task task)
+    {
+        if (taskPanelCache.TryGetValue(task, out TaskPanel taskPanel))
+        {
+            return taskPanel;
+        }
+        return null;
     }
 }

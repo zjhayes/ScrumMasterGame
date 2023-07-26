@@ -11,6 +11,9 @@ public class BoardManager : MonoBehaviour
 
     List<Task> cachedTasks;
 
+    public delegate void OnBoardUpdated();
+    public event OnBoardUpdated onBoardUpdated;
+
     void Awake()
     {
         UpdateCache();
@@ -68,9 +71,8 @@ public class BoardManager : MonoBehaviour
 
     public void UpdateCache()
     {
-        cachedTasks = new List<Task>();
-        
         cachedTasks = taskContainer.Get<Task>(cacheInactive);
+        onBoardUpdated?.Invoke();
     }
 
     public List<Task> Tasks

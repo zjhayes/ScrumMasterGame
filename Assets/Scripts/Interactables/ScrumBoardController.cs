@@ -7,6 +7,23 @@ public class ScrumBoardController : Interactable
     [SerializeField]
     GameObject cartridgePrefab;
 
+    public override void InteractWith(ICharacterController character)
+    {
+        Task task = gameManager.Board.GetFirstTaskWithStatusAndAssignee(character, TaskStatus.TO_DO);
+        if(task != null)
+        {
+            // Character takes assigned task.
+            TakeTask(task, character);
+        }
+        else
+        {
+            // If no assigned task, character frustrated.
+            character.Frustrated();
+        }
+
+        base.InteractWith(character);
+    }
+
     // Create cartridge, moving task to in progress.
     void TakeTask(Task task, ICharacterController character)
     {
@@ -21,23 +38,6 @@ public class ScrumBoardController : Interactable
         Cartridge cartridge = cartridgeObject.GetComponent<Cartridge>();
         cartridge.Task = task;
         cartridge.InteractWith(character);
-    }
-
-    public override void InteractWith(ICharacterController character)
-    {
-        // Character takes assigned task.
-        Task task = gameManager.Board.GetFirstTaskWithStatusAndAssignee(character, TaskStatus.TO_DO);
-        if(task != null)
-        {
-            TakeTask(task, character);
-        }
-        else
-        {
-            // If no assigned task, character frustrated.
-            character.Frustrated();
-        }
-
-        base.InteractWith(character);
     }
 
     public override int CalculatePriorityFor(ICharacterController character)

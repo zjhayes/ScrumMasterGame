@@ -23,6 +23,9 @@ public class Task : MonoBehaviour, IContainable
     public delegate void OnAssigneeChanged();
     public event OnAssigneeChanged onAssigneeChanged;
 
+    public delegate void OnStatusChanged();
+    public event OnStatusChanged onStatusChanged;
+
 
     void Awake()
     {
@@ -65,6 +68,7 @@ public class Task : MonoBehaviour, IContainable
         { 
             status = value;
             UpdateEnablementBasedOnStatus();
+            onStatusChanged?.Invoke();
         }
     }
 

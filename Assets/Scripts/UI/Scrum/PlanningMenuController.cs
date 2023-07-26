@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlanningMenuController : AbstractTaskMenu
@@ -8,7 +9,9 @@ public class PlanningMenuController : AbstractTaskMenu
     Container backlogContainer;
     [SerializeField]
     Container inSprintContainer;
-    
+
+    Dictionary<TaskStatus, Transform> statusContainerMap = new Dictionary<TaskStatus, Transform>();
+
     public override void SetUp()
     {
         sprintDetailsPanel.SetUp();
@@ -16,6 +19,9 @@ public class PlanningMenuController : AbstractTaskMenu
         sprintDetailsPanel.onBeginSprint += OnBeginSprintPressed;
 
         ValidateSprintReadiness();
+        statusContainerMap.Add(TaskStatus.BACKLOG, backlogContainer.gameObject.transform);
+        statusContainerMap.Add(TaskStatus.TO_DO, inSprintContainer.gameObject.transform);
+        statusContainerMap.Add(TaskStatus.IN_PROGRESS, inSprintContainer.gameObject.transform);
         base.SetUp();
     }
 
@@ -26,17 +32,10 @@ public class PlanningMenuController : AbstractTaskMenu
 
     protected override void HandleLoadingTaskPanel(Task task)
     {
-        if (task.Status == TaskStatus.BACKLOG)
+        if (statusContainerMap.TryGetValue(task.Status, out Transform containerLocation))
         {
-            TaskPanel taskPanel = CreateTaskPanel(task, backlogContainer.gameObject.transform);
+            TaskPanel taskPanel = CreateTaskPanel(task, containerLocation);
             taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
-            taskPanelCache.Add(task, taskPanel);
-            taskPanel.onUpdated += UpdateTaskPanel;
-        }
-        else if (task.Status == TaskStatus.TO_DO || task.Status == TaskStatus.IN_PROGRESS)
-        {
-            TaskPanel taskPanel = CreateTaskPanel(task, inSprintContainer.gameObject.transform);
-            taskPanel.onSelected += OnTaskPanelSelected;
             taskPanelCache.Add(task, taskPanel);
             taskPanel.onUpdated += UpdateTaskPanel;
         }
