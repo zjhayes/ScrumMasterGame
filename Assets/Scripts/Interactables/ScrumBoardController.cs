@@ -45,11 +45,11 @@ public class ScrumBoardController : Interactable
         // Advertise to characters with assigned tasks on the board.
         if(gameManager.Board.GetFirstTaskWithStatusAndAssignee(character, TaskStatus.TO_DO) != null)
         {
-            return 50;
+            return PriorityScoreConstants.TAKE_TASK_FROM_BOARD;
         }
         else
         {
-            return 0;
+            return PriorityScoreConstants.NO_SCORE;
         }
     }
 }

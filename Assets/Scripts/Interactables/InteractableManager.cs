@@ -33,18 +33,6 @@ public class InteractableManager : MonoBehaviour
         onDisableInteractables?.Invoke();
     }
 
-    public WorkStation FindOpenWorkStation()
-    {
-        foreach(WorkStation workStation in workStations)
-        {
-            if(workStation.CountOccupants() <= 0 && workStation.ClaimedBy == null)
-            {
-                return workStation;
-            }
-        }
-        return null;
-    }
-
     public List<WorkStation> WorkStations
     {
         get { return workStations; }

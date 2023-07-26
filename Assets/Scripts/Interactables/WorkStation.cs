@@ -1,22 +1,27 @@
 using UnityEngine;
 
+[RequireComponent(typeof(TaskComputer))]
 public class WorkStation : Station
 { 
-    [SerializeField]
-    Container cartridgeIntake;
+    TaskComputer computer;
+
+    void Awake()
+    {
+        computer = GetComponent<TaskComputer>();
+    }
 
     protected override void OnSit(ICharacterController occupant)
     {
         // Get cartridge from character.
         if(occupant.Inventory.HasPickup())
         {
-            if(cartridgeIntake.IsEmpty)
+            if(computer.CartridgeIntake.IsEmpty && occupant.Inventory.CurrentPickup is Cartridge)
             {
-                InputCartridge(occupant);
+                RunCartridge(occupant.Inventory.CurrentPickup as Cartridge);
             }
             else
             {
-                // Character drops pickup if one present already.
+                // Character drops pickup when not cartridge or intake is full.
                 occupant.Inventory.Drop();
             }
         }
@@ -33,30 +38,22 @@ public class WorkStation : Station
         base.OnStand(occupant);
     }
 
-    private void InputCartridge(ICharacterController character)
+    private void RunCartridge(Cartridge cartridge)
     {
-        Pickup pickup = character.Inventory.Drop(); // Get pickup.
-
-        if (pickup is Cartridge)
-        {
-            cartridgeIntake.Add(pickup);
-            pickup.EnablePhysics(false);
-            pickup.SetPositionToContainer(cartridgeIntake);
-            pickup.SetToHoldRotation();
-        }
+        computer.InputCartridge(cartridge);
     }
 
     public override int CalculatePriorityFor(ICharacterController character)
     {
-        if(character.Inventory.CurrentPickup is Cartridge && this.HasVacancy()) //TODO: Find another way to determine character has task
+        if (character.Inventory.CurrentPickup is Cartridge && this.HasVacancy()) //TODO: Find another way to determine character has task
         {
             // Character can work on task.
-            return 100;
+            return PriorityScoreConstants.WORK_ON_TASK;
         }
         else if(!character.Inventory.HasPickup() && this.CountOccupants() == 1)
         {
             // Character can pair program.
-            return 60;
+            return 20;
         }
         return 0;
     }
@@ -65,7 +62,7 @@ public class WorkStation : Station
     {
         get
         {
-            return cartridgeIntake.GetFirst<Cartridge>() as Cartridge;
+            return computer.CartridgeIntake.GetFirst<Cartridge>() as Cartridge;
         }
     }
 }

@@ -28,7 +28,7 @@ public class CharacterController : GameBehaviour, ICharacterController
     Inventory inventory;
     StateContext<ICharacterController> stateContext;
 
-    Interactable currentInteractable;
+    Interactable targetInteractable;
 
     void Awake()
     {
@@ -53,44 +53,42 @@ public class CharacterController : GameBehaviour, ICharacterController
 
     public void Idle()
     {
-        if(currentInteractable != null)
-        {
-            currentInteractable.ClaimedBy = null;
-        }
-
-        currentInteractable = null;
+        ClearTargetInteractable();
         stateContext.Transition<CharacterState>(idleState);
     }
 
     public void FindSomethingToDo()
     {
+        ClearTargetInteractable();
         stateContext.Transition<CharacterState>(findSomethingToDoState);
     }
 
     // Character moves to interactable to interact.
     public void GoInteractWith(Interactable interactable)
     {
-        currentInteractable = interactable;
+        targetInteractable = interactable;
         stateContext.Transition<CharacterState>(goToInteractableState);
     }
 
-    public void InteractWithCurrent()
+    public void InteractWithTarget()
     {
-        if (currentInteractable.ClaimedBy == null)
-        {
-            currentInteractable.ClaimedBy = this;
-            stateContext.Transition<CharacterState>(interactionState);
-        }
-        else
-        {
-            // Interactable is claimed by another character.
-            Frustrated();
-        }
+        stateContext.Transition<CharacterState>(interactionState);
     }
 
     public void Frustrated()
     {
+        ClearTargetInteractable();
         stateContext.Transition<CharacterState>(frustratedState);
+    }
+
+    public void ClearTargetInteractable()
+    {
+        if (targetInteractable != null)
+        {
+            targetInteractable.ClaimedBy = null;
+        }
+
+        targetInteractable = null;
     }
 
     public CharacterStats Stats
@@ -108,9 +106,9 @@ public class CharacterController : GameBehaviour, ICharacterController
         get { return inventory; }
     }
 
-    public Interactable CurrentInteractable
+    public Interactable TargetInteractable
     {
-        get { return currentInteractable; }
+        get { return targetInteractable; }
     }
 
     public StateContext<ICharacterController> StateContext

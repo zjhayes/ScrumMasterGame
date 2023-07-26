@@ -19,11 +19,11 @@ public class PlanningViewState : GameState
         // TODO: Show settings menu.
     }
 
-    public override void Destroy()
+    public override void Exit()
     {
         // Show scrum board when state changed.
         gameManager.UI.PlanningMenu.Hide();
         gameManager.UI.ScrumMenu.Show();
-        base.Destroy();
+        base.Exit();
     }
 }

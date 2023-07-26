@@ -38,7 +38,7 @@ public class SelectedCharacterState : GameState
         gameManager.UI.CharacterCard.UpdateStatus(selectedCharacter);
     }
 
-    public override void Destroy()
+    public override void Exit()
     {
         // Stop listening to character.
         selectedCharacter.StateContext.onTransition -= onCharacterStateChange;
@@ -48,6 +48,6 @@ public class SelectedCharacterState : GameState
         gameManager.UI.SelectedCharacterIcon.Hide();
         gameManager.UI.CharacterCard.Hide();
 
-        base.Destroy();
+        base.Exit();
     }
 }

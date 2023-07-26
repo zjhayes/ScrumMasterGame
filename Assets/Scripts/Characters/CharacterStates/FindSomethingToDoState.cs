@@ -51,8 +51,6 @@ public class FindSomethingToDoState : CharacterState
         {
             // Weigh the highest scores and choose at random.
             return WeighPriorityDecision(priorities);
-            //int randomPriorityIndex = Random.Range(0, priorities.Count());
-            //return priorities?.ElementAt(randomPriorityIndex).Key;
         }
         else
         {
@@ -91,6 +89,12 @@ public class FindSomethingToDoState : CharacterState
 
         Debug.Log("Unable to find something to do.");
         return null;
+    }
+
+    public override void Exit()
+    {
+        StopIdleEmote();
+        base.Exit();
     }
 
     public override string Status

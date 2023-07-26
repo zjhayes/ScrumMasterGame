@@ -44,7 +44,7 @@ public abstract class Station : Interactable
 
     public bool HasVacancy()
     {
-        return (CountOccupants() > chairs.Count);
+        return (CountOccupants() < chairs.Count);
     }
 
     public int CountOccupants()

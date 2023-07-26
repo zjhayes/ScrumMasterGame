@@ -7,13 +7,13 @@ public class GoToInteractableState : CharacterState
     public override void Handle(ICharacterController controller)
     {
         character = controller;
-        character.Movement.GoTo(character.CurrentInteractable.Position);
+        character.Movement.GoTo(character.TargetInteractable.Position);
         base.Handle(controller);
     }
 
     void Update()
     {
-        if(!character.CurrentInteractable)
+        if(!character.TargetInteractable)
         {
             character.Idle();
             return;
@@ -21,7 +21,7 @@ public class GoToInteractableState : CharacterState
 
         if(character.Movement.AtDestination())
         {
-            character.InteractWithCurrent();
+            character.InteractWithTarget();
         }
     }
 

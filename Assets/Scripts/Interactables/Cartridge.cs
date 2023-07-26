@@ -7,28 +7,18 @@ public class Cartridge : Pickup
 
     public override void InteractWith(ICharacterController character)
     {
-        // Direct character to go to open work station.
-        WorkStation openWorkStation = gameManager.Interactables.FindOpenWorkStation();
-        if(openWorkStation != null)
-        {
-            character.GoInteractWith(openWorkStation);
-            base.InteractWith(character);
-        }
-        else
-        {
-            // Character unable to find open work station.
-            character.Frustrated();
-        }
+        base.InteractWith(character);
+        character.FindSomethingToDo();
     }
 
     public override int CalculatePriorityFor(ICharacterController character)
     {
-        if(task.Assignee == character)
+        if(task.Assignee == character && this.ClaimedBy == null)
         {
-            return 100;
+            return PriorityScoreConstants.PICK_UP_ASSIGNED_CARTRIDGE;
         }
         // TODO: Return less if not carried.
-        return 0;
+        return PriorityScoreConstants.NO_SCORE;
     }
 
     public Task Task

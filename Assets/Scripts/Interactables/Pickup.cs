@@ -7,6 +7,7 @@ public abstract class Pickup : Interactable, IContainable
 
     public override void InteractWith(ICharacterController character)
     {
+        this.ClaimedBy = character;
         AddToInventory(character.Inventory);
         base.InteractWith(character);
     }
