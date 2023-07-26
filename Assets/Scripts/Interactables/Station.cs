@@ -20,9 +20,10 @@ public abstract class Station : Interactable
     {
         foreach (Chair chair in chairs)
         {
-            if(!chair.Occupied)
+            if (!chair.Occupied)
             {
                 chair.Sit(occupant);
+                OnSuccessfulSit(occupant);
                 return; // Character found a chair.
             }
         }
@@ -31,11 +32,16 @@ public abstract class Station : Interactable
         occupant.Frustrated();
     }
 
+    protected virtual void OnSuccessfulSit(ICharacterController occupant)
+    {
+        return; // Override to run
+    }
+
     protected virtual void OnStand(ICharacterController occupant)
     {
-        foreach(Chair chair in chairs)
+        foreach (Chair chair in chairs)
         {
-            if(chair.Occupied && chair.Occupant == occupant)
+            if (chair.Occupied && chair.Occupant == occupant)
             {
                 chair.Stand();
             }
@@ -59,5 +65,15 @@ public abstract class Station : Interactable
             }
         }
         return count;
+    }
+
+    public List<ICharacterController> ListOccupants()
+    {
+        List<ICharacterController> occupants = new List<ICharacterController>();
+        foreach (Chair chair in chairs)
+        {
+            occupants.Add(chair.Occupant);
+        }
+        return occupants;
     }
 }

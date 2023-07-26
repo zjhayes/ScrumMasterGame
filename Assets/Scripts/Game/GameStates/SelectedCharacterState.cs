@@ -16,7 +16,8 @@ public class SelectedCharacterState : GameState
         selectedCharacter.StateContext.onTransition += onCharacterStateChange;
 
         gameManager.UI.SelectedCharacterIcon.Show();
-        gameManager.UI.CharacterCard.Show(selectedCharacter);
+        gameManager.UI.CharacterCard.UpdateCard(selectedCharacter);
+        gameManager.UI.CharacterCard.Show();
 
         gameManager.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
         base.Handle(controller);

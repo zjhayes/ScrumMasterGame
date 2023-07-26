@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(TaskComputer))]
 public class WorkStation : Station
-{ 
+{
     TaskComputer computer;
 
     void Awake()
@@ -17,12 +17,14 @@ public class WorkStation : Station
         {
             if(computer.CartridgeIntake.IsEmpty && occupant.Inventory.CurrentPickup is Cartridge)
             {
-                RunCartridge(occupant.Inventory.CurrentPickup as Cartridge);
+                computer.InputCartridge(occupant.Inventory.CurrentPickup as Cartridge);
             }
             else
             {
-                // Character drops pickup when not cartridge or intake is full.
+                // Character drops pickup and is frustrated.
                 occupant.Inventory.Drop();
+                occupant.Frustrated();
+                return;
             }
         }
         base.OnSit(occupant);
@@ -30,17 +32,12 @@ public class WorkStation : Station
 
     protected override void OnStand(ICharacterController occupant)
     {
-        if(CurrentCartridge?.Task.Assignee == occupant)
+        if(computer.CurrentCartridge?.Task.Assignee == occupant)
         {
             // Assignee takes cartridge.
-            occupant.Inventory.PickUp(CurrentCartridge);
+            occupant.Inventory.PickUp(computer.CurrentCartridge);
         }
         base.OnStand(occupant);
-    }
-
-    private void RunCartridge(Cartridge cartridge)
-    {
-        computer.InputCartridge(cartridge);
     }
 
     public override int CalculatePriorityFor(ICharacterController character)
@@ -56,13 +53,5 @@ public class WorkStation : Station
             return 20;
         }
         return 0;
-    }
-
-    public Cartridge CurrentCartridge
-    {
-        get
-        {
-            return computer.CartridgeIntake.GetFirst<Cartridge>() as Cartridge;
-        }
     }
 }

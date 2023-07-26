@@ -29,9 +29,7 @@ public class Inventory : MonoBehaviour
 
         // Move to inventory.
         inventory.Add(pickup);
-        pickup.EnablePhysics(false);
-        pickup.SetPositionToContainer(inventory);
-        pickup.SetToHoldRotation();
+        pickup.Move(inventory.gameObject.transform.position, false);
     }
 
     public Pickup Drop()

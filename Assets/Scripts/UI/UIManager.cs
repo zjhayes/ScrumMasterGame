@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     PlanningMenuController planningMenu;
     [SerializeField]
     ScrumMenuController scrumMenu;
+    [SerializeField]
+    StatusBarController statusBar;
 
     public OverheadCanvasController OverheadCanvas
     {
@@ -36,5 +38,10 @@ public class UIManager : MonoBehaviour
     public ScrumMenuController ScrumMenu
     {
         get { return scrumMenu; }
+    }
+
+    public StatusBarController StatusBar
+    {
+        get { return statusBar; }
     }
 }

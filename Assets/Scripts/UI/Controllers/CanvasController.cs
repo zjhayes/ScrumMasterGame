@@ -13,16 +13,19 @@ public class CanvasController : GameBehaviour
     public delegate void OnHideLastMenu();
     public OnHideLastMenu onHideLastMenu;
 
-    void Start()
+    void Awake()
     {
         // Initiate hidden menus.
         foreach (MenuController menu in menus)
         {
-            menu.SetUp();
             menu.onShow += ShowMenu;
             menu.onHide += HideMenu;
+            menu.SetUp();
         }
+    }
 
+    void Start()
+    {
         // Listen to player controls.
         gameManager.Controls.onEscape += OnEscape;
     }
@@ -42,7 +45,7 @@ public class CanvasController : GameBehaviour
     {
         menu.SetActive(false);
 
-        // Check if all menus hiden.
+        // Check if all menus hidden.
         if(ActiveCount <= 0)
         {
             onHideLastMenu?.Invoke();

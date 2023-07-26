@@ -6,12 +6,18 @@ using System.Linq;
 public class Container : MonoBehaviour
 {
     const bool INCLUDE_INACTIVE_DEFAULT = true;
+
+    public delegate void OnAdd();
+    public event OnAdd onAdd;
+    public delegate void OnRemove();
+    public event OnRemove onRemove;
+
     public List<GameObject> Get(string tag)
     {
         List<GameObject> containables = new List<GameObject>();
         foreach (Transform containable in transform)
         {
-            if (containable.tag == tag)
+            if (containable.CompareTag(tag))
             {
                 containables.Add(containable.gameObject);
             }
@@ -40,11 +46,13 @@ public class Container : MonoBehaviour
     public void Remove(IContainable containable)
     {
         containable.gameObject.transform.parent = null;
+        onRemove?.Invoke();
     }
 
     public void Add(IContainable containable)
     {
         containable.gameObject.transform.SetParent(gameObject.transform);
+        onAdd?.Invoke();
     }
 
     // Checks if container currently contains provided containable.
