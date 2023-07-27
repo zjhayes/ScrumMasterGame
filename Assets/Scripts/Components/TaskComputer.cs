@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class TaskComputer : Computer
 {
-    Task task;
     List<ICharacterController> developers;
 
     public delegate void OnTaskComplete();
@@ -15,15 +13,15 @@ public class TaskComputer : Computer
         developers = new List<ICharacterController>();
     }
 
+    // Update task completeness and developer progression.
     protected override void IterateWork()
     {
+        task.Completeness += .1f * developers.Count;
         if(task.IsReadyForProduction)
         {
             onTaskComplete?.Invoke();
+            Sleep();
         }
-
-        Debug.Log(developers);
-        Debug.Log(task);
     }
 
     public override void InputCartridge(Cartridge cartridge)
@@ -31,12 +29,6 @@ public class TaskComputer : Computer
         // Capture task.
         task = cartridge.Task;
         base.InputCartridge(cartridge);
-    }
-
-    protected override void CartridgeRemoved()
-    {
-        task = null;
-        base.CartridgeRemoved();
     }
 
     public void SignInDeveloper(ICharacterController developer)

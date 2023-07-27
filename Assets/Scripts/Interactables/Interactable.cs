@@ -14,9 +14,8 @@ public abstract class Interactable : Selectable
     void Start()
     {
         gameManager.Interactables.AddOpenInteractable(this);
-        gameManager.Interactables.onEnableInteractables += Enable;
-        gameManager.Interactables.onDisableInteractables += Disable;
-        Disable();
+        gameManager.Interactables.onEnableInteractables += EnableSelection;
+        gameManager.Interactables.onDisableInteractables += DisableSelection;
     }
 
     protected override void Select()
@@ -40,8 +39,8 @@ public abstract class Interactable : Selectable
     void OnDestroy()
     {
         gameManager.Interactables.RemoveOpenInteractable(this);
-        gameManager.Interactables.onEnableInteractables -= Enable;
-        gameManager.Interactables.onDisableInteractables -= Disable;
+        gameManager.Interactables.onEnableInteractables -= EnableSelection;
+        gameManager.Interactables.onDisableInteractables -= DisableSelection;
     }
 
     public ICharacterController ClaimedBy { get; set; }

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class ScrumBoardController : Interactable
 {
-    [SerializeField]
-    GameObject cartridgePrefab;
-
     public override void InteractWith(ICharacterController character)
     {
         Task task = gameManager.Board.GetFirstTaskWithStatusAndAssignee(character, TaskStatus.TO_DO);
@@ -33,10 +30,8 @@ public class ScrumBoardController : Interactable
 
     public void InstantiateCartridge(Task task, ICharacterController character)
     {
-        // Instantiate Cartridge prefab for this task.
-        GameObject cartridgeObject = BehaviourFactory.Create<Cartridge, IGameManager>(cartridgePrefab, gameManager, transform.position, transform.rotation);
-        Cartridge cartridge = cartridgeObject.GetComponent<Cartridge>();
-        cartridge.Task = task;
+        // Get a cartridge for this task, give it to character.
+        Cartridge cartridge = gameManager.ObjectPool.TakeOrCreateCartridge(transform, task);
         cartridge.InteractWith(character);
     }
 

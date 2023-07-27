@@ -10,7 +10,7 @@ public class ScrumMenuController : AbstractTaskMenu
     [SerializeField]
     Container doneContainer;
 
-    Dictionary<TaskStatus, Transform> statusContainerMap = new Dictionary<TaskStatus, Transform>();
+    readonly Dictionary<TaskStatus, Transform> statusContainerMap = new();
 
     public override void SetUp()
     {

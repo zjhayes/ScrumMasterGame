@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GoToInteractableState : CharacterState
 {
@@ -15,12 +16,14 @@ public class GoToInteractableState : CharacterState
     {
         if(character.TargetInteractable == null)
         {
+            // No target interactable, do something else.
             character.FindSomethingToDo();
             return;
         }
 
         if(character.Movement.AtDestination())
         {
+            // On arrival, interact.
             character.InteractWithTarget();
         }
     }
