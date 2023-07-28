@@ -8,6 +8,10 @@ public class WorkStation : Station
     void Awake()
     {
         computer = GetComponent<TaskComputer>();
+
+        // Dismiss developers when task is completed or removed.
+        computer.onTaskComplete += DismissAll;
+        computer.onSleep += DismissAll;
     }
 
     protected override void Sit(ICharacterController occupant)
@@ -38,7 +42,7 @@ public class WorkStation : Station
 
     protected override void OnStand(ICharacterController occupant)
     {
-        if(computer.CurrentCartridge?.Task.Assignee == occupant)
+        if(computer.CurrentCartridge != null && computer.CurrentCartridge.Task.Assignee == occupant)
         {
             // Assignee takes cartridge.
             occupant.Inventory.PickUp(computer.CurrentCartridge);
@@ -49,16 +53,17 @@ public class WorkStation : Station
 
     public override int CalculatePriorityFor(ICharacterController character)
     {
-        if (character.Inventory.CurrentPickup is Cartridge && this.HasVacancy()) //TODO: Find another way to determine character has task
+        if (character.Inventory.CurrentPickup is Cartridge && this.HasVacancy())
         {
-            // Character can work on task.
+            // Station is open for character to work on task.
             return PriorityScoreConstants.WORK_ON_TASK;
         }
         else if(!character.Inventory.HasPickup() && this.CountOccupants() == 1)
         {
-            // Character can pair program.
-            return 20;
+            // Station is open for pair programming.
+            return PriorityScoreConstants.PAIR_PROGRAM;
         }
-        return 0;
+
+        return PriorityScoreConstants.NO_SCORE;
     }
 }

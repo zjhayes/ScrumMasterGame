@@ -1,18 +1,27 @@
 using UnityEngine;
 
-public abstract class Computer : MonoBehaviour
+public abstract class Computer : GameBehaviour
 {
     [SerializeField]
     Container cartridgeIntake;
 
+    protected Task task;
+
+    public delegate void OnSleep();
+    public event OnSleep onSleep;
+
     protected virtual void Awake()
     {
         Sleep();
-        cartridgeIntake.onRemove += CartridgeRemoved;
     }
 
     void Update()
     {
+        if(CurrentCartridge == null)
+        {
+            CartridgeRemoved();
+        }
+
         IterateWork();
     }
 
@@ -21,13 +30,16 @@ public abstract class Computer : MonoBehaviour
     public virtual void InputCartridge(Cartridge cartridge)
     {
         // Add cartridge to container.
+        cartridge.ClaimedBy = null;
         cartridgeIntake.Add(cartridge);
         // Move cartridge to intake.
         cartridge.Move(cartridgeIntake.gameObject.transform.position, false);
+        // Capture task.
+        task = cartridge.Task;
         Run();
     }
 
-    protected virtual void CartridgeRemoved()
+    void CartridgeRemoved()
     {
         Sleep();
     }
@@ -38,15 +50,11 @@ public abstract class Computer : MonoBehaviour
         this.enabled = true;
     }
 
-    void Sleep()
+    protected void Sleep()
     {
         // Stop Update method.
         this.enabled = false;
-    }
-
-    public bool HasCartridge()
-    {
-        return cartridgeIntake.GetFirst<Cartridge>() != null;
+        onSleep?.Invoke();
     }
 
     public Cartridge CurrentCartridge

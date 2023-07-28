@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Cartridge : Pickup
@@ -14,11 +13,12 @@ public class Cartridge : Pickup
 
     public override int CalculatePriorityFor(ICharacterController character)
     {
-        if(task.Assignee == character && this.ClaimedBy == null)
+        if (gameObject.activeSelf && task.Assignee == character && !character.Inventory.HasPickup())
         {
+            // Task is assigned to character with free hands, pick it up.
             return PriorityScoreConstants.PICK_UP_ASSIGNED_CARTRIDGE;
         }
-        // TODO: Return less if not carried.
+        // TODO: Handle cartridges left by other characters.
         return PriorityScoreConstants.NO_SCORE;
     }
 

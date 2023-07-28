@@ -8,4 +8,5 @@ public static class PriorityScoreConstants
     public const int TAKE_TASK_FROM_BOARD = 70;
     public const int PICK_UP_ASSIGNED_CARTRIDGE = 90;
     public const int WORK_ON_TASK = 100;
+    public const int TAKE_TASK_TO_PRODUCTION = 500;
 }

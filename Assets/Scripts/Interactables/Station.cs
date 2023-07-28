@@ -40,7 +40,7 @@ public abstract class Station : Interactable
 
     protected virtual void OnFoundChair(ICharacterController occupant)
     {
-        return; // Called when character finds unoccupied chair.
+        return; // Called when character finds unoccupied chair, before they sit.
     }
 
     protected virtual void Stand(ICharacterController occupant)
@@ -58,6 +58,15 @@ public abstract class Station : Interactable
     protected virtual void OnStand(ICharacterController occupant)
     {
         return; // Called after character stands.
+    }
+
+    protected void DismissAll()
+    {
+        foreach (Chair chair in chairs)
+        {
+            chair.Occupant?.FindSomethingToDo();
+            chair.Stand();
+        }
     }
 
     public bool HasVacancy()

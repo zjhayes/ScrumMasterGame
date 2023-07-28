@@ -31,23 +31,23 @@ public class ContextManager : GameBehaviour, IContextManager
 
     public void Default()
     {
-        stateContext.Transition<GameState>(defaultState);
+        stateContext.Transition(defaultState);
     }
 
     public void SwitchToScrumView()
     {
-        stateContext.Transition<GameState>(scrumViewState);
+        stateContext.Transition(scrumViewState);
     }
 
     public void SwitchToPlanningView()
     {
-        stateContext.Transition<GameState>(planningViewState);
+        stateContext.Transition(planningViewState);
     }
 
     public void CharacterSelected(ICharacterController character)
     {
         currentCharacter = character;
-        stateContext.Transition<GameState>(selectedCharacterState);
+        stateContext.Transition(selectedCharacterState);
     }
 
     // TODO: State controls can be moved to own class.
@@ -60,7 +60,6 @@ public class ContextManager : GameBehaviour, IContextManager
     {
         CurrentState.Escape();
     }
-
 
     // Quit game.
     public void Exit()

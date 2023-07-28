@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour, IGameManager
     IContextManager context;
     TeamManager teamManager;
     InteractableManager interactables;
+    ObjectPoolController objectPool;
     CameraController cameraController;
 
     void Awake()
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour, IGameManager
         board = GetComponent<BoardManager>();
         teamManager = GetComponent<TeamManager>();
 
+        objectPool = FindObjectOfType<ObjectPoolController>();
         cameraController = FindObjectOfType<CameraController>();
     }
 
@@ -68,6 +70,11 @@ public class GameManager : MonoBehaviour, IGameManager
     public TeamManager Team
     {
         get { return teamManager; }
+    }
+
+    public ObjectPoolController ObjectPool
+    {
+        get { return objectPool; }
     }
 
     public CameraController Camera

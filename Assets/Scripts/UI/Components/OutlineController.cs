@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Interactable))]
@@ -18,7 +16,7 @@ public class OutlineController : MonoBehaviour
     {
         interactable.onHoverEnter += Show;
         interactable.onHoverExit += Hide;
-        interactable.onDisable += Hide;
+        interactable.onDisableSelectability += Hide;
     }
 
     public void Show()
