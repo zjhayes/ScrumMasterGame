@@ -14,8 +14,7 @@ public class Chair : MonoBehaviour
 
         // Move to seat.
         occupant.transform.parent = seat;
-        occupant.transform.position = seat.position;
-        occupant.transform.rotation = seat.rotation;
+        occupant.transform.SetPositionAndRotation(seat.position, seat.rotation);
     }
 
     public void Stand()

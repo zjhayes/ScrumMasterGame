@@ -3,6 +3,8 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
+    OverheadCanvasController overheadCanvas;
+    [SerializeField]
     SelectedIcon selectedCharacterIcon;
     [SerializeField]
     CharacterCard characterCard;
@@ -10,13 +12,12 @@ public class UIManager : MonoBehaviour
     PlanningMenuController planningMenu;
     [SerializeField]
     ScrumMenuController scrumMenu;
+    [SerializeField]
+    StatusBarController statusBar;
 
-    public delegate void OnShowFrustrationEmote(OverheadController overheadController);
-    public event OnShowFrustrationEmote onShowFrustrationEmote;
-
-    public void ShowFrustrationEmote(OverheadController overheadController)
+    public OverheadCanvasController OverheadCanvas
     {
-        onShowFrustrationEmote?.Invoke(overheadController);
+        get { return overheadCanvas; }
     }
     
     public SelectedIcon SelectedCharacterIcon
@@ -37,5 +38,10 @@ public class UIManager : MonoBehaviour
     public ScrumMenuController ScrumMenu
     {
         get { return scrumMenu; }
+    }
+
+    public StatusBarController StatusBar
+    {
+        get { return statusBar; }
     }
 }

@@ -1,19 +1,22 @@
 using UnityEngine;
 
 /** An Interactable is a Selectable that requires a Character to interact with. **/
-public class Interactable : Selectable
+public abstract class Interactable : Selectable
 { 
     [SerializeField]
-    Transform goToPosition; // Optional, position character will walk to.
+    Transform goToPosition; // Optional, position character will stand to interact.
+
+    public ICharacterController claimedBy;
 
     public delegate void OnInteract(ICharacterController character);
     public event OnInteract onInteract;
 
     void Start()
     {
-        gameManager.Interactables.onEnableInteractables += Enable;
-        gameManager.Interactables.onDisableInteractables += Disable;
-        Disable();
+        gameManager.Interactables.AddOpenInteractable(this);
+        gameManager.Interactables.onEnableInteractables += EnableSelection;
+        gameManager.Interactables.onDisableInteractables += DisableSelection;
+        DisableSelection();
     }
 
     protected override void Select()
@@ -31,11 +34,17 @@ public class Interactable : Selectable
         onInteract?.Invoke(character);
     }
 
+    // Returns score based on how likely this character needs this interaction.
+    public abstract int CalculatePriorityFor(ICharacterController character);
+
     void OnDestroy()
     {
-        gameManager.Interactables.onEnableInteractables -= Enable;
-        gameManager.Interactables.onDisableInteractables -= Disable;
+        gameManager.Interactables.RemoveOpenInteractable(this);
+        gameManager.Interactables.onEnableInteractables -= EnableSelection;
+        gameManager.Interactables.onDisableInteractables -= DisableSelection;
     }
+
+    public ICharacterController ClaimedBy { get; set; }
 
     public Vector3 Position
     {

@@ -8,7 +8,7 @@ public interface ICharacterController : IController
 
     public void FindSomethingToDo();
 
-    public void InteractWithCurrent();
+    public void InteractWithTarget();
 
     public void Frustrated();
 
@@ -20,7 +20,7 @@ public interface ICharacterController : IController
 
     public Inventory Inventory { get; }
 
-    public Interactable CurrentInteractable { get; }
+    public Interactable TargetInteractable { get; }
 
     public StateContext<ICharacterController> StateContext { get; }
 

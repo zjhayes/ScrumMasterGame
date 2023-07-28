@@ -1,66 +1,69 @@
 using UnityEngine;
 
+[RequireComponent(typeof(TaskComputer))]
 public class WorkStation : Station
-{ 
-    [SerializeField]
-    Container cartridgeIntake;
+{
+    TaskComputer computer;
 
-    bool claimed = false; // Character has claimed this station.
+    void Awake()
+    {
+        computer = GetComponent<TaskComputer>();
 
-    protected override void OnSit(ICharacterController occupant)
+        // Dismiss developers when task is completed or removed.
+        computer.onTaskComplete += DismissAll;
+        computer.onSleep += DismissAll;
+    }
+
+    protected override void Sit(ICharacterController occupant)
     {
         // Get cartridge from character.
         if(occupant.Inventory.HasPickup())
         {
-            if(cartridgeIntake.IsEmpty)
+            if(computer.CartridgeIntake.IsEmpty && occupant.Inventory.CurrentPickup is Cartridge)
             {
-                InputCartridge(occupant);
+                // Slot cartridge into computer intake.
+                computer.InputCartridge(occupant.Inventory.CurrentPickup as Cartridge);
             }
             else
             {
-                // Character drops pickup if one present already.
+                // Character drops pickup and is frustrated.
                 occupant.Inventory.Drop();
+                occupant.Frustrated();
+                return; // Don't sit.
             }
         }
+        base.Sit(occupant);
+    }
 
-        claimed = false;
-        base.OnSit(occupant);
+    protected override void OnSit(ICharacterController occupant)
+    {
+        computer.SignInDeveloper(occupant);
     }
 
     protected override void OnStand(ICharacterController occupant)
     {
-        if(CurrentCartridge?.Task.Assignee == occupant)
+        if(computer.CurrentCartridge != null && computer.CurrentCartridge.Task.Assignee == occupant)
         {
             // Assignee takes cartridge.
-            occupant.Inventory.PickUp(CurrentCartridge);
+            occupant.Inventory.PickUp(computer.CurrentCartridge);
         }
-        base.OnStand(occupant);
+
+        computer.SignOutDeveloper(occupant);
     }
 
-    private void InputCartridge(ICharacterController character)
+    public override int CalculatePriorityFor(ICharacterController character)
     {
-        Pickup pickup = character.Inventory.Drop(); // Get pickup.
-
-        if (pickup is Cartridge)
+        if (character.Inventory.CurrentPickup is Cartridge && this.HasVacancy())
         {
-            cartridgeIntake.Add(pickup);
-            pickup.EnablePhysics(false);
-            pickup.SetPositionToContainer(cartridgeIntake);
-            pickup.SetToHoldRotation();
+            // Station is open for character to work on task.
+            return PriorityScoreConstants.WORK_ON_TASK;
         }
-    }
-
-    public bool Claimed
-    {
-        get { return claimed; }
-        set { claimed = value; }
-    }
-
-    public Cartridge CurrentCartridge
-    {
-        get
+        else if(!character.Inventory.HasPickup() && this.CountOccupants() == 1)
         {
-            return cartridgeIntake.GetFirst<Cartridge>() as Cartridge;
+            // Station is open for pair programming.
+            return PriorityScoreConstants.PAIR_PROGRAM;
         }
+
+        return PriorityScoreConstants.NO_SCORE;
     }
 }

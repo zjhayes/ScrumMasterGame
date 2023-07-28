@@ -10,10 +10,17 @@ public class InteractableManager : MonoBehaviour
     [SerializeField]
     CertificationStation certificationStation;
 
+    List<Interactable> openInteractables; // Interactables which character can choose from on their own.
+
     public delegate void OnEnableInteractables();
     public event OnEnableInteractables onEnableInteractables;
     public delegate void OnDisableInteractables();
     public event OnDisableInteractables onDisableInteractables;
+
+    void Awake()
+    {
+        openInteractables = new List<Interactable>();
+    }
 
     public void EnableInteractables()
     {
@@ -23,32 +30,6 @@ public class InteractableManager : MonoBehaviour
     public void DisableInteractables()
     {
         onDisableInteractables?.Invoke();
-    }
-
-    public WorkStation FindOpenWorkStation()
-    {
-        foreach(WorkStation workStation in workStations)
-        {
-            if(workStation.CountOccupants() <= 0 && !workStation.Claimed)
-            {
-                workStation.Claimed = true;
-                return workStation;
-            }
-        }
-        return null;
-    }
-
-    public WorkStation FindPairProgrammingStation()
-    {
-        foreach (WorkStation workStation in workStations)
-        {
-            if (workStation.CountOccupants() == 1)
-            {
-                // This station has room for a pair programmer.
-                return workStation;
-            }
-        }
-        return null;
     }
 
     public List<WorkStation> WorkStations
@@ -64,5 +45,25 @@ public class InteractableManager : MonoBehaviour
     public Interactable ScrumBoard
     {
         get { return scrumBoard; }
+    }
+
+    // Enable interactable to advertise itself to characters.
+    public void AddOpenInteractable(Interactable interactable)
+    {
+        if (!openInteractables.Contains(interactable))
+        {
+            openInteractables.Add(interactable);
+        }
+    }
+
+    // Disable interactable from advertising itself to characters.
+    public void RemoveOpenInteractable(Interactable interactable)
+    {
+        openInteractables.Remove(interactable);
+    }
+
+    public List<Interactable> OpenInteractables
+    {
+        get { return openInteractables; }
     }
 }

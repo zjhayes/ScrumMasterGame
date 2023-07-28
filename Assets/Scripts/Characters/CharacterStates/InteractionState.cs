@@ -2,21 +2,29 @@ using UnityEngine;
 
 public class InteractionState : CharacterState
 {
-    private ICharacterController character;
+    ICharacterController character;
+    Interactable interactable;
 
     public override void Handle(ICharacterController controller)
     {
         character = controller;
+        interactable = character.TargetInteractable;
         base.Handle(controller);
 
-        if (!character.CurrentInteractable)
+        if(CharacterCanInteract())
         {
-            character.Idle();
+            interactable.InteractWith(character);
         }
         else
         {
-            character.CurrentInteractable.InteractWith(character);
+            character.Frustrated();
         }
+    }
+
+    bool CharacterCanInteract()
+    {
+        // Return true if character has interactable, and it is not claimed by another character.
+        return interactable != null && (interactable.ClaimedBy == null || interactable.ClaimedBy == character);
     }
 
     public override string Status

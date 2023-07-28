@@ -29,15 +29,14 @@ public class Inventory : MonoBehaviour
 
         // Move to inventory.
         inventory.Add(pickup);
-        pickup.EnablePhysics(false);
-        pickup.SetPositionToContainer(inventory);
-        pickup.SetToHoldRotation();
+        pickup.Move(inventory.gameObject.transform.position, false);
     }
 
     public Pickup Drop()
     {
-        Pickup pickup = inventory.GetFirst<Pickup>(true) as Pickup;
+        Pickup pickup = CurrentPickup;
         inventory.Remove(pickup);
+        pickup.ClaimedBy = null;
         pickup.EnablePhysics(true);
         return pickup;
     }
@@ -49,5 +48,10 @@ public class Inventory : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public Pickup CurrentPickup
+    {
+        get { return inventory.GetFirst<Pickup>(true) as Pickup; }
     }
 }

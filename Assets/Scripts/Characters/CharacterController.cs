@@ -18,6 +18,8 @@ public class CharacterController : GameBehaviour, ICharacterController
     [SerializeField]
     CharacterState findSomethingToDoState;
     [SerializeField]
+    CharacterState frustratedState;
+    [SerializeField]
     OverheadController overheadController;
 
     CharacterStats stats;
@@ -26,7 +28,7 @@ public class CharacterController : GameBehaviour, ICharacterController
     Inventory inventory;
     StateContext<ICharacterController> stateContext;
 
-    Interactable currentInteractable;
+    Interactable targetInteractable;
 
     void Awake()
     {
@@ -51,31 +53,42 @@ public class CharacterController : GameBehaviour, ICharacterController
 
     public void Idle()
     {
-        currentInteractable = null;
+        ClearTargetInteractable();
         stateContext.Transition<CharacterState>(idleState);
     }
 
     public void FindSomethingToDo()
     {
+        ClearTargetInteractable();
         stateContext.Transition<CharacterState>(findSomethingToDoState);
     }
 
     // Character moves to interactable to interact.
     public void GoInteractWith(Interactable interactable)
     {
-        currentInteractable = interactable;
+        targetInteractable = interactable;
         stateContext.Transition<CharacterState>(goToInteractableState);
     }
 
-    public void InteractWithCurrent()
+    public void InteractWithTarget()
     {
         stateContext.Transition<CharacterState>(interactionState);
     }
 
     public void Frustrated()
     {
-        overheadController.ShowFrustrationBubble();
-        FindSomethingToDo();
+        ClearTargetInteractable();
+        stateContext.Transition<CharacterState>(frustratedState);
+    }
+
+    public void ClearTargetInteractable()
+    {
+        if (targetInteractable != null)
+        {
+            targetInteractable.ClaimedBy = null;
+        }
+
+        targetInteractable = null;
     }
 
     public CharacterStats Stats
@@ -93,9 +106,9 @@ public class CharacterController : GameBehaviour, ICharacterController
         get { return inventory; }
     }
 
-    public Interactable CurrentInteractable
+    public Interactable TargetInteractable
     {
-        get { return currentInteractable; }
+        get { return targetInteractable; }
     }
 
     public StateContext<ICharacterController> StateContext
@@ -120,8 +133,8 @@ public class CharacterController : GameBehaviour, ICharacterController
 
     public void EnablePhysics(bool enable)
     {
-        GetComponent<Rigidbody>().useGravity = enable;
-        GetComponent<Rigidbody>().isKinematic = !enable;
+        //GetComponent<Rigidbody>().useGravity = enable;
+        //GetComponent<Rigidbody>().isKinematic = !enable;
         //GetComponent<Collider>().enabled = enable;
         GetComponent<NavMeshAgent>().enabled = enable;
     }

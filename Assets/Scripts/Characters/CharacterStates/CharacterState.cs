@@ -9,7 +9,7 @@ public abstract class CharacterState : GameBehaviour, ICharacterState
         this.enabled = true;
     }
 
-    public virtual void Destroy()
+    public virtual void Exit()
     {
         this.enabled = false;
     }

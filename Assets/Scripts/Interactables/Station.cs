@@ -5,41 +5,73 @@ using UnityEngine;
      A Station is an object which requires the character(s) to be stationary in a specific "seat".
      OnSit and OnStand are called by the Chair interactable.
 ***/
-public class Station : Interactable
+public abstract class Station : Interactable
 {
     [SerializeField]
     protected List<Chair> chairs;
 
     public override void InteractWith(ICharacterController character)
     {
-        OnSit(character);
+        Sit(character);
         base.InteractWith(character);
     }
 
-    protected virtual void OnSit(ICharacterController occupant)
+    // Returns true if character is able to sit.
+    protected virtual void Sit(ICharacterController occupant)
     {
         foreach (Chair chair in chairs)
         {
-            if(!chair.Occupied)
+            if (!chair.Occupied)
             {
+                OnFoundChair(occupant);
                 chair.Sit(occupant);
-                return; // Character found a chair.
+                OnSit(occupant); // Character found a chair.
+                return;
             }
         }
+        occupant.Frustrated(); // Else, unable to sit.
+        return;
+    }
+    
+    protected virtual void OnSit(ICharacterController occupant)
+    {
+        return; // Called only when character finds a chair.
+    }
 
-        // Character can't interact.
-        occupant.Frustrated();
+    protected virtual void OnFoundChair(ICharacterController occupant)
+    {
+        return; // Called when character finds unoccupied chair, before they sit.
+    }
+
+    protected virtual void Stand(ICharacterController occupant)
+    {
+        foreach (Chair chair in chairs)
+        {
+            if (chair.Occupied && chair.Occupant == occupant)
+            {
+                chair.Stand();
+                OnStand(occupant);
+            }
+        }
     }
 
     protected virtual void OnStand(ICharacterController occupant)
     {
-        foreach(Chair chair in chairs)
+        return; // Called after character stands.
+    }
+
+    protected void DismissAll()
+    {
+        foreach (Chair chair in chairs)
         {
-            if(chair.Occupied && chair.Occupant == occupant)
-            {
-                chair.Stand();
-            }
+            chair.Occupant?.FindSomethingToDo();
+            chair.Stand();
         }
+    }
+
+    public bool HasVacancy()
+    {
+        return (CountOccupants() < chairs.Count);
     }
 
     public int CountOccupants()
@@ -54,5 +86,15 @@ public class Station : Interactable
             }
         }
         return count;
+    }
+
+    public List<ICharacterController> ListOccupants()
+    {
+        List<ICharacterController> occupants = new List<ICharacterController>();
+        foreach (Chair chair in chairs)
+        {
+            occupants.Add(chair.Occupant);
+        }
+        return occupants;
     }
 }

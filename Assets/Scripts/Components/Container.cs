@@ -6,12 +6,16 @@ using System.Linq;
 public class Container : MonoBehaviour
 {
     const bool INCLUDE_INACTIVE_DEFAULT = true;
+
+    public delegate void OnAdd();
+    public event OnAdd onAdd;
+
     public List<GameObject> Get(string tag)
     {
         List<GameObject> containables = new List<GameObject>();
         foreach (Transform containable in transform)
         {
-            if (containable.tag == tag)
+            if (containable.CompareTag(tag))
             {
                 containables.Add(containable.gameObject);
             }
@@ -36,6 +40,12 @@ public class Container : MonoBehaviour
         return gameObject.GetComponentInChildren(typeof(T), includeInactive) as IContainable;
     }
 
+    public bool TryGetFirst<T>(out T containable, bool includeInactive = INCLUDE_INACTIVE_DEFAULT) where T : IContainable
+    {
+        containable = gameObject.GetComponentInChildren<T>(includeInactive);
+        return containable != null;
+    }
+
     // You can first Get the containable, then pass it to Remove.
     public void Remove(IContainable containable)
     {
@@ -45,6 +55,7 @@ public class Container : MonoBehaviour
     public void Add(IContainable containable)
     {
         containable.gameObject.transform.SetParent(gameObject.transform);
+        onAdd?.Invoke();
     }
 
     // Checks if container currently contains provided containable.

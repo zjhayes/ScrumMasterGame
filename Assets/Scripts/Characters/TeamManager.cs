@@ -7,7 +7,7 @@ public class TeamManager : GameBehaviour
     [SerializeField]
     List<CharacterController> characters;
 
-    void OnEnable()
+    void Start()
     {
         gameManager.Sprint.onBeginPlanning += RallyAtScrumBoard;
         gameManager.Sprint.onBeginSprint += Scrum;
@@ -15,7 +15,7 @@ public class TeamManager : GameBehaviour
 
     void RallyAtScrumBoard()
     {
-
+        // TODO: Have character huddle around scrum board.
     }
 
     void Scrum()

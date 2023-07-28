@@ -6,13 +6,51 @@ public class OverheadController : GameBehaviour
     [SerializeField]
     Transform overheadLocation;
 
+    SpeechBubble idleSpeechBubble;
+    SpeechBubble frustrationSpeechBubble;
+
+    void Start()
+    {
+        // Set up character emotes.
+        idleSpeechBubble = gameManager.UI.OverheadCanvas.CreateIdleSpeechBubble();
+        frustrationSpeechBubble = gameManager.UI.OverheadCanvas.CreateFrustrationSpeechBubble();
+        idleSpeechBubble.AssignController(this);
+        frustrationSpeechBubble.AssignController(this);
+    }
+
     public Vector3 GetIconPosition()
     {
         return Camera.main.WorldToScreenPoint(overheadLocation.position);
     }
 
+    public void ShowIdleBubble()
+    {
+        idleSpeechBubble.Show();
+    }
+
     public void ShowFrustrationBubble()
     {
-        gameManager.UI.ShowFrustrationEmote(this);
+        frustrationSpeechBubble.Show();
+    }
+
+    public void HideIdleBubble()
+    {
+        idleSpeechBubble.Hide();
+    }
+
+    public void HideFrustrationBubble()
+    {
+        frustrationSpeechBubble.Hide();
+    }
+
+    public void HideAll()
+    {
+        HideIdleBubble();
+        HideFrustrationBubble();
+    }
+
+    public bool HasSpeechBubble()
+    {
+        return idleSpeechBubble.IsShowing() || frustrationSpeechBubble.IsShowing();
     }
 }

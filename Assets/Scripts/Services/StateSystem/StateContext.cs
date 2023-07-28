@@ -28,7 +28,7 @@ public class StateContext<T> where T : IController
     {
         if (CurrentState != null)
         {
-            CurrentState.Destroy();
+            CurrentState.Exit();
         }
 
         CurrentState = state;

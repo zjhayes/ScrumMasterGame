@@ -9,6 +9,7 @@ public class PlanningViewState : GameState
         controller = _controller;
 
         gameManager.UI.ScrumMenu.Hide();
+        gameManager.UI.StatusBar.Hide();
         gameManager.UI.PlanningMenu.Show();
         gameManager.Camera.SwitchToBoardCamera();
         base.Handle(controller);
@@ -19,11 +20,12 @@ public class PlanningViewState : GameState
         // TODO: Show settings menu.
     }
 
-    public override void Destroy()
+    public override void Exit()
     {
         // Show scrum board when state changed.
         gameManager.UI.PlanningMenu.Hide();
         gameManager.UI.ScrumMenu.Show();
-        base.Destroy();
+        gameManager.UI.StatusBar.Show();
+        base.Exit();
     }
 }

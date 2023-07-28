@@ -16,14 +16,17 @@ public class CharacterCard : MenuController
     [SerializeField]
     StatusBar statusBar;
 
+    public override void SetUp()
+    {
+        base.Hide();
+        base.SetUp();
+    }
 
-    public void Show(ICharacterController character)
+    public void UpdateCard(ICharacterController character)
     {
         UpdatePortrait(character);
         UpdateStatus(character);
         UpdateProgress(character);
-
-        base.Show();
     }
 
     public void UpdatePortrait(ICharacterController character)

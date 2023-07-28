@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GoToInteractableState : CharacterState
 {
@@ -7,21 +8,23 @@ public class GoToInteractableState : CharacterState
     public override void Handle(ICharacterController controller)
     {
         character = controller;
-        character.Movement.GoTo(character.CurrentInteractable.Position);
+        character.Movement.GoTo(character.TargetInteractable.Position);
         base.Handle(controller);
     }
 
     void Update()
     {
-        if(!character.CurrentInteractable)
+        if(character.TargetInteractable == null)
         {
-            character.Idle();
+            // No target interactable, do something else.
+            character.FindSomethingToDo();
             return;
         }
 
         if(character.Movement.AtDestination())
         {
-            character.InteractWithCurrent();
+            // On arrival, interact.
+            character.InteractWithTarget();
         }
     }
 

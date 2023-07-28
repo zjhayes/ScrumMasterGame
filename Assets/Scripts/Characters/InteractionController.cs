@@ -25,7 +25,6 @@ public class InteractionController : MonoBehaviour
     public void Interact()
     {
         onInteract?.Invoke();
-        //currentTarget?.Interact(controller);
     }
 
     private void UpdateTarget(GameObject target)

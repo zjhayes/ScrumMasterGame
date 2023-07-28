@@ -1,12 +1,13 @@
 using UnityEngine;
 
-public class Pickup : Interactable, IContainable
+public abstract class Pickup : Interactable, IContainable
 {
     [SerializeField]
     private Vector3 holdRotation;
 
     public override void InteractWith(ICharacterController character)
     {
+        this.ClaimedBy = character;
         AddToInventory(character.Inventory);
         base.InteractWith(character);
     }
@@ -16,19 +17,21 @@ public class Pickup : Interactable, IContainable
         inventory.PickUp(this);
     }
 
-    public void EnablePhysics(bool enable)
+    public void Move(Vector3 position, bool enablePhysics = true, bool setHoldRotation = true)
+    {
+        EnablePhysics(enablePhysics);
+        if(setHoldRotation) { SetToHoldRotation(); }
+        gameObject.transform.position = position;
+    }
+
+    public void EnablePhysics(bool enable = true)
     {
         gameObject.GetComponent<Rigidbody>().useGravity = enable;
         gameObject.GetComponent<Rigidbody>().isKinematic = !enable;
         gameObject.GetComponent<Collider>().enabled = enable;
     }
 
-    public void SetPositionToContainer(Container container)
-    {
-        gameObject.transform.position = container.gameObject.transform.position;
-    }
-
-    public void SetToHoldRotation()
+    void SetToHoldRotation()
     {
         gameObject.transform.localEulerAngles = holdRotation;
     }
