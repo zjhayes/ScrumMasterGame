@@ -12,11 +12,12 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
     public delegate void OnHoverExit();
     public OnHoverExit onHoverExit;
 
-    public delegate void OnEnable();
-    public OnEnable onEnable;
+    public delegate void OnEnableSelectability();
+    public OnEnableSelectability onEnableSelectability;
+    public delegate void OnDisableSelectability();
+    public OnDisableSelectability onDisableSelectability;
 
-    public delegate void OnDisable();
-    public OnDisable onDisable;
+    bool canSelect = true;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -35,28 +36,42 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
 
     protected virtual void Select()
     {
-        onSelect?.Invoke();
+        if(canSelect)
+        {
+            onSelect?.Invoke();
+        }
     }
 
     protected virtual void HoverEnter()
     {
-        onHoverEnter?.Invoke();
+        if(canSelect)
+        {
+            onHoverEnter?.Invoke();
+        }
     }
 
     protected virtual void HoverExit()
     {
-        onHoverExit?.Invoke();
+        if(canSelect)
+        {
+            onHoverExit?.Invoke();
+        }
     }
 
-    protected virtual void Enable()
+    protected virtual void EnableSelection()
     {
-        this.enabled = true;
-        onEnable?.Invoke();
+        canSelect = true;
+        onEnableSelectability?.Invoke();
     }
 
-    protected virtual void Disable()
+    protected virtual void DisableSelection()
     {
-        this.enabled = false;
-        onDisable?.Invoke();
+        canSelect = false;
+        onDisableSelectability?.Invoke();
+    }
+
+    public bool CanSelect
+    {
+        get { return canSelect; }
     }
 }

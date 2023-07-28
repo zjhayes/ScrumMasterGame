@@ -31,11 +31,6 @@ public abstract class Pickup : Interactable, IContainable
         gameObject.GetComponent<Collider>().enabled = enable;
     }
 
-    public void SetPositionToContainer(Container container)
-    {
-        gameObject.transform.position = container.gameObject.transform.position;
-    }
-
     void SetToHoldRotation()
     {
         gameObject.transform.localEulerAngles = holdRotation;

@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 440f361c131a71c419e92fd764eda6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emoteTime: 2
 --- !u!1 &6294234850732449225
 GameObject:
   m_ObjectHideFlags: 0

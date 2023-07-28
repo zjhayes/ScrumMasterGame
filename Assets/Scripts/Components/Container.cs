@@ -9,8 +9,6 @@ public class Container : MonoBehaviour
 
     public delegate void OnAdd();
     public event OnAdd onAdd;
-    public delegate void OnRemove();
-    public event OnRemove onRemove;
 
     public List<GameObject> Get(string tag)
     {
@@ -42,11 +40,16 @@ public class Container : MonoBehaviour
         return gameObject.GetComponentInChildren(typeof(T), includeInactive) as IContainable;
     }
 
+    public bool TryGetFirst<T>(out T containable, bool includeInactive = INCLUDE_INACTIVE_DEFAULT) where T : IContainable
+    {
+        containable = gameObject.GetComponentInChildren<T>(includeInactive);
+        return containable != null;
+    }
+
     // You can first Get the containable, then pass it to Remove.
     public void Remove(IContainable containable)
     {
         containable.gameObject.transform.parent = null;
-        onRemove?.Invoke();
     }
 
     public void Add(IContainable containable)

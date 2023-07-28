@@ -28,7 +28,6 @@ public class Task : MonoBehaviour, IContainable
     public delegate void OnStatusChanged();
     public event OnStatusChanged onStatusChanged;
 
-
     void Awake()
     {
         stats = GetComponent<ProductionStats>();

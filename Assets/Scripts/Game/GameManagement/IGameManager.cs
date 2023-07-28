@@ -16,5 +16,7 @@ public interface IGameManager : IService
 
     public InteractableManager Interactables { get; }
 
+    public ObjectPoolController ObjectPool { get; }
+
     public CameraController Camera { get; }
 }

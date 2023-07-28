@@ -15,6 +15,7 @@ public abstract class Interactable : Selectable
     {
 <<<<<<< Updated upstream
         gameManager.Interactables.AddOpenInteractable(this);
+<<<<<<< HEAD
         gameManager.Interactables.onEnableInteractables += Enable;
         gameManager.Interactables.onDisableInteractables += Disable;
         Disable();
@@ -23,6 +24,11 @@ public abstract class Interactable : Selectable
         gameManager.Interactables.onDisableInteractables += DisableSelection;
         DisableSelection();
 >>>>>>> Stashed changes
+=======
+        gameManager.Interactables.onEnableInteractables += EnableSelection;
+        gameManager.Interactables.onDisableInteractables += DisableSelection;
+        DisableSelection();
+>>>>>>> c50b138ca4d4a49ae72805c6c44a3b932009d2a3
     }
 
     protected override void Select()
@@ -57,6 +63,10 @@ public abstract class Interactable : Selectable
 
     void OnDestroy()
     {
+<<<<<<< HEAD
+=======
+        gameManager.Interactables.RemoveOpenInteractable(this);
+>>>>>>> c50b138ca4d4a49ae72805c6c44a3b932009d2a3
         gameManager.Interactables.onEnableInteractables -= EnableSelection;
         gameManager.Interactables.onDisableInteractables -= DisableSelection;
     }

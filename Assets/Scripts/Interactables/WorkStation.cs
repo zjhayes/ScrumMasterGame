@@ -8,6 +8,10 @@ public class WorkStation : Station
     void Awake()
     {
         computer = GetComponent<TaskComputer>();
+
+        // Dismiss developers when task is completed or removed.
+        computer.onTaskComplete += DismissAll;
+        computer.onSleep += DismissAll;
     }
 
     protected override void Sit(ICharacterController occupant)
@@ -38,7 +42,7 @@ public class WorkStation : Station
 
     protected override void OnStand(ICharacterController occupant)
     {
-        if(computer.CurrentCartridge?.Task.Assignee == occupant)
+        if(computer.CurrentCartridge != null && computer.CurrentCartridge.Task.Assignee == occupant)
         {
             // Assignee takes cartridge.
             occupant.Inventory.PickUp(computer.CurrentCartridge);
@@ -56,9 +60,10 @@ public class WorkStation : Station
         }
         else if(!character.Inventory.HasPickup() && this.CountOccupants() == 1)
         {
-            // Character can pair program.
-            return 20;
+            // Station is open for pair programming.
+            return PriorityScoreConstants.PAIR_PROGRAM;
         }
-        return 0;
+
+        return PriorityScoreConstants.NO_SCORE;
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine.AI;
 public class CharacterMovement : MonoBehaviour
 {
 	NavMeshAgent agent;
-	Vector3 groundNormal;
 
 	public delegate void OnArrivedAtDestination();
 	public OnArrivedAtDestination onArrivedAtDestination;
@@ -26,22 +25,24 @@ public class CharacterMovement : MonoBehaviour
 
 	public void GoTo(Vector3 target)
 	{
-		agent.destination = target;
 		this.enabled = true;
+		agent.enabled = true;
+		agent.destination = target;
 	}
 
 	public bool AtDestination()
     {
-		if (agent.enabled && !agent.pathPending)
+		if ((agent.enabled && !agent.pathPending) && // Agent is actively navigating...
+			(agent.remainingDistance <= agent.stoppingDistance) && // Agent is close enough to destination...
+			(!agent.hasPath || agent.velocity.sqrMagnitude == 0f)) // Agent has no calculated path or is stopped.
 		{
-			if (agent.remainingDistance <= agent.stoppingDistance)
-			{
-				if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
-				{
-					return true;
-				}
-			}
+			return true;
 		}
 		return false;
+	}
+
+	public bool CanMoveTo(Vector3 targetPosition)
+	{
+		return NavMesh.CalculatePath(transform.position, targetPosition, NavMesh.AllAreas, new NavMeshPath());
 	}
 }
