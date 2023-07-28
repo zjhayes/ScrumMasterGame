@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 
 public class InteractableManager : MonoBehaviour
@@ -11,7 +10,7 @@ public class InteractableManager : MonoBehaviour
     [SerializeField]
     CertificationStation certificationStation;
 
-    List<Interactable> openInteractables;
+    List<Interactable> openInteractables; // Interactables which character can choose from on their own.
 
     public delegate void OnEnableInteractables();
     public event OnEnableInteractables onEnableInteractables;

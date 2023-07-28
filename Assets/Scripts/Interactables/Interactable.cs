@@ -16,6 +16,7 @@ public abstract class Interactable : Selectable
         gameManager.Interactables.AddOpenInteractable(this);
         gameManager.Interactables.onEnableInteractables += EnableSelection;
         gameManager.Interactables.onDisableInteractables += DisableSelection;
+        DisableSelection();
     }
 
     protected override void Select()
