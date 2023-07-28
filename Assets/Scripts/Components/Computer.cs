@@ -61,4 +61,9 @@ public abstract class Computer : MonoBehaviour
     {
         get { return cartridgeIntake; }
     }
+
+    public bool IsRunning
+    {
+        get { return this.enabled; }
+    }
 }

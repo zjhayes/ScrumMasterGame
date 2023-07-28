@@ -13,10 +13,16 @@ public abstract class Interactable : Selectable
 
     void Start()
     {
+<<<<<<< Updated upstream
         gameManager.Interactables.AddOpenInteractable(this);
         gameManager.Interactables.onEnableInteractables += Enable;
         gameManager.Interactables.onDisableInteractables += Disable;
         Disable();
+=======
+        gameManager.Interactables.onEnableInteractables += EnableSelection;
+        gameManager.Interactables.onDisableInteractables += DisableSelection;
+        DisableSelection();
+>>>>>>> Stashed changes
     }
 
     protected override void Select()
@@ -37,11 +43,22 @@ public abstract class Interactable : Selectable
     // Returns score based on how likely this character needs this interaction.
     public abstract int CalculatePriorityFor(ICharacterController character);
 
+    void OnEnable()
+    {
+        // Make self available to characters.
+        gameManager.Interactables.AddOpenInteractable(this);
+    }
+
+    void OnDisable()
+    {
+        // Make self unavailable for use.
+        gameManager.Interactables.RemoveOpenInteractable(this);
+    }
+
     void OnDestroy()
     {
-        gameManager.Interactables.RemoveOpenInteractable(this);
-        gameManager.Interactables.onEnableInteractables -= Enable;
-        gameManager.Interactables.onDisableInteractables -= Disable;
+        gameManager.Interactables.onEnableInteractables -= EnableSelection;
+        gameManager.Interactables.onDisableInteractables -= DisableSelection;
     }
 
     public ICharacterController ClaimedBy { get; set; }

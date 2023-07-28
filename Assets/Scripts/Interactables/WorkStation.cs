@@ -49,9 +49,9 @@ public class WorkStation : Station
 
     public override int CalculatePriorityFor(ICharacterController character)
     {
-        if (character.Inventory.CurrentPickup is Cartridge && this.HasVacancy()) //TODO: Find another way to determine character has task
+        if(character.Inventory.TryGetPickup(out Cartridge cartridge) && !cartridge.Task.IsReadyForProduction && this.HasVacancy())
         {
-            // Character can work on task.
+            // Station is open for character to work on task, which is not yet ready for production.
             return PriorityScoreConstants.WORK_ON_TASK;
         }
         else if(!character.Inventory.HasPickup() && this.CountOccupants() == 1)

@@ -47,7 +47,22 @@ public class Inventory : MonoBehaviour
         {
             return true;
         }
-        return false;
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool TryGetPickup<T>(out T pickup) where T: Pickup
+    {
+        if(inventory.TryGetFirst(out pickup))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public Pickup CurrentPickup
