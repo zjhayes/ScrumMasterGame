@@ -8143,36 +8143,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2008855294698922825, guid: dc572c4523986534b8566425481b12a2,
-        type: 3}
-      propertyPath: backend
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2008855294698922825, guid: dc572c4523986534b8566425481b12a2,
-        type: 3}
-      propertyPath: frontend
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2008855294698922825, guid: dc572c4523986534b8566425481b12a2,
-        type: 3}
-      propertyPath: problemSolving
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2008855294698922825, guid: dc572c4523986534b8566425481b12a2,
-        type: 3}
-      propertyPath: timeManagement
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2980695790877055930, guid: dc572c4523986534b8566425481b12a2,
-        type: 3}
-      propertyPath: m_Name
-      value: CharacterGfx
-      objectReference: {fileID: 0}
-    - target: {fileID: 3312463887029579551, guid: dc572c4523986534b8566425481b12a2,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7099200121209067984, guid: dc572c4523986534b8566425481b12a2,
         type: 3}
       propertyPath: m_Name
@@ -8242,36 +8212,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1116778520850838872, guid: 3071926b16b174c4793068e9a44d1fbf,
-        type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 1845002656}
-    - target: {fileID: 1116778520850838875, guid: 3071926b16b174c4793068e9a44d1fbf,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4136353124914673933, guid: 3071926b16b174c4793068e9a44d1fbf,
-        type: 3}
-      propertyPath: backend
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4136353124914673933, guid: 3071926b16b174c4793068e9a44d1fbf,
-        type: 3}
-      propertyPath: frontend
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4136353124914673933, guid: 3071926b16b174c4793068e9a44d1fbf,
-        type: 3}
-      propertyPath: problemSolving
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4136353124914673933, guid: 3071926b16b174c4793068e9a44d1fbf,
-        type: 3}
-      propertyPath: timeManagement
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4612469534677205907, guid: 3071926b16b174c4793068e9a44d1fbf,
         type: 3}
       propertyPath: m_RootOrder
@@ -8331,11 +8271,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Character_Green
-      objectReference: {fileID: 0}
-    - target: {fileID: 8576910371977444024, guid: 3071926b16b174c4793068e9a44d1fbf,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3071926b16b174c4793068e9a44d1fbf, type: 3}
@@ -8607,7 +8542,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9f035b95930a3074c814f39984257533, type: 2}
+      objectReference: {fileID: 2100000, guid: b2c19ee0cad9ff34eb9339314e9e7083, type: 2}
     - target: {fileID: 4200348484634494265, guid: b0ad1bde130aaa745b79e5e5961ed239,
         type: 3}
       propertyPath: m_RootOrder
@@ -8668,41 +8603,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character_Blue
       objectReference: {fileID: 0}
-    - target: {fileID: 4200348484634494270, guid: b0ad1bde130aaa745b79e5e5961ed239,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841138065736990631, guid: b0ad1bde130aaa745b79e5e5961ed239,
-        type: 3}
-      propertyPath: backend
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841138065736990631, guid: b0ad1bde130aaa745b79e5e5961ed239,
-        type: 3}
-      propertyPath: frontend
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841138065736990631, guid: b0ad1bde130aaa745b79e5e5961ed239,
-        type: 3}
-      propertyPath: problemSolving
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841138065736990631, guid: b0ad1bde130aaa745b79e5e5961ed239,
-        type: 3}
-      propertyPath: timeManagement
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8446485770194908145, guid: b0ad1bde130aaa745b79e5e5961ed239,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8446485770194908146, guid: b0ad1bde130aaa745b79e5e5961ed239,
-        type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 1845002656}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0ad1bde130aaa745b79e5e5961ed239, type: 3}
 --- !u!1001 &7433951336311144114
@@ -12351,36 +12251,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 353158353560189609, guid: 6639ef869c3f5674c89070df9a566170,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 825669020085825715, guid: 6639ef869c3f5674c89070df9a566170,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0ab9d4285ddfed24e9f58351c764305f, type: 2}
-    - target: {fileID: 3674502728550102783, guid: 6639ef869c3f5674c89070df9a566170,
-        type: 3}
-      propertyPath: backend
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3674502728550102783, guid: 6639ef869c3f5674c89070df9a566170,
-        type: 3}
-      propertyPath: frontend
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3674502728550102783, guid: 6639ef869c3f5674c89070df9a566170,
-        type: 3}
-      propertyPath: problemSolving
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3674502728550102783, guid: 6639ef869c3f5674c89070df9a566170,
-        type: 3}
-      propertyPath: timeManagement
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5448224261289020513, guid: 6639ef869c3f5674c89070df9a566170,
         type: 3}
       propertyPath: m_RootOrder

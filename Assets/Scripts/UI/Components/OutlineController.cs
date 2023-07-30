@@ -1,15 +1,16 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Outline))]
 [RequireComponent(typeof(Interactable))]
 public class OutlineController : MonoBehaviour
 {
-    OutlineRenderer[] outlineMaterials;
     Interactable interactable;
+    Outline outline;
 
     void Awake()
     {
-        outlineMaterials = GetComponentsInChildren<OutlineRenderer>();
         interactable = GetComponent<Interactable>();
+        outline = GetComponent<Outline>();
     }
 
     void Start()
@@ -17,21 +18,16 @@ public class OutlineController : MonoBehaviour
         interactable.onHoverEnter += Show;
         interactable.onHoverExit += Hide;
         interactable.onDisableSelectability += Hide;
+        Hide();
     }
 
     public void Show()
     {
-        foreach (OutlineRenderer outlineMaterial in outlineMaterials)
-        {
-            outlineMaterial.Show();
-        }
+        outline.enabled = true;
     }
 
     public void Hide()
     {
-        foreach (OutlineRenderer outlineMaterial in outlineMaterials)
-        {
-            outlineMaterial.Hide();
-        }
+        outline.enabled = false;
     }
 }

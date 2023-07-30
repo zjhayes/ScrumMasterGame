@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BookCover
-    second: {fileID: 2100000, guid: c063543fa68b1ad409c129fd4da114fa, type: 2}
+    second: {fileID: 2100000, guid: 60ed62ee2f10cbf41bb9f1b124d4b220, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

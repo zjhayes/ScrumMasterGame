@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Keyboard
-    second: {fileID: 2100000, guid: 8856ed467c7192c4682c27806761bb45, type: 2}
+    second: {fileID: 2100000, guid: b2c19ee0cad9ff34eb9339314e9e7083, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -23,12 +23,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Plastic
-    second: {fileID: 2100000, guid: 8856ed467c7192c4682c27806761bb45, type: 2}
+    second: {fileID: 2100000, guid: b2c19ee0cad9ff34eb9339314e9e7083, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Wood
-    second: {fileID: 2100000, guid: d878c1ab8c8d0b54eaf041e4eb6f1e6b, type: 2}
+    second: {fileID: 2100000, guid: c372bf5dc3735964dbb26b6f459d85fd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

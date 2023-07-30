@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4691985103410425928}
   - component: {fileID: 1979917222}
   - component: {fileID: 4129389091846278709}
+  - component: {fileID: 2104320198538737200}
   m_Layer: 0
   m_Name: Cartridge
   m_TagString: Interactable
@@ -92,6 +93,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a406f829864768448e8df8b95ce30b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2104320198538737200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7174707449635838685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.99215686, g: 0.79607844, b: 0.43137255, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &4126665468385549236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -161,24 +180,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d27b6e850bc9464ab4a5cd371775093, type: 3}
---- !u!1 &1738339604612191191 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -6819840957994055581, guid: 8d27b6e850bc9464ab4a5cd371775093,
-    type: 3}
-  m_PrefabInstance: {fileID: 4126665468385549236}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7048850735328789615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1738339604612191191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8903bf9bbbbb5604c8c60bebac7ccdef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3856688426685359845 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d27b6e850bc9464ab4a5cd371775093,
