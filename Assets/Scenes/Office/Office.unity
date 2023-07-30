@@ -1212,6 +1212,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: bc2957ce7f3bb8e418e624e453cf1710,
         type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: bc2957ce7f3bb8e418e624e453cf1710,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 378a562d7f89b39488238016580eca89, type: 2}
@@ -1219,6 +1224,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MountainSkybox
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bc2957ce7f3bb8e418e624e453cf1710,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc2957ce7f3bb8e418e624e453cf1710, type: 3}
@@ -8579,6 +8589,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree
       objectReference: {fileID: 0}
+    - target: {fileID: 6351358389894132863, guid: 373c1e8982d8f094194cd757235456bc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 373c1e8982d8f094194cd757235456bc, type: 3}
 --- !u!1001 &7163440874189517772
@@ -12794,7 +12809,7 @@ PrefabInstance:
     - target: {fileID: 8955580300220210090, guid: f22bd2cde7376324bae6121547d992f9,
         type: 3}
       propertyPath: far clip plane
-      value: 300
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8955580300247323910, guid: f22bd2cde7376324bae6121547d992f9,
         type: 3}
@@ -12804,7 +12819,7 @@ PrefabInstance:
     - target: {fileID: 8955580300247323910, guid: f22bd2cde7376324bae6121547d992f9,
         type: 3}
       propertyPath: m_Lens.FarClipPlane
-      value: 300
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8955580300247323910, guid: f22bd2cde7376324bae6121547d992f9,
         type: 3}
@@ -12876,10 +12891,15 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 882680757}
+    - target: {fileID: 8955580301599265719, guid: f22bd2cde7376324bae6121547d992f9,
+        type: 3}
+      propertyPath: m_Lens.FarClipPlane
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8955580301948350043, guid: f22bd2cde7376324bae6121547d992f9,
         type: 3}
       propertyPath: m_DefaultBlend.m_Time
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8955580301948350043, guid: f22bd2cde7376324bae6121547d992f9,
         type: 3}
