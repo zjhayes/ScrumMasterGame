@@ -40,7 +40,7 @@ PrefabInstance:
     - target: {fileID: 2356526970511429568, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}
       propertyPath: m_Color.a
-      value: 0
+      value: 0.101960786
       objectReference: {fileID: 0}
     - target: {fileID: 2429409906170786987, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}
@@ -150,7 +150,7 @@ PrefabInstance:
     - target: {fileID: 2429409906170786988, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}
       propertyPath: m_Name
-      value: ToDo
+      value: ToDo Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2429409906769076341, guid: a52b4297da4797b42b7fed8c477c8cca,
         type: 3}

@@ -1,15 +1,15 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Outline))]
-[RequireComponent(typeof(Interactable))]
+[RequireComponent(typeof(Selectable))]
 public class OutlineController : MonoBehaviour
 {
-    Interactable interactable;
+    Selectable interactable;
     Outline outline;
 
     void Awake()
     {
-        interactable = GetComponent<Interactable>();
+        interactable = GetComponent<Selectable>();
         outline = GetComponent<Outline>();
     }
 
