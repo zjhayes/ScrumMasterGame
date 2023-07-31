@@ -54,10 +54,10 @@ public class WorkStation : Station
 
     protected override void OnStand(ICharacterController occupant)
     {
-        if(computer.CurrentCartridge != null && computer.CurrentCartridge.Task.Assignee == occupant)
+        if(computer.TryGetCartridge(out Cartridge cartridge) && cartridge.Task.Assignee == occupant)
         {
             // Assignee takes cartridge.
-            occupant.Inventory.PickUp(computer.CurrentCartridge);
+            occupant.Inventory.PickUp(cartridge);
         }
 
         computer.SignOutDeveloper(occupant);

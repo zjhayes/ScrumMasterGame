@@ -17,12 +17,15 @@ public abstract class Computer : GameBehaviour
 
     void Update()
     {
-        if(CurrentCartridge == null)
+        if(TryGetCartridge(out Cartridge cartridge))
         {
-            CartridgeRemoved();
+            IterateWork();
         }
-
-        IterateWork();
+        else
+        {
+            // Cartridge removed, stop work
+            OnCartridgeRemoved();
+        }
     }
 
     protected abstract void IterateWork();
@@ -39,7 +42,7 @@ public abstract class Computer : GameBehaviour
         Run();
     }
 
-    void CartridgeRemoved()
+    void OnCartridgeRemoved()
     {
         Sleep();
     }
@@ -57,12 +60,9 @@ public abstract class Computer : GameBehaviour
         onSleep?.Invoke();
     }
 
-    public Cartridge CurrentCartridge
+    public bool TryGetCartridge(out Cartridge cartridge)
     {
-        get
-        {
-            return cartridgeIntake.GetFirst<Cartridge>() as Cartridge;
-        }
+        return cartridgeIntake.TryGetFirst(out cartridge);
     }
 
     public Container CartridgeIntake
