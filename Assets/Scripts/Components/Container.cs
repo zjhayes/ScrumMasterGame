@@ -32,7 +32,6 @@ public class Container : MonoBehaviour
             containables.Add(component.GetComponent<T>());
         }
         return containables;
-        //return gameObject.GetComponentsInChildren(typeof(T), includeInactive) as IContainable[];
     }
 
     public IContainable GetFirst<T>(bool includeInactive = INCLUDE_INACTIVE_DEFAULT) where T : IContainable

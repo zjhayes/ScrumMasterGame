@@ -17,7 +17,7 @@ public abstract class Computer : GameBehaviour
 
     void Update()
     {
-        if(TryGetCartridge(out Cartridge cartridge))
+        if(HasCartridge())
         {
             IterateWork();
         }
@@ -63,6 +63,11 @@ public abstract class Computer : GameBehaviour
     public bool TryGetCartridge(out Cartridge cartridge)
     {
         return cartridgeIntake.TryGetFirst(out cartridge);
+    }
+
+    public bool HasCartridge()
+    {
+        return !cartridgeIntake.IsEmpty;
     }
 
     public Container CartridgeIntake

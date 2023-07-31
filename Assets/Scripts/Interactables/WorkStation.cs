@@ -32,10 +32,10 @@ public class WorkStation : Station
         // Get cartridge from character.
         if(occupant.Inventory.HasPickup())
         {
-            if(computer.CartridgeIntake.IsEmpty && occupant.Inventory.CurrentPickup is Cartridge)
+            if(!computer.HasCartridge() && occupant.Inventory.TryGetPickup(out Cartridge cartridge))
             {
-                // Slot cartridge into computer intake.
-                computer.InputCartridge(occupant.Inventory.CurrentPickup as Cartridge);
+                // Slot cartridge into open computer intake.
+                computer.InputCartridge(cartridge);
             }
             else
             {
@@ -45,6 +45,13 @@ public class WorkStation : Station
             }
         }
         base.Sit(occupant);
+    }
+
+    protected override void OnFoundChair(ICharacterController occupant)
+    {
+        occupant.Inventory.TryDrop(out _); // Drop pickup before sitting, if any.
+
+        base.OnFoundChair(occupant);
     }
 
     protected override void OnSit(ICharacterController occupant)

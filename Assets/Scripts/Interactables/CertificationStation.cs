@@ -9,13 +9,7 @@ public class CertificationStation : Station
 
     protected override void OnFoundChair(ICharacterController occupant)
     {
-        // Drop any pickups before sitting.
-        if (occupant.Inventory.HasPickup())
-        {
-            occupant.Inventory.Drop();
-        }
-
-        base.OnFoundChair(occupant);
+        occupant.Inventory.TryDrop(out _); // Drop pickup before sitting, if any.
     }
 
     protected override void OnSit(ICharacterController occupant)
