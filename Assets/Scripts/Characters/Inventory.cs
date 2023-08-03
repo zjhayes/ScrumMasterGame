@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private Container inventory;
 
-    void Awake()
+    private void Awake()
     {
         if(inventory == null)
         {

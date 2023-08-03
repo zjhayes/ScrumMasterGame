@@ -3,9 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(ProductionServer))]
 public class ProductionServerStation : Station
 {
-    ProductionServer computer;
+    private ProductionServer computer;
 
-    void Awake()
+    private void Awake()
     {
         computer = GetComponent<ProductionServer>();
         computer.onDeploymentComplete += DismissAll;

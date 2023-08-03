@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class Computer : GameBehaviour
 {
     [SerializeField]
-    Container cartridgeIntake;
+    private Container cartridgeIntake;
 
     protected Task task;
 

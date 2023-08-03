@@ -14,7 +14,7 @@ public class BoardManager : MonoBehaviour
     public delegate void OnBoardUpdated();
     public event OnBoardUpdated onBoardUpdated;
 
-    void Awake()
+    private void Awake()
     {
         UpdateCache();
     }
@@ -57,16 +57,18 @@ public class BoardManager : MonoBehaviour
         return null;
     }
 
-    public Task GetFirstTaskWithStatusAndAssignee(ICharacterController assignee, TaskStatus status)
+    public bool TryGetFirstTaskWithStatusAndAssignee(ICharacterController assignee, TaskStatus status, out Task taskWithStatusAndAssignee)
     {
         foreach (Task task in Tasks)
         {
             if (task.Assignee == assignee && task.Status == status)
             {
-                return task;
+                taskWithStatusAndAssignee = task;
+                return true; // Task found.
             }
         }
-        return null;
+        taskWithStatusAndAssignee = null;
+        return false; // None found.
     }
 
     public void UpdateCache()
