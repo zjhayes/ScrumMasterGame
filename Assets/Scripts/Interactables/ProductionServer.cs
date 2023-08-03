@@ -9,13 +9,12 @@ public class ProductionServer : Computer
     {
         // TODO: Calculate deployment outcome.
 
-        // Release production updates.
+        // Deploy production updates.
         task.Status = TaskStatus.DONE;
         
-        if(task.Status == TaskStatus.DONE)
+        if(task.Status == TaskStatus.DONE && TryGetCartridge(out Cartridge cartridge))
         {
-            Cartridge cartridge = this.CurrentCartridge;
-            gameManager.ObjectPool.PoolCartridge(this.CurrentCartridge);
+            gameManager.ObjectPool.PoolCartridge(cartridge);
             onDeploymentComplete?.Invoke();
             this.Sleep();
         }

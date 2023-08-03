@@ -8,50 +8,47 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private Container inventory;
 
-    private CharacterController character;
-
-    void Awake()
+    private void Awake()
     {
         if(inventory == null)
         {
             Debug.Log(string.Format("Character {0} does not have an inventory container.", gameObject));
         }
-
-        character = GetComponent<CharacterController>();
     }
 
     public void PickUp(Pickup pickup)
     {
-        if(HasPickup()) // Swap pickups if one carried.
-        {
-            Drop();
-        }
+        TryDrop(out _); // Swap pickups if one already carried.
 
-        // Move to inventory.
+        // Move pickup to inventory.
         inventory.Add(pickup);
         pickup.Move(inventory.gameObject.transform.position, false);
     }
 
-    public Pickup Drop()
+    public bool TryDrop(out Pickup drop)
     {
-        Pickup pickup = CurrentPickup;
-        inventory.Remove(pickup);
-        pickup.ClaimedBy = null;
-        pickup.EnablePhysics(true);
-        return pickup;
+        // Try to drop current pickup, if any.
+        if (TryGetPickup(out drop))
+        {
+            inventory.Remove(drop);
+            drop.ClaimedBy = null;
+            drop.EnablePhysics(true);
+            return true;
+        }
+        else
+        {
+            return false; // Nothing to drop.
+        }
     }
 
     public bool HasPickup()
     {
-        if(!inventory.IsEmpty)
-        {
-            return true;
-        }
-        return false;
+        return !inventory.IsEmpty;
     }
 
-    public Pickup CurrentPickup
+    // Returns true if inventory contains type of pickup.
+    public bool TryGetPickup<T>(out T pickup) where T : Pickup
     {
-        get { return inventory.GetFirst<Pickup>(true) as Pickup; }
+        return inventory.TryGetFirst(out pickup);
     }
 }

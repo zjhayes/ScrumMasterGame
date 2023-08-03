@@ -7,20 +7,21 @@ using UnityEngine.UI;
 public class Task : MonoBehaviour, IContainable
 {
     [SerializeField]
-    Sprite taskTypeIcon;
+    private Sprite taskTypeIcon;
     [SerializeField]
-    string summary;
+    private string summary;
     [SerializeField]
-    string description;
+    private string description;
     [SerializeField]
-    int storyPoints;
+    private int storyPoints;
     [SerializeField]
-    ICharacterController assignee;
+    private ICharacterController assignee;
     [SerializeField]
-    TaskStatus status = TaskStatus.INACTIVE;
-    ProductionStats stats;
+    private TaskStatus status = TaskStatus.INACTIVE;
 
-    float completeness = 0f; // Percent of finished work.
+    private ProductionStats stats;
+
+    private float completeness = 0f; // Percent of finished work.
 
     public delegate void OnAssigneeChanged();
     public event OnAssigneeChanged onAssigneeChanged;
@@ -28,7 +29,7 @@ public class Task : MonoBehaviour, IContainable
     public delegate void OnStatusChanged();
     public event OnStatusChanged onStatusChanged;
 
-    void Awake()
+    private void Awake()
     {
         stats = GetComponent<ProductionStats>();
         UpdateEnablementBasedOnStatus();
@@ -41,20 +42,20 @@ public class Task : MonoBehaviour, IContainable
 
     public string Description
     {
-        get { return description; } 
+        get { return description; }
     }
 
     public int StoryPoints
     {
-        get { return storyPoints; } 
+        get { return storyPoints; }
     }
 
     public ICharacterController Assignee
     {
         get { return assignee; }
-        set 
-        { 
-            if(assignee != value)
+        set
+        {
+            if (assignee != value)
             {
                 assignee = value;
                 onAssigneeChanged?.Invoke();
@@ -65,8 +66,8 @@ public class Task : MonoBehaviour, IContainable
     public TaskStatus Status
     {
         get { return status; }
-        set 
-        { 
+        set
+        {
             status = value;
             UpdateEnablementBasedOnStatus();
             onStatusChanged?.Invoke();
@@ -117,3 +118,4 @@ public enum TaskStatus
     DONE,
     ARCHIVED
 }
+

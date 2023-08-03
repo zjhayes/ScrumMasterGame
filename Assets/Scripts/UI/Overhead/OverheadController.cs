@@ -4,12 +4,12 @@ using UnityEngine;
 public class OverheadController : GameBehaviour
 {
     [SerializeField]
-    Transform overheadLocation;
+    private Transform overheadLocation;
 
-    SpeechBubble idleSpeechBubble;
-    SpeechBubble frustrationSpeechBubble;
+    private SpeechBubble idleSpeechBubble;
+    private SpeechBubble frustrationSpeechBubble;
 
-    void Start()
+    private void Start()
     {
         // Set up character emotes.
         idleSpeechBubble = gameManager.UI.OverheadCanvas.CreateIdleSpeechBubble();

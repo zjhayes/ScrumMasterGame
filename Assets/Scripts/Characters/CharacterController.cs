@@ -133,8 +133,6 @@ public class CharacterController : GameBehaviour, ICharacterController
 
     public void EnablePhysics(bool enable)
     {
-        //GetComponent<Rigidbody>().useGravity = enable;
-        //GetComponent<Rigidbody>().isKinematic = !enable;
         //GetComponent<Collider>().enabled = enable;
         GetComponent<NavMeshAgent>().enabled = enable;
     }

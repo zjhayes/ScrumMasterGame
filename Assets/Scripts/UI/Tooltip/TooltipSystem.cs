@@ -8,9 +8,9 @@ public class TooltipSystem : Singleton<TooltipSystem>
     [SerializeField]
     private Tooltip tooltip;
     [SerializeField]
-    private float delay = 2.0f;
+    //private float delay = 2.0f;
 
-    private DelayedAction showAfterDelay;
+    //private DelayedAction showAfterDelay; // TODO: Refactor this before use. Replace delay system and change singleton to game behaviour.
 
     public static void Show(string content, string header = "")
     {
@@ -18,8 +18,8 @@ public class TooltipSystem : Singleton<TooltipSystem>
         {
             CancelDelay();
             Instance.tooltip.SetText(content, header);
-            Instance.showAfterDelay = new DelayedAction(Instance.ShowTooltip, Instance.delay);
-            ActionManager.Instance.Add(Instance.showAfterDelay);
+            //Instance.showAfterDelay = new DelayedAction(Instance.ShowTooltip, Instance.delay);
+            //ActionManager.Instance.Add(Instance.showAfterDelay);
         }
     }
 
@@ -36,6 +36,6 @@ public class TooltipSystem : Singleton<TooltipSystem>
 
     private static void CancelDelay()
     {
-        Instance.showAfterDelay?.Cancel();
+        //Instance.showAfterDelay?.Cancel();
     }
 }

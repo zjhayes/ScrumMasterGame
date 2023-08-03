@@ -3,10 +3,12 @@ using UnityEngine;
 public abstract class Computer : GameBehaviour
 {
     [SerializeField]
-    Container cartridgeIntake;
+    private Container cartridgeIntake;
 
     protected Task task;
 
+    public delegate void OnRun();
+    public event OnRun onRun;
     public delegate void OnSleep();
     public event OnSleep onSleep;
 
@@ -15,14 +17,17 @@ public abstract class Computer : GameBehaviour
         Sleep();
     }
 
-    void Update()
+    private void Update()
     {
-        if(CurrentCartridge == null)
+        if(HasCartridge())
         {
-            CartridgeRemoved();
+            IterateWork();
         }
-
-        IterateWork();
+        else
+        {
+            // Cartridge removed, stop work
+            OnCartridgeRemoved();
+        }
     }
 
     protected abstract void IterateWork();
@@ -39,15 +44,16 @@ public abstract class Computer : GameBehaviour
         Run();
     }
 
-    void CartridgeRemoved()
+    private void OnCartridgeRemoved()
     {
         Sleep();
     }
 
-    void Run()
+    private void Run()
     {
         // Start Update method.
         this.enabled = true;
+        onRun?.Invoke();
     }
 
     protected void Sleep()
@@ -57,16 +63,23 @@ public abstract class Computer : GameBehaviour
         onSleep?.Invoke();
     }
 
-    public Cartridge CurrentCartridge
+    public bool TryGetCartridge(out Cartridge cartridge)
     {
-        get
-        {
-            return cartridgeIntake.GetFirst<Cartridge>() as Cartridge;
-        }
+        return cartridgeIntake.TryGetFirst(out cartridge);
+    }
+
+    public bool HasCartridge()
+    {
+        return !cartridgeIntake.IsEmpty;
     }
 
     public Container CartridgeIntake
     {
         get { return cartridgeIntake; }
+    }
+
+    public bool IsRunning
+    {
+        get { return this.enabled; }
     }
 }

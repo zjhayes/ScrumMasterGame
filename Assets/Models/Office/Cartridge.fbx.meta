@@ -18,7 +18,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Plastic
-    second: {fileID: 2100000, guid: d10961332a03fb84ea6b50a053c7b041, type: 2}
+    second: {fileID: 2100000, guid: 0434b58511255f3468e7af312511d914, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -47,7 +47,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1

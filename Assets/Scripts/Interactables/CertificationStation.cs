@@ -7,17 +7,6 @@ public class CertificationStation : Station
     [SerializeField]
     GameObject openBook;
 
-    protected override void OnFoundChair(ICharacterController occupant)
-    {
-        // Drop any pickups before sitting.
-        if (occupant.Inventory.HasPickup())
-        {
-            occupant.Inventory.Drop();
-        }
-
-        base.OnFoundChair(occupant);
-    }
-
     protected override void OnSit(ICharacterController occupant)
     {
         if (CountOccupants() == 1)
