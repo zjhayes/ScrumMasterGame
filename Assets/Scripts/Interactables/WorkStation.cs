@@ -47,13 +47,6 @@ public class WorkStation : Station
         base.Sit(occupant);
     }
 
-    protected override void OnFoundChair(ICharacterController occupant)
-    {
-        occupant.Inventory.TryDrop(out _); // Drop pickup before sitting, if any.
-
-        base.OnFoundChair(occupant);
-    }
-
     protected override void OnSit(ICharacterController occupant)
     {
         computer.SignInDeveloper(occupant);

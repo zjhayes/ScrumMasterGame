@@ -7,6 +7,8 @@ public abstract class Computer : GameBehaviour
 
     protected Task task;
 
+    public delegate void OnRun();
+    public event OnRun onRun;
     public delegate void OnSleep();
     public event OnSleep onSleep;
 
@@ -15,7 +17,7 @@ public abstract class Computer : GameBehaviour
         Sleep();
     }
 
-    void Update()
+    private void Update()
     {
         if(HasCartridge())
         {
@@ -42,15 +44,16 @@ public abstract class Computer : GameBehaviour
         Run();
     }
 
-    void OnCartridgeRemoved()
+    private void OnCartridgeRemoved()
     {
         Sleep();
     }
 
-    void Run()
+    private void Run()
     {
         // Start Update method.
         this.enabled = true;
+        onRun?.Invoke();
     }
 
     protected void Sleep()

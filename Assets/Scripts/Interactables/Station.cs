@@ -23,7 +23,7 @@ public abstract class Station : Interactable
         {
             if (!chair.Occupied)
             {
-                OnFoundChair(occupant);
+                occupant.Inventory.TryDrop(out _); // Drop pickup before sitting, if any.
                 chair.Sit(occupant);
                 OnSit(occupant); // Character found a chair.
                 return;
@@ -36,11 +36,6 @@ public abstract class Station : Interactable
     protected virtual void OnSit(ICharacterController occupant)
     {
         return; // Called only when character finds a chair.
-    }
-
-    protected virtual void OnFoundChair(ICharacterController occupant)
-    {
-        return; // Called when character finds unoccupied chair, before they sit.
     }
 
     protected virtual void Stand(ICharacterController occupant)
