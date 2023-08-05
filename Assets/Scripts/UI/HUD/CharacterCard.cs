@@ -19,7 +19,6 @@ public class CharacterCard : MenuController
     public override void SetUp()
     {
         base.Hide();
-        base.SetUp();
     }
 
     public void UpdateCard(ICharacterController character)
