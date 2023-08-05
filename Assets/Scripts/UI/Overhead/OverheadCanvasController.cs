@@ -11,26 +11,23 @@ public class OverheadCanvasController : CanvasController
     [SerializeField]
     private GameObject frustrationSpeechBubblePrefab;
     [SerializeField]
-    private GameObject progressBarPrefab;
+    private GameObject stationProgressionBar;
 
     public SpeechBubble CreateIdleSpeechBubble()
     {
-        GameObject idleSpeechBubble = Instantiate(idleSpeechBubblePrefab);
-        idleSpeechBubble.transform.SetParent(speechBubbleParent); // Set parent to canvas.
+        GameObject idleSpeechBubble = Instantiate(idleSpeechBubblePrefab, speechBubbleParent);
         return idleSpeechBubble.GetComponent<SpeechBubble>();
     }
-
+    
     public SpeechBubble CreateFrustrationSpeechBubble()
     {
-        GameObject frustrationSpeechBubble = Instantiate(frustrationSpeechBubblePrefab);
-        frustrationSpeechBubble.transform.SetParent(speechBubbleParent); // Set parent to canvas.
+        GameObject frustrationSpeechBubble = Instantiate(frustrationSpeechBubblePrefab, speechBubbleParent);
         return frustrationSpeechBubble.GetComponent<SpeechBubble>();
     }
 
-    public ProgressBar CreateProgressBar()
+    public ProgressBar CreateStationProgressionBar()
     {
-        GameObject progressBar = Instantiate(progressBarPrefab);
-        progressBar.transform.SetParent(stationProgressBarParent);
+        GameObject progressBar = Instantiate(stationProgressionBar, stationProgressBarParent);
         return progressBar.GetComponent<ProgressBar>();
     }
 }

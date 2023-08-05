@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/* A Computer runs methods on a Cartridge. */
 public abstract class Computer : GameBehaviour
 {
     [SerializeField]

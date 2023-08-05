@@ -17,6 +17,13 @@ public class TaskStationProgression : StationProgression
 
     private void Update()
     {
-        //progressBar.CurrentFill = computer.Task?.Completeness;
+        if(computer.TryGetCartridge(out Cartridge cartridge))
+        {
+            progressBar.CurrentFill = cartridge.Task.Completeness;
+        }
+        else
+        {
+            HideProgressBar();
+        }
     }
 }
