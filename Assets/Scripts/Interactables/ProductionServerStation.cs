@@ -13,6 +13,8 @@ public class ProductionServerStation : Station
 
     protected override void OnSit(ICharacterController occupant, Chair chair)
     {
+        base.OnSit(occupant, chair);
+
         if (!computer.HasCartridge() && occupant.Inventory.TryGetPickup(out Cartridge cartridge))
         {
             // Character has cartridge, put it in computer.
@@ -24,7 +26,6 @@ public class ProductionServerStation : Station
             occupant.Frustrated();
             return; // No cartridge, do something else.
         }
-        base.OnSit(occupant, chair);
     }
 
     public override int CalculatePriorityFor(ICharacterController character)

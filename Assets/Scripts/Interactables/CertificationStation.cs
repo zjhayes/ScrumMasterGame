@@ -9,12 +9,12 @@ public class CertificationStation : Station
 
     protected override void OnSit(ICharacterController occupant, Chair chair)
     {
+        base.OnSit(occupant, chair);
+
         if (CountOccupants() == 1)
         { // This is the first character to sit.
             OnFirstOccupant();
         }
-
-        base.OnSit(occupant, chair);
     }
 
     protected override void OnStand(ICharacterController occupant)
