@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class AbstractTaskMenu : MenuController
 {
@@ -23,8 +21,6 @@ public abstract class AbstractTaskMenu : MenuController
 
         // Reload task panels when global task cache is updated.
         gameManager.Board.onBoardUpdated += LoadTaskPanels;
-
-        base.SetUp();
     }
 
     public override void Show()

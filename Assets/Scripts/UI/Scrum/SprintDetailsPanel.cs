@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class SprintDetailsPanel : MenuController
 {
@@ -9,6 +8,11 @@ public class SprintDetailsPanel : MenuController
 
     public delegate void OnBeginSprint();
     public OnBeginSprint onBeginSprint;
+
+    public override void SetUp()
+    {
+        // Nothing to do.
+    }
 
     public void BeginSprintPressed()
     {

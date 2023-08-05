@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MenuController : GameBehaviour
+public abstract class MenuController : GameBehaviour
 {
     [SerializeField]
     bool escapable = false;
@@ -10,10 +10,7 @@ public class MenuController : GameBehaviour
     public delegate void OnHide(MenuController menu);
     public OnHide onHide;
 
-    public virtual void SetUp()
-    {
-        // Initialize inactive menu.
-    }
+    public abstract void SetUp();
 
     public virtual void Show()
     {

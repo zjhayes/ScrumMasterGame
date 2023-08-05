@@ -31,8 +31,12 @@ public class TaskPanel : MenuController, IContainable
         get { return task; }
         set { task = value; }
     }
-
     void Awake()
+    {
+        SetUp();
+    }
+
+    public override void SetUp()
     {
         button = GetComponent<ButtonController>();
         button.onClick += Selected;

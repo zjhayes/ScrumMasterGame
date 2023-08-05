@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -34,8 +33,6 @@ public class TaskDetailsPanel : MenuController
         {
             AddCharactersToAssigneeOptions();
         }
-
-        base.SetUp();
     }
 
     public void Show(Task task)
