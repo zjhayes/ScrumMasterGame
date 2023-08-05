@@ -3,9 +3,9 @@ using UnityEngine;
 public abstract class Computer : GameBehaviour
 {
     [SerializeField]
-    private Container cartridgeIntake;
+    private Transform cartridgeIntakePosition;
 
-    protected Task task;
+    protected Cartridge cartridge;
 
     public delegate void OnRun();
     public event OnRun onRun;
@@ -19,37 +19,45 @@ public abstract class Computer : GameBehaviour
 
     private void Update()
     {
-        if(HasCartridge())
-        {
-            IterateWork();
-        }
-        else
-        {
-            // Cartridge removed, stop work
-            OnCartridgeRemoved();
-        }
+        // While enabled, progress.
+        IterateWork();
     }
 
     protected abstract void IterateWork();
 
-    public virtual void InputCartridge(Cartridge cartridge)
+    public virtual void InputCartridge(Cartridge newCartridge)
     {
-        // Add cartridge to container.
+        cartridge = newCartridge;
         cartridge.ClaimedBy = null;
-        cartridgeIntake.Add(cartridge);
         // Move cartridge to intake.
-        cartridge.Move(cartridgeIntake.gameObject.transform.position, false);
-        // Capture task.
-        task = cartridge.Task;
+        cartridge.Move(cartridgeIntakePosition, false);
+        cartridge.onParentChanged += OnCartridgeRemoved;
         Run();
     }
 
-    private void OnCartridgeRemoved()
+    public bool TryGetCartridge(out Cartridge outCartridge)
     {
-        Sleep();
+        outCartridge = cartridge;
+        return outCartridge != null;
     }
 
-    private void Run()
+    public Cartridge Cartridge
+    {
+        get { return cartridge; }
+    }
+
+    public bool HasCartridge()
+    {
+        // Returns true if current cartridge is in intake.
+        return cartridge != null && cartridgeIntakePosition.position == cartridge.transform.position;
+    }
+
+    public bool IsRunning
+    {
+        get { return this.enabled; }
+    }
+
+    protected void Run()
     {
         // Start Update method.
         this.enabled = true;
@@ -63,23 +71,10 @@ public abstract class Computer : GameBehaviour
         onSleep?.Invoke();
     }
 
-    public bool TryGetCartridge(out Cartridge cartridge)
+    protected void OnCartridgeRemoved()
     {
-        return cartridgeIntake.TryGetFirst(out cartridge);
-    }
-
-    public bool HasCartridge()
-    {
-        return !cartridgeIntake.IsEmpty;
-    }
-
-    public Container CartridgeIntake
-    {
-        get { return cartridgeIntake; }
-    }
-
-    public bool IsRunning
-    {
-        get { return this.enabled; }
+        cartridge.onParentChanged -= OnCartridgeRemoved;
+        cartridge = null;
+        Sleep();
     }
 }

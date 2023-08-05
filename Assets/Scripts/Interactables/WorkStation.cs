@@ -3,9 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(TaskComputer))]
 public class WorkStation : Station
 {
-    TaskComputer computer;
+    private TaskComputer computer;
 
-    void Awake()
+    private void Awake()
     {
         computer = GetComponent<TaskComputer>();
 
@@ -27,11 +27,12 @@ public class WorkStation : Station
         }
     }
 
-    protected override void Sit(ICharacterController occupant)
+    protected override void FindSeat(ICharacterController occupant)
     {
-        // Get cartridge from character.
+        // Handle character pickups before sitting.
         if(occupant.Inventory.HasPickup())
         {
+            // Check if character has a cartridge, and the computer is not in use.
             if(!computer.HasCartridge() && occupant.Inventory.TryGetPickup(out Cartridge cartridge))
             {
                 // Slot cartridge into open computer intake.
@@ -44,11 +45,12 @@ public class WorkStation : Station
                 return; // Don't sit.
             }
         }
-        base.Sit(occupant);
+        base.FindSeat(occupant);
     }
 
-    protected override void OnSit(ICharacterController occupant)
+    protected override void OnSit(ICharacterController occupant, Chair chair)
     {
+        base.OnSit(occupant, chair);
         computer.SignInDeveloper(occupant);
     }
 
@@ -79,13 +81,13 @@ public class WorkStation : Station
         return PriorityScoreConstants.NO_SCORE;
     }
 
-    bool CharacterCanWorkOnTask(ICharacterController character)
+    private bool CharacterCanWorkOnTask(ICharacterController character)
     {
         // Station is open for character to work on task, which is not yet ready for production.
         return character.Inventory.TryGetPickup(out Cartridge cartridge) && !cartridge.Task.IsReadyForProduction && this.HasVacancy();
     }
 
-    bool CharacterCanPairProgram(ICharacterController character)
+    private bool CharacterCanPairProgram(ICharacterController character)
     {
         // Station is open for pair programming, character doesn't have own pickup.
         return this.CountOccupants() == 1;

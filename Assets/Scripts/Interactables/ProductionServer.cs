@@ -1,4 +1,3 @@
-using UnityEngine;
 
 public class ProductionServer : Computer
 {
@@ -10,13 +9,14 @@ public class ProductionServer : Computer
         // TODO: Calculate deployment outcome.
 
         // Deploy production updates.
-        task.Status = TaskStatus.DONE;
+        cartridge.Task.Status = TaskStatus.DONE;
         
-        if(task.Status == TaskStatus.DONE && TryGetCartridge(out Cartridge cartridge))
+        if(cartridge.Task.Status == TaskStatus.DONE)
         {
             gameManager.ObjectPool.PoolCartridge(cartridge);
             onDeploymentComplete?.Invoke();
-            this.Sleep();
         }
     }
+
+
 }

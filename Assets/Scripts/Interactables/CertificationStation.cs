@@ -7,14 +7,14 @@ public class CertificationStation : Station
     [SerializeField]
     GameObject openBook;
 
-    protected override void OnSit(ICharacterController occupant)
+    protected override void OnSit(ICharacterController occupant, Chair chair)
     {
         if (CountOccupants() == 1)
-        { // This is the first player to sit.
+        { // This is the first character to sit.
             OnFirstOccupant();
         }
 
-        base.OnSit(occupant);
+        base.OnSit(occupant, chair);
     }
 
     protected override void OnStand(ICharacterController occupant)

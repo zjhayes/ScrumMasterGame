@@ -2,8 +2,8 @@ using UnityEngine;
 
 public abstract class Pickup : Interactable, IContainable
 {
-    [SerializeField]
-    private Vector3 holdRotation;
+    public delegate void OnParentChanged();
+    public event OnParentChanged onParentChanged;
 
     public override void InteractWith(ICharacterController character)
     {
@@ -17,11 +17,12 @@ public abstract class Pickup : Interactable, IContainable
         inventory.PickUp(this);
     }
 
-    public void Move(Vector3 position, bool enablePhysics = true, bool setHoldRotation = true)
+    public void Move(Transform transformParent, bool enablePhysics = true)
     {
         EnablePhysics(enablePhysics);
-        if(setHoldRotation) { SetToHoldRotation(); }
-        gameObject.transform.position = position;
+        gameObject.transform.position = transformParent.position;
+        gameObject.transform.rotation = transformParent.rotation;
+        gameObject.transform.SetParent(transformParent);
     }
 
     public void EnablePhysics(bool enable = true)
@@ -31,8 +32,8 @@ public abstract class Pickup : Interactable, IContainable
         gameObject.GetComponent<Collider>().enabled = enable;
     }
 
-    void SetToHoldRotation()
+    private void OnTransformParentChanged()
     {
-        gameObject.transform.localEulerAngles = holdRotation;
+        onParentChanged?.Invoke();
     }
 }

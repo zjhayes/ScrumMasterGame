@@ -6,33 +6,30 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     [SerializeField]
-    private Container inventory;
+    private Transform pickupPosition;
 
-    private void Awake()
-    {
-        if(inventory == null)
-        {
-            Debug.Log(string.Format("Character {0} does not have an inventory container.", gameObject));
-        }
-    }
+    private Pickup currentPickup;
 
     public void PickUp(Pickup pickup)
     {
         TryDrop(out _); // Swap pickups if one already carried.
 
         // Move pickup to inventory.
-        inventory.Add(pickup);
-        pickup.Move(inventory.gameObject.transform.position, false);
+        currentPickup = pickup;
+        currentPickup.Move(pickupPosition, false);
+        currentPickup.transform.SetParent(pickupPosition.transform);
+        currentPickup.onParentChanged += OnRemoved; // Listen for pickup being removed.
     }
 
     public bool TryDrop(out Pickup drop)
     {
+        drop = currentPickup;
         // Try to drop current pickup, if any.
-        if (TryGetPickup(out drop))
+        if (drop != null)
         {
-            inventory.Remove(drop);
             drop.ClaimedBy = null;
             drop.EnablePhysics(true);
+            OnRemoved();
             return true;
         }
         else
@@ -41,14 +38,33 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool HasPickup()
+    public bool TryGetPickup<T>(out T outPickup) where T : Pickup
     {
-        return !inventory.IsEmpty;
+        outPickup = currentPickup as T;
+
+        if (outPickup != null)
+        {
+            return true;
+        }
+        else
+        { 
+            return false;
+        }
     }
 
-    // Returns true if inventory contains type of pickup.
-    public bool TryGetPickup<T>(out T pickup) where T : Pickup
+    public bool HasPickup()
     {
-        return inventory.TryGetFirst(out pickup);
+        return currentPickup != null;
+    }
+
+    public Pickup Pickup
+    {
+        get { return currentPickup; }
+    }
+
+    private void OnRemoved()
+    {
+        currentPickup.onParentChanged -= OnRemoved;
+        currentPickup = null;
     }
 }

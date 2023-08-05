@@ -6,7 +6,7 @@ public static class PriorityScoreConstants
     public const int CERTIFICATION_STATION = 5;
     public const int PAIR_PROGRAM = 50;
     public const int TAKE_TASK_FROM_BOARD = 70;
-    public const int PICK_UP_ASSIGNED_CARTRIDGE = 90;
-    public const int WORK_ON_TASK = 100;
-    public const int TAKE_TASK_TO_PRODUCTION = 500;
+    public const int PICK_UP_ASSIGNED_CARTRIDGE = 200;
+    public const int WORK_ON_TASK = 500;
+    public const int TAKE_TASK_TO_PRODUCTION = 1000;
 }

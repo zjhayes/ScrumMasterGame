@@ -1278,7 +1278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 382249538}
   m_Layer: 5
-  m_Name: StationOverheads
+  m_Name: StationProgressBars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3825,9 +3825,12 @@ MonoBehaviour:
   menus:
   - {fileID: 1845002656}
   speechBubbleParent: {fileID: 64284308}
+  stationProgressBarParent: {fileID: 382249538}
   idleSpeechBubblePrefab: {fileID: 483245442297707115, guid: 4ba8bf5cb6737fc4dbd585599f502789,
     type: 3}
   frustrationSpeechBubblePrefab: {fileID: 483245442297707115, guid: f853f9113002e2040833808ff2dfcea6,
+    type: 3}
+  progressBarPrefab: {fileID: 1741448105972714001, guid: 9b697aa8012aea948a7e6a8ce09f0583,
     type: 3}
 --- !u!1 &1018710654
 GameObject:
@@ -8361,6 +8364,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1762037411}
     m_Modifications:
+    - target: {fileID: 1841074505029706603, guid: 825c3139999ba2e43bdf1c283a928109,
+        type: 3}
+      propertyPath: progressBar
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879686993446076790, guid: 825c3139999ba2e43bdf1c283a928109,
+        type: 3}
+      propertyPath: progressBar
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4003420620923900106, guid: 825c3139999ba2e43bdf1c283a928109,
         type: 3}
       propertyPath: m_RootOrder
@@ -8485,45 +8498,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3783065249570081604, guid: 4fc95b2226a73f54a88296f8fc292972,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e749a28fcb1f062429a77bc8a9259c7a, type: 2}
     - target: {fileID: 5666085525182350497, guid: 4fc95b2226a73f54a88296f8fc292972,
         type: 3}
       propertyPath: m_Name
       value: ProductionServer
-      objectReference: {fileID: 0}
-    - target: {fileID: 6134192950439625342, guid: 4fc95b2226a73f54a88296f8fc292972,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6134192950439625342, guid: 4fc95b2226a73f54a88296f8fc292972,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6134192950439625342, guid: 4fc95b2226a73f54a88296f8fc292972,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6134192950439625342, guid: 4fc95b2226a73f54a88296f8fc292972,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6134192950439625342, guid: 4fc95b2226a73f54a88296f8fc292972,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6134192950439625342, guid: 4fc95b2226a73f54a88296f8fc292972,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4fc95b2226a73f54a88296f8fc292972, type: 3}

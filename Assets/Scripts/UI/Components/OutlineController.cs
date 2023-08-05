@@ -4,16 +4,16 @@ using UnityEngine;
 [RequireComponent(typeof(Selectable))]
 public class OutlineController : MonoBehaviour
 {
-    Selectable interactable;
-    Outline outline;
+    private Selectable interactable;
+    private Outline outline;
 
-    void Awake()
+    private void Awake()
     {
         interactable = GetComponent<Selectable>();
         outline = GetComponent<Outline>();
     }
 
-    void Start()
+    private void Start()
     {
         interactable.onHoverEnter += Show;
         interactable.onHoverExit += Hide;

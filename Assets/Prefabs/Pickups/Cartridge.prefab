@@ -79,7 +79,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goToPosition: {fileID: 0}
-  holdRotation: {x: -90, y: 0, z: 0}
   task: {fileID: 0}
 --- !u!114 &4129389091846278709
 MonoBehaviour:

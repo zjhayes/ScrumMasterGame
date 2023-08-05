@@ -11,19 +11,20 @@ public class ProductionServerStation : Station
         computer.onDeploymentComplete += DismissAll;
     }
 
-    protected override void Sit(ICharacterController occupant)
+    protected override void OnSit(ICharacterController occupant, Chair chair)
     {
-        if(!computer.HasCartridge() && occupant.Inventory.TryGetPickup(out Cartridge cartridge))
+        if (!computer.HasCartridge() && occupant.Inventory.TryGetPickup(out Cartridge cartridge))
         {
             // Character has cartridge, put it in computer.
             computer.InputCartridge(cartridge);
         }
         else
         {
+            Stand(occupant);
             occupant.Frustrated();
             return; // No cartridge, do something else.
         }
-        base.Sit(occupant);
+        base.OnSit(occupant, chair);
     }
 
     public override int CalculatePriorityFor(ICharacterController character)

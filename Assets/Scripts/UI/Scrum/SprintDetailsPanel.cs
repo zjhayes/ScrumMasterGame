@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class SprintDetailsPanel : MenuController
 {
     [SerializeField]
-    Button beginSprintButton;
+    private Button beginSprintButton;
 
     public delegate void OnBeginSprint();
     public OnBeginSprint onBeginSprint;
