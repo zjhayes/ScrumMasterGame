@@ -8,17 +8,17 @@ public class TaskPanel : MenuController, IContainable
     [SerializeField]
     private Task task;
     [SerializeField]
-    Image taskTypeIcon;
+    private Image taskTypeIcon;
     [SerializeField]
-    TextMeshProUGUI summaryText;
+    private TextMeshProUGUI summaryText;
     [SerializeField]
-    Image assigneeImage;
+    private Image assigneeImage;
     [SerializeField]
-    Sprite defaultAssigneePortrait;
+    private Sprite defaultAssigneePortrait;
     [SerializeField]
-    TextMeshProUGUI storyPointsText;
+    private TextMeshProUGUI storyPointsText;
 
-    ButtonController button;
+    private ButtonController button;
 
     public delegate void OnSelected(TaskPanel taskPanel);
     public event OnSelected onSelected;
@@ -31,9 +31,19 @@ public class TaskPanel : MenuController, IContainable
         get { return task; }
         set { task = value; }
     }
-    void Awake()
+    private void Awake()
     {
+        // Set up self on creation.
         SetUp();
+    }
+
+    private void Start()
+    {
+        UpdateDetails();
+        UpdateTaskTypeIcon();
+        UpdateAssigneePortrait();
+
+        task.onAssigneeChanged += OnAssigneeChanged;
     }
 
     public override void SetUp()
@@ -54,42 +64,11 @@ public class TaskPanel : MenuController, IContainable
         SetActive(false);
     }
 
-    void Start()
-    {
-        UpdateDetails();
-        UpdateTaskTypeIcon();
-        UpdateAssigneePortrait();
-
-        task.onAssigneeChanged += OnAssigneeChanged;
-    }
-    
-    void Selected()
-    {
-        onSelected?.Invoke(this);
-    }
-    
-    void OnAssigneeChanged()
-    {
-        UpdateAssigneePortrait();
-        onUpdated?.Invoke(this);
-    }
-
-    void UpdateDetails()
-    {
-        summaryText.text = task.Summary;
-        storyPointsText.text = task.StoryPoints.ToString();
-    }
-
-    void UpdateTaskTypeIcon()
-    {
-        taskTypeIcon.sprite = task.TaskTypeIcon;
-    }
-
     public void UpdateAssigneePortrait()
     {
         if (task.Assignee != null)
         {
-            assigneeImage.sprite = task.Assignee?.Portrait;
+            assigneeImage.sprite = task.Assignee.Portrait;
         }
         else
         {
@@ -102,7 +81,29 @@ public class TaskPanel : MenuController, IContainable
         get { return button; }
     }
 
-    void OnDestroy()
+    private void Selected()
+    {
+        onSelected?.Invoke(this);
+    }
+
+    private void OnAssigneeChanged()
+    {
+        UpdateAssigneePortrait();
+        onUpdated?.Invoke(this);
+    }
+
+    private void UpdateDetails()
+    {
+        summaryText.text = task.Summary;
+        storyPointsText.text = task.StoryPoints.ToString();
+    }
+
+    private void UpdateTaskTypeIcon()
+    {
+        taskTypeIcon.sprite = task.TaskTypeIcon;
+    }
+
+    private void OnDestroy()
     {
         // Clear listeners.
         onSelected = null;

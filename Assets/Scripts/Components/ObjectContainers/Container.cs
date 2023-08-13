@@ -45,12 +45,6 @@ public class Container : MonoBehaviour
         return containable != null;
     }
 
-    // You can first Get the containable, then pass it to Remove.
-    public void Remove(IContainable containable)
-    {
-        containable.gameObject.transform.parent = null;
-    }
-
     public void Add(IContainable containable)
     {
         containable.gameObject.transform.SetParent(gameObject.transform);

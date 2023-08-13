@@ -3,9 +3,9 @@ using UnityEngine;
 public class Chair : MonoBehaviour
 {
     [SerializeField]
-    Transform seat;
+    private Transform seat;
     [SerializeField]
-    Transform exitToPosition;
+    private Transform exitToPosition;
 
     public void Sit(ICharacterController occupant)
     {
@@ -17,10 +17,10 @@ public class Chair : MonoBehaviour
         occupant.transform.SetPositionAndRotation(seat.position, seat.rotation);
     }
 
-    public void Stand()
+    public ICharacterController Stand()
     {
         ICharacterController occupant = Occupant;
-        if (occupant == null) { return; }
+        if (occupant == null) { return null; }
 
         // Enable character physics.
         occupant.EnablePhysics(true);
@@ -28,6 +28,13 @@ public class Chair : MonoBehaviour
         // Move to original location.
         occupant.transform.parent = null;
         occupant.transform.position = exitToPosition.transform.position;
+        return occupant;
+    }
+
+    public bool TryStand(out ICharacterController occupant)
+    {
+        occupant = Stand();
+        return occupant != null;
     }
 
     public ICharacterController Occupant

@@ -3,7 +3,7 @@ using UnityEngine;
 public class StatusBarController : MenuController
 {
     [SerializeField]
-    UIClock clock;
+    private UIClock clock;
 
     public override void SetUp()
     {

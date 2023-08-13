@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class TaskComputer : Computer
 {
-    List<ICharacterController> developers;
+    private List<ICharacterController> developers;
 
     public delegate void OnTaskComplete();
     public event OnTaskComplete onTaskComplete;
@@ -16,19 +16,21 @@ public class TaskComputer : Computer
     // Update task completeness and developer progression.
     protected override void IterateWork()
     {
-        task.Completeness += .1f * developers.Count;
-        if(task.IsReadyForProduction)
+        if(cartridgeReceptacle.TryGetPickup(out Cartridge cartridge))
         {
-            onTaskComplete?.Invoke();
-            Sleep();
-        }
-    }
+            cartridge.Task.Completeness += .1f * developers.Count;
 
-    public override void InputCartridge(Cartridge cartridge)
-    {
-        // Capture task.
-        task = cartridge.Task;
-        base.InputCartridge(cartridge);
+            if (cartridge.Task.IsReadyForProduction)
+            {
+                // Work is complete.
+                onTaskComplete?.Invoke();
+                Sleep();
+            }
+        }
+        else
+        {
+            Sleep(); // No cartridge.
+        }
     }
 
     public void SignInDeveloper(ICharacterController developer)

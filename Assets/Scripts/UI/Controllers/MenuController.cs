@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class MenuController : GameBehaviour
 {
     [SerializeField]
-    bool escapable = false;
+    private bool escapable = false;
 
     public delegate void OnShow(MenuController menu);
     public OnShow onShow;

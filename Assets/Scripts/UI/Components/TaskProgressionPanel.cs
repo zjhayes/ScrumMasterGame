@@ -1,33 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class TaskProgressionPanel : MonoBehaviour
 {
     [SerializeField]
-    ProgressBar usabilityProgressBar;
+    private ProgressBar usabilityProgressBar;
     [SerializeField]
-    ProgressBar stabilityProgressBar;
+    private ProgressBar stabilityProgressBar;
     [SerializeField]
-    ProgressBar functionalityProgressBar;
+    private ProgressBar functionalityProgressBar;
     [SerializeField]
-    ProgressBar maintainabilityProgressBar;
+    private ProgressBar maintainabilityProgressBar;
     [SerializeField]
-    TextMeshProUGUI usabilityModifier;
+    private TextMeshProUGUI usabilityModifier;
     [SerializeField]
-    TextMeshProUGUI stabilityModifier;
+    private TextMeshProUGUI stabilityModifier;
     [SerializeField]
-    TextMeshProUGUI functionalityModifier;
+    private TextMeshProUGUI functionalityModifier;
     [SerializeField]
-    TextMeshProUGUI maintainabilityModifier;
+    private TextMeshProUGUI maintainabilityModifier;
     [SerializeField]
-    Color positiveColor;
+    private Color positiveColor;
     [SerializeField]
-    Color negativeColor;
+    private Color negativeColor;
 
     public void UpdateProgression(ProductionStats stats)
     {
+        // Update fill of progress bars.
         usabilityProgressBar.CurrentFill = stats.Usability;
         stabilityProgressBar.CurrentFill = stats.Stability;
         functionalityProgressBar.CurrentFill = stats.Functionality;
@@ -36,6 +35,7 @@ public class TaskProgressionPanel : MonoBehaviour
 
     public void UpdateModifiers(ProductionStats taskStats, CharacterStats assigneeStats)
     {
+        // Update modifier text, comparing their stats.
         UpdateModifier(usabilityModifier, CalculateModifier(taskStats.Usability, assigneeStats.Frontend));
         UpdateModifier(stabilityModifier, CalculateModifier(taskStats.Stability, assigneeStats.Backend, assigneeStats.ProblemSolving));
         UpdateModifier(functionalityModifier, CalculateModifier(taskStats.Functionality, assigneeStats.Frontend, assigneeStats.Backend));
@@ -45,14 +45,16 @@ public class TaskProgressionPanel : MonoBehaviour
 
     public void ClearModifiers()
     {
+        // Set modifier text to empty string.
         usabilityModifier.text = "";
         stabilityModifier.text = "";
         functionalityModifier.text = "";
         maintainabilityModifier.text = "";
     }
 
-    void UpdateModifier(TextMeshProUGUI modifierText, int modifier)
+    private void UpdateModifier(TextMeshProUGUI modifierText, int modifier)
     {
+        // Sets modifier text so positive numbers show "+".
         if (modifier >= 0)
         {
             modifierText.text = "+" + modifier.ToString();
@@ -65,8 +67,9 @@ public class TaskProgressionPanel : MonoBehaviour
         }
     }
 
-    int CalculateModifier(int productionStat, int characterStat1, int characterStat2 = 0)
+    private int CalculateModifier(int productionStat, int characterStat1, int characterStat2 = 0)
     {
+        // Calculate difference of character's stats against required stats.
         return (characterStat1 + characterStat2) - productionStat;
     }
 }

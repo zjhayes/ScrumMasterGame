@@ -10,20 +10,9 @@ public class ProductionServerStation : Station
         computer = GetComponent<ProductionServer>();
         computer.onDeploymentComplete += DismissAll;
     }
-
-    protected override void Sit(ICharacterController occupant)
+    public override void InteractWith(ICharacterController character)
     {
-        if(!computer.HasCartridge() && occupant.Inventory.TryGetPickup(out Cartridge cartridge))
-        {
-            // Character has cartridge, put it in computer.
-            computer.InputCartridge(cartridge);
-        }
-        else
-        {
-            occupant.Frustrated();
-            return; // No cartridge, do something else.
-        }
-        base.Sit(occupant);
+        base.InteractWith(character);
     }
 
     public override int CalculatePriorityFor(ICharacterController character)
@@ -34,5 +23,22 @@ public class ProductionServerStation : Station
             return PriorityScoreConstants.TAKE_TASK_TO_PRODUCTION;
         }
         return PriorityScoreConstants.NO_SCORE;
+    }
+
+    protected override void OnSit(ICharacterController occupant, Chair chair)
+    {
+        base.OnSit(occupant, chair);
+
+        if (!computer.HasCartridge() && occupant.Inventory.TryGetPickup(out Cartridge cartridge))
+        {
+            // Character has cartridge, put it in computer.
+            computer.InputCartridge(cartridge);
+        }
+        else
+        {
+            Dismiss(occupant);
+            occupant.Frustrated();
+            return; // No cartridge, do something else.
+        }
     }
 }

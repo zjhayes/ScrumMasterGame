@@ -1,4 +1,3 @@
-using UnityEngine;
 
 public class ProductionServer : Computer
 {
@@ -7,16 +6,24 @@ public class ProductionServer : Computer
 
     protected override void IterateWork()
     {
-        // TODO: Calculate deployment outcome.
-
-        // Deploy production updates.
-        task.Status = TaskStatus.DONE;
-        
-        if(task.Status == TaskStatus.DONE && TryGetCartridge(out Cartridge cartridge))
+        if(cartridgeReceptacle.TryGetPickup(out Cartridge cartridge))
         {
-            gameManager.ObjectPool.PoolCartridge(cartridge);
-            onDeploymentComplete?.Invoke();
-            this.Sleep();
+            cartridge.Task.Status = TaskStatus.DONE;
+
+            if (cartridge.Task.Status == TaskStatus.DONE)
+            {
+                // Work is deployed, cache cartridge object.
+                cartridge.ClaimedBy = null;
+                gameManager.ObjectPool.PoolCartridge(cartridge);
+                onDeploymentComplete?.Invoke();
+                Sleep();
+            }
+        }
+        else
+        {
+            Sleep(); // No cartridge.
         }
     }
+
+
 }

@@ -12,56 +12,8 @@ public abstract class Station : Interactable
 
     public override void InteractWith(ICharacterController character)
     {
-        Sit(character);
+        FindSeat(character);
         base.InteractWith(character);
-    }
-
-    // Returns true if character is able to sit.
-    protected virtual void Sit(ICharacterController occupant)
-    {
-        foreach (Chair chair in chairs)
-        {
-            if (!chair.Occupied)
-            {
-                occupant.Inventory.TryDrop(out _); // Drop pickup before sitting, if any.
-                chair.Sit(occupant);
-                OnSit(occupant); // Character found a chair.
-                return;
-            }
-        }
-        occupant.Frustrated(); // Else, unable to sit.
-        return;
-    }
-    
-    protected virtual void OnSit(ICharacterController occupant)
-    {
-        return; // Called only when character finds a chair.
-    }
-
-    protected virtual void Stand(ICharacterController occupant)
-    {
-        foreach (Chair chair in chairs)
-        {
-            if (chair.Occupied && chair.Occupant == occupant)
-            {
-                chair.Stand();
-                OnStand(occupant);
-            }
-        }
-    }
-
-    protected virtual void OnStand(ICharacterController occupant)
-    {
-        return; // Called after character stands.
-    }
-
-    protected void DismissAll()
-    {
-        foreach (Chair chair in chairs)
-        {
-            chair.Occupant?.FindSomethingToDo();
-            chair.Stand();
-        }
     }
 
     public bool HasVacancy()
@@ -85,11 +37,59 @@ public abstract class Station : Interactable
 
     public List<ICharacterController> ListOccupants()
     {
-        List<ICharacterController> occupants = new List<ICharacterController>();
+        List<ICharacterController> occupants = new();
         foreach (Chair chair in chairs)
         {
             occupants.Add(chair.Occupant);
         }
         return occupants;
+    }
+
+    // Returns true if character is able to sit.
+    protected virtual void FindSeat(ICharacterController occupant)
+    {
+        foreach (Chair chair in chairs)
+        {
+            if (!chair.Occupied)
+            {
+                OnSit(occupant, chair); // Character found a chair.
+                return;
+            }
+        }
+        occupant.Frustrated(); // Else, unable to sit.
+        return;
+    }
+
+    protected virtual void OnSit(ICharacterController occupant, Chair chair)
+    {
+        chair.Sit(occupant);
+    }
+
+    protected virtual void Dismiss(ICharacterController occupant)
+    {
+        foreach (Chair chair in chairs)
+        {
+            if (chair.Occupied && chair.Occupant == occupant)
+            {
+                chair.Stand();
+                OnStand(occupant);
+            }
+        }
+    }
+
+    protected void DismissAll()
+    {
+        foreach (Chair chair in chairs)
+        {
+            if(chair.TryStand(out ICharacterController occupant))
+            {
+                OnStand(occupant);
+            }
+        }
+    }
+
+    protected virtual void OnStand(ICharacterController occupant)
+    {
+        occupant.FindSomethingToDo();
     }
 }

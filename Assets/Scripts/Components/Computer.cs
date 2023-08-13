@@ -1,11 +1,10 @@
 using UnityEngine;
 
+/* A Computer runs methods on a Cartridge. */
 public abstract class Computer : GameBehaviour
 {
     [SerializeField]
-    private Container cartridgeIntake;
-
-    protected Task task;
+    protected PickupContainer cartridgeReceptacle;
 
     public delegate void OnRun();
     public event OnRun onRun;
@@ -14,42 +13,45 @@ public abstract class Computer : GameBehaviour
 
     protected virtual void Awake()
     {
+        cartridgeReceptacle.onRemoved += OnCartridgeRemoved;
         Sleep();
     }
 
     private void Update()
     {
-        if(HasCartridge())
-        {
-            IterateWork();
-        }
-        else
-        {
-            // Cartridge removed, stop work
-            OnCartridgeRemoved();
-        }
+        // While enabled, progress.
+        IterateWork();
     }
 
     protected abstract void IterateWork();
 
     public virtual void InputCartridge(Cartridge cartridge)
     {
-        // Add cartridge to container.
-        cartridge.ClaimedBy = null;
-        cartridgeIntake.Add(cartridge);
-        // Move cartridge to intake.
-        cartridge.Move(cartridgeIntake.gameObject.transform.position, false);
-        // Capture task.
-        task = cartridge.Task;
-        Run();
+        // Move cartridge to computer dock.
+        if(cartridgeReceptacle.TryPutPickup(cartridge))
+        {
+            cartridge.ClaimedBy = null;
+            Run();
+        } // else computer is in use.
     }
 
-    private void OnCartridgeRemoved()
+    public bool TryGetCartridge(out Cartridge outCartridge)
     {
-        Sleep();
+        return cartridgeReceptacle.TryGetPickup(out outCartridge);
     }
 
-    private void Run()
+    public bool HasCartridge()
+    {
+        // Returns true if current cartridge is in intake.
+        return cartridgeReceptacle.HasPickup<Cartridge>();
+    }
+
+    public bool IsRunning
+    {
+        get { return this.enabled; }
+    }
+
+    protected void Run()
     {
         // Start Update method.
         this.enabled = true;
@@ -63,23 +65,8 @@ public abstract class Computer : GameBehaviour
         onSleep?.Invoke();
     }
 
-    public bool TryGetCartridge(out Cartridge cartridge)
+    protected void OnCartridgeRemoved()
     {
-        return cartridgeIntake.TryGetFirst(out cartridge);
-    }
-
-    public bool HasCartridge()
-    {
-        return !cartridgeIntake.IsEmpty;
-    }
-
-    public Container CartridgeIntake
-    {
-        get { return cartridgeIntake; }
-    }
-
-    public bool IsRunning
-    {
-        get { return this.enabled; }
+        Sleep();
     }
 }
