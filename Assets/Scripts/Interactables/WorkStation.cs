@@ -63,6 +63,7 @@ public class WorkStation : Station
         }
 
         computer.SignOutDeveloper(occupant);
+        base.OnStand(occupant);
     }
 
     public override int CalculatePriorityFor(ICharacterController character)

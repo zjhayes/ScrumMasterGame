@@ -13,8 +13,10 @@ public class ProductionServer : Computer
         
         if(cartridge.Task.Status == TaskStatus.DONE)
         {
+            cartridge.ClaimedBy = null;
             gameManager.ObjectPool.PoolCartridge(cartridge);
             onDeploymentComplete?.Invoke();
+            Sleep();
         }
     }
 

@@ -3850,6 +3850,7 @@ GameObject:
   - component: {fileID: 1018710667}
   - component: {fileID: 1018710673}
   - component: {fileID: 1018710671}
+  - component: {fileID: 1018710674}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4008,6 +4009,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskContainer: {fileID: 463280175}
   cacheInactive: 0
+--- !u!114 &1018710674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018710654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5a681820eddd64f82b4a36e0862c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1020773950 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4ff1f0fb25553da44951754f6ff43e18,
@@ -12844,7 +12857,7 @@ PrefabInstance:
     - target: {fileID: 8955580301948350043, guid: f22bd2cde7376324bae6121547d992f9,
         type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f22bd2cde7376324bae6121547d992f9, type: 3}

@@ -32,7 +32,6 @@ public abstract class Computer : GameBehaviour
         cartridge.ClaimedBy = null;
         // Move cartridge to intake.
         cartridge.Move(cartridgeIntakePosition, false);
-        cartridge.onParentChanged += OnCartridgeRemoved;
         Run();
     }
 
@@ -74,8 +73,16 @@ public abstract class Computer : GameBehaviour
 
     protected void OnCartridgeRemoved()
     {
-        cartridge.onParentChanged -= OnCartridgeRemoved;
         cartridge = null;
         Sleep();
+    }
+
+    // Listen for cartridge being removed from intake.
+    private void OnTransformChildrenChanged()
+    {
+        if (cartridgeIntakePosition.transform.childCount <= 0)
+        {
+            OnCartridgeRemoved();
+        }
     }
 }

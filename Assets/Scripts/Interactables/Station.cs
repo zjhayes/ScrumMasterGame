@@ -37,7 +37,7 @@ public abstract class Station : Interactable
 
     public List<ICharacterController> ListOccupants()
     {
-        List<ICharacterController> occupants = new List<ICharacterController>();
+        List<ICharacterController> occupants = new();
         foreach (Chair chair in chairs)
         {
             occupants.Add(chair.Occupant);
@@ -65,7 +65,7 @@ public abstract class Station : Interactable
         chair.Sit(occupant);
     }
 
-    protected virtual void Stand(ICharacterController occupant)
+    protected virtual void Dismiss(ICharacterController occupant)
     {
         foreach (Chair chair in chairs)
         {
@@ -77,17 +77,19 @@ public abstract class Station : Interactable
         }
     }
 
-    protected virtual void OnStand(ICharacterController occupant)
-    {
-        return; // Called after character stands.
-    }
-
     protected void DismissAll()
     {
         foreach (Chair chair in chairs)
         {
-            chair.Occupant?.FindSomethingToDo();
-            chair.Stand();
+            if(chair.TryStand(out ICharacterController occupant))
+            {
+                OnStand(occupant);
+            }
         }
+    }
+
+    protected virtual void OnStand(ICharacterController occupant)
+    {
+        occupant.FindSomethingToDo();
     }
 }

@@ -4,48 +4,46 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CharacterStats))]
 [RequireComponent(typeof(CharacterMovement))]
 [RequireComponent(typeof(Selectable))]
-[RequireComponent(typeof(Inventory))]
 public class CharacterController : GameBehaviour, ICharacterController
 {
     [SerializeField]
-    Sprite portrait;
+    private Sprite portrait;
     [SerializeField]
-    CharacterState idleState;
+    private Inventory inventory;
     [SerializeField]
-    CharacterState goToInteractableState;
+    private CharacterState idleState;
     [SerializeField]
-    CharacterState interactionState;
+    private CharacterState goToInteractableState;
     [SerializeField]
-    CharacterState findSomethingToDoState;
+    private CharacterState interactionState;
     [SerializeField]
-    CharacterState frustratedState;
+    private CharacterState findSomethingToDoState;
     [SerializeField]
-    OverheadController overheadController;
+    private CharacterState frustratedState;
+    [SerializeField]
+    private OverheadController overheadController;
 
-    CharacterStats stats;
-    CharacterMovement movement;
-    Selectable selectability;
-    Inventory inventory;
-    StateContext<ICharacterController> stateContext;
+    private CharacterStats stats;
+    private CharacterMovement movement;
+    private Selectable selectability;
+    private StateContext<ICharacterController> stateContext;
+    private Interactable targetInteractable;
 
-    Interactable targetInteractable;
-
-    void Awake()
+    private void Awake()
     {
         stats = GetComponent<CharacterStats>();
         movement = GetComponent<CharacterMovement>();
         selectability = GetComponent<Selectable>();
-        inventory = GetComponent<Inventory>();
         stateContext = new StateContext<ICharacterController>(this);
     }
 
-    void Start()
+    private void Start()
     {
         selectability.onSelect += OnSelect;
         Idle();
     }
 
-    void OnSelect()
+    private void OnSelect()
     {
         // Context Manager determines how to handle character selection.
         gameManager.Context.CharacterSelected(this);
@@ -54,31 +52,31 @@ public class CharacterController : GameBehaviour, ICharacterController
     public void Idle()
     {
         ClearTargetInteractable();
-        stateContext.Transition<CharacterState>(idleState);
+        stateContext.Transition(idleState);
     }
 
     public void FindSomethingToDo()
     {
         ClearTargetInteractable();
-        stateContext.Transition<CharacterState>(findSomethingToDoState);
+        stateContext.Transition(findSomethingToDoState);
     }
 
     // Character moves to interactable to interact.
     public void GoInteractWith(Interactable interactable)
     {
         targetInteractable = interactable;
-        stateContext.Transition<CharacterState>(goToInteractableState);
+        stateContext.Transition(goToInteractableState);
     }
 
     public void InteractWithTarget()
     {
-        stateContext.Transition<CharacterState>(interactionState);
+        stateContext.Transition(interactionState);
     }
 
     public void Frustrated()
     {
         ClearTargetInteractable();
-        stateContext.Transition<CharacterState>(frustratedState);
+        stateContext.Transition(frustratedState);
     }
 
     public void ClearTargetInteractable()
@@ -133,7 +131,7 @@ public class CharacterController : GameBehaviour, ICharacterController
 
     public void EnablePhysics(bool enable)
     {
-        //GetComponent<Collider>().enabled = enable;
+        //GetComponent<Collider>().enabled = enable; // TODO: Determine what to do with character collider
         GetComponent<NavMeshAgent>().enabled = enable;
     }
 }
