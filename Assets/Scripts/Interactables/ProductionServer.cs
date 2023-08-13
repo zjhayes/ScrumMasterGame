@@ -6,17 +6,22 @@ public class ProductionServer : Computer
 
     protected override void IterateWork()
     {
-        // TODO: Calculate deployment outcome.
-
-        // Deploy production updates.
-        cartridge.Task.Status = TaskStatus.DONE;
-        
-        if(cartridge.Task.Status == TaskStatus.DONE)
+        if(cartridgeReceptacle.TryGetPickup(out Cartridge cartridge))
         {
-            cartridge.ClaimedBy = null;
-            gameManager.ObjectPool.PoolCartridge(cartridge);
-            onDeploymentComplete?.Invoke();
-            Sleep();
+            cartridge.Task.Status = TaskStatus.DONE;
+
+            if (cartridge.Task.Status == TaskStatus.DONE)
+            {
+                // Work is deployed, cache cartridge object.
+                cartridge.ClaimedBy = null;
+                gameManager.ObjectPool.PoolCartridge(cartridge);
+                onDeploymentComplete?.Invoke();
+                Sleep();
+            }
+        }
+        else
+        {
+            Sleep(); // No cartridge.
         }
     }
 

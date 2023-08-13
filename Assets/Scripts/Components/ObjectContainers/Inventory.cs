@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Inventory : PickupContainer
 {
-    public void PickUp(Pickup pickup)
+    public void TryPickUp(Pickup pickup)
     {
         TryDrop(out _); // Swap pickups if one already carried.
 

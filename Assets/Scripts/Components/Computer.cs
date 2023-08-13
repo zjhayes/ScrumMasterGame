@@ -4,9 +4,7 @@ using UnityEngine;
 public abstract class Computer : GameBehaviour
 {
     [SerializeField]
-    private Transform cartridgeIntakePosition;
-
-    protected Cartridge cartridge;
+    protected CartridgeReceptacle cartridgeReceptacle;
 
     public delegate void OnRun();
     public event OnRun onRun;
@@ -15,6 +13,7 @@ public abstract class Computer : GameBehaviour
 
     protected virtual void Awake()
     {
+        cartridgeReceptacle.onRemoved += OnCartridgeRemoved;
         Sleep();
     }
 
@@ -26,30 +25,25 @@ public abstract class Computer : GameBehaviour
 
     protected abstract void IterateWork();
 
-    public virtual void InputCartridge(Cartridge newCartridge)
+    public virtual void InputCartridge(Cartridge cartridge)
     {
-        cartridge = newCartridge;
-        cartridge.ClaimedBy = null;
-        // Move cartridge to intake.
-        cartridge.Move(cartridgeIntakePosition, false);
-        Run();
+        // Move cartridge to computer dock.
+        if(cartridgeReceptacle.TryPutPickup(cartridge))
+        {
+            cartridge.ClaimedBy = null;
+            Run();
+        } // else computer is in use.
     }
 
     public bool TryGetCartridge(out Cartridge outCartridge)
     {
-        outCartridge = cartridge;
-        return outCartridge != null;
-    }
-
-    public Cartridge Cartridge
-    {
-        get { return cartridge; }
+        return cartridgeReceptacle.TryGetPickup(out outCartridge);
     }
 
     public bool HasCartridge()
     {
         // Returns true if current cartridge is in intake.
-        return cartridge != null && cartridgeIntakePosition.position == cartridge.transform.position;
+        return cartridgeReceptacle.HasPickup();
     }
 
     public bool IsRunning
@@ -73,16 +67,6 @@ public abstract class Computer : GameBehaviour
 
     protected void OnCartridgeRemoved()
     {
-        cartridge = null;
         Sleep();
-    }
-
-    // Listen for cartridge being removed from intake.
-    private void OnTransformChildrenChanged()
-    {
-        if (cartridgeIntakePosition.transform.childCount <= 0)
-        {
-            OnCartridgeRemoved();
-        }
     }
 }

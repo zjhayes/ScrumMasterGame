@@ -5,8 +5,8 @@ public class PickupContainer : MonoBehaviour
 {
     protected Pickup currentPickup;
 
-    public delegate void OnPickupRemoved();
-    public event OnPickupRemoved onPickupRemoved;
+    public delegate void OnRemoved();
+    public event OnRemoved onRemoved;
 
     public bool TryPutPickup(Pickup pickup)
     {
@@ -35,15 +35,10 @@ public class PickupContainer : MonoBehaviour
         return currentPickup != null;
     }
 
-    public Pickup Pickup
-    {
-        get { return currentPickup; }
-    }
-
     protected virtual void PickupRemoved()
     {
         currentPickup = null;
-        onPickupRemoved?.Invoke();
+        onRemoved?.Invoke();
     }
 
     private void OnTransformChildrenChanged()

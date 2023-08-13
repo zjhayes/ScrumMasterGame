@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d306c2131ce50c4e9205bbf5b3ac3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cartridgeIntakePosition: {fileID: 5358373119821406017}
+  cartridgeReceptacle: {fileID: 6300471820402126281}
 --- !u!114 &7185806509647197750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -697,12 +697,18 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5599851178898637580, guid: 17d29bf677e444545891c52e74d83ace, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 17d29bf677e444545891c52e74d83ace, type: 3}
---- !u!4 &5358373119821406017 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8560776448219756377, guid: 17d29bf677e444545891c52e74d83ace,
+--- !u!114 &6300471820402126281 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7781932744219723217, guid: 17d29bf677e444545891c52e74d83ace,
     type: 3}
   m_PrefabInstance: {fileID: 4364338941799688216}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95357293e61d3d44cad23edcf9147204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8539041706869327264 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5337321998247718328, guid: 17d29bf677e444545891c52e74d83ace,

@@ -86,8 +86,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6134192950439625342}
+  - component: {fileID: 6495808761411768093}
   m_Layer: 0
-  m_Name: CartridgeIntake
+  m_Name: CartridgeReceptacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,6 +109,18 @@ Transform:
   m_Father: {fileID: 3471932148339920235}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
+--- !u!114 &6495808761411768093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4804625867122273908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95357293e61d3d44cad23edcf9147204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5666085525182350497
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2f74083803e244cb516e2a89a81c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cartridgeIntakePosition: {fileID: 6134192950439625342}
+  cartridgeReceptacle: {fileID: 6495808761411768093}
 --- !u!114 &1003018138
 MonoBehaviour:
   m_ObjectHideFlags: 0

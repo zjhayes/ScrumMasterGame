@@ -16,11 +16,20 @@ public class TaskComputer : Computer
     // Update task completeness and developer progression.
     protected override void IterateWork()
     {
-        cartridge.Task.Completeness += .1f * developers.Count;
-        if(cartridge.Task.IsReadyForProduction)
+        if(cartridgeReceptacle.TryGetPickup(out Cartridge cartridge))
         {
-            onTaskComplete?.Invoke();
-            Sleep();
+            cartridge.Task.Completeness += .1f * developers.Count;
+
+            if (cartridge.Task.IsReadyForProduction)
+            {
+                // Work is complete.
+                onTaskComplete?.Invoke();
+                Sleep();
+            }
+        }
+        else
+        {
+            Sleep(); // No cartridge.
         }
     }
 
