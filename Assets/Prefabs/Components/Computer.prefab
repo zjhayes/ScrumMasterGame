@@ -42,7 +42,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8560776448219756377}
-  - component: {fileID: 7781932744219723217}
+  - component: {fileID: 7532135781077989601}
   m_Layer: 0
   m_Name: CartridgeReceptacle
   m_TagString: Untagged
@@ -65,7 +65,7 @@ Transform:
   m_Father: {fileID: 5337321998247718328}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
---- !u!114 &7781932744219723217
+--- !u!114 &7532135781077989601
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4146483129913929400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95357293e61d3d44cad23edcf9147204, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f49729b644fec14f840aaf3dbb3296b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4106645330412427000

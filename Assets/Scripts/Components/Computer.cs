@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Computer : GameBehaviour
 {
     [SerializeField]
-    protected CartridgeReceptacle cartridgeReceptacle;
+    protected PickupContainer cartridgeReceptacle;
 
     public delegate void OnRun();
     public event OnRun onRun;
@@ -43,7 +43,7 @@ public abstract class Computer : GameBehaviour
     public bool HasCartridge()
     {
         // Returns true if current cartridge is in intake.
-        return cartridgeReceptacle.HasPickup();
+        return cartridgeReceptacle.HasPickup<Cartridge>();
     }
 
     public bool IsRunning

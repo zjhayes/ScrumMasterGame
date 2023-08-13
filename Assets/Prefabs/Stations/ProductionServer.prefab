@@ -86,7 +86,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6134192950439625342}
-  - component: {fileID: 6495808761411768093}
+  - component: {fileID: 6811269296547626785}
   m_Layer: 0
   m_Name: CartridgeReceptacle
   m_TagString: Untagged
@@ -109,7 +109,7 @@ Transform:
   m_Father: {fileID: 3471932148339920235}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
---- !u!114 &6495808761411768093
+--- !u!114 &6811269296547626785
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4804625867122273908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95357293e61d3d44cad23edcf9147204, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f49729b644fec14f840aaf3dbb3296b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5666085525182350497
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2f74083803e244cb516e2a89a81c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cartridgeReceptacle: {fileID: 6495808761411768093}
+  cartridgeReceptacle: {fileID: 6811269296547626785}
 --- !u!114 &1003018138
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -30,9 +30,14 @@ public class PickupContainer : MonoBehaviour
         return outPickup != null;
     }
 
+    public bool HasPickup<T>() where T : Pickup
+    {
+        return currentPickup != null && currentPickup is T;
+    }
+
     public bool HasPickup()
     {
-        return currentPickup != null;
+        return HasPickup<Pickup>();
     }
 
     protected virtual void PickupRemoved()
