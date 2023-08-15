@@ -3,7 +3,6 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(CharacterStats))]
 [RequireComponent(typeof(CharacterMovement))]
-[RequireComponent(typeof(Selectable))]
 public class CharacterController : GameBehaviour, ICharacterController
 {
     [SerializeField]
@@ -22,10 +21,11 @@ public class CharacterController : GameBehaviour, ICharacterController
     private CharacterState frustratedState;
     [SerializeField]
     private OverheadController overheadController;
+    [SerializeField]
+    private Selectable selectability;
 
     private CharacterStats stats;
     private CharacterMovement movement;
-    private Selectable selectability;
     private StateContext<ICharacterController> stateContext;
     private Interactable targetInteractable;
 
@@ -33,7 +33,6 @@ public class CharacterController : GameBehaviour, ICharacterController
     {
         stats = GetComponent<CharacterStats>();
         movement = GetComponent<CharacterMovement>();
-        selectability = GetComponent<Selectable>();
         stateContext = new StateContext<ICharacterController>(this);
     }
 

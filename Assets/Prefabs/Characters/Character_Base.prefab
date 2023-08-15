@@ -108,6 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2368871213985298877}
   - component: {fileID: 9174072013282433325}
+  - component: {fileID: 4066933366746117713}
   m_Layer: 0
   m_Name: CharacterGfx
   m_TagString: Untagged
@@ -148,6 +149,18 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &4066933366746117713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483542373036190661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a773909899c0424d9575de0a54f0b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6294234850732449225
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +264,6 @@ GameObject:
   - component: {fileID: 7311766226144581395}
   - component: {fileID: 2025796840576347535}
   - component: {fileID: 3028050744800272862}
-  - component: {fileID: 5553784004352064292}
   - component: {fileID: 8361268364746536968}
   m_Layer: 0
   m_Name: Character_Base
@@ -335,6 +347,7 @@ MonoBehaviour:
   findSomethingToDoState: {fileID: 3038512528039855484}
   frustratedState: {fileID: 4503259781330014649}
   overheadController: {fileID: 6043434678734175951}
+  selectability: {fileID: 4066933366746117713}
 --- !u!114 &2025796840576347535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,18 +376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52253aaae9d408148ab2196d4b7a6cf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5553784004352064292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7311766226144581398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a773909899c0424d9575de0a54f0b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8361268364746536968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,3 +390,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlines:
   - {fileID: 9174072013282433325}
+  selectability: {fileID: 4066933366746117713}

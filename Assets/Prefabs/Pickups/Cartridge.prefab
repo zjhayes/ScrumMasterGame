@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5461604478432780162}
   - component: {fileID: 1584407627117930292}
   - component: {fileID: 8716427120995001685}
+  - component: {fileID: 3961522775827826771}
   m_Layer: 0
   m_Name: CartridgeGfx
   m_TagString: Untagged
@@ -65,6 +66,18 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &3961522775827826771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813937825517983534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a773909899c0424d9575de0a54f0b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7174707449635838685
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,8 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f1b8844e7f7ad4b947d735be144da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectability: {fileID: 3961522775827826771}
   goToPosition: {fileID: 0}
-  task: {fileID: 0}
 --- !u!114 &4129389091846278709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlines:
   - {fileID: 8716427120995001685}
+  selectability: {fileID: 3961522775827826771}
 --- !u!1001 &4126665468385549236
 PrefabInstance:
   m_ObjectHideFlags: 0

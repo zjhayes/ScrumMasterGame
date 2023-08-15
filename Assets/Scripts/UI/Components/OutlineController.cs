@@ -1,24 +1,18 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Selectable))]
 public class OutlineController : MonoBehaviour
 {
     [SerializeField]
     private List<Outline> outlines = new List<Outline>();
-
-    private Selectable selectable;
-
-    private void Awake()
-    {
-        selectable = GetComponent<Selectable>();
-    }
+    [SerializeField]
+    private Selectable selectability;
 
     private void Start()
     {
-        selectable.onHoverEnter += Show;
-        selectable.onHoverExit += Hide;
-        selectable.onDisableSelectability += Hide;
+        selectability.onHoverEnter += Show;
+        selectability.onHoverExit += Hide;
+        selectability.onDisableSelectability += Hide;
         Hide();
     }
 

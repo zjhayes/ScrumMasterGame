@@ -82,6 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7899e951f09474cb5e07ee17d35b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectability: {fileID: 4609141970213581737}
   goToPosition: {fileID: 504828569661843648}
   chairs:
   - {fileID: 2121100762906098018}
@@ -100,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlines:
   - {fileID: 151481727535646059}
+  selectability: {fileID: 4609141970213581737}
 --- !u!114 &7469536246986781353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2084388927982743895}
   - component: {fileID: 151481727535646059}
+  - component: {fileID: 4609141970213581737}
   m_Layer: 0
   m_Name: DeskGfx
   m_TagString: Untagged
@@ -231,6 +234,18 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &4609141970213581737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9190476150074113785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a773909899c0424d9575de0a54f0b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4364338940148967137
 PrefabInstance:
   m_ObjectHideFlags: 0

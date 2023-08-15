@@ -1,8 +1,9 @@
 using UnityEngine;
 
-/** An Interactable is a Selectable that requires a Character to interact with. **/
-public abstract class Interactable : Selectable
-{ 
+public abstract class Interactable : GameBehaviour
+{
+    [SerializeField]
+    Selectable selectability;
     [SerializeField]
     Transform goToPosition; // Optional, position character will stand to interact.
 
@@ -13,18 +14,20 @@ public abstract class Interactable : Selectable
 
     void Start()
     {
-        gameManager.Interactables.onEnableInteractables += EnableSelection;
-        gameManager.Interactables.onDisableInteractables += DisableSelection;
-        DisableSelection();
+        // Listen to global changes to interactables.
+        gameManager.Interactables.onEnableInteractables += selectability.EnableSelection;
+        gameManager.Interactables.onDisableInteractables += selectability.DisableSelection;
+        // Listen to selectable.
+        selectability.onSelect += OnSelect;
+        selectability.DisableSelection();
     }
 
-    protected override void Select()
+    private void OnSelect()
     {
         if(gameManager.Context.CurrentCharacter != null) // A character must be selected.
         {
             ICharacterController character = gameManager.Context.CurrentCharacter;
             character.GoInteractWith(this);
-            base.Select();
         }
     }
 
@@ -50,8 +53,8 @@ public abstract class Interactable : Selectable
 
     void OnDestroy()
     {
-        gameManager.Interactables.onEnableInteractables -= EnableSelection;
-        gameManager.Interactables.onDisableInteractables -= DisableSelection;
+        gameManager.Interactables.onEnableInteractables -= selectability.EnableSelection;
+        gameManager.Interactables.onDisableInteractables -= selectability.DisableSelection;
     }
 
     public ICharacterController ClaimedBy { get; set; }

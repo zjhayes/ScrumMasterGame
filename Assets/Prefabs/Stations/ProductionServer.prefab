@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 6408822236778216174}
   - component: {fileID: 6149858212579344862}
   - component: {fileID: 126045667652533068}
+  - component: {fileID: 8659913011848063047}
   m_Layer: 0
   m_Name: ProductionServerGfx
   m_TagString: Untagged
@@ -142,6 +143,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.8, y: 6, z: 2.65}
   m_Center: {x: 0, y: 3.05, z: 0}
+--- !u!114 &8659913011848063047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3067797288995162826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a773909899c0424d9575de0a54f0b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4804625867122273908
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,6 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939cfc860b3feaf47956989c8f94d0da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectability: {fileID: 8659913011848063047}
   goToPosition: {fileID: 855473817}
   chairs:
   - {fileID: 855473816}
@@ -266,6 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlines:
   - {fileID: 6149858212579344862}
+  selectability: {fileID: 8659913011848063047}
 --- !u!1001 &4457295477643857236
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5315919106412681952}
   - component: {fileID: 1201166614376884601}
   - component: {fileID: 1644847627798010026}
+  - component: {fileID: 5639702324987721154}
   m_Layer: 0
   m_Name: WhiteboardGfx
   m_TagString: Untagged
@@ -66,6 +67,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 11.7, y: 6, z: 0.15}
   m_Center: {x: 0, y: 0, z: 0.07}
+--- !u!114 &5639702324987721154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2965939790198085072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a773909899c0424d9575de0a54f0b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5956794344987119182
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ae5bfcc1c2e48442aa8e83d2f47952d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectability: {fileID: 5639702324987721154}
   goToPosition: {fileID: 0}
 --- !u!114 &3583366555102095676
 MonoBehaviour:
@@ -141,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlines:
   - {fileID: 1201166614376884601}
+  selectability: {fileID: 5639702324987721154}
 --- !u!1001 &913571093280574656
 PrefabInstance:
   m_ObjectHideFlags: 0

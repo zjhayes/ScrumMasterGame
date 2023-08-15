@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class Cartridge : Pickup
 {
-    [SerializeField]
-    Task task;
+    private Task task;
 
     public override void InteractWith(ICharacterController character)
     {

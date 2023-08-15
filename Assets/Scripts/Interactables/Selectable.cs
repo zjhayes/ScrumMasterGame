@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
@@ -17,7 +16,7 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
     public delegate void OnDisableSelectability();
     public OnDisableSelectability onDisableSelectability;
 
-    bool canSelect = true;
+    private bool canSelect = true;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -34,7 +33,12 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
         HoverExit();
     }
 
-    protected virtual void Select()
+    public bool CanSelect
+    {
+        get { return canSelect; }
+    }
+
+    public void Select()
     {
         if(canSelect)
         {
@@ -42,7 +46,7 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
         }
     }
 
-    protected virtual void HoverEnter()
+    public void HoverEnter()
     {
         if(canSelect)
         {
@@ -50,7 +54,7 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
         }
     }
 
-    protected virtual void HoverExit()
+    public void HoverExit()
     {
         if(canSelect)
         {
@@ -58,20 +62,15 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
         }
     }
 
-    protected virtual void EnableSelection()
+    public void EnableSelection()
     {
         canSelect = true;
         onEnableSelectability?.Invoke();
     }
 
-    protected virtual void DisableSelection()
+    public void DisableSelection()
     {
         canSelect = false;
         onDisableSelectability?.Invoke();
-    }
-
-    public bool CanSelect
-    {
-        get { return canSelect; }
     }
 }
