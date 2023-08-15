@@ -11,7 +11,6 @@ public class OutlineController : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(selectability);
         selectability.onHoverEnter += Show;
         selectability.onHoverExit += Hide;
         selectability.onDisableSelectability += Hide;
