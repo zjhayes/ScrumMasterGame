@@ -1,5 +1,7 @@
 using UnityEngine.EventSystems;
+using UnityEngine;
 
+/* Give objects the ability to be selected by the player. */
 public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public delegate void OnSelect();

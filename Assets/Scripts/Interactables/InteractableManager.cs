@@ -1,23 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Controls the global interactability of Interactable objects. */
 public class InteractableManager : MonoBehaviour
 {
-    [SerializeField]
-    Interactable scrumBoard;
-    [SerializeField]
-    List<WorkStation> workStations;
-    [SerializeField]
-    CertificationStation certificationStation;
-
-    List<Interactable> openInteractables; // Interactables which character can choose from on their own.
+    private List<Interactable> openInteractables; // Interactables which character can choose from on their own.
 
     public delegate void OnEnableInteractables();
     public event OnEnableInteractables onEnableInteractables;
     public delegate void OnDisableInteractables();
     public event OnDisableInteractables onDisableInteractables;
 
-    void Awake()
+    private void Awake()
     {
         openInteractables = new List<Interactable>();
     }
@@ -30,21 +24,6 @@ public class InteractableManager : MonoBehaviour
     public void DisableInteractables()
     {
         onDisableInteractables?.Invoke();
-    }
-
-    public List<WorkStation> WorkStations
-    {
-        get { return workStations; }
-    }
-
-    public CertificationStation CertificationStation
-    {
-        get { return certificationStation; }
-    }
-
-    public Interactable ScrumBoard
-    {
-        get { return scrumBoard; }
     }
 
     // Enable interactable to advertise itself to characters.

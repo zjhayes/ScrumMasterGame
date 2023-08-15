@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+/* Controls the outlines of objects visible on mouse hover. */
 public class OutlineController : MonoBehaviour
 {
     [SerializeField]
@@ -10,6 +11,7 @@ public class OutlineController : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(selectability);
         selectability.onHoverEnter += Show;
         selectability.onHoverExit += Hide;
         selectability.onDisableSelectability += Hide;
@@ -18,6 +20,7 @@ public class OutlineController : MonoBehaviour
 
     public void Show()
     {
+        Debug.Log("Show me");
         // Enable outlines.
         outlines.ForEach(outline => outline.enabled = true);
     }
@@ -26,5 +29,12 @@ public class OutlineController : MonoBehaviour
     {
         // Disable outlines.
         outlines.ForEach(outline => outline.enabled = false);
+    }
+
+    private void OnDisable()
+    {
+        selectability.onHoverEnter -= Show;
+        selectability.onHoverExit -= Hide;
+        selectability.onDisableSelectability -= Hide;
     }
 }
