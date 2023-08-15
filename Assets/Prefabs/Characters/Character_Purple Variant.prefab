@@ -96,8 +96,18 @@ PrefabInstance:
     - target: {fileID: 7311766226144581398, guid: 071a156a41665834a99241b956a7f2d2,
         type: 3}
       propertyPath: m_Name
-      value: Character_Purple
+      value: Character_Purple Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8361268364746536968, guid: 071a156a41665834a99241b956a7f2d2,
+        type: 3}
+      propertyPath: outlines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361268364746536968, guid: 071a156a41665834a99241b956a7f2d2,
+        type: 3}
+      propertyPath: outlines.Array.data[0]
+      value: 
+      objectReference: {fileID: 7428905338571968405}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 071a156a41665834a99241b956a7f2d2, type: 3}
 --- !u!4 &7099200121209067991 stripped
@@ -175,3 +185,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ea5a5a3f98f3e14fa52afba6aca7b53, type: 3}
+--- !u!1 &2980695790877055930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6ea5a5a3f98f3e14fa52afba6aca7b53,
+    type: 3}
+  m_PrefabInstance: {fileID: 2710294884223788779}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7428905338571968405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2980695790877055930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.88235295, g: 0.4392157, b: 0.33333334, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

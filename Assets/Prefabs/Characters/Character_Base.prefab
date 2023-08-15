@@ -202,7 +202,6 @@ GameObject:
   - component: {fileID: 2025796840576347535}
   - component: {fileID: 3028050744800272862}
   - component: {fileID: 5553784004352064292}
-  - component: {fileID: 2471957173680815230}
   - component: {fileID: 8361268364746536968}
   m_Layer: 0
   m_Name: Character_Base
@@ -325,24 +324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a773909899c0424d9575de0a54f0b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2471957173680815230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7311766226144581398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 0.88235295, g: 0.4392157, b: 0.33333334, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &8361268364746536968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,3 +336,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a406f829864768448e8df8b95ce30b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outlines: []
