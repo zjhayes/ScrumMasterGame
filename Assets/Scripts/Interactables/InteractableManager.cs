@@ -5,7 +5,7 @@ using UnityEngine;
 public class InteractableManager : MonoBehaviour
 {
     private List<Interactable> openInteractables; // Interactables which character can choose from on their own.
-
+    
     public delegate void OnEnableInteractables();
     public event OnEnableInteractables onEnableInteractables;
     public delegate void OnDisableInteractables();
@@ -15,7 +15,7 @@ public class InteractableManager : MonoBehaviour
     {
         openInteractables = new List<Interactable>();
     }
-
+    
     public void EnableInteractables()
     {
         onEnableInteractables?.Invoke();

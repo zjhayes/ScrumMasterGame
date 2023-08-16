@@ -3,19 +3,19 @@ using UnityEditor;
 
 public class ContextManager : GameBehaviour, IContextManager
 {
-    StateContext<ContextManager> stateContext;
-    ICharacterController currentCharacter;
+    private StateContext<ContextManager> stateContext;
+    private ICharacterController currentCharacter;
 
     [SerializeField]
-    GameState defaultState;
+    private GameState defaultState;
     [SerializeField]
-    GameState scrumViewState;
+    private GameState scrumViewState;
     [SerializeField]
-    GameState planningViewState;
+    private GameState planningViewState;
     [SerializeField]
-    GameState selectedCharacterState;
+    private GameState selectedCharacterState;
 
-    void Awake()
+    private void Awake()
     {
         stateContext = new StateContext<ContextManager>(this);
         Default();
@@ -49,8 +49,7 @@ public class ContextManager : GameBehaviour, IContextManager
         currentCharacter = character;
         stateContext.Transition(selectedCharacterState);
     }
-
-    // TODO: State controls can be moved to own class.
+    
     public void ChangeView()
     {
         CurrentState.ChangeView();
@@ -59,6 +58,17 @@ public class ContextManager : GameBehaviour, IContextManager
     public void EscapeCurrentState()
     {
         CurrentState.Escape();
+    }
+
+    public GameState CurrentState
+    {
+        get { return stateContext.CurrentState as GameState; }
+    }
+
+    public ICharacterController CurrentCharacter
+    {
+        get { return currentCharacter; }
+        set { currentCharacter = value; }
     }
 
     // Quit game.
@@ -71,23 +81,12 @@ public class ContextManager : GameBehaviour, IContextManager
 #endif
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         // Stop listening to Sprint Manager.
         gameManager.Sprint.onBeginPlanning -= SwitchToPlanningView;
         gameManager.Sprint.onBeginSprint -= Default;
         gameManager.Controls.onEscape -= EscapeCurrentState;
         gameManager.Controls.onChangeView -= ChangeView;
-    }
-
-    public GameState CurrentState
-    {
-        get { return stateContext.CurrentState as GameState; }
-    }
-
-    public ICharacterController CurrentCharacter
-    {
-        get { return currentCharacter; }
-        set { currentCharacter = value; }
     }
 }
