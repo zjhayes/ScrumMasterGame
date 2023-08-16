@@ -107,6 +107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2368871213985298877}
+  - component: {fileID: 3676446180816242902}
   - component: {fileID: 9174072013282433325}
   - component: {fileID: 4066933366746117713}
   m_Layer: 0
@@ -131,6 +132,20 @@ Transform:
   m_Father: {fileID: 7311766226144581393}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &3676446180816242902
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483542373036190661}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 4
+  m_Direction: 1
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!114 &9174072013282433325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,7 +275,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7311766226144581393}
   - component: {fileID: 3028050744800272857}
-  - component: {fileID: 7311766226144581405}
   - component: {fileID: 7311766226144581395}
   - component: {fileID: 2025796840576347535}
   - component: {fileID: 3028050744800272862}
@@ -313,20 +327,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &7311766226144581405
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7311766226144581398}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1
-  m_Height: 4
-  m_Direction: 1
-  m_Center: {x: 0, y: 2, z: 0}
 --- !u!114 &7311766226144581395
 MonoBehaviour:
   m_ObjectHideFlags: 0

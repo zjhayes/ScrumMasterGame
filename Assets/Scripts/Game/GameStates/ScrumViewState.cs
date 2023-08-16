@@ -1,5 +1,5 @@
-using UnityEngine;
 
+/* Game state while viewing Scrum board. */
 public class ScrumViewState : GameState
 {
     private ContextManager controller;
@@ -8,16 +8,10 @@ public class ScrumViewState : GameState
     {
         controller = _controller;
 
-        // Deselect current character. TODO: This may be redundant
-        if(controller.CurrentCharacter != null)
-        {
-            controller.CurrentCharacter = null;
-            gameManager.Interactables.DisableInteractables();
-            gameManager.UI.SelectedCharacterIcon.Hide();
-            gameManager.UI.CharacterCard.Hide();
-        }
+        // Deselect current character, if any.
+        controller.DeselectCharacter();
 
-        controller.GameManager.Camera.SwitchToBoardCamera();
+        gameManager.Camera.SwitchToBoardCamera();
         base.Handle(controller);
     }
 
@@ -36,6 +30,7 @@ public class ScrumViewState : GameState
     {
         // Escape Scrum Menu to default view when state changed.
         gameManager.UI.ScrumMenu.Escape();
+
         base.Exit();
     }
 }

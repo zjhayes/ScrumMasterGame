@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// An object that a character can be directed to interact with.
 public abstract class Interactable : GameBehaviour
 {
     [SerializeField]

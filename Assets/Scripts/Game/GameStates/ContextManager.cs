@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
+/* Controls the current game state. */
 public class ContextManager : GameBehaviour, IContextManager
 {
     private StateContext<ContextManager> stateContext;
@@ -47,7 +48,19 @@ public class ContextManager : GameBehaviour, IContextManager
     public void CharacterSelected(ICharacterController character)
     {
         currentCharacter = character;
+        gameManager.Interactables.EnableInteractables();
         stateContext.Transition(selectedCharacterState);
+    }
+
+    public void DeselectCharacter()
+    {
+        if(currentCharacter != null)
+        {
+            currentCharacter = null;
+            gameManager.Interactables.DisableInteractables();
+            gameManager.UI.SelectedCharacterIcon.Hide();
+            gameManager.UI.CharacterCard.Hide();
+        }
     }
     
     public void ChangeView()

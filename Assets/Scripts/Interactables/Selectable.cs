@@ -50,7 +50,7 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void HoverEnter()
     {
-        if(canSelect)
+        if (canSelect)
         {
             onHoverEnter?.Invoke();
         }
@@ -66,14 +66,12 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void EnableSelection()
     {
-        Debug.Log("Enable");
         canSelect = true;
         onEnableSelectability?.Invoke();
     }
 
     public void DisableSelection()
     {
-        Debug.Log("Disable");
         canSelect = false;
         onDisableSelectability?.Invoke();
     }
