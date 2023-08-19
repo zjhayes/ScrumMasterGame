@@ -17,6 +17,11 @@ public class ScrumBoardController : Interactable
         base.InteractWith(character);
     }
 
+    public override bool CanInteract(ICharacterController character)
+    {
+        return true; // Character can always interact with scrum board.
+    }
+
     public void InstantiateCartridge(Task task, ICharacterController character)
     {
         // Get a cartridge for this task, give it to character.

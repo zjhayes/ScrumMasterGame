@@ -45,16 +45,9 @@ public class FindSomethingToDoState : CharacterState
 
         // Sort positive interactable advertisements by score, take only a given number of the higher scored advertisements.
         IEnumerable<KeyValuePair<Interactable,int>> priorities = advertisements.Where(pair => pair.Value > 0).OrderByDescending(pair => pair.Value).Take(numberOfPrioritiesConsidered);
-        
-        if(priorities.Any())
-        {
-            // Weigh the highest scores and choose at random.
-            return WeighPriorityDecision(priorities);
-        }
-        else
-        {
-            return null; // Nothing to do.
-        }
+
+        // Weigh the highest scores and choose at random.
+        return WeighPriorityDecision(priorities);
     }
 
     void StartIdleEmote()
@@ -70,9 +63,10 @@ public class FindSomethingToDoState : CharacterState
         character.OverHead.HideIdleBubble();
     }
 
-    // Choose from priorities, weighing their priority scores.
+    // Choose from highest priority interactables, weighing their priority scores.
     Interactable WeighPriorityDecision(IEnumerable<KeyValuePair<Interactable, int>> priorities)
     {
+        Interactable priority = null;
         int cumulativeScore = priorities.Sum(pair => pair.Value);
         int randomValue = Random.Range(1, cumulativeScore + 1);
         
@@ -82,12 +76,12 @@ public class FindSomethingToDoState : CharacterState
             currentSum += pair.Value;
             if(randomValue <= currentSum)
             {
-                return pair.Key;
+                priority = pair.Key;
+                continue;
             }
         }
 
-        Debug.Log("Unable to find something to do.");
-        return null;
+        return priority;
     }
 
     public override void Exit()
@@ -98,6 +92,6 @@ public class FindSomethingToDoState : CharacterState
 
     public override string Status
     {
-        get { return "Thinking"; }
+        get { return "Dilly-Dallying"; }
     }
 }

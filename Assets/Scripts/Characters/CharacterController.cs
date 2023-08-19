@@ -80,11 +80,6 @@ public class CharacterController : GameBehaviour, ICharacterController
 
     public void ClearTargetInteractable()
     {
-        if (targetInteractable != null)
-        {
-            targetInteractable.ClaimedBy = null;
-        }
-
         targetInteractable = null;
     }
 

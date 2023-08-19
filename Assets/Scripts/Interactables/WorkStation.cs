@@ -59,7 +59,7 @@ public class WorkStation : Station
         if(computer.TryGetCartridge(out Cartridge cartridge) && cartridge.Task.Assignee == occupant)
         {
             // Assignee takes cartridge.
-            occupant.Inventory.TryPickUp(cartridge);
+            occupant.GoInteractWith(cartridge);
         }
 
         computer.SignOutDeveloper(occupant);

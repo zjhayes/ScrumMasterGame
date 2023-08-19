@@ -16,6 +16,11 @@ public abstract class Station : Interactable
         base.InteractWith(character);
     }
 
+    public override bool CanInteract(ICharacterController character)
+    {
+        return HasVacancy();
+    }
+
     public bool HasVacancy()
     {
         return (CountOccupants() < chairs.Count);

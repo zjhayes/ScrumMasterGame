@@ -30,7 +30,6 @@ public abstract class Computer : GameBehaviour
         // Move cartridge to computer dock.
         if(cartridgeReceptacle.TryPutPickup(cartridge))
         {
-            cartridge.ClaimedBy = null;
             Run();
         } // else computer is in use.
     }

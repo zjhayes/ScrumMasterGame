@@ -13,7 +13,6 @@ public class ProductionServer : Computer
             if (cartridge.Task.Status == TaskStatus.DONE)
             {
                 // Work is deployed, cache cartridge object.
-                cartridge.ClaimedBy = null;
                 gameManager.ObjectPool.PoolCartridge(cartridge);
                 onDeploymentComplete?.Invoke();
                 Sleep();

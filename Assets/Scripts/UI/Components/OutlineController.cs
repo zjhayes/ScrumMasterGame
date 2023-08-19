@@ -19,7 +19,6 @@ public class OutlineController : MonoBehaviour
 
     public void Show()
     {
-        Debug.Log("Show me");
         // Enable outlines.
         outlines.ForEach(outline => outline.enabled = true);
     }

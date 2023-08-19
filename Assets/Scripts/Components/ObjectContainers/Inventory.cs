@@ -17,7 +17,6 @@ public class Inventory : PickupContainer
         // Try to drop current pickup, if any.
         if (TryGetPickup(out drop))
         {
-            drop.ClaimedBy = null;
             drop.EnablePhysics(true);
             return true;
         }

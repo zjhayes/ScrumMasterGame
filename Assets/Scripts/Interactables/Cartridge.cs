@@ -6,7 +6,7 @@ public class Cartridge : Pickup
     public override void InteractWith(ICharacterController character)
     {
         base.InteractWith(character);
-        character.FindSomethingToDo();
+        character.FindSomethingToDo(); // Go work on this... or get distracted.
     }
 
     public override int CalculatePriorityFor(ICharacterController character)

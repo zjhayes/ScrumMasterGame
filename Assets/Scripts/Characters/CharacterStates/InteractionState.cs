@@ -3,17 +3,15 @@ using UnityEngine;
 public class InteractionState : CharacterState
 {
     ICharacterController character;
-    Interactable interactable;
 
     public override void Handle(ICharacterController controller)
     {
         character = controller;
-        interactable = character.TargetInteractable;
         base.Handle(controller);
 
-        if(CharacterCanInteract())
+        if(CharacterCanInteract(character.TargetInteractable))
         {
-            interactable.InteractWith(character);
+            character.TargetInteractable.InteractWith(character);
         }
         else
         {
@@ -21,10 +19,11 @@ public class InteractionState : CharacterState
         }
     }
 
-    bool CharacterCanInteract()
+    private bool CharacterCanInteract(Interactable interactable)
     {
         // Return true if character has interactable, and it is not claimed by another character.
-        return interactable != null && (interactable.ClaimedBy == null || interactable.ClaimedBy == character);
+        return interactable != null && !interactable.GetComponentInParent<Inventory>();
+        //return interactable != null && (interactable.ClaimedBy == null || interactable.ClaimedBy == character);
     }
 
     public override string Status
