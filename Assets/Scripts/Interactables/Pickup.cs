@@ -13,6 +13,6 @@ public abstract class Pickup : Interactable, IContainable
     {
         gameObject.GetComponent<Rigidbody>().useGravity = enable;
         gameObject.GetComponent<Rigidbody>().isKinematic = !enable;
-        //gameObject.GetComponent<Collider>().enabled = enable;
+        gameObject.GetComponent<Collider>().enabled = enable;
     }
 }
