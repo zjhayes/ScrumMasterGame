@@ -40,28 +40,20 @@ public abstract class Station : Interactable
         return count;
     }
 
-    public List<ICharacterController> ListOccupants()
-    {
-        List<ICharacterController> occupants = new();
-        foreach (Chair chair in chairs)
-        {
-            occupants.Add(chair.Occupant);
-        }
-        return occupants;
-    }
-
     // Returns true if character is able to sit.
     protected virtual void FindSeat(ICharacterController occupant)
     {
         foreach (Chair chair in chairs)
         {
-            if (!chair.Occupied)
+            if(chair.TrySit(occupant))
             {
                 OnSit(occupant, chair); // Character found a chair.
                 return;
             }
         }
-        occupant.Frustrated(); // Else, unable to sit.
+
+        // Else, unable to sit.
+        occupant.Frustrated();
         return;
     }
 

@@ -23,6 +23,7 @@ public abstract class Computer : GameBehaviour
         IterateWork();
     }
 
+    // What does the computer do with the cartridge?
     protected abstract void IterateWork();
 
     public virtual void InputCartridge(Cartridge cartridge)

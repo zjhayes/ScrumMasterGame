@@ -77,7 +77,7 @@ public class FindSomethingToDoState : CharacterState
             if(randomValue <= currentSum)
             {
                 priority = pair.Key;
-                continue;
+                break;
             }
         }
 

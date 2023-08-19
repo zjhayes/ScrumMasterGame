@@ -1,4 +1,4 @@
-using UnityEngine;
+
 
 public class InteractionState : CharacterState
 {
@@ -9,7 +9,8 @@ public class InteractionState : CharacterState
         character = controller;
         base.Handle(controller);
 
-        if(CharacterCanInteract(character.TargetInteractable))
+        // Character tries interacting with its current target interactable.
+        if (CharacterCanInteract(character.TargetInteractable))
         {
             character.TargetInteractable.InteractWith(character);
         }
@@ -23,7 +24,6 @@ public class InteractionState : CharacterState
     {
         // Return true if character has interactable, and it is not claimed by another character.
         return interactable != null && !interactable.GetComponentInParent<Inventory>();
-        //return interactable != null && (interactable.ClaimedBy == null || interactable.ClaimedBy == character);
     }
 
     public override string Status

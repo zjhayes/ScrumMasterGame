@@ -18,6 +18,7 @@ public class WorkStation : Station
     {
         if(CharacterCanWorkOnTask(character) || CharacterCanPairProgram(character))
         {
+            // Character can either work on their own task, or help the current developer.
             base.InteractWith(character);
         }
         else
