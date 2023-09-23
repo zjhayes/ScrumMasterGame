@@ -3,8 +3,6 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    OverheadCanvasController overheadCanvas;
-    [SerializeField]
     CharacterCard characterCard;
     [SerializeField]
     PlanningMenuController planningMenu;
@@ -12,11 +10,6 @@ public class UIManager : MonoBehaviour
     ScrumMenuController scrumMenu;
     [SerializeField]
     StatusBarController statusBar;
-
-    public OverheadCanvasController OverheadCanvas
-    {
-        get { return overheadCanvas; }
-    }
 
     public CharacterCard CharacterCard
     {
