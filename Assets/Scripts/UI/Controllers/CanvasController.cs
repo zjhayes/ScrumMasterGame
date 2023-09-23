@@ -6,11 +6,8 @@ public class CanvasController : GameBehaviour
     [SerializeField]
     List<MenuController> menus;
 
-    public delegate void OnShowFirstMenu();
-    public OnShowFirstMenu onShowFirstMenu;
-
-    public delegate void OnHideLastMenu();
-    public OnHideLastMenu onHideLastMenu;
+    public Events.UIEvent onShowFirstMenu;
+    public Events.UIEvent onHideLastMenu;
 
     private void Awake()
     {

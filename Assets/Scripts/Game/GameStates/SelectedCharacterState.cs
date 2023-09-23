@@ -42,6 +42,7 @@ public class SelectedCharacterState : GameState
     {
         // Stop listening to character.
         selectedCharacter.StateContext.OnTransition -= OnCharacterStateChange;
+        selectedCharacter.Deselect();
         // Revert state.
         gameManager.Interactables.DisableInteractables();
         gameManager.UI.CharacterCard.Hide();
