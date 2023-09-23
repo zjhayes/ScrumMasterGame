@@ -23,7 +23,7 @@ public class CanvasController : GameBehaviour
     private void Start()
     {
         // Listen to player controls.
-        gameManager.Controls.onEscape += OnEscape;
+        gameManager.Controls.OnEscape += OnEscape;
     }
 
     public void ShowMenu(MenuController menu)

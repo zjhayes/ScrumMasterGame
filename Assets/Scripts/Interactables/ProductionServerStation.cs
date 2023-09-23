@@ -8,7 +8,7 @@ public class ProductionServerStation : Station
     private void Awake()
     {
         computer = GetComponent<ProductionServer>();
-        computer.onDeploymentComplete += DismissAll;
+        computer.OnDeploymentComplete += DismissAll;
     }
     public override void InteractWith(ICharacterController character)
     {

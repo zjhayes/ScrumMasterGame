@@ -4,19 +4,11 @@ using UnityEngine;
 /* Give objects the ability to be selected by the player. */
 public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public delegate void OnSelect();
-    public OnSelect onSelect;
-
-    public delegate void OnHoverEnter();
-    public OnHoverEnter onHoverEnter;
-
-    public delegate void OnHoverExit();
-    public OnHoverExit onHoverExit;
-
-    public delegate void OnEnableSelectability();
-    public OnEnableSelectability onEnableSelectability;
-    public delegate void OnDisableSelectability();
-    public OnDisableSelectability onDisableSelectability;
+    public event Events.PlayerEvent OnSelect;
+    public event Events.PlayerEvent OnHoverEnter;
+    public event Events.PlayerEvent OnHoverExit;
+    public event Events.GameEvent OnEnableSelectability;
+    public event Events.GameEvent OnDisableSelectability;
 
     private bool canSelect = true;
 
@@ -44,7 +36,7 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         if(canSelect)
         {
-            onSelect?.Invoke();
+            OnSelect?.Invoke();
         }
     }
 
@@ -52,7 +44,7 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         if (canSelect)
         {
-            onHoverEnter?.Invoke();
+            OnHoverEnter?.Invoke();
         }
     }
 
@@ -60,19 +52,19 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         if(canSelect)
         {
-            onHoverExit?.Invoke();
+            OnHoverExit?.Invoke();
         }
     }
 
     public void EnableSelection()
     {
         canSelect = true;
-        onEnableSelectability?.Invoke();
+        OnEnableSelectability?.Invoke();
     }
 
     public void DisableSelection()
     {
         canSelect = false;
-        onDisableSelectability?.Invoke();
+        OnDisableSelectability?.Invoke();
     }
 }

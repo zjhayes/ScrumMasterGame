@@ -1,8 +1,7 @@
 
 public class ProductionServer : Computer
 {
-    public delegate void OnDeploymentComplete();
-    public event OnDeploymentComplete onDeploymentComplete;
+    public event Events.GameEvent OnDeploymentComplete;
 
     protected override void IterateWork()
     {
@@ -14,7 +13,7 @@ public class ProductionServer : Computer
             {
                 // Work is deployed, cache cartridge object.
                 gameManager.ObjectPool.PoolCartridge(cartridge);
-                onDeploymentComplete?.Invoke();
+                OnDeploymentComplete?.Invoke();
                 Sleep();
             }
         }

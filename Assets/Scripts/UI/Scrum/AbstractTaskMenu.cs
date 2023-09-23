@@ -20,7 +20,7 @@ public abstract class AbstractTaskMenu : MenuController
         taskDetailsPanel.onHide += OnHideTaskDetails;
 
         // Reload task panels when global task cache is updated.
-        gameManager.Board.onBoardUpdated += LoadTaskPanels;
+        gameManager.Board.OnBoardUpdated += LoadTaskPanels;
     }
 
     public override void Show()

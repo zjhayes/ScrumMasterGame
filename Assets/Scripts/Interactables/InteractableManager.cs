@@ -6,10 +6,8 @@ public class InteractableManager : MonoBehaviour
 {
     private List<Interactable> openInteractables; // Interactables which character can choose from on their own.
     
-    public delegate void OnEnableInteractables();
-    public event OnEnableInteractables onEnableInteractables;
-    public delegate void OnDisableInteractables();
-    public event OnDisableInteractables onDisableInteractables;
+    public event Events.GameEvent OnEnableInteractables;
+    public event Events.GameEvent OnDisableInteractables;
 
     private void Awake()
     {
@@ -18,12 +16,12 @@ public class InteractableManager : MonoBehaviour
     
     public void EnableInteractables()
     {
-        onEnableInteractables?.Invoke();
+        OnEnableInteractables?.Invoke();
     }
 
     public void DisableInteractables()
     {
-        onDisableInteractables?.Invoke();
+        OnDisableInteractables?.Invoke();
     }
 
     // Enable interactable to advertise itself to characters.

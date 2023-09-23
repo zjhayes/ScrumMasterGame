@@ -27,7 +27,7 @@ public class ScrumMenuController : AbstractTaskMenu
             TaskPanel taskPanel = CreateTaskPanel(task, containerLocation);
             taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
             taskPanelCache.Add(task, taskPanel);
-            task.onStatusChanged += LoadTaskPanels; // Move task across board when task status is updated.
+            task.OnStatusChanged += LoadTaskPanels; // Move task across board when task status is updated.
         }
     }
 }

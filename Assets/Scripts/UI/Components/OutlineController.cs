@@ -11,9 +11,9 @@ public class OutlineController : MonoBehaviour
 
     private void Start()
     {
-        selectability.onHoverEnter += Show;
-        selectability.onHoverExit += Hide;
-        selectability.onDisableSelectability += Hide;
+        selectability.OnHoverEnter += Show;
+        selectability.OnHoverExit += Hide;
+        selectability.OnDisableSelectability += Hide;
         Hide();
     }
 
@@ -31,8 +31,8 @@ public class OutlineController : MonoBehaviour
 
     private void OnDisable()
     {
-        selectability.onHoverEnter -= Show;
-        selectability.onHoverExit -= Hide;
-        selectability.onDisableSelectability -= Hide;
+        selectability.OnHoverEnter -= Show;
+        selectability.OnHoverExit -= Hide;
+        selectability.OnDisableSelectability -= Hide;
     }
 }

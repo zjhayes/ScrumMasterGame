@@ -22,12 +22,12 @@ public class ContextManager : GameBehaviour, IContextManager
         Default();
 
         // Listen to Sprint Manager.
-        gameManager.Sprint.onBeginPlanning += SwitchToPlanningView;
-        gameManager.Sprint.onBeginSprint += Default;
+        gameManager.Sprint.OnBeginPlanning += SwitchToPlanningView;
+        gameManager.Sprint.OnBeginSprint += Default;
 
         // Listen to player controls.
-        gameManager.Controls.onEscape += EscapeCurrentState;
-        gameManager.Controls.onChangeView += ChangeView;
+        gameManager.Controls.OnEscape += EscapeCurrentState;
+        gameManager.Controls.OnChangeView += ChangeView;
     }
 
     public void Default()
@@ -98,9 +98,9 @@ public class ContextManager : GameBehaviour, IContextManager
     private void OnDisable()
     {
         // Stop listening to Sprint Manager.
-        gameManager.Sprint.onBeginPlanning -= SwitchToPlanningView;
-        gameManager.Sprint.onBeginSprint -= Default;
-        gameManager.Controls.onEscape -= EscapeCurrentState;
-        gameManager.Controls.onChangeView -= ChangeView;
+        gameManager.Sprint.OnBeginPlanning -= SwitchToPlanningView;
+        gameManager.Sprint.OnBeginSprint -= Default;
+        gameManager.Controls.OnEscape -= EscapeCurrentState;
+        gameManager.Controls.OnChangeView -= ChangeView;
     }
 }

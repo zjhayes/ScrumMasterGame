@@ -4,16 +4,13 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class InteractionController : MonoBehaviour
 {
-    private CharacterController controller;
     private Awareness awareness;
     private Interactable currentTarget;
 
-    public delegate void OnInteract();
-    public OnInteract onInteract;
+    public event Events.CharacterEvent OnInteract;
 
     void Awake()
     {
-        controller = GetComponent<CharacterController>();
         awareness = GetComponent<Awareness>();
     }
 
@@ -24,7 +21,7 @@ public class InteractionController : MonoBehaviour
 
     public void Interact()
     {
-        onInteract?.Invoke();
+        OnInteract?.Invoke();
     }
 
     private void UpdateTarget(GameObject target)

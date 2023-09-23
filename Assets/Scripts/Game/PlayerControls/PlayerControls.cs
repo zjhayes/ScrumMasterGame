@@ -5,11 +5,8 @@ public class PlayerControls : MonoBehaviour
 {
     PlayerInput input;
 
-    public delegate void OnEscape();
-    public OnEscape onEscape;
-
-    public delegate void OnChangeView();
-    public OnChangeView onChangeView;
+    public event Events.PlayerEvent OnEscape;
+    public event Events.PlayerEvent OnChangeView;
 
     void Awake()
     {
@@ -30,12 +27,12 @@ public class PlayerControls : MonoBehaviour
     }
     void ChangeView()
     {
-        onChangeView?.Invoke();
+        OnChangeView?.Invoke();
     }
 
     void Escape()
     {
-        onEscape?.Invoke();
+        OnEscape?.Invoke();
     }
 
     public PlayerInput Input

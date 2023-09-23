@@ -21,11 +21,8 @@ public class Task : MonoBehaviour, IContainable
 
     private float completeness = 0f; // Percent of finished work.
 
-    public delegate void OnAssigneeChanged();
-    public event OnAssigneeChanged onAssigneeChanged;
-
-    public delegate void OnStatusChanged();
-    public event OnStatusChanged onStatusChanged;
+    public event Events.CharacterEvent OnAssigneeChanged;
+    public event Events.GameEvent OnStatusChanged;
 
     private void Awake()
     {
@@ -57,7 +54,7 @@ public class Task : MonoBehaviour, IContainable
             if (assignee != value)
             {
                 assignee = value;
-                onAssigneeChanged?.Invoke();
+                OnAssigneeChanged?.Invoke();
             }
         }
     }
@@ -69,7 +66,7 @@ public class Task : MonoBehaviour, IContainable
         {
             status = value;
             UpdateEnablementBasedOnStatus();
-            onStatusChanged?.Invoke();
+            OnStatusChanged?.Invoke();
         }
     }
 

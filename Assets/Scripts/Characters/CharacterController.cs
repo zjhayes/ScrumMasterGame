@@ -38,7 +38,7 @@ public class CharacterController : GameBehaviour, ICharacterController
 
     private void Start()
     {
-        selectability.onSelect += OnSelect;
+        selectability.OnSelect += OnSelect;
         Idle();
     }
 

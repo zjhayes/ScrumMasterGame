@@ -8,17 +8,16 @@ public abstract class Interactable : GameBehaviour
     [SerializeField]
     private Transform goToPosition; // Optional, position character will stand to interact.
 
-    public delegate void OnInteract(ICharacterController character);
-    public event OnInteract onInteract;
+    public event Events.CharacterInteractionEvent OnInteract;
 
     private void Start()
     {
         // Listen to global changes to interactables.
-        gameManager.Interactables.onEnableInteractables += selectability.EnableSelection;
-        gameManager.Interactables.onDisableInteractables += selectability.DisableSelection;
+        gameManager.Interactables.OnEnableInteractables += selectability.EnableSelection;
+        gameManager.Interactables.OnDisableInteractables += selectability.DisableSelection;
 
         // Listen to selection.
-        selectability.onSelect += OnSelect;
+        selectability.OnSelect += OnSelect;
         selectability.DisableSelection();
     }
 
@@ -33,7 +32,7 @@ public abstract class Interactable : GameBehaviour
 
     public virtual void InteractWith(ICharacterController character)
     {
-        onInteract?.Invoke(character);
+        OnInteract?.Invoke(character);
     }
 
     // Returns score based on how likely this character needs this interaction.
@@ -71,7 +70,7 @@ public abstract class Interactable : GameBehaviour
 
     private void OnDestroy()
     {
-        gameManager.Interactables.onEnableInteractables -= selectability.EnableSelection;
-        gameManager.Interactables.onDisableInteractables -= selectability.DisableSelection;
+        gameManager.Interactables.OnEnableInteractables -= selectability.EnableSelection;
+        gameManager.Interactables.OnDisableInteractables -= selectability.DisableSelection;
     }
 }

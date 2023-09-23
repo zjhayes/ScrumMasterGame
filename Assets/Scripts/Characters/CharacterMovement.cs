@@ -6,8 +6,7 @@ public class CharacterMovement : MonoBehaviour
 {
 	private NavMeshAgent agent;
 
-	public delegate void OnArrivedAtDestination();
-	public OnArrivedAtDestination onArrivedAtDestination;
+	public Events.CharacterEvent OnArrivedAtDestination;
 
 	private void Awake()
     {
@@ -20,7 +19,7 @@ public class CharacterMovement : MonoBehaviour
         {
 			// Character has arrived at destination.
 			this.enabled = false; // Stop FixedUpdate.
-			onArrivedAtDestination?.Invoke();
+			OnArrivedAtDestination?.Invoke();
         }
     }
 

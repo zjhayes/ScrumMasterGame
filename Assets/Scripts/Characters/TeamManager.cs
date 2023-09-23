@@ -9,8 +9,8 @@ public class TeamManager : GameBehaviour
 
     void Start()
     {
-        gameManager.Sprint.onBeginPlanning += RallyAtScrumBoard;
-        gameManager.Sprint.onBeginSprint += Scrum;
+        gameManager.Sprint.OnBeginPlanning += RallyAtScrumBoard;
+        gameManager.Sprint.OnBeginSprint += Scrum;
     }
 
     void RallyAtScrumBoard()
@@ -28,8 +28,8 @@ public class TeamManager : GameBehaviour
 
     void OnDisable()
     {
-        gameManager.Sprint.onBeginPlanning -= RallyAtScrumBoard;
-        gameManager.Sprint.onBeginSprint -= Scrum;
+        gameManager.Sprint.OnBeginPlanning -= RallyAtScrumBoard;
+        gameManager.Sprint.OnBeginSprint -= Scrum;
     }
 
     public List<CharacterController> Characters
