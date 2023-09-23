@@ -52,6 +52,22 @@ public class CanvasController : GameBehaviour
         }
     }
 
+    public void ShowAll()
+    {
+        foreach(MenuController menu in menus)
+        {
+            ShowMenu(menu);
+        }
+    }
+
+    public void HideAll()
+    {
+        foreach(MenuController menu in menus)
+        {
+            HideMenu(menu);
+        }
+    }
+
     public void OnEscape()
     {
         foreach(MenuController menu in menus)

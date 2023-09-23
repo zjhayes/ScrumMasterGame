@@ -4,21 +4,21 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class SpeechBubble : MonoBehaviour
 {
-    Image graphic;
-    OverheadController controller;
+    private Image graphic;
+    private OverheadController controller;
 
-    void Awake()
+    private void Awake()
     {
         graphic = GetComponent<Image>();
         Hide();
     }
 
-    void Update()
+    private void Update()
     {
         UpdatePosition();
     }
 
-    void UpdatePosition()
+    private void UpdatePosition()
     {
         // Set position to current selected character's UI overhead position.
         transform.position = controller.GetIconPosition();

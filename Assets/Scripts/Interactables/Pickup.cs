@@ -4,8 +4,14 @@ public abstract class Pickup : Interactable, IContainable
 {
     public override void InteractWith(ICharacterController character)
     {
-        character.Inventory.TryPickUp(this);
-        base.InteractWith(character);
+        if(character.Inventory.TryPickUp(this))
+        {
+            base.InteractWith(character);
+        }
+        else
+        {
+            character.Frustrated();
+        }
     }
 
     public override bool CanInteract(ICharacterController character)

@@ -7,7 +7,7 @@ public abstract class GameState : GameBehaviour, IState<ContextManager>
         this.enabled = true;
     }
 
-    public abstract void Escape();
+    public abstract void OnEscaped();
 
     public virtual void ChangeView()
     {

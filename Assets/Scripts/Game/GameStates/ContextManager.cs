@@ -70,7 +70,7 @@ public class ContextManager : GameBehaviour, IContextManager
 
     public void EscapeCurrentState()
     {
-        CurrentState.Escape();
+        CurrentState.OnEscaped();
     }
 
     public GameState CurrentState

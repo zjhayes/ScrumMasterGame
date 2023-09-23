@@ -4,28 +4,29 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class CharacterMovement : MonoBehaviour
 {
-	NavMeshAgent agent;
+	private NavMeshAgent agent;
 
 	public delegate void OnArrivedAtDestination();
 	public OnArrivedAtDestination onArrivedAtDestination;
 
-	void Awake()
+	private void Awake()
     {
 		agent = GetComponent<NavMeshAgent>();
     }
 
-	void FixedUpdate()
+	private void FixedUpdate()
     {
 		if(AtDestination())
         {
-			this.enabled = false;
+			// Character has arrived at destination.
+			this.enabled = false; // Stop FixedUpdate.
 			onArrivedAtDestination?.Invoke();
         }
     }
 
 	public void GoTo(Vector3 target)
 	{
-		this.enabled = true;
+		this.enabled = true; // Start FixedUpdate.
 		agent.enabled = true;
 		agent.destination = target;
 	}
@@ -39,10 +40,5 @@ public class CharacterMovement : MonoBehaviour
 			return true;
 		}
 		return false;
-	}
-
-	public bool CanMoveTo(Vector3 targetPosition)
-	{
-		return NavMesh.CalculatePath(transform.position, targetPosition, NavMesh.AllAreas, new NavMeshPath());
 	}
 }

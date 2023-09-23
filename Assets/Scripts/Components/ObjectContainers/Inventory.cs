@@ -2,14 +2,19 @@ using UnityEngine;
 
 public class Inventory : PickupContainer
 {
-    public void TryPickUp(Pickup pickup)
+    public bool TryPickUp(Pickup pickup)
     {
         TryDrop(out _); // Swap pickups if one already carried.
 
         if(!TryPutPickup(pickup))
         {
             Debug.LogFormat("Character was unable to pick up {0}.", pickup);
-        } // else it was picked up.
+            return false;
+        }
+        else
+        {
+            return true; // it was picked up.
+        }
     }
 
     public bool TryDrop(out Pickup drop)

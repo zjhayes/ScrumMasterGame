@@ -21,7 +21,7 @@ public class ScrumViewState : GameState
         controller.Default();
     }
 
-    public override void Escape()
+    public override void OnEscaped()
     {
         // TODO: Show settings menu.
     }
@@ -30,7 +30,6 @@ public class ScrumViewState : GameState
     {
         // Escape Scrum Menu to default view when state changed.
         gameManager.UI.ScrumMenu.Escape();
-
         base.Exit();
     }
 }

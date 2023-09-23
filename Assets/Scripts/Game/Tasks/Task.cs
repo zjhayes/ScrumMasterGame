@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(ProductionStats))]
 public class Task : MonoBehaviour, IContainable
@@ -20,6 +17,7 @@ public class Task : MonoBehaviour, IContainable
     private TaskStatus status = TaskStatus.INACTIVE;
 
     private ProductionStats stats;
+    private TaskOutcome outcome;
 
     private float completeness = 0f; // Percent of finished work.
 
@@ -32,6 +30,7 @@ public class Task : MonoBehaviour, IContainable
     private void Awake()
     {
         stats = GetComponent<ProductionStats>();
+        outcome = new TaskOutcome();
         UpdateEnablementBasedOnStatus();
     }
 
@@ -77,6 +76,11 @@ public class Task : MonoBehaviour, IContainable
     public ProductionStats Stats
     {
         get { return stats; }
+    }
+
+    public TaskOutcome Outcome
+    {
+        get { return outcome; }
     }
 
     public Sprite TaskTypeIcon

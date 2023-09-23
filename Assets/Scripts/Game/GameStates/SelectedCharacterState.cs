@@ -29,7 +29,7 @@ public class SelectedCharacterState : GameState
         controller.SwitchToScrumView();
     }
 
-    public override void Escape()
+    public override void OnEscaped()
     {
         controller.Default();
     }
