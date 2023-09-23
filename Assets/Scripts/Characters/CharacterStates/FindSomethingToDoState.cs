@@ -6,6 +6,8 @@ public class FindSomethingToDoState : CharacterState
 {
     [SerializeField]
     private int numberOfPrioritiesConsidered = 3; // Increasing this number makes the character's actions more random.
+    [SerializeField]
+    private OverheadElement idleBubble;
 
     protected ICharacterController character;
 
@@ -50,21 +52,8 @@ public class FindSomethingToDoState : CharacterState
         return WeighPriorityDecision(priorities);
     }
 
-    void StartIdleEmote()
-    {
-        if(!character.OverHead.HasSpeechBubble())
-        {
-            character.OverHead.ShowIdleBubble();
-        }
-    }
-
-    void StopIdleEmote()
-    {
-        character.OverHead.HideIdleBubble();
-    }
-
     // Choose from highest priority interactables, weighing their priority scores.
-    Interactable WeighPriorityDecision(IEnumerable<KeyValuePair<Interactable, int>> priorities)
+    private Interactable WeighPriorityDecision(IEnumerable<KeyValuePair<Interactable, int>> priorities)
     {
         Interactable priority = null;
         int cumulativeScore = priorities.Sum(pair => pair.Value);
@@ -82,6 +71,16 @@ public class FindSomethingToDoState : CharacterState
         }
 
         return priority;
+    }
+
+    private void StartIdleEmote()
+    {
+        idleBubble.Show();
+    }
+
+    private void StopIdleEmote()
+    {
+        idleBubble.Hide();
     }
 
     public override void Exit()

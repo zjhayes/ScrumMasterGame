@@ -47,6 +47,7 @@ public class ContextManager : GameBehaviour, IContextManager
 
     public void CharacterSelected(ICharacterController character)
     {
+        DeselectCharacter();
         currentCharacter = character;
         gameManager.Interactables.EnableInteractables();
         stateContext.Transition(selectedCharacterState);
@@ -56,9 +57,9 @@ public class ContextManager : GameBehaviour, IContextManager
     {
         if(currentCharacter != null)
         {
+            currentCharacter.Deselect();
             currentCharacter = null;
             gameManager.Interactables.DisableInteractables();
-            gameManager.UI.SelectedCharacterIcon.Hide();
             gameManager.UI.CharacterCard.Hide();
         }
     }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CanvasController : GameBehaviour
 {
@@ -13,7 +12,7 @@ public class CanvasController : GameBehaviour
     public delegate void OnHideLastMenu();
     public OnHideLastMenu onHideLastMenu;
 
-    void Awake()
+    private void Awake()
     {
         // Initiate hidden menus.
         foreach (MenuController menu in menus)
@@ -24,7 +23,7 @@ public class CanvasController : GameBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         // Listen to player controls.
         gameManager.Controls.onEscape += OnEscape;

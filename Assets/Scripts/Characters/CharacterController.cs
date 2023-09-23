@@ -20,9 +20,9 @@ public class CharacterController : GameBehaviour, ICharacterController
     [SerializeField]
     private CharacterState frustratedState;
     [SerializeField]
-    private OverheadController overheadController;
-    [SerializeField]
     private Selectable selectability;
+    [SerializeField]
+    private OverheadElement selectIcon;
 
     private CharacterStats stats;
     private CharacterMovement movement;
@@ -46,6 +46,12 @@ public class CharacterController : GameBehaviour, ICharacterController
     {
         // Context Manager determines how to handle character selection.
         gameManager.Context.CharacterSelected(this);
+        selectIcon.Show();
+    }
+
+    public void Deselect()
+    {
+        selectIcon.Hide();
     }
 
     public void Idle()
@@ -116,11 +122,6 @@ public class CharacterController : GameBehaviour, ICharacterController
     public Sprite Portrait
     {
         get { return portrait; }
-    }
-
-    public OverheadController OverHead
-    {
-        get { return overheadController; }
     }
 
     public void EnablePhysics(bool enable)

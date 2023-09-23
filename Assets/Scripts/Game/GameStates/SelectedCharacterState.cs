@@ -9,17 +9,16 @@ public class SelectedCharacterState : GameState
     {
         controller = _controller;
 
-        gameManager.Interactables.EnableInteractables(); // TODO: This depends on character status.
+        gameManager.Interactables.EnableInteractables();
 
         // Listen to character and update status when state changed.
         selectedCharacter = controller.CurrentCharacter;
-        selectedCharacter.StateContext.onTransition += onCharacterStateChange;
+        selectedCharacter.StateContext.OnTransition += OnCharacterStateChange;
 
-        gameManager.UI.SelectedCharacterIcon.Show();
         gameManager.UI.CharacterCard.UpdateCard(selectedCharacter);
         gameManager.UI.CharacterCard.Show();
 
-        gameManager.Camera.SwitchToOverworldCamera(); // TODO: Replace with follow camera.
+        gameManager.Camera.SwitchToOverworldCamera();
         base.Handle(controller);
     }
 
@@ -34,7 +33,7 @@ public class SelectedCharacterState : GameState
         controller.Default();
     }
 
-    void onCharacterStateChange()
+    private void OnCharacterStateChange()
     {
         gameManager.UI.CharacterCard.UpdateStatus(selectedCharacter);
     }
@@ -42,11 +41,9 @@ public class SelectedCharacterState : GameState
     public override void Exit()
     {
         // Stop listening to character.
-        selectedCharacter.StateContext.onTransition -= onCharacterStateChange;
-
+        selectedCharacter.StateContext.OnTransition -= OnCharacterStateChange;
         // Revert state.
         gameManager.Interactables.DisableInteractables();
-        gameManager.UI.SelectedCharacterIcon.Hide();
         gameManager.UI.CharacterCard.Hide();
 
         base.Exit();
