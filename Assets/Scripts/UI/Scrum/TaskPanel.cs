@@ -86,7 +86,7 @@ public class TaskPanel : MenuController, IContainable
         onSelected?.Invoke(this);
     }
 
-    private void OnAssigneeChanged()
+    private void OnAssigneeChanged(ICharacterController assignee)
     {
         UpdateAssigneePortrait();
         onUpdated?.Invoke(this);

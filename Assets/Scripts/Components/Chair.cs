@@ -3,58 +3,40 @@ using UnityEngine;
 public class Chair : MonoBehaviour
 {
     [SerializeField]
-    private Transform seat;
+    private CharacterSeat seat;
     [SerializeField]
     private Transform exitToPosition;
 
-    ICharacterController occupant;
-
-    public void Sit(ICharacterController newOccupant)
-    {
-        occupant = newOccupant;
-
-        // Disable character physics.
-        occupant.EnablePhysics(false);
-
-        // Move to seat.
-        occupant.transform.SetPositionAndRotation(seat.position, seat.rotation);
-    }
-
     public bool TrySit(ICharacterController newOccupant)
     {
-        if(occupant == null)
+        return seat.TrySit(newOccupant);
+    }
+
+    public bool TryStand(out ICharacterController dismissedOccupant)
+    {
+        dismissedOccupant = Stand();
+        return dismissedOccupant != null;
+    }
+
+    public CharacterSeat Seat
+    {
+        get { return seat; }
+    }
+
+    private ICharacterController Stand()
+    {
+        if (!seat.Occupied) { return null; }
+
+        if(seat.TryGetOccupant(out ICharacterController occupant))
         {
-            Sit(newOccupant);
-            return true;
+            occupant.transform.SetParent(null);
+            occupant.EnablePhysics(true);
+            occupant.transform.SetPositionAndRotation(exitToPosition.position, transform.rotation);
+            return occupant;
         }
         else
         {
-            return false;
+            return null; // Unoccupied.
         }
-    }
-
-    public ICharacterController Stand()
-    {
-        if (occupant == null) { return null; }
-
-        // Enable character physics.
-        occupant.EnablePhysics(true);
-
-        // Move to exit location.
-        occupant.transform.position = exitToPosition.transform.position;
-        return occupant;
-    }
-
-    public bool TryStand(out ICharacterController occupant)
-    {
-        occupant = Stand();
-        return occupant != null;
-    }
-
-    public ICharacterController Occupant { get; }
-
-    public bool Occupied
-    {
-        get { return occupant != null; }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Awareness))]
 [RequireComponent(typeof(CharacterController))]
 public class InteractionController : MonoBehaviour
-{
+{/* DEPRECATED
     private Awareness awareness;
     private Interactable currentTarget;
 
@@ -40,5 +40,5 @@ public class InteractionController : MonoBehaviour
     {
         get { return currentTarget; }
         set { currentTarget = value; }
-    }
+    }*/
 }

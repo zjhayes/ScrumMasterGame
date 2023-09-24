@@ -1,11 +1,9 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class TaskComputer : Computer
 {
     private List<ICharacterController> developers;
-
-    public delegate void OnTaskComplete();
-    public event OnTaskComplete onTaskComplete;
 
     protected override void Awake()
     {
@@ -16,15 +14,16 @@ public class TaskComputer : Computer
     // Update task completeness and developer progression.
     protected override void IterateWork()
     {
-        if(cartridgeReceptacle.TryGetPickup(out Cartridge cartridge))
+        if (cartridgeReceptacle.TryGetPickup(out Cartridge cartridge))
         {
+            if (developers.Count <= 0) { return; } // No developers.
+            
             cartridge.Task.Completeness += .1f * developers.Count;
             cartridge.Task.Outcome.ChanceOfErrors -= CalculateOutcome(cartridge);
 
             if (cartridge.Task.IsReadyForProduction)
             {
                 // Work is complete.
-                onTaskComplete?.Invoke();
                 Sleep();
             }
         }

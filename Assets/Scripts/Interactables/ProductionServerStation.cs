@@ -8,8 +8,9 @@ public class ProductionServerStation : Station
     private void Awake()
     {
         computer = GetComponent<ProductionServer>();
-        computer.OnDeploymentComplete += DismissAll;
+        computer.OnSleep += DismissAll;
     }
+
     public override void InteractWith(ICharacterController character)
     {
         base.InteractWith(character);
@@ -25,9 +26,9 @@ public class ProductionServerStation : Station
         return PriorityScoreConstants.NO_SCORE;
     }
 
-    protected override void OnSit(ICharacterController occupant, Chair chair)
+    protected override void OnSit(ICharacterController occupant)
     {
-        base.OnSit(occupant, chair);
+        base.OnSit(occupant);
 
         if (!computer.HasCartridge() && occupant.Inventory.TryGetPickup(out Cartridge cartridge))
         {
@@ -36,8 +37,8 @@ public class ProductionServerStation : Station
         }
         else
         {
-            Dismiss(occupant);
             occupant.Frustrated();
+            DismissAll();
             return; // No cartridge, do something else.
         }
     }

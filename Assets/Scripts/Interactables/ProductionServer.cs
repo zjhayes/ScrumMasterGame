@@ -1,8 +1,6 @@
 
 public class ProductionServer : Computer
 {
-    public event Events.GameEvent OnDeploymentComplete;
-
     protected override void IterateWork()
     {
         if(cartridgeReceptacle.TryGetPickup(out Cartridge cartridge))
@@ -13,7 +11,6 @@ public class ProductionServer : Computer
             {
                 // Work is deployed, cache cartridge object.
                 gameManager.ObjectPool.PoolCartridge(cartridge);
-                OnDeploymentComplete?.Invoke();
                 Sleep();
             }
         }
@@ -22,6 +19,4 @@ public class ProductionServer : Computer
             Sleep(); // No cartridge.
         }
     }
-
-
 }

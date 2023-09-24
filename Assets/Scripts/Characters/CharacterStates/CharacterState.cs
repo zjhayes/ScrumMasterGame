@@ -1,6 +1,8 @@
 
 public abstract class CharacterState : GameBehaviour, ICharacterState
 {
+    private ICharacterController character;
+
     public event Events.CharacterEvent OnHandle;
     public event Events.CharacterEvent OnExit;
 
@@ -8,13 +10,14 @@ public abstract class CharacterState : GameBehaviour, ICharacterState
 
     public virtual void Handle(ICharacterController controller)
     {
-        OnHandle?.Invoke();
+        character = controller;
+        OnHandle?.Invoke(character);
         this.enabled = true;
     }
 
     public virtual void Exit()
     {
-        OnExit?.Invoke();
+        OnExit?.Invoke(character);
         this.enabled = false;
     }
 }

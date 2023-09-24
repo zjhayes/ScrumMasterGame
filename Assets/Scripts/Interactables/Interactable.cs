@@ -8,7 +8,7 @@ public abstract class Interactable : GameBehaviour
     [SerializeField]
     private Transform goToPosition; // Optional, position character will stand to interact.
 
-    public event Events.CharacterInteractionEvent OnInteract;
+    public event Events.CharacterEvent OnInteract;
 
     private void Start()
     {

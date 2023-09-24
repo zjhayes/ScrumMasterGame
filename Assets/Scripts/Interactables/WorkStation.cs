@@ -10,8 +10,12 @@ public class WorkStation : Station
         computer = GetComponent<TaskComputer>();
 
         // Dismiss developers when task is completed or removed.
-        computer.onTaskComplete += DismissAll;
-        computer.onSleep += DismissAll;
+        computer.OnSleep += DismissAll;
+
+        foreach(Chair chair in chairs)
+        {
+            chair.Seat.OnStand += computer.SignOutDeveloper;
+        }
     }
 
     public override void InteractWith(ICharacterController character)
@@ -49,10 +53,10 @@ public class WorkStation : Station
         base.FindSeat(occupant);
     }
 
-    protected override void OnSit(ICharacterController occupant, Chair chair)
+    protected override void OnSit(ICharacterController occupant)
     {
-        base.OnSit(occupant, chair);
         computer.SignInDeveloper(occupant);
+        base.OnSit(occupant);
     }
 
     protected override void OnStand(ICharacterController occupant)

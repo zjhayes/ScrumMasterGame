@@ -6,14 +6,12 @@ public abstract class Computer : GameBehaviour
     [SerializeField]
     protected PickupContainer cartridgeReceptacle;
 
-    public delegate void OnRun();
-    public event OnRun onRun;
-    public delegate void OnSleep();
-    public event OnSleep onSleep;
+    public event Events.GameEvent OnRun;
+    public event Events.GameEvent OnSleep;
 
     protected virtual void Awake()
     {
-        cartridgeReceptacle.onRemoved += OnCartridgeRemoved;
+        cartridgeReceptacle.OnRemoved += OnCartridgeRemoved;
         Sleep();
     }
 
@@ -55,17 +53,17 @@ public abstract class Computer : GameBehaviour
     {
         // Start Update method.
         this.enabled = true;
-        onRun?.Invoke();
+        OnRun?.Invoke();
     }
 
     protected void Sleep()
     {
         // Stop Update method.
         this.enabled = false;
-        onSleep?.Invoke();
+        OnSleep?.Invoke();
     }
 
-    protected void OnCartridgeRemoved()
+    protected void OnCartridgeRemoved(Interactable cartridge)
     {
         Sleep();
     }

@@ -10,6 +10,16 @@ public abstract class Station : Interactable
     [SerializeField]
     protected List<Chair> chairs;
 
+    private void Start()
+    {
+        // Listen for when character sits or stands.
+        foreach(Chair chair in chairs)
+        {
+            chair.Seat.OnStand += OnStand;
+            chair.Seat.OnSit += OnSit;
+        }
+    }
+
     public override void InteractWith(ICharacterController character)
     {
         FindSeat(character);
@@ -32,7 +42,7 @@ public abstract class Station : Interactable
 
         foreach (Chair chair in chairs)
         {
-            if(chair.Occupied)
+            if(chair.Seat.Occupied)
             {
                 count++;
             }
@@ -47,31 +57,18 @@ public abstract class Station : Interactable
         {
             if(chair.TrySit(occupant))
             {
-                OnSit(occupant, chair); // Character found a chair.
                 return;
             }
         }
-
+        
         // Else, unable to sit.
         occupant.Frustrated();
         return;
     }
 
-    protected virtual void OnSit(ICharacterController occupant, Chair chair)
+    protected virtual void OnSit(ICharacterController occupant)
     {
-        chair.Sit(occupant);
-    }
-
-    protected virtual void Dismiss(ICharacterController occupant)
-    {
-        foreach (Chair chair in chairs)
-        {
-            if (chair.Occupied && chair.Occupant == occupant)
-            {
-                chair.Stand();
-                OnStand(occupant);
-            }
-        }
+        // Override with logic for when a character successfully sits.
     }
 
     protected void DismissAll()
@@ -80,7 +77,7 @@ public abstract class Station : Interactable
         {
             if(chair.TryStand(out ICharacterController occupant))
             {
-                OnStand(occupant);
+                continue;
             }
         }
     }

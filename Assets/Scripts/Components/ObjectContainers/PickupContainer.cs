@@ -5,8 +5,7 @@ public class PickupContainer : MonoBehaviour
 {
     protected Pickup currentPickup;
 
-    public delegate void OnRemoved();
-    public event OnRemoved onRemoved;
+    public event Events.InteractableEvent<Pickup> OnRemoved;
 
     public bool TryPutPickup(Pickup pickup)
     {
@@ -14,8 +13,8 @@ public class PickupContainer : MonoBehaviour
         {
             currentPickup = pickup;
             pickup.EnablePhysics(false);
-            pickup.gameObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
-            pickup.gameObject.transform.SetParent(transform);
+            pickup.transform.SetPositionAndRotation(transform.position, transform.rotation);
+            pickup.transform.SetParent(transform);
             return true;
         }
         else
@@ -42,10 +41,11 @@ public class PickupContainer : MonoBehaviour
 
     protected virtual void PickupRemoved()
     {
+        OnRemoved?.Invoke(currentPickup);
         currentPickup = null;
-        onRemoved?.Invoke();
     }
 
+    // Listen for when pickup is removed as child of container.
     private void OnTransformChildrenChanged()
     {
         if (transform.childCount <= 0)
