@@ -9,8 +9,8 @@ public class FindSomethingToDoState : CharacterState
     private int numberOfPrioritiesConsidered = 3; // Increasing this number makes the character's actions more random.
     [SerializeField]
     private OverheadElement idleBubble;
-    
-    private float paceDistance = 5f; // How far a character walks while pacing randomly.
+    [SerializeField]
+    private float paceDistance = 10f; // How far a character walks while pacing randomly.
     [SerializeField]
     float minWaitTime = 2.0f;
     [SerializeField]
