@@ -1,32 +1,33 @@
 using UnityEngine;
 using UnityEditor;
 
+/* Controls the current game state. */
 public class ContextManager : GameBehaviour, IContextManager
 {
-    StateContext<ContextManager> stateContext;
-    ICharacterController currentCharacter;
+    private StateContext<ContextManager> stateContext;
+    private ICharacterController currentCharacter;
 
     [SerializeField]
-    GameState defaultState;
+    private GameState defaultState;
     [SerializeField]
-    GameState scrumViewState;
+    private GameState scrumViewState;
     [SerializeField]
-    GameState planningViewState;
+    private GameState planningViewState;
     [SerializeField]
-    GameState selectedCharacterState;
+    private GameState selectedCharacterState;
 
-    void Awake()
+    private void Awake()
     {
         stateContext = new StateContext<ContextManager>(this);
         Default();
 
         // Listen to Sprint Manager.
-        gameManager.Sprint.onBeginPlanning += SwitchToPlanningView;
-        gameManager.Sprint.onBeginSprint += Default;
+        gameManager.Sprint.OnBeginPlanning += SwitchToPlanningView;
+        gameManager.Sprint.OnBeginSprint += Default;
 
         // Listen to player controls.
-        gameManager.Controls.onEscape += EscapeCurrentState;
-        gameManager.Controls.onChangeView += ChangeView;
+        gameManager.Controls.OnEscape += EscapeCurrentState;
+        gameManager.Controls.OnChangeView += ChangeView;
     }
 
     public void Default()
@@ -46,11 +47,23 @@ public class ContextManager : GameBehaviour, IContextManager
 
     public void CharacterSelected(ICharacterController character)
     {
+        DeselectCharacter();
         currentCharacter = character;
+        gameManager.Interactables.EnableInteractables();
         stateContext.Transition(selectedCharacterState);
     }
 
-    // TODO: State controls can be moved to own class.
+    public void DeselectCharacter()
+    {
+        if(currentCharacter != null)
+        {
+            currentCharacter.Deselect();
+            currentCharacter = null;
+            gameManager.Interactables.DisableInteractables();
+            gameManager.UI.CharacterCard.Hide();
+        }
+    }
+    
     public void ChangeView()
     {
         CurrentState.ChangeView();
@@ -58,7 +71,18 @@ public class ContextManager : GameBehaviour, IContextManager
 
     public void EscapeCurrentState()
     {
-        CurrentState.Escape();
+        CurrentState.OnEscaped();
+    }
+
+    public GameState CurrentState
+    {
+        get { return stateContext.CurrentState as GameState; }
+    }
+
+    public ICharacterController CurrentCharacter
+    {
+        get { return currentCharacter; }
+        set { currentCharacter = value; }
     }
 
     // Quit game.
@@ -71,23 +95,12 @@ public class ContextManager : GameBehaviour, IContextManager
 #endif
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         // Stop listening to Sprint Manager.
-        gameManager.Sprint.onBeginPlanning -= SwitchToPlanningView;
-        gameManager.Sprint.onBeginSprint -= Default;
-        gameManager.Controls.onEscape -= EscapeCurrentState;
-        gameManager.Controls.onChangeView -= ChangeView;
-    }
-
-    public GameState CurrentState
-    {
-        get { return stateContext.CurrentState as GameState; }
-    }
-
-    public ICharacterController CurrentCharacter
-    {
-        get { return currentCharacter; }
-        set { currentCharacter = value; }
+        gameManager.Sprint.OnBeginPlanning -= SwitchToPlanningView;
+        gameManager.Sprint.OnBeginSprint -= Default;
+        gameManager.Controls.OnEscape -= EscapeCurrentState;
+        gameManager.Controls.OnChangeView -= ChangeView;
     }
 }

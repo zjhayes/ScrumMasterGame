@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(ProductionStats))]
 public class Task : MonoBehaviour, IContainable
@@ -20,18 +17,17 @@ public class Task : MonoBehaviour, IContainable
     private TaskStatus status = TaskStatus.INACTIVE;
 
     private ProductionStats stats;
+    private TaskOutcome outcome;
 
     private float completeness = 0f; // Percent of finished work.
 
-    public delegate void OnAssigneeChanged();
-    public event OnAssigneeChanged onAssigneeChanged;
-
-    public delegate void OnStatusChanged();
-    public event OnStatusChanged onStatusChanged;
+    public event Events.CharacterEvent OnAssigneeChanged;
+    public event Events.GameEvent OnStatusChanged;
 
     private void Awake()
     {
         stats = GetComponent<ProductionStats>();
+        outcome = new TaskOutcome();
         UpdateEnablementBasedOnStatus();
     }
 
@@ -58,7 +54,7 @@ public class Task : MonoBehaviour, IContainable
             if (assignee != value)
             {
                 assignee = value;
-                onAssigneeChanged?.Invoke();
+                OnAssigneeChanged?.Invoke(assignee);
             }
         }
     }
@@ -70,13 +66,18 @@ public class Task : MonoBehaviour, IContainable
         {
             status = value;
             UpdateEnablementBasedOnStatus();
-            onStatusChanged?.Invoke();
+            OnStatusChanged?.Invoke();
         }
     }
 
     public ProductionStats Stats
     {
         get { return stats; }
+    }
+
+    public TaskOutcome Outcome
+    {
+        get { return outcome; }
     }
 
     public Sprite TaskTypeIcon

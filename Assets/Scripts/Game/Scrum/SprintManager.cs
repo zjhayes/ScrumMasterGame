@@ -10,14 +10,9 @@ public class SprintManager : MonoBehaviour
     int sprintNumber = 1;
     SprintClock clock;
 
-    public delegate void OnBeginPlanning();
-    public event OnBeginPlanning onBeginPlanning;
-
-    public delegate void OnBeginSprint();
-    public event OnBeginSprint onBeginSprint;
-
-    public delegate void OnBeginRetrospective();
-    public event OnBeginRetrospective onBeginRetrospective;
+    public event Events.GameEvent OnBeginPlanning;
+    public event Events.GameEvent OnBeginSprint;
+    public event Events.GameEvent OnBeginRetrospective;
 
     void Awake()
     {
@@ -33,19 +28,19 @@ public class SprintManager : MonoBehaviour
 
     public void BeginPlanning()
     {
-        onBeginPlanning?.Invoke();
+        OnBeginPlanning?.Invoke();
     }
 
     public void BeginSprint()
     {
         clock.Begin();
-        onBeginSprint?.Invoke();
+        OnBeginSprint?.Invoke();
     }
 
     public void BeginRetrospective()
     {
         sprintNumber++;
-        onBeginRetrospective?.Invoke();
+        OnBeginRetrospective?.Invoke();
         //SceneManager.LoadScene(1); // Reload scene.
         
         BeginPlanning(); // TODO: Move this.

@@ -10,30 +10,35 @@ public class WorkStation : Station
         computer = GetComponent<TaskComputer>();
 
         // Dismiss developers when task is completed or removed.
-        computer.onTaskComplete += DismissAll;
-        computer.onSleep += DismissAll;
+        computer.OnSleep += DismissAll;
+
+        foreach(Chair chair in chairs)
+        {
+            chair.OnSit += computer.SignInDeveloper;
+            chair.OnStand += computer.SignOutDeveloper;
+        }
     }
 
     public override void InteractWith(ICharacterController character)
     {
         if(CharacterCanWorkOnTask(character) || CharacterCanPairProgram(character))
         {
+            // Character can either work on their own task, or help the current developer.
             base.InteractWith(character);
         }
         else
         {
             character.Frustrated(); // No reason to interact.
-
         }
     }
 
     protected override void FindSeat(ICharacterController occupant)
     {
         // Handle character pickups before sitting.
-        if(occupant.Inventory.HasPickup())
+        if(occupant.Inventory.Has<Cartridge>())
         {
             // Check if character has a cartridge, and the computer is not in use.
-            if(!computer.HasCartridge() && occupant.Inventory.TryGetPickup(out Cartridge cartridge))
+            if(!computer.HasCartridge() && occupant.Inventory.TryGet(out Cartridge cartridge))
             {
                 // Slot cartridge into open computer intake.
                 computer.InputCartridge(cartridge);
@@ -48,22 +53,22 @@ public class WorkStation : Station
         base.FindSeat(occupant);
     }
 
-    protected override void OnSit(ICharacterController occupant, Chair chair)
+    protected override void OnChairOccupied(ICharacterController occupant)
     {
-        base.OnSit(occupant, chair);
         computer.SignInDeveloper(occupant);
+        base.OnChairOccupied(occupant);
     }
 
-    protected override void OnStand(ICharacterController occupant)
+    protected override void OnChairUnoccupied(ICharacterController occupant)
     {
         if(computer.TryGetCartridge(out Cartridge cartridge) && cartridge.Task.Assignee == occupant)
         {
             // Assignee takes cartridge.
-            occupant.Inventory.TryPickUp(cartridge);
+            occupant.GoInteractWith(cartridge);
         }
 
         computer.SignOutDeveloper(occupant);
-        base.OnStand(occupant);
+        base.OnChairUnoccupied(occupant);
     }
 
     public override int CalculatePriorityFor(ICharacterController character)
@@ -73,7 +78,7 @@ public class WorkStation : Station
             // Advertise that character can work on task here.
             return PriorityScoreConstants.WORK_ON_TASK;
         }
-        else if(CharacterCanPairProgram(character) && !character.Inventory.HasPickup())
+        else if(CharacterCanPairProgram(character) && !character.Inventory.Has<Cartridge>())
         {
             // Advertise that character can pair program here.
             return PriorityScoreConstants.PAIR_PROGRAM;
@@ -85,7 +90,7 @@ public class WorkStation : Station
     private bool CharacterCanWorkOnTask(ICharacterController character)
     {
         // Station is open for character to work on task, which is not yet ready for production.
-        return character.Inventory.TryGetPickup(out Cartridge cartridge) && !cartridge.Task.IsReadyForProduction && this.HasVacancy();
+        return character.Inventory.TryGet(out Cartridge cartridge) && !cartridge.Task.IsReadyForProduction && this.HasVacancy();
     }
 
     private bool CharacterCanPairProgram(ICharacterController character)

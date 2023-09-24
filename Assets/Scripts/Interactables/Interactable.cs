@@ -1,60 +1,45 @@
 using UnityEngine;
 
-/** An Interactable is a Selectable that requires a Character to interact with. **/
-public abstract class Interactable : Selectable
-{ 
+/* An object that a character can be directed to interact with. */
+public abstract class Interactable : GameBehaviour
+{
     [SerializeField]
-    Transform goToPosition; // Optional, position character will stand to interact.
+    protected Selectable selectability;
+    [SerializeField]
+    private Transform goToPosition; // Optional, position character will stand to interact.
 
-    public ICharacterController claimedBy;
+    public event Events.CharacterEvent OnInteract;
 
-    public delegate void OnInteract(ICharacterController character);
-    public event OnInteract onInteract;
-
-    void Start()
+    protected virtual void Start()
     {
-        gameManager.Interactables.onEnableInteractables += EnableSelection;
-        gameManager.Interactables.onDisableInteractables += DisableSelection;
-        DisableSelection();
+        // Listen to global changes to interactables.
+        gameManager.Interactables.OnEnableInteractables += selectability.EnableSelection;
+        gameManager.Interactables.OnDisableInteractables += selectability.DisableSelection;
+        
+        // Listen to selection.
+        selectability.OnSelect += OnSelect;
+        selectability.DisableSelection();
     }
 
-    protected override void Select()
+    private void OnSelect()
     {
         if(gameManager.Context.CurrentCharacter != null) // A character must be selected.
         {
             ICharacterController character = gameManager.Context.CurrentCharacter;
             character.GoInteractWith(this);
-            base.Select();
         }
     }
 
     public virtual void InteractWith(ICharacterController character)
     {
-        onInteract?.Invoke(character);
+        OnInteract?.Invoke(character);
     }
 
     // Returns score based on how likely this character needs this interaction.
     public abstract int CalculatePriorityFor(ICharacterController character);
 
-    void OnEnable()
-    {
-        // Make self available to characters.
-        gameManager.Interactables.AddOpenInteractable(this);
-    }
-
-    void OnDisable()
-    {
-        // Make self unavailable for use.
-        gameManager.Interactables.RemoveOpenInteractable(this);
-    }
-
-    void OnDestroy()
-    {
-        gameManager.Interactables.onEnableInteractables -= EnableSelection;
-        gameManager.Interactables.onDisableInteractables -= DisableSelection;
-    }
-
-    public ICharacterController ClaimedBy { get; set; }
+    // Override with conditions for a character interacting with this.
+    public abstract bool CanInteract(ICharacterController character);
 
     public Vector3 Position
     {
@@ -69,5 +54,23 @@ public abstract class Interactable : Selectable
                 return transform.position;
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        // Make self available to characters.
+        gameManager.Interactables.AddOpenInteractable(this);
+    }
+
+    private void OnDisable()
+    {
+        // Make self unavailable for use.
+        gameManager.Interactables.RemoveOpenInteractable(this);
+    }
+
+    private void OnDestroy()
+    {
+        gameManager.Interactables.OnEnableInteractables -= selectability.EnableSelection;
+        gameManager.Interactables.OnDisableInteractables -= selectability.DisableSelection;
     }
 }

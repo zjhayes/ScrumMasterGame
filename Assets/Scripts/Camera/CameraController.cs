@@ -1,21 +1,27 @@
 using UnityEngine;
-using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    Animator animator; // Controls state driven camera.
+    Camera mainCamera;
+    [SerializeField]
+    private Animator cameraStateAnimator; // Controls state driven camera.
 
-    const string OVERWORLD_STATE = "OverworldCamera";
-    const string BOARD_STATE = "BoardCamera";
+    public const string OVERWORLD_STATE = "OverworldCamera";
+    public const string BOARD_STATE = "BoardCamera";
 
     public void SwitchToOverworldCamera()
     {
-        animator.Play(OVERWORLD_STATE);
+        cameraStateAnimator.Play(OVERWORLD_STATE);
     }
 
     public void SwitchToBoardCamera()
     {
-        animator.Play(BOARD_STATE);
+        cameraStateAnimator.Play(BOARD_STATE);
+    }
+
+    public Camera MainCamera
+    {
+        get { return mainCamera; }
     }
 }

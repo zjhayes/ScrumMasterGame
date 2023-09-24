@@ -178,7 +178,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 300
+  far clip plane: 100
   field of view: 42
   orthographic: 0
   orthographic size: 5
@@ -345,7 +345,7 @@ MonoBehaviour:
     FieldOfView: 42
     OrthographicSize: 5
     NearClipPlane: 0.3
-    FarClipPlane: 300
+    FarClipPlane: 100
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -501,7 +501,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2759706d8ce6f0449accf5b207df128b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 8955580301948350042}
+  mainCamera: {fileID: 8955580300220210090}
+  cameraStateAnimator: {fileID: 8955580301948350042}
 --- !u!1 &8955580301429228582
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +655,7 @@ MonoBehaviour:
     FieldOfView: 42
     OrthographicSize: 5
     NearClipPlane: 7.2
-    FarClipPlane: 300
+    FarClipPlane: 100
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -740,7 +741,7 @@ MonoBehaviour:
     m_MinDuration: 0
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []

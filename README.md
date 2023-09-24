@@ -29,7 +29,7 @@ The game is still in development, so these are loose instructions.
 ## Install
 
 Clone this repository to your local machine.
-Open the project in Unity (Unity 2021.3.4f1 or higher).
+Open the project in Unity (pref. Unity 2021.3.4f1 lts).
 Launch the game from the Unity editor or build it for your desired platform.
 In-game instructions are still in-development :(
 

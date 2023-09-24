@@ -10,10 +10,26 @@ public abstract class Station : Interactable
     [SerializeField]
     protected List<Chair> chairs;
 
+    protected override void Start()
+    {
+        // Listen for when character sits or stands.
+        foreach(Chair chair in chairs)
+        {
+            chair.OnStand += OnChairUnoccupied;
+            chair.OnSit += OnChairOccupied;
+        }
+        base.Start();
+    }
+
     public override void InteractWith(ICharacterController character)
     {
         FindSeat(character);
         base.InteractWith(character);
+    }
+
+    public override bool CanInteract(ICharacterController character)
+    {
+        return HasVacancy();
     }
 
     public bool HasVacancy()
@@ -35,46 +51,20 @@ public abstract class Station : Interactable
         return count;
     }
 
-    public List<ICharacterController> ListOccupants()
-    {
-        List<ICharacterController> occupants = new();
-        foreach (Chair chair in chairs)
-        {
-            occupants.Add(chair.Occupant);
-        }
-        return occupants;
-    }
-
     // Returns true if character is able to sit.
     protected virtual void FindSeat(ICharacterController occupant)
     {
         foreach (Chair chair in chairs)
         {
-            if (!chair.Occupied)
+            if(chair.TrySit(occupant))
             {
-                OnSit(occupant, chair); // Character found a chair.
                 return;
             }
         }
-        occupant.Frustrated(); // Else, unable to sit.
+        
+        // Else, unable to sit.
+        occupant.Frustrated();
         return;
-    }
-
-    protected virtual void OnSit(ICharacterController occupant, Chair chair)
-    {
-        chair.Sit(occupant);
-    }
-
-    protected virtual void Dismiss(ICharacterController occupant)
-    {
-        foreach (Chair chair in chairs)
-        {
-            if (chair.Occupied && chair.Occupant == occupant)
-            {
-                chair.Stand();
-                OnStand(occupant);
-            }
-        }
     }
 
     protected void DismissAll()
@@ -83,12 +73,17 @@ public abstract class Station : Interactable
         {
             if(chair.TryStand(out ICharacterController occupant))
             {
-                OnStand(occupant);
+                continue;
             }
         }
     }
 
-    protected virtual void OnStand(ICharacterController occupant)
+    protected virtual void OnChairOccupied(ICharacterController occupant)
+    {
+        // Override with logic for when a character successfully sits.
+    }
+
+    protected virtual void OnChairUnoccupied(ICharacterController occupant)
     {
         occupant.FindSomethingToDo();
     }

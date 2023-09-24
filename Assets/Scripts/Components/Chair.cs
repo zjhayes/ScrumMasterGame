@@ -3,60 +3,64 @@ using UnityEngine;
 public class Chair : MonoBehaviour
 {
     [SerializeField]
-    private Transform seat;
+    private Socket seat;
     [SerializeField]
     private Transform exitToPosition;
 
-    public void Sit(ICharacterController occupant)
-    {
-        // Disable character physics.
-        occupant.EnablePhysics(false);
+    public event Events.CharacterEvent OnSit;
+    public event Events.CharacterEvent OnStand;
 
-        // Move to seat.
-        occupant.transform.parent = seat;
-        occupant.transform.SetPositionAndRotation(seat.position, seat.rotation);
+    private void Start()
+    {
+        seat.OnAdd += InvokeSit;
+        seat.OnRemove += InvokeStand;
     }
 
-    public ICharacterController Stand()
+    public bool TrySit(ICharacterController newOccupant)
     {
-        ICharacterController occupant = Occupant;
-        if (occupant == null) { return null; }
-
-        // Enable character physics.
-        occupant.EnablePhysics(true);
-
-        // Move to original location.
-        occupant.transform.parent = null;
-        occupant.transform.position = exitToPosition.transform.position;
-        return occupant;
+        return seat.TryPut(newOccupant as CharacterController);
     }
 
-    public bool TryStand(out ICharacterController occupant)
+    public bool TryStand(out ICharacterController dismissedOccupant)
     {
-        occupant = Stand();
-        return occupant != null;
-    }
-
-    public ICharacterController Occupant
-    {
-        get 
-        {
-            return seat.GetComponentInChildren(typeof(ICharacterController)) as ICharacterController;
-        }
+        dismissedOccupant = Stand();
+        return dismissedOccupant != null;
     }
 
     public bool Occupied
     {
-        get 
+        get { return seat.Has<CharacterController>(); }
+    }
+
+    public Socket Seat
+    {
+        get { return seat; }
+    }
+
+    private ICharacterController Stand()
+    {
+        if (!Occupied) { return null; }
+
+        if(seat.TryGet(out CharacterController occupant))
         {
-            if (seat.transform.childCount > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            occupant.transform.SetParent(null);
+            occupant.EnablePhysics(true);
+            occupant.transform.SetPositionAndRotation(exitToPosition.position, transform.rotation);
+            return occupant;
         }
+        else
+        {
+            return null; // Unoccupied.
+        }
+    }
+
+    private void InvokeSit(IContainable character)
+    {
+        OnSit?.Invoke(character as ICharacterController);
+    }
+
+    private void InvokeStand(IContainable character)
+    {
+        OnStand.Invoke(character as ICharacterController);
     }
 }

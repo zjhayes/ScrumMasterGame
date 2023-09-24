@@ -1,23 +1,16 @@
-using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine;
 
+/* Give objects the ability to be selected by the player. */
 public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public delegate void OnSelect();
-    public OnSelect onSelect;
+    public event Events.PlayerEvent OnSelect;
+    public event Events.PlayerEvent OnHoverEnter;
+    public event Events.PlayerEvent OnHoverExit;
+    public event Events.GameEvent OnEnableSelectability;
+    public event Events.GameEvent OnDisableSelectability;
 
-    public delegate void OnHoverEnter();
-    public OnHoverEnter onHoverEnter;
-
-    public delegate void OnHoverExit();
-    public OnHoverExit onHoverExit;
-
-    public delegate void OnEnableSelectability();
-    public OnEnableSelectability onEnableSelectability;
-    public delegate void OnDisableSelectability();
-    public OnDisableSelectability onDisableSelectability;
-
-    bool canSelect = true;
+    private bool canSelect = true;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -34,44 +27,44 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
         HoverExit();
     }
 
-    protected virtual void Select()
-    {
-        if(canSelect)
-        {
-            onSelect?.Invoke();
-        }
-    }
-
-    protected virtual void HoverEnter()
-    {
-        if(canSelect)
-        {
-            onHoverEnter?.Invoke();
-        }
-    }
-
-    protected virtual void HoverExit()
-    {
-        if(canSelect)
-        {
-            onHoverExit?.Invoke();
-        }
-    }
-
-    protected virtual void EnableSelection()
-    {
-        canSelect = true;
-        onEnableSelectability?.Invoke();
-    }
-
-    protected virtual void DisableSelection()
-    {
-        canSelect = false;
-        onDisableSelectability?.Invoke();
-    }
-
     public bool CanSelect
     {
         get { return canSelect; }
+    }
+
+    public void Select()
+    {
+        if(canSelect)
+        {
+            OnSelect?.Invoke();
+        }
+    }
+
+    public void HoverEnter()
+    {
+        if (canSelect)
+        {
+            OnHoverEnter?.Invoke();
+        }
+    }
+
+    public void HoverExit()
+    {
+        if(canSelect)
+        {
+            OnHoverExit?.Invoke();
+        }
+    }
+
+    public void EnableSelection()
+    {
+        canSelect = true;
+        OnEnableSelectability?.Invoke();
+    }
+
+    public void DisableSelection()
+    {
+        canSelect = false;
+        OnDisableSelectability?.Invoke();
     }
 }

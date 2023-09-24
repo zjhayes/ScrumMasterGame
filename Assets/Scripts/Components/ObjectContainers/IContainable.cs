@@ -4,4 +4,5 @@ using UnityEngine;
 public interface IContainable
 {
     GameObject gameObject { get; }
+    Transform transform { get; }
 }

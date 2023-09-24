@@ -1,19 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CanvasController : GameBehaviour
 {
     [SerializeField]
     List<MenuController> menus;
 
-    public delegate void OnShowFirstMenu();
-    public OnShowFirstMenu onShowFirstMenu;
+    public Events.UIEvent onShowFirstMenu;
+    public Events.UIEvent onHideLastMenu;
 
-    public delegate void OnHideLastMenu();
-    public OnHideLastMenu onHideLastMenu;
-
-    void Awake()
+    private void Awake()
     {
         // Initiate hidden menus.
         foreach (MenuController menu in menus)
@@ -24,10 +20,10 @@ public class CanvasController : GameBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         // Listen to player controls.
-        gameManager.Controls.onEscape += OnEscape;
+        gameManager.Controls.OnEscape += OnEscape;
     }
 
     public void ShowMenu(MenuController menu)
@@ -49,6 +45,22 @@ public class CanvasController : GameBehaviour
         if(ActiveCount <= 0)
         {
             onHideLastMenu?.Invoke();
+        }
+    }
+
+    public void ShowAll()
+    {
+        foreach(MenuController menu in menus)
+        {
+            ShowMenu(menu);
+        }
+    }
+
+    public void HideAll()
+    {
+        foreach(MenuController menu in menus)
+        {
+            HideMenu(menu);
         }
     }
 

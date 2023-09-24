@@ -4,16 +4,14 @@ using UnityEngine;
 public abstract class Computer : GameBehaviour
 {
     [SerializeField]
-    protected PickupContainer cartridgeReceptacle;
+    protected Socket cartridgeReceptacle;
 
-    public delegate void OnRun();
-    public event OnRun onRun;
-    public delegate void OnSleep();
-    public event OnSleep onSleep;
+    public event Events.GameEvent OnRun;
+    public event Events.GameEvent OnSleep;
 
     protected virtual void Awake()
     {
-        cartridgeReceptacle.onRemoved += OnCartridgeRemoved;
+        cartridgeReceptacle.OnRemove += OnCartridgeRemoved;
         Sleep();
     }
 
@@ -23,27 +21,27 @@ public abstract class Computer : GameBehaviour
         IterateWork();
     }
 
+    // What does the computer do with the cartridge?
     protected abstract void IterateWork();
 
     public virtual void InputCartridge(Cartridge cartridge)
     {
         // Move cartridge to computer dock.
-        if(cartridgeReceptacle.TryPutPickup(cartridge))
+        if(cartridgeReceptacle.TryPut(cartridge))
         {
-            cartridge.ClaimedBy = null;
             Run();
         } // else computer is in use.
     }
 
     public bool TryGetCartridge(out Cartridge outCartridge)
     {
-        return cartridgeReceptacle.TryGetPickup(out outCartridge);
+        return cartridgeReceptacle.TryGet(out outCartridge);
     }
 
     public bool HasCartridge()
     {
         // Returns true if current cartridge is in intake.
-        return cartridgeReceptacle.HasPickup<Cartridge>();
+        return cartridgeReceptacle.Has<Cartridge>();
     }
 
     public bool IsRunning
@@ -55,17 +53,17 @@ public abstract class Computer : GameBehaviour
     {
         // Start Update method.
         this.enabled = true;
-        onRun?.Invoke();
+        OnRun?.Invoke();
     }
 
     protected void Sleep()
     {
         // Stop Update method.
         this.enabled = false;
-        onSleep?.Invoke();
+        OnSleep?.Invoke();
     }
 
-    protected void OnCartridgeRemoved()
+    protected void OnCartridgeRemoved(IContainable cartridge)
     {
         Sleep();
     }

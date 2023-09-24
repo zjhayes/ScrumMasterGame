@@ -1,33 +1,38 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-[RequireComponent(typeof(Outline))]
-[RequireComponent(typeof(Selectable))]
+/* Controls the outlines of objects visible on mouse hover. */
 public class OutlineController : MonoBehaviour
 {
-    private Selectable interactable;
-    private Outline outline;
-
-    private void Awake()
-    {
-        interactable = GetComponent<Selectable>();
-        outline = GetComponent<Outline>();
-    }
+    [SerializeField]
+    private List<Outline> outlines = new List<Outline>();
+    [SerializeField]
+    private Selectable selectability;
 
     private void Start()
     {
-        interactable.onHoverEnter += Show;
-        interactable.onHoverExit += Hide;
-        interactable.onDisableSelectability += Hide;
+        selectability.OnHoverEnter += Show;
+        selectability.OnHoverExit += Hide;
+        selectability.OnDisableSelectability += Hide;
         Hide();
     }
 
     public void Show()
     {
-        outline.enabled = true;
+        // Enable outlines.
+        outlines.ForEach(outline => outline.enabled = true);
     }
 
     public void Hide()
     {
-        outline.enabled = false;
+        // Disable outlines.
+        outlines.ForEach(outline => outline.enabled = false);
+    }
+
+    private void OnDisable()
+    {
+        selectability.OnHoverEnter -= Show;
+        selectability.OnHoverExit -= Hide;
+        selectability.OnDisableSelectability -= Hide;
     }
 }

@@ -9,8 +9,8 @@ public class TaskStationProgression : StationProgression
     {
         computer = GetComponent<Computer>();
 
-        computer.onRun += ShowProgressBar;
-        computer.onSleep += HideProgressBar;
+        computer.OnRun += ShowProgressBar;
+        computer.OnSleep += HideProgressBar;
 
         base.Awake();
     }

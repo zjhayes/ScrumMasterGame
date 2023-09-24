@@ -19,7 +19,7 @@ public class DefaultState : GameState
         controller.SwitchToScrumView();
     }
 
-    public override void Escape()
+    public override void OnEscaped()
     {
         // TODO: Show settings menu.
     }

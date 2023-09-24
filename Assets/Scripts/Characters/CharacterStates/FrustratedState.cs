@@ -5,6 +5,8 @@ public class FrustratedState : CharacterState
 {
     [SerializeField]
     private float emoteTime = 2.0f;
+    [SerializeField]
+    private OverheadElement frustrationBubble;
 
     ICharacterController character;
 
@@ -12,20 +14,14 @@ public class FrustratedState : CharacterState
     {
         this.character = controller;
         base.Handle(controller);
-
-        // Show frustration emote and find something else to do.
-        if(!character.OverHead.HasSpeechBubble())
-        {
-            character.OverHead.ShowFrustrationBubble();
-            StartCoroutine(StopEmoteAfterDelay()); // Wait and then hide frustration.
-        }
+        frustrationBubble.Show();
+        StartCoroutine(StopEmoteAfterDelay()); // Wait and then end frustration.
     }
 
     IEnumerator StopEmoteAfterDelay()
     {
         yield return new WaitForSeconds(emoteTime);
-
-        character.OverHead.HideFrustrationBubble();
+        frustrationBubble.Hide();
         character.FindSomethingToDo();
     }
 

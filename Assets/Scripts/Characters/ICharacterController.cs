@@ -11,7 +11,7 @@ public interface ICharacterController : IController
     public void InteractWithTarget();
 
     public void Frustrated();
-
+    public void Deselect();
     public void EnablePhysics(bool enable);
 
     public CharacterStats Stats { get; }
@@ -27,6 +27,4 @@ public interface ICharacterController : IController
     public CharacterState State { get; }
 
     public Sprite Portrait { get; }
-
-    public OverheadController OverHead { get; }
 }

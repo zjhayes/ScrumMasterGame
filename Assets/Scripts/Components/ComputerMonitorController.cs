@@ -13,8 +13,8 @@ public class ComputerMonitorController : MonoBehaviour
 
     private void Awake()
     {
-        computer.onRun += ShowProgrammingIDE;
-        computer.onSleep += ShowWallpaper;
+        computer.OnRun += ShowProgrammingIDE;
+        computer.OnSleep += ShowWallpaper;
     }
 
     public void ShowWallpaper()

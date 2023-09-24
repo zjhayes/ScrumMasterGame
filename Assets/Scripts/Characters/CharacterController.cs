@@ -3,8 +3,7 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(CharacterStats))]
 [RequireComponent(typeof(CharacterMovement))]
-[RequireComponent(typeof(Selectable))]
-public class CharacterController : GameBehaviour, ICharacterController
+public class CharacterController : GameBehaviour, ICharacterController, ISocketable
 {
     [SerializeField]
     private Sprite portrait;
@@ -21,11 +20,12 @@ public class CharacterController : GameBehaviour, ICharacterController
     [SerializeField]
     private CharacterState frustratedState;
     [SerializeField]
-    private OverheadController overheadController;
+    private Selectable selectability;
+    [SerializeField]
+    private OverheadElement selectIcon;
 
     private CharacterStats stats;
     private CharacterMovement movement;
-    private Selectable selectability;
     private StateContext<ICharacterController> stateContext;
     private Interactable targetInteractable;
 
@@ -33,13 +33,12 @@ public class CharacterController : GameBehaviour, ICharacterController
     {
         stats = GetComponent<CharacterStats>();
         movement = GetComponent<CharacterMovement>();
-        selectability = GetComponent<Selectable>();
         stateContext = new StateContext<ICharacterController>(this);
     }
 
     private void Start()
     {
-        selectability.onSelect += OnSelect;
+        selectability.OnSelect += OnSelect;
         Idle();
     }
 
@@ -47,6 +46,12 @@ public class CharacterController : GameBehaviour, ICharacterController
     {
         // Context Manager determines how to handle character selection.
         gameManager.Context.CharacterSelected(this);
+        selectIcon.Show();
+    }
+
+    public void Deselect()
+    {
+        selectIcon.Hide();
     }
 
     public void Idle()
@@ -81,11 +86,6 @@ public class CharacterController : GameBehaviour, ICharacterController
 
     public void ClearTargetInteractable()
     {
-        if (targetInteractable != null)
-        {
-            targetInteractable.ClaimedBy = null;
-        }
-
         targetInteractable = null;
     }
 
@@ -122,11 +122,6 @@ public class CharacterController : GameBehaviour, ICharacterController
     public Sprite Portrait
     {
         get { return portrait; }
-    }
-
-    public OverheadController OverHead
-    {
-        get { return overheadController; }
     }
 
     public void EnablePhysics(bool enable)

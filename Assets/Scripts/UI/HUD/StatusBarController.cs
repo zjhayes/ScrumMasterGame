@@ -7,8 +7,8 @@ public class StatusBarController : MenuController
 
     public override void SetUp()
     {
-        gameManager.Sprint.onBeginSprint += this.Show;
-        gameManager.Sprint.onBeginRetrospective += this.Hide;
+        gameManager.Sprint.OnBeginSprint += this.Show;
+        gameManager.Sprint.OnBeginRetrospective += this.Hide;
         Hide();
     }
 

@@ -15,7 +15,7 @@ public class PlanningViewState : GameState
         base.Handle(controller);
     }
 
-    public override void Escape()
+    public override void OnEscaped()
     {
         // TODO: Show settings menu.
     }

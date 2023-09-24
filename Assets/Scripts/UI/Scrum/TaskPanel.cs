@@ -43,7 +43,7 @@ public class TaskPanel : MenuController, IContainable
         UpdateTaskTypeIcon();
         UpdateAssigneePortrait();
 
-        task.onAssigneeChanged += OnAssigneeChanged;
+        task.OnAssigneeChanged += OnAssigneeChanged;
     }
 
     public override void SetUp()
@@ -86,7 +86,7 @@ public class TaskPanel : MenuController, IContainable
         onSelected?.Invoke(this);
     }
 
-    private void OnAssigneeChanged()
+    private void OnAssigneeChanged(ICharacterController assignee)
     {
         UpdateAssigneePortrait();
         onUpdated?.Invoke(this);
@@ -108,6 +108,6 @@ public class TaskPanel : MenuController, IContainable
         // Clear listeners.
         onSelected = null;
         onUpdated = null;
-        task.onAssigneeChanged -= OnAssigneeChanged;
+        task.OnAssigneeChanged -= OnAssigneeChanged;
     }
 }

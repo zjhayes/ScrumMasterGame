@@ -4,30 +4,32 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class CharacterMovement : MonoBehaviour
 {
-	NavMeshAgent agent;
+	private NavMeshAgent agent;
 
-	public delegate void OnArrivedAtDestination();
-	public OnArrivedAtDestination onArrivedAtDestination;
+	public Events.GameEvent OnArrivedAtDestination;
+	public Events.GameEvent OnDestinationChange;
 
-	void Awake()
+	private void Awake()
     {
 		agent = GetComponent<NavMeshAgent>();
     }
 
-	void FixedUpdate()
+	private void FixedUpdate()
     {
 		if(AtDestination())
         {
-			this.enabled = false;
-			onArrivedAtDestination?.Invoke();
+			// Character has arrived at destination.
+			this.enabled = false; // Stop FixedUpdate.
+			OnArrivedAtDestination?.Invoke();
         }
     }
 
 	public void GoTo(Vector3 target)
 	{
-		this.enabled = true;
+		this.enabled = true; // Start FixedUpdate.
 		agent.enabled = true;
 		agent.destination = target;
+		OnDestinationChange?.Invoke();
 	}
 
 	public bool AtDestination()
@@ -39,10 +41,5 @@ public class CharacterMovement : MonoBehaviour
 			return true;
 		}
 		return false;
-	}
-
-	public bool CanMoveTo(Vector3 targetPosition)
-	{
-		return NavMesh.CalculatePath(transform.position, targetPosition, NavMesh.AllAreas, new NavMeshPath());
 	}
 }
