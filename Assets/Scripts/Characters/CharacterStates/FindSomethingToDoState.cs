@@ -10,13 +10,13 @@ public class FindSomethingToDoState : CharacterState
     [SerializeField]
     private OverheadElement idleBubble;
     [SerializeField]
-    private float paceDistance = 10f; // How far a character walks while pacing randomly.
+    private Boundary paceBoundary;
+    [SerializeField]
+    private float paceSpeed = 0.5f;
     [SerializeField]
     private float minWaitTime = 2.0f;
     [SerializeField]
     private float maxWaitTime = 10.0f;
-    [SerializeField]
-    private float paceSpeed = 0.5f;
 
     protected ICharacterController character;
     private Coroutine waitAndMoveAction;
@@ -112,8 +112,8 @@ public class FindSomethingToDoState : CharacterState
         float delayTime = Random.Range(minWaitTime, maxWaitTime);
 
         yield return new WaitForSeconds(delayTime);
-        
-        character.Movement.WalkToRandomSpot(paceDistance, character.Movement.BaseSpeed * paceSpeed);
+
+        character.Movement.GoToBoundary(paceBoundary, character.Movement.BaseSpeed * paceSpeed);
         waitAndMoveAction = null;
     }
 

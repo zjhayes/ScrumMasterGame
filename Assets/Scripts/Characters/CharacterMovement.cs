@@ -69,18 +69,12 @@ public class CharacterMovement : MonoBehaviour
 		return !agent.hasPath || agent.velocity.sqrMagnitude == 0f;
 	}
 
-	public void WalkToRandomSpot(float distance, float speed)
-	{
-		// Get a random point within the radius.
-		Vector3 randomPoint = transform.position + Random.insideUnitSphere * distance;
-		
-		NavMeshHit hit;
-		if (NavMesh.SamplePosition(randomPoint, out hit, distance, 1))
-		{
-			// Go to the nearest valid point on the NavMesh to the random point.
-			GoTo(hit.position, speed);
-		}
-	}
+	public void GoToBoundary(Boundary boundary, float speed)
+    {
+		Vector3 randomPoint = boundary.GetRandomPointInsideBoundary();
+
+		GoTo(randomPoint, speed);
+    }
 
 	public float BaseSpeed
     {
