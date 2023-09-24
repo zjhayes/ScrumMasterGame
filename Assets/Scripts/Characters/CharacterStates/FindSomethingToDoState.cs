@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,17 +9,36 @@ public class FindSomethingToDoState : CharacterState
     private int numberOfPrioritiesConsidered = 3; // Increasing this number makes the character's actions more random.
     [SerializeField]
     private OverheadElement idleBubble;
+    
+    private float paceDistance = 5f; // How far a character walks while pacing randomly.
+    [SerializeField]
+    float minWaitTime = 2.0f;
+    [SerializeField]
+    float maxWaitTime = 10.0f;
 
     protected ICharacterController character;
+    private Coroutine waitAndMoveAction;
 
     public override void Handle(ICharacterController controller)
     {
         character = controller;
-
         base.Handle(controller);
     }
 
-    void Update()
+    public override void Exit()
+    {
+        StopIdleEmote();
+        CancelWaitAndMove();
+
+        base.Exit();
+    }
+
+    public override string Status
+    {
+        get { return "Dilly-Dallying"; }
+    }
+
+    private void Update()
     {
         // Determine this character's current priority.
         Interactable priority = FindSomethingToDo();
@@ -32,10 +52,11 @@ public class FindSomethingToDoState : CharacterState
         {
             // Dilly dally, continue looking for something to do.
             StartIdleEmote();
+            Pace();
         }
     }
 
-    Interactable FindSomethingToDo()
+    private Interactable FindSomethingToDo()
     {
         // Get scores advertised to character by open interactables.
         Dictionary<Interactable, int> advertisements = new Dictionary<Interactable, int>();
@@ -73,6 +94,34 @@ public class FindSomethingToDoState : CharacterState
         return priority;
     }
 
+    private void Pace()
+    {
+        // Pace around randomly.
+        if (character.Movement.IsStopped() && waitAndMoveAction == null)
+        {
+            waitAndMoveAction = StartCoroutine(WaitAndMove());
+        }
+    }
+
+    private IEnumerator WaitAndMove()
+    {
+        float delayTime = Random.Range(minWaitTime, maxWaitTime);
+
+        yield return new WaitForSeconds(delayTime);
+        
+        character.Movement.WalkToRandomSpot(paceDistance, character.Movement.BaseSpeed * 0.5f);
+        waitAndMoveAction = null;
+    }
+
+    private void CancelWaitAndMove()
+    {
+        if (waitAndMoveAction != null)
+        {
+            StopCoroutine(waitAndMoveAction);
+            waitAndMoveAction = null;
+        }
+    }
+
     private void StartIdleEmote()
     {
         idleBubble.Show();
@@ -81,16 +130,5 @@ public class FindSomethingToDoState : CharacterState
     private void StopIdleEmote()
     {
         idleBubble.Hide();
-    }
-
-    public override void Exit()
-    {
-        StopIdleEmote();
-        base.Exit();
-    }
-
-    public override string Status
-    {
-        get { return "Dilly-Dallying"; }
     }
 }
