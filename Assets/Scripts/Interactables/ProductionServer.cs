@@ -3,7 +3,7 @@ public class ProductionServer : Computer
 {
     protected override void IterateWork()
     {
-        if(cartridgeReceptacle.TryGetPickup(out Cartridge cartridge))
+        if(cartridgeReceptacle.TryGet(out Cartridge cartridge))
         {
             cartridge.Task.Status = TaskStatus.DONE;
 

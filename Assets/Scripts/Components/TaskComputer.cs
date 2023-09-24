@@ -14,7 +14,7 @@ public class TaskComputer : Computer
     // Update task completeness and developer progression.
     protected override void IterateWork()
     {
-        if (cartridgeReceptacle.TryGetPickup(out Cartridge cartridge))
+        if (cartridgeReceptacle.TryGet(out Cartridge cartridge))
         {
             if (developers.Count <= 0) { return; } // No developers.
             

@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class Inventory : PickupContainer
+public class Inventory : Socket
 {
     public bool TryPickUp(Pickup pickup)
     {
         TryDrop(out _); // Swap pickups if one already carried.
 
-        if(!TryPutPickup(pickup))
+        if(!TryPut(pickup))
         {
             Debug.LogFormat("Character was unable to pick up {0}.", pickup);
             return false;
@@ -20,7 +20,7 @@ public class Inventory : PickupContainer
     public bool TryDrop(out Pickup drop)
     {
         // Try to drop current pickup, if any.
-        if (TryGetPickup(out drop))
+        if (TryGet(out drop))
         {
             drop.EnablePhysics(true);
             return true;

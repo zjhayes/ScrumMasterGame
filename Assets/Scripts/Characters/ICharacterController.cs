@@ -12,7 +12,6 @@ public interface ICharacterController : IController
 
     public void Frustrated();
     public void Deselect();
-
     public void EnablePhysics(bool enable);
 
     public CharacterStats Stats { get; }

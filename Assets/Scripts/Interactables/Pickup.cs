@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Pickup : Interactable, IContainable
+public abstract class Pickup : Interactable, ISocketable
 {
     public override void InteractWith(ICharacterController character)
     {

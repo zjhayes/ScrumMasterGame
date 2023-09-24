@@ -4,14 +4,14 @@ using UnityEngine;
 public abstract class Computer : GameBehaviour
 {
     [SerializeField]
-    protected PickupContainer cartridgeReceptacle;
+    protected Socket cartridgeReceptacle;
 
     public event Events.GameEvent OnRun;
     public event Events.GameEvent OnSleep;
 
     protected virtual void Awake()
     {
-        cartridgeReceptacle.OnRemoved += OnCartridgeRemoved;
+        cartridgeReceptacle.OnRemove += OnCartridgeRemoved;
         Sleep();
     }
 
@@ -27,7 +27,7 @@ public abstract class Computer : GameBehaviour
     public virtual void InputCartridge(Cartridge cartridge)
     {
         // Move cartridge to computer dock.
-        if(cartridgeReceptacle.TryPutPickup(cartridge))
+        if(cartridgeReceptacle.TryPut(cartridge))
         {
             Run();
         } // else computer is in use.
@@ -35,13 +35,13 @@ public abstract class Computer : GameBehaviour
 
     public bool TryGetCartridge(out Cartridge outCartridge)
     {
-        return cartridgeReceptacle.TryGetPickup(out outCartridge);
+        return cartridgeReceptacle.TryGet(out outCartridge);
     }
 
     public bool HasCartridge()
     {
         // Returns true if current cartridge is in intake.
-        return cartridgeReceptacle.HasPickup<Cartridge>();
+        return cartridgeReceptacle.Has<Cartridge>();
     }
 
     public bool IsRunning
@@ -63,7 +63,7 @@ public abstract class Computer : GameBehaviour
         OnSleep?.Invoke();
     }
 
-    protected void OnCartridgeRemoved(Interactable cartridge)
+    protected void OnCartridgeRemoved(IContainable cartridge)
     {
         Sleep();
     }

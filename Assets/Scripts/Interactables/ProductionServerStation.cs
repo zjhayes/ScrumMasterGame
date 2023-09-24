@@ -18,7 +18,7 @@ public class ProductionServerStation : Station
 
     public override int CalculatePriorityFor(ICharacterController character)
     {
-        if(character.Inventory.TryGetPickup(out Cartridge cartridge) && cartridge.Task.IsReadyForProduction)
+        if(character.Inventory.TryGet(out Cartridge cartridge) && cartridge.Task.IsReadyForProduction)
         {
             // Character has task that is ready for production.
             return PriorityScoreConstants.TAKE_TASK_TO_PRODUCTION;
@@ -26,11 +26,11 @@ public class ProductionServerStation : Station
         return PriorityScoreConstants.NO_SCORE;
     }
 
-    protected override void OnSit(ICharacterController occupant)
+    protected override void OnChairOccupied(ICharacterController occupant)
     {
-        base.OnSit(occupant);
+        base.OnChairOccupied(occupant);
 
-        if (!computer.HasCartridge() && occupant.Inventory.TryGetPickup(out Cartridge cartridge))
+        if (!computer.HasCartridge() && occupant.Inventory.TryGet(out Cartridge cartridge))
         {
             // Character has cartridge, put it in computer.
             computer.InputCartridge(cartridge);

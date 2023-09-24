@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 855473817}
   - component: {fileID: 855473816}
+  - component: {fileID: 293639161931669809}
   m_Layer: 0
   m_Name: StandingPosition
   m_TagString: Untagged
@@ -44,8 +45,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddefbe406f284774d9961bdfc145e9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seat: {fileID: 855473817}
+  seat: {fileID: 293639161931669809}
   exitToPosition: {fileID: 855473817}
+--- !u!114 &293639161931669809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855473815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c5568742df546c459981634ad84ebd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &465697798434531419
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6134192950439625342}
-  - component: {fileID: 6811269296547626785}
+  - component: {fileID: 1951153029961819776}
   m_Layer: 0
   m_Name: CartridgeReceptacle
   m_TagString: Untagged
@@ -187,7 +200,7 @@ Transform:
   m_Father: {fileID: 3471932148339920235}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
---- !u!114 &6811269296547626785
+--- !u!114 &1951153029961819776
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,7 +209,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4804625867122273908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f49729b644fec14f840aaf3dbb3296b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c5568742df546c459981634ad84ebd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5666085525182350497
@@ -249,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2f74083803e244cb516e2a89a81c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cartridgeReceptacle: {fileID: 6811269296547626785}
+  cartridgeReceptacle: {fileID: 1951153029961819776}
 --- !u!114 &1003018138
 MonoBehaviour:
   m_ObjectHideFlags: 0

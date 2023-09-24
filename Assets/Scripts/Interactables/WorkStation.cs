@@ -14,7 +14,8 @@ public class WorkStation : Station
 
         foreach(Chair chair in chairs)
         {
-            chair.Seat.OnStand += computer.SignOutDeveloper;
+            chair.OnSit += computer.SignInDeveloper;
+            chair.OnStand += computer.SignOutDeveloper;
         }
     }
 
@@ -28,17 +29,16 @@ public class WorkStation : Station
         else
         {
             character.Frustrated(); // No reason to interact.
-
         }
     }
 
     protected override void FindSeat(ICharacterController occupant)
     {
         // Handle character pickups before sitting.
-        if(occupant.Inventory.HasPickup())
+        if(occupant.Inventory.Has<Cartridge>())
         {
             // Check if character has a cartridge, and the computer is not in use.
-            if(!computer.HasCartridge() && occupant.Inventory.TryGetPickup(out Cartridge cartridge))
+            if(!computer.HasCartridge() && occupant.Inventory.TryGet(out Cartridge cartridge))
             {
                 // Slot cartridge into open computer intake.
                 computer.InputCartridge(cartridge);
@@ -53,13 +53,13 @@ public class WorkStation : Station
         base.FindSeat(occupant);
     }
 
-    protected override void OnSit(ICharacterController occupant)
+    protected override void OnChairOccupied(ICharacterController occupant)
     {
         computer.SignInDeveloper(occupant);
-        base.OnSit(occupant);
+        base.OnChairOccupied(occupant);
     }
 
-    protected override void OnStand(ICharacterController occupant)
+    protected override void OnChairUnoccupied(ICharacterController occupant)
     {
         if(computer.TryGetCartridge(out Cartridge cartridge) && cartridge.Task.Assignee == occupant)
         {
@@ -68,7 +68,7 @@ public class WorkStation : Station
         }
 
         computer.SignOutDeveloper(occupant);
-        base.OnStand(occupant);
+        base.OnChairUnoccupied(occupant);
     }
 
     public override int CalculatePriorityFor(ICharacterController character)
@@ -78,7 +78,7 @@ public class WorkStation : Station
             // Advertise that character can work on task here.
             return PriorityScoreConstants.WORK_ON_TASK;
         }
-        else if(CharacterCanPairProgram(character) && !character.Inventory.HasPickup())
+        else if(CharacterCanPairProgram(character) && !character.Inventory.Has<Cartridge>())
         {
             // Advertise that character can pair program here.
             return PriorityScoreConstants.PAIR_PROGRAM;
@@ -90,7 +90,7 @@ public class WorkStation : Station
     private bool CharacterCanWorkOnTask(ICharacterController character)
     {
         // Station is open for character to work on task, which is not yet ready for production.
-        return character.Inventory.TryGetPickup(out Cartridge cartridge) && !cartridge.Task.IsReadyForProduction && this.HasVacancy();
+        return character.Inventory.TryGet(out Cartridge cartridge) && !cartridge.Task.IsReadyForProduction && this.HasVacancy();
     }
 
     private bool CharacterCanPairProgram(ICharacterController character)

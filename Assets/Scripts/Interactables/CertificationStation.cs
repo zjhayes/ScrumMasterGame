@@ -7,9 +7,9 @@ public class CertificationStation : Station
     [SerializeField]
     GameObject openBook;
 
-    protected override void OnSit(ICharacterController occupant)
+    protected override void OnChairOccupied(ICharacterController occupant)
     {
-        base.OnSit(occupant);
+        base.OnChairOccupied(occupant);
 
         if (CountOccupants() == 1)
         { // This is the first character to sit.
@@ -17,14 +17,14 @@ public class CertificationStation : Station
         }
     }
 
-    protected override void OnStand(ICharacterController occupant)
+    protected override void OnChairUnoccupied(ICharacterController occupant)
     {   
         if (CountOccupants() <= 0)
         { // This is the last occupant.
             OnUnoccupied();
         }
 
-        base.OnStand(occupant);
+        base.OnChairUnoccupied(occupant);
     }
 
     public override int CalculatePriorityFor(ICharacterController character)

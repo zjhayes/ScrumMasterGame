@@ -11,7 +11,7 @@ public class Cartridge : Pickup
 
     public override int CalculatePriorityFor(ICharacterController character)
     {
-        if (gameObject.activeSelf && task.Assignee == character && !character.Inventory.HasPickup())
+        if (gameObject.activeSelf && task.Assignee == character && !character.Inventory.Has<Cartridge>())
         {
             // Task is assigned to character with free hands, pick it up.
             return PriorityScoreConstants.PICK_UP_ASSIGNED_CARTRIDGE;

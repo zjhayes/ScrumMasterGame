@@ -15,8 +15,8 @@ public abstract class Station : Interactable
         // Listen for when character sits or stands.
         foreach(Chair chair in chairs)
         {
-            chair.Seat.OnStand += OnStand;
-            chair.Seat.OnSit += OnSit;
+            chair.OnStand += OnChairUnoccupied;
+            chair.OnSit += OnChairOccupied;
         }
     }
 
@@ -42,7 +42,7 @@ public abstract class Station : Interactable
 
         foreach (Chair chair in chairs)
         {
-            if(chair.Seat.Occupied)
+            if(chair.Occupied)
             {
                 count++;
             }
@@ -66,11 +66,6 @@ public abstract class Station : Interactable
         return;
     }
 
-    protected virtual void OnSit(ICharacterController occupant)
-    {
-        // Override with logic for when a character successfully sits.
-    }
-
     protected void DismissAll()
     {
         foreach (Chair chair in chairs)
@@ -82,7 +77,12 @@ public abstract class Station : Interactable
         }
     }
 
-    protected virtual void OnStand(ICharacterController occupant)
+    protected virtual void OnChairOccupied(ICharacterController occupant)
+    {
+        // Override with logic for when a character successfully sits.
+    }
+
+    protected virtual void OnChairUnoccupied(ICharacterController occupant)
     {
         occupant.FindSomethingToDo();
     }

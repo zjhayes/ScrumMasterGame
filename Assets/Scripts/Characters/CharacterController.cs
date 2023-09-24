@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(CharacterStats))]
 [RequireComponent(typeof(CharacterMovement))]
-public class CharacterController : GameBehaviour, ICharacterController
+public class CharacterController : GameBehaviour, ICharacterController, ISocketable
 {
     [SerializeField]
     private Sprite portrait;
