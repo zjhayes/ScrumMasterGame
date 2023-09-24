@@ -3,7 +3,27 @@ guid: bc48c8b128b09df49afbeeec86042706
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Arrow
+    second: {fileID: 2100000, guid: 906a1769504f51c47bbfd9b47ad3124b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hardware
+    second: {fileID: 2100000, guid: 0a7e1416163b1964f9546ca231446d44, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Label
+    second: {fileID: 2100000, guid: 26a3c9bb9e0f82c4b9f297f9616debd4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: b2c19ee0cad9ff34eb9339314e9e7083, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
