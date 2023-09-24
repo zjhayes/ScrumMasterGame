@@ -12,9 +12,11 @@ public class FindSomethingToDoState : CharacterState
     [SerializeField]
     private float paceDistance = 10f; // How far a character walks while pacing randomly.
     [SerializeField]
-    float minWaitTime = 2.0f;
+    private float minWaitTime = 2.0f;
     [SerializeField]
-    float maxWaitTime = 10.0f;
+    private float maxWaitTime = 10.0f;
+    [SerializeField]
+    private float paceSpeed = 0.5f;
 
     protected ICharacterController character;
     private Coroutine waitAndMoveAction;
@@ -40,6 +42,8 @@ public class FindSomethingToDoState : CharacterState
 
     private void Update()
     {
+        if(IsPacing()) { return; } // Do nothing while pacing.
+
         // Determine this character's current priority.
         Interactable priority = FindSomethingToDo();
 
@@ -97,7 +101,7 @@ public class FindSomethingToDoState : CharacterState
     private void Pace()
     {
         // Pace around randomly.
-        if (character.Movement.IsStopped() && waitAndMoveAction == null)
+        if (character.Movement.IsStopped() && !IsPacing())
         {
             waitAndMoveAction = StartCoroutine(WaitAndMove());
         }
@@ -109,7 +113,7 @@ public class FindSomethingToDoState : CharacterState
 
         yield return new WaitForSeconds(delayTime);
         
-        character.Movement.WalkToRandomSpot(paceDistance, character.Movement.BaseSpeed * 0.5f);
+        character.Movement.WalkToRandomSpot(paceDistance, character.Movement.BaseSpeed * paceSpeed);
         waitAndMoveAction = null;
     }
 
@@ -130,5 +134,10 @@ public class FindSomethingToDoState : CharacterState
     private void StopIdleEmote()
     {
         idleBubble.Hide();
+    }
+
+    private bool IsPacing()
+    {
+        return waitAndMoveAction != null;
     }
 }
