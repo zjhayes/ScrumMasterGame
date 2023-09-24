@@ -1,6 +1,4 @@
-using UnityEngine;
-using UnityEngine.AI;
-
+/* This character state directs a character to an interactable, and interacts on arrival. */
 public class GoToInteractableState : CharacterState
 {
     protected ICharacterController character;

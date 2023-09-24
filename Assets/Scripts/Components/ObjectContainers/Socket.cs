@@ -39,7 +39,6 @@ public class Socket : Container
 
     protected virtual void ObjectRemovedAsChild()
     {
-        Debug.Log(currentObject);
         OnRemove?.Invoke(currentObject);
         currentObject = default;
     }

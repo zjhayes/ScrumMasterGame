@@ -2039,9 +2039,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3052846348464115903, guid: 8e3dfe99442781442b159ee6d6b13aeb,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125230063392697303, guid: 8e3dfe99442781442b159ee6d6b13aeb,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6533181023557357309, guid: 8e3dfe99442781442b159ee6d6b13aeb,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9150628541127205237, guid: 8e3dfe99442781442b159ee6d6b13aeb,
+        type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
