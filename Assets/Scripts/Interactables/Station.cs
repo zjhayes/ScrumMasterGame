@@ -10,7 +10,7 @@ public abstract class Station : Interactable
     [SerializeField]
     protected List<Chair> chairs;
 
-    private void Start()
+    protected override void Start()
     {
         // Listen for when character sits or stands.
         foreach(Chair chair in chairs)
@@ -18,6 +18,7 @@ public abstract class Station : Interactable
             chair.OnStand += OnChairUnoccupied;
             chair.OnSit += OnChairOccupied;
         }
+        base.Start();
     }
 
     public override void InteractWith(ICharacterController character)

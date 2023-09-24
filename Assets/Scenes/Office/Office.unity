@@ -8214,6 +8214,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StationA
       objectReference: {fileID: 0}
+    - target: {fileID: 7371795448150422722, guid: 825c3139999ba2e43bdf1c283a928109,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 825c3139999ba2e43bdf1c283a928109, type: 3}
 --- !u!1001 &4457295478939796761

@@ -4,18 +4,18 @@ using UnityEngine;
 public abstract class Interactable : GameBehaviour
 {
     [SerializeField]
-    private Selectable selectability;
+    protected Selectable selectability;
     [SerializeField]
     private Transform goToPosition; // Optional, position character will stand to interact.
 
     public event Events.CharacterEvent OnInteract;
 
-    private void Start()
+    protected virtual void Start()
     {
         // Listen to global changes to interactables.
         gameManager.Interactables.OnEnableInteractables += selectability.EnableSelection;
         gameManager.Interactables.OnDisableInteractables += selectability.DisableSelection;
-
+        
         // Listen to selection.
         selectability.OnSelect += OnSelect;
         selectability.DisableSelection();
