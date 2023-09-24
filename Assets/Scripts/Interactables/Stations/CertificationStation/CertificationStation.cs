@@ -3,17 +3,19 @@ using UnityEngine;
 public class CertificationStation : Station
 {
     [SerializeField]
-    GameObject closedBook;
+    private GameObject closedBook;
     [SerializeField]
-    GameObject openBook;
+    private GameObject openBook;
+
+    public event Events.CharacterEvent OnFirstOccupant;
+    public event Events.CharacterEvent OnUnoccupied;
 
     protected override void OnChairOccupied(ICharacterController occupant)
     {
         base.OnChairOccupied(occupant);
-
         if (CountOccupants() == 1)
         { // This is the first character to sit.
-            OnFirstOccupant();
+            FirstOccupant(occupant);
         }
     }
 
@@ -21,7 +23,7 @@ public class CertificationStation : Station
     {   
         if (CountOccupants() <= 0)
         { // This is the last occupant.
-            OnUnoccupied();
+            Unoccupied(occupant);
         }
 
         base.OnChairUnoccupied(occupant);
@@ -37,14 +39,16 @@ public class CertificationStation : Station
         return PriorityScoreConstants.NO_SCORE;
     }
 
-    private void OnFirstOccupant()
+    private void FirstOccupant(ICharacterController firstOccupant)
     {
         OpenBook();
+        OnFirstOccupant?.Invoke(firstOccupant);
     }
 
-    private void OnUnoccupied()
+    private void Unoccupied(ICharacterController lastOccupant)
     {
         CloseBook();
+        OnUnoccupied?.Invoke(lastOccupant);
     }
 
     private void CloseBook()

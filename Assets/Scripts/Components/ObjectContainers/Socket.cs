@@ -1,3 +1,5 @@
+using UnityEngine;
+
 /* Contains a socketable object to a transform. Tracks removal. */
 public class Socket : Container
 {
@@ -37,6 +39,7 @@ public class Socket : Container
 
     protected virtual void ObjectRemovedAsChild()
     {
+        Debug.Log(currentObject);
         OnRemove?.Invoke(currentObject);
         currentObject = default;
     }

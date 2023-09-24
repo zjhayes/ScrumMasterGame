@@ -13,7 +13,7 @@ public abstract class Station : Interactable
     protected override void Start()
     {
         // Listen for when character sits or stands.
-        foreach(Chair chair in chairs)
+        foreach (Chair chair in chairs)
         {
             chair.OnStand += OnChairUnoccupied;
             chair.OnSit += OnChairOccupied;
@@ -29,7 +29,7 @@ public abstract class Station : Interactable
 
     public override bool CanInteract(ICharacterController character)
     {
-        return HasVacancy();
+        return HasVacancy(); // Can interact when available chairs.
     }
 
     public bool HasVacancy()

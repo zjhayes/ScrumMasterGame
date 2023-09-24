@@ -22,6 +22,7 @@ public class CharacterMovement : MonoBehaviour
         {
 			// Character has arrived at destination.
 			this.enabled = false; // Stop FixedUpdate.
+			agent.enabled = false;
 			OnArrivedAtDestination?.Invoke();
         }
     }
@@ -34,9 +35,10 @@ public class CharacterMovement : MonoBehaviour
 	public void GoTo(Vector3 target, float speed)
     {
 		this.enabled = true; // Start FixedUpdate.
+		transform.parent = null; // Unsocket character.
 		agent.enabled = true;
 		agent.speed = speed;
-		agent.destination = target;
+		agent.SetDestination(target);
 		OnDestinationChange?.Invoke();
 	}
 
@@ -84,4 +86,5 @@ public class CharacterMovement : MonoBehaviour
     {
 		get { return baseSpeed; }
     }
+
 }
