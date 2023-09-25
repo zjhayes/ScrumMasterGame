@@ -12,7 +12,6 @@ public class CertificationStation : Station
 
     protected override void OnChairOccupied(ICharacterController occupant)
     {
-        base.OnChairOccupied(occupant);
         if (CountOccupants() == 1)
         { // This is the first character to sit.
             FirstOccupant(occupant);
@@ -25,8 +24,11 @@ public class CertificationStation : Station
         { // This is the last occupant.
             Unoccupied(occupant);
         }
+    }
 
-        base.OnChairUnoccupied(occupant);
+    protected override void OnCharacterDismiss(ICharacterController occupant)
+    {
+        occupant.FindSomethingToDo();
     }
 
     public override int CalculatePriorityFor(ICharacterController character)

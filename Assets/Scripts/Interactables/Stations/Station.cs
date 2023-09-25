@@ -67,24 +67,27 @@ public abstract class Station : Interactable
         return;
     }
 
+    /*
+     * Called when characters are dismissed by station.
+     */
+
     protected void DismissAll()
     {
         foreach (Chair chair in chairs)
         {
             if(chair.TryStand(out ICharacterController occupant))
             {
-                continue;
+                OnCharacterDismiss(occupant);
             }
         }
     }
 
-    protected virtual void OnChairOccupied(ICharacterController occupant)
-    {
-        // Override with logic for when a character successfully sits.
-    }
+    protected abstract void OnCharacterDismiss(ICharacterController occupant);
 
-    protected virtual void OnChairUnoccupied(ICharacterController occupant)
-    {
-        occupant.FindSomethingToDo();
-    }
+    /*
+     * Called regardless of whether station or player directed character so sit/stand 
+     */
+
+    protected abstract void OnChairOccupied(ICharacterController occupant);
+    protected abstract void OnChairUnoccupied(ICharacterController occupant);
 }

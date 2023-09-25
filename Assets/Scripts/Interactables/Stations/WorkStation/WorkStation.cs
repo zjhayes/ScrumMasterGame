@@ -66,19 +66,25 @@ public class WorkStation : Station
     protected override void OnChairOccupied(ICharacterController occupant)
     {
         computer.SignInDeveloper(occupant);
-        base.OnChairOccupied(occupant);
     }
 
     protected override void OnChairUnoccupied(ICharacterController occupant)
+    {
+        computer.SignOutDeveloper(occupant);
+    }
+
+    protected override void OnCharacterDismiss(ICharacterController occupant)
+    {
+        occupant.FindSomethingToDo();
+    }
+
+    private void TakeCartridgeIfAssignee(ICharacterController occupant)
     {
         if (computer.TryGetCartridge(out Cartridge cartridge) && cartridge.Task.Assignee == occupant)
         {
             // Assignee takes cartridge.
             occupant.GoInteractWith(cartridge);
         }
-
-        computer.SignOutDeveloper(occupant);
-        base.OnChairUnoccupied(occupant);
     }
 
     private bool CharacterCanWorkOnTask(ICharacterController character)

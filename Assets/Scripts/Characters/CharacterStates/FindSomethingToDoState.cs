@@ -55,7 +55,6 @@ public class FindSomethingToDoState : CharacterState
         else 
         {
             // Dilly dally, continue looking for something to do.
-            StartIdleEmote();
             Pace();
         }
     }
@@ -115,6 +114,7 @@ public class FindSomethingToDoState : CharacterState
 
         character.Movement.GoToBoundary(paceBoundary, character.Movement.BaseSpeed * paceSpeed);
         waitAndMoveAction = null;
+        StartIdleEmote();
     }
 
     private void CancelWaitAndMove()

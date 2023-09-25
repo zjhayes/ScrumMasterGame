@@ -12,7 +12,7 @@ public class Selectable : GameBehaviour, IPointerClickHandler, IPointerEnterHand
 
     private bool canSelect = true;
 
-    public void OnPointerClick(PointerEventData eventData)
+    public virtual void OnPointerClick(PointerEventData eventData)
     {
         Select();
     }

@@ -37,10 +37,9 @@ public class Chair : MonoBehaviour
         get { return seat; }
     }
 
+    // Force character to stand.
     private ICharacterController Stand()
     {
-        if (!Occupied) { return null; }
-
         if(seat.TryGet(out CharacterController occupant))
         {
             occupant.transform.SetParent(null);
@@ -54,11 +53,13 @@ public class Chair : MonoBehaviour
         }
     }
 
+    // Invokes OnSit when character becomes parented to seat.
     private void InvokeSit(IContainable character)
     {
         OnSit?.Invoke(character as ICharacterController);
     }
 
+    // Invokes OnStand when character is no longer parented to seat.
     private void InvokeStand(IContainable character)
     {
         OnStand.Invoke(character as ICharacterController);

@@ -28,8 +28,6 @@ public class ProductionServerStation : Station
 
     protected override void OnChairOccupied(ICharacterController occupant)
     {
-        base.OnChairOccupied(occupant);
-
         if (!computer.HasCartridge() && occupant.Inventory.TryGet(out Cartridge cartridge))
         {
             // Character has cartridge, put it in computer.
@@ -41,5 +39,15 @@ public class ProductionServerStation : Station
             DismissAll();
             return; // No cartridge, do something else.
         }
+    }
+
+    protected override void OnChairUnoccupied(ICharacterController occupant)
+    {
+        
+    }
+
+    protected override void OnCharacterDismiss(ICharacterController occupant)
+    {
+        occupant.FindSomethingToDo();
     }
 }
