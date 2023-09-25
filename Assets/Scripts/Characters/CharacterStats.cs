@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
@@ -9,19 +7,19 @@ public class CharacterStats : MonoBehaviour
 
     [SerializeField]
     [Range(0,10)]
-    int frontend;
+    private int frontend;
 
     [SerializeField]
     [Range(0, 10)]
-    int backend;
+    private int backend;
 
     [SerializeField]
     [Range(0, 10)]
-    int problemSolving;
+    private int problemSolving;
 
     [SerializeField]
     [Range(0, 10)]
-    int timeManagement;
+    private int timeManagement;
 
     public int Frontend
     {

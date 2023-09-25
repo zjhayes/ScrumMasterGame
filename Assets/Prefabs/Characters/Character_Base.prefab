@@ -86,6 +86,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfPrioritiesConsidered: 3
   idleBubble: {fileID: 7026099750404510769}
+  paceDistance: 10
+  minWaitTime: 2
+  maxWaitTime: 10
 --- !u!114 &4503259781330014649
 MonoBehaviour:
   m_ObjectHideFlags: 0

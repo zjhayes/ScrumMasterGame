@@ -1,3 +1,5 @@
+using UnityEngine;
+
 /* Contains a socketable object to a transform. Tracks removal. */
 public class Socket : Container
 {
