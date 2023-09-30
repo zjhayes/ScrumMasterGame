@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -68,6 +67,29 @@ public class BoardManager : MonoBehaviour
         }
         taskWithStatusAndAssignee = null;
         return false; // None found.
+    }
+
+    public int CountStoryPoints(List<Task> tasks)
+    {
+        int total = 0;
+        foreach(Task task in tasks)
+        {
+            total += task.Stats.Total;
+        }
+        return total;
+    }
+
+    public int CountCharacterStoryPoints(ICharacterController character)
+    {
+        int total = 0;
+        foreach (Task task in Tasks)
+        {
+            if (task.Assignee == character)
+            {
+                total += task.Stats.Total;
+            }
+        }
+        return total;
     }
 
     public void UpdateCache()

@@ -85,7 +85,7 @@ public abstract class Station : Interactable
     protected abstract void OnCharacterDismiss(ICharacterController occupant);
 
     /*
-     * Called regardless of whether station or player directed character so sit/stand 
+     * Called regardless of whether station or player directed character to sit/stand 
      */
 
     protected abstract void OnChairOccupied(ICharacterController occupant);

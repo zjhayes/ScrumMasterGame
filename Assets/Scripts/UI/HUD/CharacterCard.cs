@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CharacterCard : MenuController
 {
@@ -13,6 +14,8 @@ public class CharacterCard : MenuController
     ProgressBar problemSolvingProgressBar;
     [SerializeField]
     ProgressBar timeManagementProgressBar;
+    [SerializeField]
+    TextMeshProUGUI capacityText;
     [SerializeField]
     StatusBar statusBar;
 
@@ -44,5 +47,8 @@ public class CharacterCard : MenuController
         backendProgressBar.CurrentFill = character.Stats.Backend;
         problemSolvingProgressBar.CurrentFill = character.Stats.ProblemSolving;
         timeManagementProgressBar.CurrentFill = character.Stats.TimeManagement;
+
+        int assignedStoryPoints = gameManager.Board.CountCharacterStoryPoints(character);
+        capacityText.text = $"{assignedStoryPoints}/{character.Stats.Velocity}";
     }
 }

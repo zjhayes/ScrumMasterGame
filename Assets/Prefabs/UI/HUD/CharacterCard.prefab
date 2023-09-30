@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 783904660485269977}
   - component: {fileID: 783904660485269976}
   m_Layer: 5
-  m_Name: Velocity
+  m_Name: Capacity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -525,11 +525,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23993963b746f7c49bd50a51e5191e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  escapable: 0
   portraitPanel: {fileID: 783904661766888645}
   frontendProgressBar: {fileID: 783904660493288297}
   backendProgressBar: {fileID: 1353930860805665646}
   problemSolvingProgressBar: {fileID: 1353930859999343414}
   timeManagementProgressBar: {fileID: 1353930859834389338}
+  capacityText: {fileID: 783904660883707528}
   statusBar: {fileID: 8789808510055277483}
 --- !u!1 &783904660883707530
 GameObject:
@@ -543,7 +545,7 @@ GameObject:
   - component: {fileID: 783904660883707529}
   - component: {fileID: 783904660883707528}
   m_Layer: 5
-  m_Name: VelocityValue
+  m_Name: CapacityValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1102,7 +1104,7 @@ GameObject:
   - component: {fileID: 783904661635590554}
   - component: {fileID: 783904661635590549}
   m_Layer: 5
-  m_Name: VelocityLabel
+  m_Name: CapacityLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1156,7 +1158,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Velocity
+  m_text: Capacity
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1165,8 +1167,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4293519071
+  m_fontColor: {r: 0.8745098, g: 0.9019608, b: 0.9137255, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1183,8 +1185,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

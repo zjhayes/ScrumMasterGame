@@ -31,4 +31,9 @@ public class ProductionStats : MonoBehaviour
         this.Functionality -= other.Functionality;
         this.Maintainability -= other.Maintainability;
     }
+
+    public int Total
+    {
+        get { return usability + stability + functionality + maintainability; }
+    }
 }

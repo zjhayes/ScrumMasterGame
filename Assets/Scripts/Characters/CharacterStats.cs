@@ -40,4 +40,9 @@ public class CharacterStats : MonoBehaviour
     {
         get { return timeManagement; }
     }
+
+    public int Velocity
+    {
+        get { return frontend + backend + problemSolving + timeManagement; }
+    }
 }
