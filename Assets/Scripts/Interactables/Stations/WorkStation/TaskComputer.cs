@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class TaskComputer : Computer
 {
     private List<ICharacterController> developers;
+    private float proficiency = 0f; // Score based on developer(s) proficiency at current task.
+    private readonly float baseSpeed = 100f;
 
     protected override void Awake()
     {
@@ -16,10 +19,17 @@ public class TaskComputer : Computer
         if (cartridgeReceptacle.TryGet(out Cartridge cartridge))
         {
             if (developers.Count <= 0) { return; } // No developers.
-            
-            cartridge.Task.Completeness += .1f * developers.Count;
-            cartridge.Task.Outcome.ChanceOfErrors -= CalculateOutcome(cartridge);
 
+            float difficulty = (1f / cartridge.Task.StoryPoints); // Inverse of story points.
+
+            // Progress faster with more developers and fewer story points.
+            float progress = developers.Count * difficulty;
+            cartridge.Task.Completeness += progress * baseSpeed * Time.deltaTime;
+
+            // Update chance of errors based on developer proficiency compared to task difficulty.
+            float outcome = proficiency * difficulty;
+            cartridge.Task.Outcome.ChanceOfErrors -= outcome * baseSpeed * Time.deltaTime;
+            
             if (cartridge.Task.IsReadyForProduction)
             {
                 // Work is complete.
@@ -32,35 +42,24 @@ public class TaskComputer : Computer
         }
     }
 
-    private float CalculateOutcome(Cartridge cartridge)
-    {
-        float outcome = 0;
-
-        foreach (ICharacterController developer in developers)
-        {
-            float usability = CalculateModifier(cartridge.Task.Stats.Usability, developer.Stats.Frontend);
-            float stability = CalculateModifier(cartridge.Task.Stats.Stability, developer.Stats.Backend, developer.Stats.ProblemSolving);
-            float functionality = CalculateModifier(cartridge.Task.Stats.Functionality, developer.Stats.Backend, developer.Stats.Frontend);
-            float maintainability = CalculateModifier(cartridge.Task.Stats.Maintainability, developer.Stats.TimeManagement, developer.Stats.ProblemSolving);
-            outcome = usability + stability + functionality + maintainability;
-        }
-
-        return outcome;
-    }
-
-    private float CalculateModifier(int productionStat, int characterStat1, int characterStat2 = 0)
-    {
-        // Calculate difference of character's stats against required stats.
-        return (characterStat1 + characterStat2) - productionStat;
-    }
-
     public void SignInDeveloper(ICharacterController developer)
     {
         developers.Add(developer);
+        UpdateProficiency();
     }
 
     public void SignOutDeveloper(ICharacterController developer)
     {
         developers.Remove(developer);
+        UpdateProficiency();
+    }
+
+    private void UpdateProficiency()
+    {
+        // Compare developer(s) stats to current task requirements and score proficiency.
+        if (cartridgeReceptacle.TryGet(out Cartridge cartridge))
+        {
+            proficiency = WorkCalculator.CalculateCombinedOutcome(cartridge.Task.Stats, developers);
+        }
     }
 }
