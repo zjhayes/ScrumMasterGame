@@ -25,7 +25,7 @@ PrefabInstance:
     - target: {fileID: 2025796840576347535, guid: 071a156a41665834a99241b956a7f2d2,
         type: 3}
       propertyPath: timeManagement
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3269193963134125189, guid: 071a156a41665834a99241b956a7f2d2,
         type: 3}

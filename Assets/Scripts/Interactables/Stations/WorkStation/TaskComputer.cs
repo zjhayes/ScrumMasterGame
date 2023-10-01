@@ -5,7 +5,7 @@ public class TaskComputer : Computer
 {
     private List<ICharacterController> developers;
     private float proficiency = 0f; // Score based on developer(s) proficiency at current task.
-    private readonly float baseSpeed = 100f;
+    private readonly float baseSpeed = 10f;
 
     protected override void Awake()
     {

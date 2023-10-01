@@ -36,33 +36,33 @@ public class WorkCalculator
 
     public static float CalculateUsabilityOutcome(ProductionStats requirementStats, CharacterStats characterStats)
     {
-        return CalculateModifier(requirementStats.Usability, characterStats.Frontend, characterStats.ProblemSolving);
+        return CalculateModifier(requirementStats.Usability, characterStats.Frontend, characterStats.TimeManagement);
     }
 
     public static float CalculateStabilityOutcome(ProductionStats requirementStats, CharacterStats characterStats)
     {
-        return CalculateModifier(requirementStats.Stability, characterStats.Backend, characterStats.ProblemSolving);
+        return CalculateModifier(requirementStats.Stability, characterStats.Backend, characterStats.TimeManagement);
     }
 
     public static float CalculateFunctionalityOutcome(ProductionStats requirementStats, CharacterStats characterStats)
     {
-        return CalculateModifier(requirementStats.Functionality, characterStats.Backend, characterStats.Frontend);
+        return CalculateModifier(requirementStats.Functionality, characterStats.Frontend, characterStats.ProblemSolving);
     }
 
     public static float CalculateMaintainabilityOutcome(ProductionStats requirementStats, CharacterStats characterStats)
     {
-        return CalculateModifier(requirementStats.Maintainability, characterStats.TimeManagement);
+        return CalculateModifier(requirementStats.Maintainability, characterStats.Backend, characterStats.ProblemSolving);
     }
 }
 
 /*
     Frontend = Usability and Functionality
-    Backend = Stability and Functionality
-    Problem Solving = Stability and Usability
-    Time Management = Maintainability
+    Backend = Stability and Maintainability
+    Problem Solving = Maintainability and Functionality
+    Time Management = Usability and Stability +Increased speed and efficiency.
 
-    Usability = Frontend and Problem Solving
-    Stability = Backend and Problem Solving
-    Functionality = Frontend + Backend
-    Maintainability = Time Management
+    Usability = Frontend and Time Management
+    Stability = Backend and Time Management
+    Functionality = Frontend and Problem Solving
+    Maintainability = Backend and Problem Solving
 */

@@ -360,7 +360,7 @@ PrefabInstance:
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
       propertyPath: stability
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
@@ -370,12 +370,12 @@ PrefabInstance:
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
       propertyPath: functionality
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
       propertyPath: maintainability
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4876823983988806864, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
@@ -2975,17 +2975,17 @@ PrefabInstance:
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
       propertyPath: stability
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
-        type: 3}
-      propertyPath: usability
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
+      propertyPath: usability
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
+        type: 3}
       propertyPath: functionality
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
@@ -3632,22 +3632,22 @@ PrefabInstance:
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
       propertyPath: stability
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
       propertyPath: usability
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
       propertyPath: functionality
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
       propertyPath: maintainability
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4876823983988806864, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
@@ -5238,17 +5238,17 @@ PrefabInstance:
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
       propertyPath: usability
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
       propertyPath: functionality
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1943038714938045484, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
       propertyPath: maintainability
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4876823983988806864, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}

@@ -41,7 +41,7 @@ public class Task : MonoBehaviour, IContainable
 
     public int StoryPoints
     {
-        get { return stats.Total; }
+        get { return stats.Average; }
     }
 
     public ICharacterController Assignee

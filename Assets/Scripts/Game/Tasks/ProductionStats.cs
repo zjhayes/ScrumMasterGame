@@ -36,4 +36,9 @@ public class ProductionStats : MonoBehaviour
     {
         get { return usability + stability + functionality + maintainability; }
     }
+
+    public int Average
+    {
+        get { return Mathf.CeilToInt(Total / 4.0f); }
+    }
 }
