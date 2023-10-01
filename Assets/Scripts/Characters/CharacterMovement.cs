@@ -18,7 +18,7 @@ public class CharacterMovement : MonoBehaviour
 
 	private void FixedUpdate()
     {
-		if(AtDestination())
+		if(IsNavigationReady() && AtDestination())
         {
 			// Character has arrived at destination.
 			this.enabled = false; // Stop FixedUpdate.
@@ -44,11 +44,7 @@ public class CharacterMovement : MonoBehaviour
 
 	public bool AtDestination()
     {
-		if (IsNavigationReady() && WithinStoppingDistance() && IsStopped())
-		{
-			return true;
-		}
-		return false;
+		return (WithinStoppingDistance() && IsStopped());
 	}
 
 	public bool IsNavigationReady()
