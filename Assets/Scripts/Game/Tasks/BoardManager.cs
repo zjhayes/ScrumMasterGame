@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
@@ -17,12 +18,12 @@ public class BoardManager : MonoBehaviour
         UpdateCache();
     }
 
-    public List<Task> GetTasksWithStatus(TaskStatus status)
+    public List<Task> GetTasksWithStatus(params TaskStatus[] statuses)
     {
-        List<Task> tasksWithStatus = new List<Task>();
-        foreach(Task task in Tasks)
+        List<Task> tasksWithStatus = new();
+        foreach (Task task in Tasks)
         {
-            if(task.Status == status)
+            if (Array.Exists(statuses, status => status == task.Status))
             {
                 tasksWithStatus.Add(task);
             }
@@ -32,7 +33,7 @@ public class BoardManager : MonoBehaviour
 
     public List<Task> GetTasksWithAssignee(ICharacterController assignee)
     {
-        List<Task> tasksWithAssignee = new List<Task>();
+        List<Task> tasksWithAssignee = new();
         foreach(Task task in Tasks)
         {
             if(task.Assignee == assignee)

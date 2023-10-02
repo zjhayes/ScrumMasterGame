@@ -13,8 +13,11 @@ public class ProductionServer : Computer
             {
                 // Work is deployed, cache cartridge object.
                 gameManager.ObjectPool.PoolCartridge(cartridge);
+                gameManager.Sprint.EndSprintEarlyIfAllDone();
             }
         }
         Sleep();
     }
+
+
 }

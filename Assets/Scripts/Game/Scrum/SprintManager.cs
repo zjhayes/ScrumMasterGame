@@ -46,9 +46,8 @@ public class SprintManager : GameBehaviour
 
     public void BeginRelease()
     {
-        currentSprint.CompleteTasks.AddRange(gameManager.Board.GetTasksWithStatus(TaskStatus.DONE));
-        currentSprint.IncompleteTasks.AddRange(gameManager.Board.GetTasksWithStatus(TaskStatus.TO_DO));
-        currentSprint.IncompleteTasks.AddRange(gameManager.Board.GetTasksWithStatus(TaskStatus.IN_PROGRESS));
+        currentSprint.CompleteTasks = gameManager.Board.GetTasksWithStatus(TaskStatus.DONE);
+        currentSprint.IncompleteTasks = gameManager.Board.GetTasksWithStatus(TaskStatus.TO_DO, TaskStatus.IN_PROGRESS);
         gameManager.Board.ArchiveTasksWithStatus(TaskStatus.DONE);
         BeginRetrospective();
     }
@@ -56,6 +55,19 @@ public class SprintManager : GameBehaviour
     public void BeginRetrospective()
     {
         OnBeginRetrospective?.Invoke();
+    }
+
+    public void EndEarly()
+    {
+        BeginRelease();
+    }
+
+    public void EndSprintEarlyIfAllDone()
+    {
+        if (gameManager.Board.GetTasksWithStatus(TaskStatus.TO_DO, TaskStatus.IN_PROGRESS).Count <= 0)
+        {
+            EndEarly();
+        }
     }
 
     public Sprint Current
