@@ -36,12 +36,11 @@ public class TaskProgressionPanel : MonoBehaviour
     public void UpdateModifiers(ProductionStats taskStats, CharacterStats assigneeStats)
     {
         // Update modifier text, comparing their stats.
-        UpdateModifier(usabilityModifier, CalculateModifier(taskStats.Usability, assigneeStats.Frontend));
-        UpdateModifier(stabilityModifier, CalculateModifier(taskStats.Stability, assigneeStats.Backend, assigneeStats.ProblemSolving));
-        UpdateModifier(functionalityModifier, CalculateModifier(taskStats.Functionality, assigneeStats.Frontend, assigneeStats.Backend));
-        UpdateModifier(maintainabilityModifier, CalculateModifier(taskStats.Maintainability, assigneeStats.ProblemSolving));
+        UpdateModifier(usabilityModifier, (int) WorkCalculator.CalculateUsabilityOutcome(taskStats, assigneeStats));
+        UpdateModifier(stabilityModifier, (int) WorkCalculator.CalculateStabilityOutcome(taskStats, assigneeStats));
+        UpdateModifier(functionalityModifier, (int) WorkCalculator.CalculateFunctionalityOutcome(taskStats, assigneeStats));
+        UpdateModifier(maintainabilityModifier, (int) WorkCalculator.CalculateMaintainabilityOutcome(taskStats, assigneeStats));
     }
-
 
     public void ClearModifiers()
     {
@@ -65,11 +64,5 @@ public class TaskProgressionPanel : MonoBehaviour
             modifierText.text = modifier.ToString();
             modifierText.color = negativeColor;
         }
-    }
-
-    private int CalculateModifier(int productionStat, int characterStat1, int characterStat2 = 0)
-    {
-        // Calculate difference of character's stats against required stats.
-        return (characterStat1 + characterStat2) - productionStat;
     }
 }

@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     ScrumMenuController scrumMenu;
     [SerializeField]
+    RetrospectiveMenuController retrospectiveMenu;
+    [SerializeField]
     StatusBarController statusBar;
 
     public CharacterCard CharacterCard
@@ -24,6 +26,11 @@ public class UIManager : MonoBehaviour
     public ScrumMenuController ScrumMenu
     {
         get { return scrumMenu; }
+    }
+
+    public RetrospectiveMenuController RetrospectiveMenu
+    {
+        get { return retrospectiveMenu; }
     }
 
     public StatusBarController StatusBar

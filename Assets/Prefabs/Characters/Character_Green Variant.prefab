@@ -27,10 +27,15 @@ PrefabInstance:
       propertyPath: timeManagement
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5670977548864422987, guid: 071a156a41665834a99241b956a7f2d2,
+    - target: {fileID: 3269193963134125189, guid: 071a156a41665834a99241b956a7f2d2,
         type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5670977548864422987, guid: 071a156a41665834a99241b956a7f2d2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6632779351056929697, guid: 071a156a41665834a99241b956a7f2d2,
         type: 3}

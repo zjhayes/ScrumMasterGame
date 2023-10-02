@@ -3,7 +3,7 @@
 public static class PriorityScoreConstants
 {
     public const int NO_SCORE = 0;
-    public const int CERTIFICATION_STATION = 5;
+    public const int CERTIFICATION_STATION = 1;
     public const int PAIR_PROGRAM = 50;
     public const int TAKE_TASK_FROM_BOARD = 70;
     public const int PICK_UP_ASSIGNED_CARTRIDGE = 200;

@@ -78,15 +78,6 @@ public class WorkStation : Station
         occupant.FindSomethingToDo();
     }
 
-    private void TakeCartridgeIfAssignee(ICharacterController occupant)
-    {
-        if (computer.TryGetCartridge(out Cartridge cartridge) && cartridge.Task.Assignee == occupant)
-        {
-            // Assignee takes cartridge.
-            occupant.GoInteractWith(cartridge);
-        }
-    }
-
     private bool CharacterCanWorkOnTask(ICharacterController character)
     {
         // Station is open for character to work on task, which is not yet ready for production.

@@ -49,7 +49,7 @@ public class TaskPanel : MenuController, IContainable
     public override void SetUp()
     {
         button = GetComponent<ButtonController>();
-        button.onClick += Selected;
+        button.OnClick += Selected;
     }
 
     public override void Show()

@@ -10,8 +10,6 @@ public class Task : MonoBehaviour, IContainable
     [SerializeField]
     private string description;
     [SerializeField]
-    private int storyPoints;
-    [SerializeField]
     private ICharacterController assignee;
     [SerializeField]
     private TaskStatus status = TaskStatus.INACTIVE;
@@ -43,7 +41,7 @@ public class Task : MonoBehaviour, IContainable
 
     public int StoryPoints
     {
-        get { return storyPoints; }
+        get { return stats.Average; }
     }
 
     public ICharacterController Assignee

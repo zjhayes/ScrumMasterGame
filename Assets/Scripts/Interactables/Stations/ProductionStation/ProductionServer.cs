@@ -1,4 +1,6 @@
+using UnityEngine;
 
+[RequireComponent(typeof(ProductionStats))]
 public class ProductionServer : Computer
 {
     protected override void IterateWork()
@@ -11,12 +13,11 @@ public class ProductionServer : Computer
             {
                 // Work is deployed, cache cartridge object.
                 gameManager.ObjectPool.PoolCartridge(cartridge);
-                Sleep();
+                gameManager.Sprint.EndSprintEarlyIfAllDone();
             }
         }
-        else
-        {
-            Sleep(); // No cartridge.
-        }
+        Sleep();
     }
+
+
 }

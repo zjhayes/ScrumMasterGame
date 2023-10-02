@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 1003018137}
   - component: {fileID: 1003018138}
   - component: {fileID: 5392561189915956375}
+  - component: {fileID: 7475278213864837451}
   m_Layer: 0
   m_Name: ProductionServer
   m_TagString: Interactable
@@ -294,6 +295,22 @@ MonoBehaviour:
   outlines:
   - {fileID: 6149858212579344862}
   selectability: {fileID: 8659913011848063047}
+--- !u!114 &7475278213864837451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5666085525182350497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d5a8555f955e14c811e2c28f62b1b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usability: 0
+  stability: 0
+  functionality: 0
+  maintainability: 0
 --- !u!1001 &4457295477643857236
 PrefabInstance:
   m_ObjectHideFlags: 0

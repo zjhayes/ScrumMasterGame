@@ -1,15 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
     [SerializeField]
-    Container taskContainer;
+    private Container taskContainer;
     [SerializeField]
-    bool cacheInactive = false;
+    private bool cacheInactive = false;
 
-    List<Task> cachedTasks;
+    private List<Task> cachedTasks;
 
     public event Events.GameEvent OnBoardUpdated;
 
@@ -18,12 +18,12 @@ public class BoardManager : MonoBehaviour
         UpdateCache();
     }
 
-    public List<Task> GetTasksWithStatus(TaskStatus status)
+    public List<Task> GetTasksWithStatus(params TaskStatus[] statuses)
     {
-        List<Task> tasksWithStatus = new List<Task>();
-        foreach(Task task in Tasks)
+        List<Task> tasksWithStatus = new();
+        foreach (Task task in Tasks)
         {
-            if(task.Status == status)
+            if (Array.Exists(statuses, status => status == task.Status))
             {
                 tasksWithStatus.Add(task);
             }
@@ -33,7 +33,7 @@ public class BoardManager : MonoBehaviour
 
     public List<Task> GetTasksWithAssignee(ICharacterController assignee)
     {
-        List<Task> tasksWithAssignee = new List<Task>();
+        List<Task> tasksWithAssignee = new();
         foreach(Task task in Tasks)
         {
             if(task.Assignee == assignee)
@@ -68,6 +68,40 @@ public class BoardManager : MonoBehaviour
         }
         taskWithStatusAndAssignee = null;
         return false; // None found.
+    }
+
+    public int CountStoryPoints(List<Task> tasks)
+    {
+        int total = 0;
+        foreach(Task task in tasks)
+        {
+            total += task.StoryPoints;
+        }
+        return total;
+    }
+
+    public int CountCharacterStoryPoints(ICharacterController character)
+    {
+        int total = 0;
+        foreach (Task task in Tasks)
+        {
+            if (task.Assignee == character)
+            {
+                total += task.Stats.Total;
+            }
+        }
+        return total;
+    }
+
+    public void ArchiveTasksWithStatus(TaskStatus status)
+    {
+        foreach (Task task in Tasks)
+        {
+            if (task.Status == status)
+            {
+                task.Status = TaskStatus.ARCHIVED;
+            }
+        }
     }
 
     public void UpdateCache()

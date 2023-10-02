@@ -44,11 +44,7 @@ public class CharacterMovement : MonoBehaviour
 
 	public bool AtDestination()
     {
-		if (IsNavigationReady() && WithinStoppingDistance() && IsStopped())
-		{
-			return true;
-		}
-		return false;
+		return (IsNavigationReady() && WithinStoppingDistance() && IsStopped());
 	}
 
 	public bool IsNavigationReady()

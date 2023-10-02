@@ -1,13 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ButtonController : MonoBehaviour
 {
-    public delegate void OnClick();
-    public event OnClick onClick;
+    public event Events.PlayerEvent OnClick;
 
+    // Add this method to Button Unity Events.
     public void ButtonClicked()
     {
-        onClick?.Invoke();
+        OnClick?.Invoke();
     }
 }
