@@ -18,14 +18,14 @@ public class PlanningMenuController : AbstractTaskMenu
         // Listen to Begin Sprint button.
         sprintDetailsPanel.onBeginSprint += OnBeginSprintPressed;
 
-        ValidateSprintReadiness();
+        //ValidateSprintReadiness();
         statusContainerMap.Add(TaskStatus.BACKLOG, backlogContainer.gameObject.transform);
         statusContainerMap.Add(TaskStatus.TO_DO, inSprintContainer.gameObject.transform);
         statusContainerMap.Add(TaskStatus.IN_PROGRESS, inSprintContainer.gameObject.transform);
         base.SetUp();
     }
 
-    void OnBeginSprintPressed()
+    private void OnBeginSprintPressed()
     {
         gameManager.Sprint.BeginSprint();
     }
@@ -41,7 +41,7 @@ public class PlanningMenuController : AbstractTaskMenu
         }
     }
 
-    void UpdateTaskPanel(TaskPanel taskPanel)
+    private void UpdateTaskPanel(TaskPanel taskPanel)
     {
         if(taskPanel.Task.Assignee != null)
         {
@@ -64,9 +64,15 @@ public class PlanningMenuController : AbstractTaskMenu
         ValidateSprintReadiness();
     }
 
-    void ValidateSprintReadiness()
+    private void ValidateSprintReadiness()
     {
         // Disable 'Begin Sprint' when no tasks are in sprint.
-        sprintDetailsPanel.UpdateButtonInteraction(inSprintContainer.Contains<TaskPanel>());
+        bool includeInactive = true;
+        sprintDetailsPanel.UpdateButtonInteraction(inSprintContainer.Contains<TaskPanel>(includeInactive));
+    }
+
+    private void OnEnable()
+    {
+        ValidateSprintReadiness();
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 // A Container treats a GameObject as storage for other GameObjects.
 public class Container : MonoBehaviour
 {
-    const bool INCLUDE_INACTIVE_DEFAULT = true;
+    const bool INCLUDE_INACTIVE_DEFAULT = false;
 
     public event Events.ContainerEvent OnAdd;
 
