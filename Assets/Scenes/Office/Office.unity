@@ -2840,7 +2840,7 @@ PrefabInstance:
     - target: {fileID: 4876823983988806871, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
       propertyPath: summary
-      value: Testing the Limits
+      value: Testing the Lower Bounds
       objectReference: {fileID: 0}
     - target: {fileID: 4876823983988806871, guid: 9e908822b5f80fa43861afc65db49d28,
         type: 3}
