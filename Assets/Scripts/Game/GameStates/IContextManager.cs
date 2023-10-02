@@ -6,8 +6,10 @@ public interface IContextManager : IController
     public void SwitchToScrumView();
 
     public void SwitchToPlanningView();
+    public void SwitchToRetrospectiveView();
 
     public void CharacterSelected(ICharacterController character);
+    public void DeselectCharacter();
 
     public void ChangeView();
 

@@ -14,6 +14,8 @@ public class ContextManager : GameBehaviour, IContextManager
     [SerializeField]
     private GameState planningViewState;
     [SerializeField]
+    private GameState retrospectiveViewState;
+    [SerializeField]
     private GameState selectedCharacterState;
 
     private void Awake()
@@ -24,9 +26,10 @@ public class ContextManager : GameBehaviour, IContextManager
         // Listen to Sprint Manager.
         gameManager.Sprint.OnBeginPlanning += SwitchToPlanningView;
         gameManager.Sprint.OnBeginSprint += Default;
+        gameManager.Sprint.OnBeginRetrospective += SwitchToRetrospectiveView;
 
         // Listen to player controls.
-        gameManager.Controls.OnEscape += EscapeCurrentState;
+        gameManager.Controls.OnEscape += EscapeCurrentState; // TODO: Just call default?
         gameManager.Controls.OnChangeView += ChangeView;
     }
 
@@ -43,6 +46,11 @@ public class ContextManager : GameBehaviour, IContextManager
     public void SwitchToPlanningView()
     {
         stateContext.Transition(planningViewState);
+    }
+
+    public void SwitchToRetrospectiveView()
+    {
+        stateContext.Transition(retrospectiveViewState);
     }
 
     public void CharacterSelected(ICharacterController character)

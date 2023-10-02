@@ -8,6 +8,8 @@ public class FrustratedState : CharacterState
     [SerializeField]
     private OverheadElement frustrationBubble;
 
+    Coroutine waitAndFindSomethingToDoAction;
+
     ICharacterController character;
 
     public override void Handle(ICharacterController controller)
@@ -15,18 +17,35 @@ public class FrustratedState : CharacterState
         this.character = controller;
         base.Handle(controller);
         frustrationBubble.Show();
-        StartCoroutine(StopEmoteAfterDelay()); // Wait and then end frustration.
+        waitAndFindSomethingToDoAction = StartCoroutine(WaitAndFindSomethingToDo()); // Wait and then end frustration.
     }
 
-    IEnumerator StopEmoteAfterDelay()
+    public override void Exit()
     {
-        yield return new WaitForSeconds(emoteTime);
         frustrationBubble.Hide();
-        character.FindSomethingToDo();
+        CancelWaitAndFindSomethingToDo();
+
+        base.Exit();
     }
 
     public override string Status
     {
         get { return "Frustrated"; }
+    }
+
+    private IEnumerator WaitAndFindSomethingToDo()
+    {
+        yield return new WaitForSeconds(emoteTime);
+
+        character.FindSomethingToDo();
+    }
+
+    private void CancelWaitAndFindSomethingToDo()
+    {
+        if (waitAndFindSomethingToDoAction != null)
+        {
+            StopCoroutine(waitAndFindSomethingToDoAction);
+            waitAndFindSomethingToDoAction = null;
+        }
     }
 }

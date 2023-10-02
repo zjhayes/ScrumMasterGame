@@ -12,10 +12,10 @@ public class WorkCalculator
     public static float CalculateOutcome(ProductionStats requirementStats, CharacterStats characterStats)
     {
         // Compare difference between production stats to character stats.
-        float usability = CalculateModifier(requirementStats.Usability, characterStats.Frontend, characterStats.ProblemSolving);
-        float stability = CalculateModifier(requirementStats.Stability, characterStats.Backend, characterStats.ProblemSolving);
-        float functionality = CalculateModifier(requirementStats.Functionality, characterStats.Backend, characterStats.Frontend);
-        float maintainability = CalculateModifier(requirementStats.Maintainability, characterStats.TimeManagement);
+        float usability = CalculateUsabilityOutcome(requirementStats, characterStats);
+        float stability = CalculateStabilityOutcome(requirementStats, characterStats);
+        float functionality = CalculateFunctionalityOutcome(requirementStats, characterStats);
+        float maintainability = CalculateMaintainabilityOutcome(requirementStats, characterStats);
 
         // Return sum of stats.
         return usability + stability + functionality + maintainability;

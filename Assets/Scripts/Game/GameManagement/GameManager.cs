@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(SprintManager))]
 [RequireComponent(typeof(BoardManager))]
 [RequireComponent(typeof(TeamManager))]
+[RequireComponent(typeof(ProductionManager))]
 public class GameManager : MonoBehaviour, IGameManager
 {
     UIManager ui;
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour, IGameManager
     BoardManager board;
     IContextManager context;
     TeamManager teamManager;
+    ProductionManager productionManager;
     InteractableManager interactables;
     ObjectPoolController objectPool;
     CameraController cameraController;
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour, IGameManager
         sprint = GetComponent<SprintManager>();
         board = GetComponent<BoardManager>();
         teamManager = GetComponent<TeamManager>();
+        productionManager = GetComponent<ProductionManager>();
 
         objectPool = FindObjectOfType<ObjectPoolController>();
         cameraController = FindObjectOfType<CameraController>();
@@ -70,6 +73,11 @@ public class GameManager : MonoBehaviour, IGameManager
     public TeamManager Team
     {
         get { return teamManager; }
+    }
+
+    public ProductionManager Production
+    {
+        get { return productionManager; }
     }
 
     public ObjectPoolController ObjectPool

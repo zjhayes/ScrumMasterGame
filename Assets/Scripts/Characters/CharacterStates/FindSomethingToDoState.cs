@@ -31,7 +31,6 @@ public class FindSomethingToDoState : CharacterState
     {
         StopIdleEmote();
         CancelWaitAndMove();
-
         base.Exit();
     }
 

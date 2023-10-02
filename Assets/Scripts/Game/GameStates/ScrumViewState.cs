@@ -10,7 +10,6 @@ public class ScrumViewState : GameState
 
         // Deselect current character, if any.
         controller.DeselectCharacter();
-
         gameManager.Camera.SwitchToBoardCamera();
         base.Handle(controller);
     }

@@ -4,11 +4,11 @@ using UnityEngine;
 public class BoardManager : MonoBehaviour
 {
     [SerializeField]
-    Container taskContainer;
+    private Container taskContainer;
     [SerializeField]
-    bool cacheInactive = false;
+    private bool cacheInactive = false;
 
-    List<Task> cachedTasks;
+    private List<Task> cachedTasks;
 
     public event Events.GameEvent OnBoardUpdated;
 
@@ -74,7 +74,7 @@ public class BoardManager : MonoBehaviour
         int total = 0;
         foreach(Task task in tasks)
         {
-            total += task.Stats.Total;
+            total += task.StoryPoints;
         }
         return total;
     }
@@ -90,6 +90,17 @@ public class BoardManager : MonoBehaviour
             }
         }
         return total;
+    }
+
+    public void ArchiveTasksWithStatus(TaskStatus status)
+    {
+        foreach (Task task in Tasks)
+        {
+            if (task.Status == status)
+            {
+                task.Status = TaskStatus.ARCHIVED;
+            }
+        }
     }
 
     public void UpdateCache()

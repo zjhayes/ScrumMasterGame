@@ -28,7 +28,7 @@ public class TaskComputer : Computer
 
             // Update chance of errors based on developer proficiency compared to task difficulty.
             float outcome = proficiency * difficulty;
-            cartridge.Task.Outcome.ChanceOfErrors -= outcome * baseSpeed * Time.deltaTime;
+            cartridge.Task.Outcome.ChanceOfErrors -= outcome * Time.deltaTime;
             
             if (cartridge.Task.IsReadyForProduction)
             {

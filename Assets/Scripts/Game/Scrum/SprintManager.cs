@@ -1,14 +1,15 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(SprintClock))]
-public class SprintManager : MonoBehaviour
+public class SprintManager : GameBehaviour
 {
     [SerializeField]
     float sprintTime = 120.0f;
 
-    int sprintNumber = 1;
-    SprintClock clock;
+    private Sprint currentSprint;
+    private List<Sprint> sprintHistory;
+    private SprintClock clock;
 
     public event Events.GameEvent OnBeginPlanning;
     public event Events.GameEvent OnBeginSprint;
@@ -16,9 +17,10 @@ public class SprintManager : MonoBehaviour
 
     void Awake()
     {
+        sprintHistory = new List<Sprint>();
         clock = GetComponent<SprintClock>();
         clock.TotalTime = sprintTime;
-        clock.onExpiration += BeginRetrospective;
+        clock.onExpiration += BeginRelease;
     }
 
     void Start()
@@ -28,6 +30,11 @@ public class SprintManager : MonoBehaviour
 
     public void BeginPlanning()
     {
+        // Create new Sprint.
+        currentSprint = new Sprint();
+        sprintHistory.Add(currentSprint);
+        currentSprint.Number = sprintHistory.Count;
+
         OnBeginPlanning?.Invoke();
     }
 
@@ -37,13 +44,23 @@ public class SprintManager : MonoBehaviour
         OnBeginSprint?.Invoke();
     }
 
+    public void BeginRelease()
+    {
+        currentSprint.CompleteTasks.AddRange(gameManager.Board.GetTasksWithStatus(TaskStatus.DONE));
+        currentSprint.IncompleteTasks.AddRange(gameManager.Board.GetTasksWithStatus(TaskStatus.TO_DO));
+        currentSprint.IncompleteTasks.AddRange(gameManager.Board.GetTasksWithStatus(TaskStatus.IN_PROGRESS));
+        gameManager.Board.ArchiveTasksWithStatus(TaskStatus.DONE);
+        BeginRetrospective();
+    }
+
     public void BeginRetrospective()
     {
-        sprintNumber++;
         OnBeginRetrospective?.Invoke();
-        //SceneManager.LoadScene(1); // Reload scene.
-        
-        BeginPlanning(); // TODO: Move this.
+    }
+
+    public Sprint Current
+    {
+        get { return currentSprint; }
     }
 
     public SprintClock Clock
