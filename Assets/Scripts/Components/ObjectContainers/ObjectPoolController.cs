@@ -19,9 +19,9 @@ public class ObjectPoolController : GameBehaviour
         if(objectPool.TryGetFirst(out cartridge))
         {
             // Take cartridge from pool and move to desired location.
-            cartridge.gameObject.SetActive(true);
-            cartridge.transform.SetPositionAndRotation(location.position, location.rotation);
             cartridge.Task = task;
+            cartridge.transform.SetPositionAndRotation(location.position, location.rotation);
+            cartridge.gameObject.SetActive(true);
             return cartridge;
         }
         else

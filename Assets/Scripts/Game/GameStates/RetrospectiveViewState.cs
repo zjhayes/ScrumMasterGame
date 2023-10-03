@@ -9,7 +9,7 @@ public class RetrospectiveViewState : GameState
     public override void Handle(ContextManager _controller)
     {
         controller = _controller;
-        ApplyProductionStats();
+        ReleaseSprint();
         gameManager.UI.ScrumMenu.Hide();
         gameManager.UI.StatusBar.Hide();
         gameManager.UI.RetrospectiveMenu.Show();
@@ -31,27 +31,62 @@ public class RetrospectiveViewState : GameState
         base.Exit();
     }
 
-    private void ApplyProductionStats()
+    private void ReleaseSprint()
     {
+        // Capture complete/incomplete tasks.
+        List<Task> completedTasks = gameManager.Board.GetTasksWithStatus(TaskStatus.DONE);
+        gameManager.Sprint.Current.CompleteTasks = completedTasks;
+        gameManager.Sprint.Current.IncompleteTasks = gameManager.Board.GetTasksWithStatus(TaskStatus.TO_DO, TaskStatus.IN_PROGRESS);
+
+        // Capture sprint outcomes.
         float chanceOfErrors = 0f;
-        List<Task> completedTasks = gameManager.Sprint.Current.CompleteTasks;
+        float cycleTimeSum = 0f;
+        int defects = 0;
+
         foreach (Task task in completedTasks)
         {
             // Add task requirements to production stats.
             gameManager.Production.Stats.Add(task.Stats);
+
+            // Determine number of defects.
+            if(CreatesDefect(task.Outcome))
+            {
+                defects++;
+            }
+            // Accumulate chance of errors to calculate quality.
             chanceOfErrors += Mathf.Clamp(task.Outcome.ChanceOfErrors, Numeric.ZERO, Numeric.ONE_HUNDRED_PERCENT);
+            // Accumulate cycle time to calculate average.
+            cycleTimeSum += task.Outcome.CycleTime;
         }
-        // Capture proficiency.
+
+        // Capture quality based on chance of errors.
         if (completedTasks.Count > 0)
         {
-            gameManager.Sprint.Current.Proficiency = Numeric.ONE_HUNDRED_PERCENT - (chanceOfErrors / completedTasks.Count);
+            gameManager.Sprint.Current.Quality = Numeric.ONE_HUNDRED_PERCENT - (chanceOfErrors / completedTasks.Count);
+            gameManager.Sprint.Current.CycleTime = cycleTimeSum / completedTasks.Count;
         }
         else
         {
-            gameManager.Sprint.Current.Proficiency = Numeric.ZERO; 
+            gameManager.Sprint.Current.Quality = Numeric.ZERO;
+            gameManager.Sprint.Current.CycleTime = Numeric.ZERO;
         }
+
+        // Capture defect rate.
+        gameManager.Sprint.Current.Defects = defects;
 
         // Capture remaining time.
         gameManager.Sprint.Current.RemainingTime = gameManager.Sprint.Clock.CurrentTime;
+
+        // Clean up board.
+        gameManager.Board.ArchiveTasksWithStatus(TaskStatus.DONE);
+    }
+
+    private bool CreatesDefect(TaskOutcome outcome)
+    {
+        float chanceOfErrors = outcome.ChanceOfErrors;
+        float randomNumber = Random.Range(0f, 100f);
+        
+        // Compare the random number to chanceOfErrors, no defect if chance of errors is greater.
+        return randomNumber <= chanceOfErrors;
     }
 }

@@ -10,11 +10,34 @@ public class ProductionStats : MonoBehaviour
     private int functionality;
     [SerializeField]
     private int maintainability;
+    [SerializeField]
+    private int maximumValue = 10;
 
-    public int Usability { get { return usability; } set { usability = value; } }
-    public int Stability { get { return stability; } set { stability = value; } }
-    public int Functionality { get { return functionality; } set { functionality = value; } }
-    public int Maintainability { get { return maintainability; } set { maintainability = value; } }
+    public const int MINIMUM = Numeric.ZERO;
+
+    public int Usability 
+    { 
+        get { return usability; } 
+        set { usability = Mathf.Clamp(value, MINIMUM, maximumValue); } 
+    }
+
+    public int Stability 
+    { 
+        get { return stability; } 
+        set { stability = Mathf.Clamp(value, MINIMUM, maximumValue); } 
+    }
+
+    public int Functionality 
+    { 
+        get { return functionality; } 
+        set { functionality = Mathf.Clamp(value, MINIMUM, maximumValue); } 
+    }
+
+    public int Maintainability 
+    { 
+        get { return maintainability; } 
+        set { maintainability = Mathf.Clamp(value, MINIMUM, maximumValue); } 
+    }
 
     public void Add(ProductionStats other)
     {
@@ -40,5 +63,10 @@ public class ProductionStats : MonoBehaviour
     public int Average
     {
         get { return Mathf.CeilToInt(Total / 4.0f); }
+    }
+
+    public int Maximum
+    {
+        get { return maximumValue; }
     }
 }
