@@ -11,7 +11,13 @@ public class RetrospectiveMenuController : MenuController
     [SerializeField]
     TextMeshProUGUI notCompletedStoryPointsText;
     [SerializeField]
-    TextMeshProUGUI proficiencyText;
+    TextMeshProUGUI qualityText;
+    [SerializeField]
+    TextMeshProUGUI defectRateText;
+    [SerializeField]
+    TextMeshProUGUI cycleTimeText;
+    [SerializeField]
+    TextMeshProUGUI remainingTimeText;
     [SerializeField]
     ProgressBar usabilityBar;
     [SerializeField]
@@ -36,12 +42,16 @@ public class RetrospectiveMenuController : MenuController
 
     private void LoadDetails()
     {
+        // Update Retrospective View with sprint outcomes.
         sprintNumberText.text = gameManager.Sprint.Current.Number.ToString();
         List<Task> completeTasks = gameManager.Sprint.Current.CompleteTasks;
         List<Task> incompleteTasks = gameManager.Sprint.Current.IncompleteTasks;
         completedStoryPointsText.text = gameManager.Board.CountStoryPoints(completeTasks).ToString();
         notCompletedStoryPointsText.text = gameManager.Board.CountStoryPoints(incompleteTasks).ToString();
-        proficiencyText.text = gameManager.Sprint.Current.Proficiency.ToString("F0");
+        qualityText.text = gameManager.Sprint.Current.Quality.ToString("F0");
+        defectRateText.text = gameManager.Sprint.Current.Defects.ToString();
+        cycleTimeText.text = gameManager.Sprint.Current.CycleTime.ToString("F0");
+        remainingTimeText.text = gameManager.Sprint.Current.RemainingTime.ToString("F0");
         SetProductionProgressBars();
     }
 

@@ -2,19 +2,17 @@ using UnityEngine;
 
 public class SprintClock : MonoBehaviour
 {
-    float totalTime;
-    float currentTime;
-    bool isRunning;
+    private float totalTime;
+    private float currentTime;
 
-    public delegate void OnExpiration();
-    public event OnExpiration onExpiration;
+    public event Events.GameEvent OnExpiration;
 
-    void Start()
+    private void Start()
     {
         Stop(); // Stopped by default.
     }
 
-    void Update()
+    private void Update()
     {
         currentTime -= Time.deltaTime;
 
@@ -65,6 +63,6 @@ public class SprintClock : MonoBehaviour
     private void Expired()
     {
         Stop();
-        onExpiration?.Invoke();
+        OnExpiration?.Invoke();
     }
 }

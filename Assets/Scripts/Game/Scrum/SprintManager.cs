@@ -20,7 +20,7 @@ public class SprintManager : GameBehaviour
         sprintHistory = new List<Sprint>();
         clock = GetComponent<SprintClock>();
         clock.TotalTime = sprintTime;
-        clock.onExpiration += BeginRelease;
+        clock.OnExpiration += BeginRelease;
     }
 
     void Start()
@@ -46,9 +46,6 @@ public class SprintManager : GameBehaviour
 
     public void BeginRelease()
     {
-        currentSprint.CompleteTasks = gameManager.Board.GetTasksWithStatus(TaskStatus.DONE);
-        currentSprint.IncompleteTasks = gameManager.Board.GetTasksWithStatus(TaskStatus.TO_DO, TaskStatus.IN_PROGRESS);
-        gameManager.Board.ArchiveTasksWithStatus(TaskStatus.DONE);
         BeginRetrospective();
     }
 

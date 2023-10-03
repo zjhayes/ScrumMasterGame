@@ -43,7 +43,7 @@ public class ProductionServerStation : Station
 
     protected override void OnChairUnoccupied(ICharacterController occupant)
     {
-        
+        return; // Do nothing.
     }
 
     protected override void OnCharacterDismiss(ICharacterController occupant)

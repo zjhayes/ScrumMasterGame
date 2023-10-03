@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 
 public class Sprint
@@ -6,8 +5,10 @@ public class Sprint
     private int sprintNumber;
     private List<Task> completeTasks;
     private List<Task> incompleteTasks;
-    private float proficiency = 0f;
+    private float quality = 0f;
+    private float averageCycleTime = 0f;
     private float remainingTime = 0f;
+    private int numberOfDefects = 0;
 
     public Sprint()
     {
@@ -33,15 +34,27 @@ public class Sprint
         set { incompleteTasks = value; }
     }
 
-    public float Proficiency
+    public float Quality
     {
-        get { return proficiency; }
-        set { proficiency = value; }
+        get { return quality; }
+        set { quality = value; }
+    }
+
+    public float CycleTime
+    {
+        get { return averageCycleTime; }
+        set { averageCycleTime = value; }
     }
 
     public float RemainingTime
     {
         get { return remainingTime; }
         set { remainingTime = value; }
+    }
+
+    public int Defects
+    {
+        get { return numberOfDefects; }
+        set { numberOfDefects = value; }
     }
 }

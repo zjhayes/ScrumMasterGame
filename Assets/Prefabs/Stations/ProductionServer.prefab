@@ -311,6 +311,7 @@ MonoBehaviour:
   stability: 0
   functionality: 0
   maintainability: 0
+  maximumValue: 100
 --- !u!1001 &4457295477643857236
 PrefabInstance:
   m_ObjectHideFlags: 0

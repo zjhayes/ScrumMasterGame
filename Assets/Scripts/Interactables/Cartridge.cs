@@ -7,6 +7,11 @@ public class Cartridge : Pickup
     {
         base.InteractWith(character);
         character.FindSomethingToDo(); // Go work on this... or get distracted.
+
+        if (task.Outcome.StartTime <= 0f) // TODO: Handle start/end time elsewhere.
+        {
+            task.Outcome.StartTime = gameManager.Sprint.Clock.CurrentTime;
+        }
     }
 
     public override int CalculatePriorityFor(ICharacterController character)
@@ -28,5 +33,10 @@ public class Cartridge : Pickup
             task = value;
             // TODO: Update cartridge appearance based on task.
         }
+    }
+
+    private void OnDisable()
+    {
+        task.Outcome.EndTime = gameManager.Sprint.Clock.CurrentTime;
     }
 }
