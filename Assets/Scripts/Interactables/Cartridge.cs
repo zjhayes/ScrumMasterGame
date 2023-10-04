@@ -35,8 +35,9 @@ public class Cartridge : Pickup
         }
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         task.Outcome.EndTime = gameManager.Sprint.Clock.CurrentTime;
+        base.OnDisable();
     }
 }

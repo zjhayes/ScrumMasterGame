@@ -12,7 +12,7 @@ public class GoToInteractableState : CharacterState
 
     void Update()
     {
-        if(character.TargetInteractable == null)
+        if(character.TargetInteractable == null || !character.TargetInteractable.isActiveAndEnabled)
         {
             // No target interactable, do something else.
             character.FindSomethingToDo();

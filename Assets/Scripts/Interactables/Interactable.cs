@@ -56,19 +56,19 @@ public abstract class Interactable : GameBehaviour
         }
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         // Make self available to characters.
         gameManager.Interactables.AddOpenInteractable(this);
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         // Make self unavailable for use.
         gameManager.Interactables.RemoveOpenInteractable(this);
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         gameManager.Interactables.OnEnableInteractables -= selectability.EnableSelection;
         gameManager.Interactables.OnDisableInteractables -= selectability.DisableSelection;
