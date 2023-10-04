@@ -19,18 +19,21 @@ public class FindSomethingToDoState : CharacterState
     private float maxWaitTime = 10.0f;
 
     protected ICharacterController character;
-    private Coroutine waitAndMoveAction;
+    private Coroutine waitAndFindSomethingToDoAction;
 
     public override void Handle(ICharacterController controller)
     {
         character = controller;
+        character.Movement.OnArrivedAtDestination += AfterPacing;
+        FindSomethingToDo();
         base.Handle(controller);
     }
 
     public override void Exit()
     {
+        character.Movement.OnArrivedAtDestination -= AfterPacing;
         StopIdleEmote();
-        CancelWaitAndMove();
+        CancelWaitAndFindSomethingToDo();
         base.Exit();
     }
 
@@ -39,40 +42,21 @@ public class FindSomethingToDoState : CharacterState
         get { return "Dilly-Dallying"; }
     }
 
-    private void Update()
+    private void FindSomethingToDo()
     {
-        if(IsPacing()) { return; } // Do nothing while pacing.
-
-        // Determine this character's current priority.
-        Interactable priority = FindSomethingToDo();
+        // Take a given number of this character's highest priority items, the smaller the number the better the character's choice will be.
+        IEnumerable<KeyValuePair<Interactable, int>> priorities = gameManager.Interactables.PrioritizeInteractablesFor(character).Take(numberOfPrioritiesConsidered);
+        Interactable priority = WeighPriorityDecision(priorities); // Choose randomly from high priority items, factoring in priority score.
 
         if (priority != null)
         {
-            StopIdleEmote();
             character.GoInteractWith(priority);
         }
-        else 
+        else
         {
             // Dilly dally, continue looking for something to do.
             Pace();
         }
-    }
-
-    private Interactable FindSomethingToDo()
-    {
-        // Get scores advertised to character by open interactables.
-        Dictionary<Interactable, int> advertisements = new Dictionary<Interactable, int>();
-        foreach (Interactable interactable in gameManager.Interactables.OpenInteractables)
-        {
-            int priorityScore = interactable.CalculatePriorityFor(character);
-            advertisements.Add(interactable, priorityScore);
-        }
-
-        // Sort positive interactable advertisements by score, take only a given number of the higher scored advertisements.
-        IEnumerable<KeyValuePair<Interactable,int>> priorities = advertisements.Where(pair => pair.Value > 0).OrderByDescending(pair => pair.Value).Take(numberOfPrioritiesConsidered);
-
-        // Weigh the highest scores and choose at random.
-        return WeighPriorityDecision(priorities);
     }
 
     // Choose from highest priority interactables, weighing their priority scores.
@@ -96,32 +80,33 @@ public class FindSomethingToDoState : CharacterState
         return priority;
     }
 
-    private void Pace()
+    private void AfterPacing()
     {
-        // Pace around randomly.
-        if (character.Movement.IsStopped() && !IsPacing())
-        {
-            waitAndMoveAction = StartCoroutine(WaitAndMove());
-        }
+        StartIdleEmote();
+        waitAndFindSomethingToDoAction = StartCoroutine(WaitAndFindSomethingToDo());
     }
 
-    private IEnumerator WaitAndMove()
+    private IEnumerator WaitAndFindSomethingToDo()
     {
         float delayTime = Random.Range(minWaitTime, maxWaitTime);
-
+        
         yield return new WaitForSeconds(delayTime);
-
-        character.Movement.GoToBoundary(paceBoundary, character.Movement.BaseSpeed * paceSpeed);
-        waitAndMoveAction = null;
-        StartIdleEmote();
+        
+        FindSomethingToDo();
     }
 
-    private void CancelWaitAndMove()
+    private void Pace()
     {
-        if (waitAndMoveAction != null)
+        // Move to randomly position within pacing boundary.
+        character.Movement.GoToBoundary(paceBoundary, character.Movement.BaseSpeed * paceSpeed);
+    }
+
+    private void CancelWaitAndFindSomethingToDo()
+    {
+        if(waitAndFindSomethingToDoAction != null)
         {
-            StopCoroutine(waitAndMoveAction);
-            waitAndMoveAction = null;
+            StopCoroutine(waitAndFindSomethingToDoAction);
+            waitAndFindSomethingToDoAction = null;
         }
     }
 
@@ -133,10 +118,5 @@ public class FindSomethingToDoState : CharacterState
     private void StopIdleEmote()
     {
         idleBubble.Hide();
-    }
-
-    private bool IsPacing()
-    {
-        return waitAndMoveAction != null;
     }
 }

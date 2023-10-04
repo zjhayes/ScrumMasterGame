@@ -31,15 +31,15 @@ public class WorkStation : Station
         if(CharacterCanWorkOnTask(character))
         {
             // Advertise that character can work on task here.
-            return PriorityScoreConstants.WORK_ON_TASK;
+            return PriorityScore.WORK_ON_TASK;
         }
         else if(CharacterCanPairProgram(character) && !character.Inventory.Has<Cartridge>())
         {
             // Advertise that character can pair program here.
-            return PriorityScoreConstants.PAIR_PROGRAM;
+            return PriorityScore.PAIR_PROGRAM;
         }
 
-        return PriorityScoreConstants.NO_SCORE;
+        return PriorityScore.NO_SCORE;
     }
 
     protected override void FindSeat(ICharacterController occupant)

@@ -1,6 +1,6 @@
 /* These properties set the priority scores for interactables advertised to characters. */
 
-public static class PriorityScoreConstants
+public static class PriorityScore
 {
     public const int NO_SCORE = 0;
     public const int CERTIFICATION_STATION = 1;

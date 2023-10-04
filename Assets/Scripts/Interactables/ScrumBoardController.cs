@@ -25,7 +25,7 @@ public class ScrumBoardController : Interactable
     public void InstantiateCartridge(Task task, ICharacterController character)
     {
         // Get a cartridge for this task, give it to character.
-        Cartridge cartridge = gameManager.ObjectPool.TakeOrCreateCartridge(transform, task);
+        Cartridge cartridge = gameManager.ObjectPool.TakeOrCreateCartridge(character.Inventory.transform, task);
         cartridge.InteractWith(character);
     }
 
@@ -34,11 +34,11 @@ public class ScrumBoardController : Interactable
         // Advertise to characters with assigned tasks on the board.
         if (gameManager.Board.TryGetFirstTaskWithStatusAndAssignee(character, TaskStatus.TO_DO, out _))
         {
-            return PriorityScoreConstants.TAKE_TASK_FROM_BOARD;
+            return PriorityScore.TAKE_TASK_FROM_BOARD;
         }
         else
         {
-            return PriorityScoreConstants.NO_SCORE;
+            return PriorityScore.NO_SCORE;
         }
     }
 

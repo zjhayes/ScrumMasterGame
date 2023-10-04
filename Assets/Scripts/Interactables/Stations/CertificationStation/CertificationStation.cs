@@ -36,9 +36,9 @@ public class CertificationStation : Station
         // If character has free time and good management skills, they're more likely to use this station.
         if(character.Stats.TimeManagement > 2) // TODO: Scale score with time management stat
         {
-            return PriorityScoreConstants.CERTIFICATION_STATION;
+            return PriorityScore.CERTIFICATION_STATION;
         }
-        return PriorityScoreConstants.NO_SCORE;
+        return PriorityScore.NO_SCORE;
     }
 
     private void FirstOccupant(ICharacterController firstOccupant)

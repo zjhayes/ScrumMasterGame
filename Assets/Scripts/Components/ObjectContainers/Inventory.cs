@@ -6,14 +6,15 @@ public class Inventory : Socket
     {
         TryDrop(out _); // Swap pickups if one already carried.
 
-        if(!TryPut(pickup))
+        if(TryPut(pickup))
         {
-            Debug.LogFormat("Character was unable to pick up {0}.", pickup);
-            return false;
+            pickup.EnablePhysics(false);
+            return true; // It was picked up.
         }
         else
         {
-            return true; // it was picked up.
+            Debug.LogFormat("Character was unable to pick up {0}.", pickup);
+            return false;
         }
     }
 
@@ -23,6 +24,7 @@ public class Inventory : Socket
         if (TryGet(out drop))
         {
             drop.EnablePhysics(true);
+            drop.transform.SetParent(null);
             return true;
         }
         else

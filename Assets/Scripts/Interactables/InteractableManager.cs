@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /* Controls the global interactability of Interactable objects. */
@@ -42,5 +43,19 @@ public class InteractableManager : MonoBehaviour
     public List<Interactable> OpenInteractables
     {
         get { return openInteractables; }
+    }
+
+    public IEnumerable<KeyValuePair<Interactable, int>> PrioritizeInteractablesFor(ICharacterController character)
+    {
+        // Get scores advertised to character by open interactables.
+        Dictionary<Interactable, int> advertisements = new Dictionary<Interactable, int>();
+        foreach (Interactable interactable in openInteractables)
+        {
+            int priorityScore = interactable.CalculatePriorityFor(character);
+            advertisements.Add(interactable, priorityScore);
+        }
+
+        // Sort positive interactable advertisements by score.
+        return advertisements.Where(pair => pair.Value > 0).OrderByDescending(pair => pair.Value);
     }
 }

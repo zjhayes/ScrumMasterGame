@@ -56,6 +56,7 @@ public class SprintManager : GameBehaviour
 
     public void EndEarly()
     {
+        clock.Stop();
         BeginRelease();
     }
 
