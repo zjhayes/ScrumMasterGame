@@ -6,12 +6,23 @@ public abstract class Pickup : Interactable, ISocketable
     {
         if(character.Inventory.TryPickUp(this))
         {
+            OnPickUpSuccess();
             base.InteractWith(character);
         }
         else
         {
             character.Frustrated();
         }
+    }
+
+    protected virtual void OnPickUpSuccess()
+    {
+        EnablePhysics(false);
+    }
+
+    protected virtual void OnPickUpFailed(ICharacterController character)
+    {
+        character.Frustrated();
     }
 
     public override bool CanInteract(ICharacterController character)

@@ -21,9 +21,9 @@ public class ProductionServerStation : Station
         if(character.Inventory.TryGet(out Cartridge cartridge) && cartridge.Task.IsReadyForProduction)
         {
             // Character has task that is ready for production.
-            return PriorityScoreConstants.TAKE_TASK_TO_PRODUCTION;
+            return PriorityScore.TAKE_TASK_TO_PRODUCTION;
         }
-        return PriorityScoreConstants.NO_SCORE;
+        return PriorityScore.NO_SCORE;
     }
 
     protected override void OnChairOccupied(ICharacterController occupant)
