@@ -19,11 +19,11 @@ public class ComputerMonitorController : MonoBehaviour
 
     public void ShowWallpaper()
     {
-        screenRenderer.material = wallpaperScreenMaterial;
+        screenRenderer.sharedMaterial = wallpaperScreenMaterial;
     }
 
     public void ShowProgrammingIDE()
     {
-        screenRenderer.material = codingScreenMaterial;
+        screenRenderer.sharedMaterial = codingScreenMaterial;
     }
 }

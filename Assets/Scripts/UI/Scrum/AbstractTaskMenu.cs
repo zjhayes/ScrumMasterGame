@@ -105,10 +105,7 @@ public abstract class AbstractTaskMenu : MenuController
 
     protected void ClearBoard()
     {
-        if (taskPanelCache == null)
-        {
-            return; // Already clear.
-        }
+        if(taskPanelCache == null) { return; } // Nothing to clear.
 
         foreach (KeyValuePair<Task, TaskPanel> taskPanelPair in taskPanelCache)
         {
@@ -116,14 +113,5 @@ public abstract class AbstractTaskMenu : MenuController
             Destroy(taskPanelPair.Value.gameObject);
         }
         taskPanelCache = null;
-    }
-
-    protected TaskPanel GetPanelForTask(Task task)
-    {
-        if (taskPanelCache.TryGetValue(task, out TaskPanel taskPanel))
-        {
-            return taskPanel;
-        }
-        return null;
     }
 }

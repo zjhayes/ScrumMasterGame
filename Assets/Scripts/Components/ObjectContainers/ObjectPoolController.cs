@@ -33,7 +33,7 @@ public class ObjectPoolController : GameBehaviour
             return cartridgeObject.GetComponent<Cartridge>();
         }
     }
-
+    
     public void PoolCartridge(Cartridge cartridge)
     {
         // Move cartridge to pool and deactivate.
