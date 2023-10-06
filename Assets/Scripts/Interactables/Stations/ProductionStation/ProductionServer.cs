@@ -7,9 +7,9 @@ public class ProductionServer : Computer
     {
         if(cartridgeReceptacle.TryGet(out Cartridge cartridge))
         {
-            cartridge.Task.Status = TaskStatus.DONE;
+            cartridge.Story.Status = StoryStatus.DONE;
 
-            if (cartridge.Task.Status == TaskStatus.DONE)
+            if (cartridge.Story.Status == StoryStatus.DONE)
             {
                 // Work is deployed, cache cartridge object.
                 gameManager.ObjectPool.PoolCartridge(cartridge);

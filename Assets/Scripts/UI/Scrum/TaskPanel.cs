@@ -6,7 +6,7 @@ using TMPro;
 public class TaskPanel : MenuController, IContainable
 {
     [SerializeField]
-    private Task task;
+    private Story story;
     [SerializeField]
     private Image taskTypeIcon;
     [SerializeField]
@@ -26,10 +26,10 @@ public class TaskPanel : MenuController, IContainable
     public delegate void OnUpdated(TaskPanel taskPanel);
     public event OnUpdated onUpdated;
 
-    public Task Task
+    public Story Story
     {
-        get { return task; }
-        set { task = value; }
+        get { return story; }
+        set { story = value; }
     }
     private void Awake()
     {
@@ -43,7 +43,7 @@ public class TaskPanel : MenuController, IContainable
         UpdateTaskTypeIcon();
         UpdateAssigneePortrait();
 
-        task.OnAssigneeChanged += OnAssigneeChanged;
+        story.OnAssigneeChanged += OnAssigneeChanged;
     }
 
     public override void SetUp()
@@ -66,9 +66,9 @@ public class TaskPanel : MenuController, IContainable
 
     public void UpdateAssigneePortrait()
     {
-        if (task.Assignee != null)
+        if (story.Assignee != null)
         {
-            assigneeImage.sprite = task.Assignee.Portrait;
+            assigneeImage.sprite = story.Assignee.Portrait;
         }
         else
         {
@@ -94,13 +94,13 @@ public class TaskPanel : MenuController, IContainable
 
     private void UpdateDetails()
     {
-        summaryText.text = task.Summary;
-        storyPointsText.text = task.StoryPoints.ToString();
+        summaryText.text = story.Details.Summary;
+        storyPointsText.text = story.StoryPoints.ToString();
     }
 
     private void UpdateTaskTypeIcon()
     {
-        taskTypeIcon.sprite = task.TaskTypeIcon;
+        taskTypeIcon.sprite = gameManager.UI.Icons.GetIconForStoryType(story.Details.Type);
     }
 
     private void OnDestroy()
@@ -108,6 +108,6 @@ public class TaskPanel : MenuController, IContainable
         // Clear listeners.
         onSelected = null;
         onUpdated = null;
-        task.OnAssigneeChanged -= OnAssigneeChanged;
+        story.OnAssigneeChanged -= OnAssigneeChanged;
     }
 }

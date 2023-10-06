@@ -89,4 +89,9 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         get { return cameraController; }
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

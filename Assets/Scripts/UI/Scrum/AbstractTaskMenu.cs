@@ -8,9 +8,9 @@ public abstract class AbstractTaskMenu : MenuController
     [SerializeField]
     protected GameObject taskPanelPrefab;
 
-    protected Dictionary<Task, TaskPanel> taskPanelCache;
+    protected Dictionary<Story, TaskPanel> taskPanelCache;
 
-    protected abstract void HandleLoadingTaskPanel(Task task);
+    protected abstract void HandleLoadingTaskPanel(Story story);
 
     public override void SetUp()
     {
@@ -58,7 +58,7 @@ public abstract class AbstractTaskMenu : MenuController
         // Replace task panel with task details panel.
         MoveTaskDetailsPanelToTaskPanel(taskPanel);
         taskPanel.Hide();
-        taskDetailsPanel.Show(taskPanel.Task);
+        taskDetailsPanel.Show(taskPanel.Story);
     }
 
     protected void OnHideTaskDetails(MenuController taskDetails)
@@ -67,21 +67,26 @@ public abstract class AbstractTaskMenu : MenuController
         ShowPreviouslySelectedTaskPanel();
     }
 
+    protected void LoadTaskPanelFor(Story story)
+    {
+        Debug.Log("This needs to be implemented to replace Load Task Panels");
+    }
+
     protected void LoadTaskPanels()
     {
         // Clear existing task panels.
         ClearBoard();
         // Add tasks to board.
-        taskPanelCache = new Dictionary<Task, TaskPanel>();
-        foreach (Task task in gameManager.Board.Tasks)
+        taskPanelCache = new Dictionary<Story, TaskPanel>();
+        foreach (Story story in gameManager.Board.Stories.Get())
         {
-            HandleLoadingTaskPanel(task);
+            HandleLoadingTaskPanel(story);
         }
     }
 
-    protected TaskPanel CreateTaskPanel(Task task, Transform parent)
+    protected TaskPanel CreateTaskPanel(Story story, Transform parent)
     {
-        taskPanelPrefab.GetComponent<TaskPanel>().Task = task;
+        taskPanelPrefab.GetComponent<TaskPanel>().Story = story;
         TaskPanel taskPanel = Instantiate(taskPanelPrefab, parent).GetComponent<TaskPanel>();
         return taskPanel;
     }
@@ -95,10 +100,10 @@ public abstract class AbstractTaskMenu : MenuController
     protected void ShowPreviouslySelectedTaskPanel()
     {
         // Check if there's a selected task, then show it.
-        if (taskDetailsPanel.Task && taskPanelCache.ContainsKey(taskDetailsPanel.Task))
+        if (taskDetailsPanel.Story != null && taskPanelCache.ContainsKey(taskDetailsPanel.Story))
         {
             // Get and show task panel for current task in task details panel.
-            TaskPanel selectedTaskPanel = taskPanelCache[taskDetailsPanel.Task];
+            TaskPanel selectedTaskPanel = taskPanelCache[taskDetailsPanel.Story];
             selectedTaskPanel.Show();
         }
     }
@@ -107,7 +112,7 @@ public abstract class AbstractTaskMenu : MenuController
     {
         if(taskPanelCache == null) { return; } // Nothing to clear.
 
-        foreach (KeyValuePair<Task, TaskPanel> taskPanelPair in taskPanelCache)
+        foreach (KeyValuePair<Story, TaskPanel> taskPanelPair in taskPanelCache)
         {
             // Destroy task panel.
             Destroy(taskPanelPair.Value.gameObject);

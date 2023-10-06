@@ -10,7 +10,7 @@ public class PlanningMenuController : AbstractTaskMenu
     [SerializeField]
     Container inSprintContainer;
 
-    Dictionary<TaskStatus, Transform> statusContainerMap = new Dictionary<TaskStatus, Transform>();
+    Dictionary<StoryStatus, Transform> statusContainerMap = new Dictionary<StoryStatus, Transform>();
 
     public override void SetUp()
     {
@@ -19,9 +19,9 @@ public class PlanningMenuController : AbstractTaskMenu
         sprintDetailsPanel.onBeginSprint += OnBeginSprintPressed;
 
         //ValidateSprintReadiness();
-        statusContainerMap.Add(TaskStatus.BACKLOG, backlogContainer.gameObject.transform);
-        statusContainerMap.Add(TaskStatus.TO_DO, inSprintContainer.gameObject.transform);
-        statusContainerMap.Add(TaskStatus.IN_PROGRESS, inSprintContainer.gameObject.transform);
+        statusContainerMap.Add(StoryStatus.BACKLOG, backlogContainer.gameObject.transform);
+        statusContainerMap.Add(StoryStatus.TO_DO, inSprintContainer.gameObject.transform);
+        statusContainerMap.Add(StoryStatus.IN_PROGRESS, inSprintContainer.gameObject.transform);
         base.SetUp();
     }
 
@@ -30,34 +30,34 @@ public class PlanningMenuController : AbstractTaskMenu
         gameManager.Sprint.BeginSprint();
     }
 
-    protected override void HandleLoadingTaskPanel(Task task)
+    protected override void HandleLoadingTaskPanel(Story story)
     {
-        if (statusContainerMap.TryGetValue(task.Status, out Transform containerLocation))
+        if (statusContainerMap.TryGetValue(story.Status, out Transform containerLocation))
         {
-            TaskPanel taskPanel = CreateTaskPanel(task, containerLocation);
+            TaskPanel taskPanel = CreateTaskPanel(story, containerLocation);
             taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
-            taskPanelCache.Add(task, taskPanel);
+            taskPanelCache.Add(story, taskPanel);
             taskPanel.onUpdated += UpdateTaskPanel;
         }
     }
 
     private void UpdateTaskPanel(TaskPanel taskPanel)
     {
-        if(taskPanel.Task.Assignee != null)
+        if(taskPanel.Story.Assignee != null)
         {
             // Move to In Sprint if task assigned.
             inSprintContainer.Add(taskPanel);
-            taskPanel.Task.Status = TaskStatus.TO_DO;
+            taskPanel.Story.Status = StoryStatus.TO_DO;
         }
         else
         {
             // Move to backlog if no assignee.
             backlogContainer.Add(taskPanel);
-            taskPanel.Task.Status = TaskStatus.BACKLOG;
+            taskPanel.Story.Status = StoryStatus.BACKLOG;
         }
 
         // Move Task Details Panel if associated with current task.
-        if(taskPanel.Task == taskDetailsPanel.Task)
+        if(taskPanel.Story == taskDetailsPanel.Story)
         {
             MoveTaskDetailsPanelToTaskPanel(taskPanel);
         }

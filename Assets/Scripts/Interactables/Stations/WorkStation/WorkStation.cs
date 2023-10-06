@@ -81,7 +81,7 @@ public class WorkStation : Station
     private bool CharacterCanWorkOnTask(ICharacterController character)
     {
         // Station is open for character to work on task, which is not yet ready for production.
-        return character.Inventory.TryGet(out Cartridge cartridge) && !cartridge.Task.IsReadyForProduction && this.HasVacancy();
+        return character.Inventory.TryGet(out Cartridge cartridge) && !cartridge.Story.Outcome.IsReadyForProduction && this.HasVacancy();
     }
 
     private bool CharacterCanPairProgram(ICharacterController character)

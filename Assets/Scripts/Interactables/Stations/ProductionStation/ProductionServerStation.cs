@@ -18,7 +18,7 @@ public class ProductionServerStation : Station
 
     public override int CalculatePriorityFor(ICharacterController character)
     {
-        if(character.Inventory.TryGet(out Cartridge cartridge) && cartridge.Task.IsReadyForProduction)
+        if(character.Inventory.TryGet(out Cartridge cartridge) && cartridge.Story.Outcome.IsReadyForProduction)
         {
             // Character has task that is ready for production.
             return PriorityScore.TAKE_TASK_TO_PRODUCTION;

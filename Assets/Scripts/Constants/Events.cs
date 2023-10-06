@@ -7,6 +7,7 @@ public class Events : MonoBehaviour
     public delegate void CharacterEvent(ICharacterController character);
     public delegate void InteractableEvent<T>(T interactable) where T : Interactable;
     public delegate void ContainerEvent(IContainable containable);
+    public delegate void StoryEvent(Story story);
     public delegate void StationEvent();
     public delegate void UIEvent();
 }

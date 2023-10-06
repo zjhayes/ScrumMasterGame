@@ -5,7 +5,9 @@ using System.Collections.Generic;
 public class SprintManager : GameBehaviour
 {
     [SerializeField]
-    float sprintTime = 120.0f;
+    private float sprintTime = 120.0f;
+    [SerializeField]
+    private List<SprintDetails> sprintDetails;
 
     private Sprint currentSprint;
     private List<Sprint> sprintHistory;
@@ -31,7 +33,8 @@ public class SprintManager : GameBehaviour
     public void BeginPlanning()
     {
         // Create new Sprint.
-        currentSprint = new Sprint();
+        currentSprint = NextSprint();
+        Debug.Log(currentSprint.Details);
         sprintHistory.Add(currentSprint);
         currentSprint.Number = sprintHistory.Count;
 
@@ -46,7 +49,7 @@ public class SprintManager : GameBehaviour
 
     public void BeginRelease()
     {
-        BeginRetrospective();
+        BeginRetrospective(); // TODO: Add release state.
     }
 
     public void BeginRetrospective()
@@ -62,7 +65,8 @@ public class SprintManager : GameBehaviour
 
     public void EndSprintEarlyIfAllDone()
     {
-        if (gameManager.Board.GetTasksWithStatus(TaskStatus.TO_DO, TaskStatus.IN_PROGRESS).Count <= 0)
+        // Check if there are any incomplete stories in the sprint.
+        if (gameManager.Board.Stories.WithStatus(StoryStatus.TO_DO, StoryStatus.IN_PROGRESS).Get().Count <= 0) // TODO: Move to GameState.
         {
             EndEarly();
         }
@@ -76,5 +80,17 @@ public class SprintManager : GameBehaviour
     public SprintClock Clock
     {
         get { return clock; }
+    }
+
+    private Sprint NextSprint()
+    {
+        // End game when no more sprints.
+        if(sprintHistory.Count == sprintDetails.Count)
+        {
+            gameManager.Quit();
+        }
+
+        // Return next sprint from sprint details.
+        return new Sprint(sprintDetails[sprintHistory.Count]);
     }
 }
