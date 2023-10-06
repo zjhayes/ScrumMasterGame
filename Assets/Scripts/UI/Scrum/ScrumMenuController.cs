@@ -4,30 +4,44 @@ using UnityEngine;
 public class ScrumMenuController : AbstractTaskMenu
 {
     [SerializeField]
-    Container toDoContainer;
+    private Container toDoContainer;
     [SerializeField]
-    Container inProgressContainer;
+    private Container inProgressContainer;
     [SerializeField]
-    Container doneContainer;
+    private Container doneContainer;
 
-    readonly Dictionary<TaskStatus, Transform> statusContainerMap = new();
+    private Dictionary<StoryStatus, Container> statusContainerMap;
 
     public override void SetUp()
     {
-        statusContainerMap.Add(TaskStatus.TO_DO, toDoContainer.gameObject.transform);
-        statusContainerMap.Add(TaskStatus.DONE, doneContainer.gameObject.transform);
-        statusContainerMap.Add(TaskStatus.IN_PROGRESS, inProgressContainer.transform);
+        // Initialize status/swimlane relational map.
+        statusContainerMap = new()
+        {
+            { StoryStatus.TO_DO, toDoContainer },
+            { StoryStatus.DONE, doneContainer },
+            { StoryStatus.IN_PROGRESS, inProgressContainer }
+        };
         base.SetUp();
     }
 
-    protected override void HandleLoadingTaskPanel(Task task)
+    protected override void HandleLoadingStoryPanel(Story story)
     {
-        if(statusContainerMap.TryGetValue(task.Status, out Transform containerLocation))
+        // Create story panel in swimlane pertaining to its status.
+        if(statusContainerMap.TryGetValue(story.Status, out Container swimlane))
         {
-            TaskPanel taskPanel = CreateTaskPanel(task, containerLocation);
-            taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
-            taskPanelCache.Add(task, taskPanel);
-            task.OnStatusChanged += LoadTaskPanels; // Move task across board when task status is updated.
+            StoryPanel storyPanel = CreateTaskPanel(story, swimlane.transform);
+            storyPanel.OnSelected += OnStoryPanelSelected; // Listen to task clicked, show details on click.
+            storyPanelCache.Add(story, storyPanel);
+            storyPanel.OnStatusUpdated += MoveStoryOnStatusChanged; // Move task across board when task status is updated.
+        }
+    }
+
+    private void MoveStoryOnStatusChanged(StoryPanel storyPanel)
+    {
+        // Move story to swimlane pertaining to its status.
+        if (statusContainerMap.TryGetValue(storyPanel.Story.Status, out Container swimlane))
+        {
+            swimlane.Add(storyPanel);
         }
     }
 }

@@ -23,7 +23,7 @@ public class TaskDetailsPanel : MenuController
     [SerializeField]
     Button removeFromSprintButton;
 
-    Task task;
+    Story story;
     Dictionary<int, ICharacterController> characterCache;
 
     public override void SetUp()
@@ -35,9 +35,9 @@ public class TaskDetailsPanel : MenuController
         }
     }
 
-    public void Show(Task task)
+    public void Show(Story story)
     {
-        this.task = task;
+        this.story = story;
         UpdateDetails();
         UpdateAssignee();
         UpdateActionButton();
@@ -54,7 +54,7 @@ public class TaskDetailsPanel : MenuController
     public override void Hide()
     {
         base.Hide();
-        task = null;
+        story = null;
         SetActive(false);
     }
 
@@ -69,12 +69,12 @@ public class TaskDetailsPanel : MenuController
         if(characterCache.ContainsKey(assigneeSelection.value))
         {
             // Set task assignee to selected character.
-            task.Assignee = characterCache[assigneeSelection.value];
+            story.Assignee = characterCache[assigneeSelection.value];
         }
         else
         {
             // Task has been unassigned.
-            task.Assignee = null;
+            story.Assignee = null;
         }
         taskProgressionPanel.ClearModifiers();
         UpdateActionButton();
@@ -83,18 +83,18 @@ public class TaskDetailsPanel : MenuController
     public void UpdateAssignee()
     {
         // Find task assignee's option index in character cache.
-        int assigneeKey = characterCache.FirstOrDefault(x => x.Value == task.Assignee).Key;
+        int assigneeKey = characterCache.FirstOrDefault(x => x.Value == story.Assignee).Key;
         assigneeSelection.value = assigneeKey;
         UpdateActionButton();
     }
 
     public void UpdateDetails()
     {
-        taskTypeIcon.sprite = task.TaskTypeIcon;
-        summaryText.text = task.Summary;
-        descriptionText.text = task.Description;
-        storyPointsText.text = task.StoryPoints.ToString();
-        taskProgressionPanel.UpdateProgression(task.Stats);
+        taskTypeIcon.sprite = gameManager.UI.Icons.GetIconForStoryType(story.Details.Type);
+        summaryText.text = story.Details.Summary;
+        descriptionText.text = story.Details.Description;
+        storyPointsText.text = story.StoryPoints.ToString();
+        taskProgressionPanel.UpdateProgression(story.Details.Requirements);
         ClearModifiers();
     }
 
@@ -103,7 +103,7 @@ public class TaskDetailsPanel : MenuController
         if(characterCache.ContainsKey(assigneeIndex))
         {
             ICharacterController assignee = characterCache[assigneeIndex];
-            taskProgressionPanel.UpdateModifiers(task.Stats, assignee.Stats);
+            taskProgressionPanel.UpdateModifiers(story.Details.Requirements, assignee.Stats);
         }
         else
         {
@@ -119,13 +119,13 @@ public class TaskDetailsPanel : MenuController
     public void UpdateActionButton()
     {
         if(addToSprintButton == null || removeFromSprintButton == null) { return; } // TODO: Separate button logic from task detail panel.
-        if(task.Status == TaskStatus.BACKLOG)
+        if(story.Status == StoryStatus.BACKLOG)
         {
             addToSprintButton.gameObject.SetActive(true);
             removeFromSprintButton.gameObject.SetActive(false);
 
             // Button is only interactable when assignee is selected.
-            addToSprintButton.interactable = (task.Assignee != null);
+            addToSprintButton.interactable = (story.Assignee != null);
         }
         else
         {
@@ -134,7 +134,7 @@ public class TaskDetailsPanel : MenuController
         }
     }
 
-    void AddCharactersToAssigneeOptions()
+    private void AddCharactersToAssigneeOptions()
     {
         characterCache = new Dictionary<int, ICharacterController>();
         List<Sprite> portraits = new List<Sprite>();
@@ -147,8 +147,8 @@ public class TaskDetailsPanel : MenuController
         assigneeSelection.AddOptions(portraits);
     }
 
-    public Task Task
+    public Story Story
     {
-        get { return task; }
+        get { return story; }
     }
 }

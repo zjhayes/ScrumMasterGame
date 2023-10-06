@@ -1,14 +1,52 @@
 using UnityEngine;
 
-public static class BehaviourFactory
+// Instantiate prefabs with injectable service.
+public class BehaviourBuilder
 {
-    // Instantiate GameObject from prefab injected with services for given behaviour.
-    public static GameObject Create<B,S>(GameObject prefab, S service, Vector3 position, Quaternion rotation) 
+    GameObject prefab;
+    Vector3 position;
+    Quaternion rotation;
+    Transform parent;
+
+    private BehaviourBuilder(GameObject prefab)
+    {
+        this.prefab = prefab;
+        // Initialize default settings.
+        position = Vector3.zero;
+        rotation = Quaternion.identity;
+        parent = null;
+    }
+
+    public static BehaviourBuilder Create(GameObject prefab)
+    {
+        return new BehaviourBuilder(prefab);
+    }
+
+    public BehaviourBuilder WithPosition(Vector3 position)
+    {
+        this.position = position;
+        return this;
+    }
+
+    public BehaviourBuilder WithRotation(Quaternion rotation)
+    {
+        this.rotation = rotation;
+        return this;
+    }
+
+    public BehaviourBuilder WithParent(Transform parent)
+    {
+        this.parent = parent;
+        return this;
+    }
+
+    // Finalize new behaviour and inject service.
+    public GameObject Build<B, S>(S service)
         where B : IBehaviour<S>
         where S : IService
     {
         prefab.SetActive(false); // Disable before instantiating.
-        GameObject gameObject = (GameObject)GameObject.Instantiate(prefab, position, rotation);
+        GameObject gameObject = GameObject.Instantiate(prefab, position, rotation, parent);
         B behaviour = gameObject.GetComponent<B>();
         behaviour.Inject(service);
         gameObject.SetActive(true); // Enable new behaviour.

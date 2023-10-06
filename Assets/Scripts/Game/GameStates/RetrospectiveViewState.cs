@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,19 +33,19 @@ public class RetrospectiveViewState : GameState
     private void ReleaseSprint()
     {
         // Capture complete/incomplete tasks.
-        List<Task> completedTasks = gameManager.Board.GetTasksWithStatus(TaskStatus.DONE);
+        List<Story> completedTasks = gameManager.Board.Stories.WithStatus(StoryStatus.DONE).Get();
         gameManager.Sprint.Current.CompleteTasks = completedTasks;
-        gameManager.Sprint.Current.IncompleteTasks = gameManager.Board.GetTasksWithStatus(TaskStatus.TO_DO, TaskStatus.IN_PROGRESS);
+        gameManager.Sprint.Current.IncompleteTasks = gameManager.Board.Stories.WithStatus(StoryStatus.TO_DO, StoryStatus.IN_PROGRESS).Get();
 
         // Capture sprint outcomes.
         float chanceOfErrors = 0f;
         float cycleTimeSum = 0f;
         int defects = 0;
 
-        foreach (Task task in completedTasks)
+        foreach (Story task in completedTasks)
         {
             // Add task requirements to production stats.
-            gameManager.Production.Stats.Add(task.Stats);
+            gameManager.Production.Stats.Add(task.Details.Requirements);
 
             // Determine number of defects.
             if(CreatesDefect(task.Outcome))
@@ -76,12 +75,9 @@ public class RetrospectiveViewState : GameState
 
         // Capture remaining time.
         gameManager.Sprint.Current.RemainingTime = gameManager.Sprint.Clock.CurrentTime;
-
-        // Clean up board.
-        gameManager.Board.ArchiveTasksWithStatus(TaskStatus.DONE);
     }
 
-    private bool CreatesDefect(TaskOutcome outcome)
+    private bool CreatesDefect(StoryOutcome outcome)
     {
         float chanceOfErrors = outcome.ChanceOfErrors;
         float randomNumber = Random.Range(0f, 100f);

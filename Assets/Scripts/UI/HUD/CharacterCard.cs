@@ -48,7 +48,8 @@ public class CharacterCard : MenuController
         problemSolvingProgressBar.CurrentFill = character.Stats.ProblemSolving;
         timeManagementProgressBar.CurrentFill = character.Stats.TimeManagement;
 
-        int assignedStoryPoints = gameManager.Board.CountCharacterStoryPoints(character);
+        // Count story points assigned to character.
+        int assignedStoryPoints = StoryService.CountStoryPoints(gameManager.Board.Stories.AssignedTo(character).Get());
         capacityText.text = $"{assignedStoryPoints}/{character.Stats.Velocity}";
     }
 }

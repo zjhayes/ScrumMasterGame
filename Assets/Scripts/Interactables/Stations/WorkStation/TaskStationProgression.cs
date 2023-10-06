@@ -19,7 +19,7 @@ public class TaskStationProgression : StationProgression
     {
         if(computer.TryGetCartridge(out Cartridge cartridge))
         {
-            progressBar.CurrentFill = cartridge.Task.Completeness;
+            progressBar.CurrentFill = cartridge.Story.Outcome.Completeness;
         }
         else
         {

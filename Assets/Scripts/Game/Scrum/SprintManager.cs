@@ -5,7 +5,9 @@ using System.Collections.Generic;
 public class SprintManager : GameBehaviour
 {
     [SerializeField]
-    float sprintTime = 120.0f;
+    private float sprintTime = 120.0f;
+    [SerializeField]
+    private List<SprintDetails> sprintDetails;
 
     private Sprint currentSprint;
     private List<Sprint> sprintHistory;
@@ -30,11 +32,7 @@ public class SprintManager : GameBehaviour
 
     public void BeginPlanning()
     {
-        // Create new Sprint.
-        currentSprint = new Sprint();
-        sprintHistory.Add(currentSprint);
-        currentSprint.Number = sprintHistory.Count;
-
+        NextSprint();
         OnBeginPlanning?.Invoke();
     }
 
@@ -46,7 +44,7 @@ public class SprintManager : GameBehaviour
 
     public void BeginRelease()
     {
-        BeginRetrospective();
+        BeginRetrospective(); // TODO: Add release state.
     }
 
     public void BeginRetrospective()
@@ -62,7 +60,8 @@ public class SprintManager : GameBehaviour
 
     public void EndSprintEarlyIfAllDone()
     {
-        if (gameManager.Board.GetTasksWithStatus(TaskStatus.TO_DO, TaskStatus.IN_PROGRESS).Count <= 0)
+        // Check if there are any incomplete stories in the sprint.
+        if (gameManager.Board.Stories.WithStatus(StoryStatus.TO_DO, StoryStatus.IN_PROGRESS).Get().Count <= 0) // TODO: Move to GameState.
         {
             EndEarly();
         }
@@ -76,5 +75,21 @@ public class SprintManager : GameBehaviour
     public SprintClock Clock
     {
         get { return clock; }
+    }
+
+    private void NextSprint()
+    {
+        // End game when no more sprints. TODO: Add quit option to settings instead.
+        if (sprintHistory.Count == sprintDetails.Count)
+        {
+            Debug.Log("No more Sprints, ending game.");
+            gameManager.Quit();
+            return;
+        }
+
+        // Set current sprint to next sprint.
+        currentSprint = new Sprint(sprintDetails[sprintHistory.Count]);
+        sprintHistory.Add(currentSprint);
+        currentSprint.Number = sprintHistory.Count;
     }
 }

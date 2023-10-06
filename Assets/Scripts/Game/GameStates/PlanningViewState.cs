@@ -8,10 +8,8 @@ public class PlanningViewState : GameState
     {
         controller = _controller;
 
-        gameManager.UI.ScrumMenu.Hide();
-        gameManager.UI.StatusBar.Hide();
-        gameManager.UI.PlanningMenu.Show();
-        gameManager.Camera.SwitchToBoardCamera();
+        UpdateBoard();
+        UpdateView();
         base.Handle(controller);
     }
 
@@ -27,5 +25,19 @@ public class PlanningViewState : GameState
         gameManager.UI.ScrumMenu.Show();
         gameManager.UI.StatusBar.Show();
         base.Exit();
+    }
+
+    private void UpdateBoard()
+    {
+        gameManager.Board.ImportStoryDetails(gameManager.Sprint.Current.Details.Stories);
+        gameManager.Board.RemoveStoriesWithStatus(StoryStatus.DONE);
+    }
+
+    private void UpdateView()
+    {
+        gameManager.UI.ScrumMenu.Hide();
+        gameManager.UI.StatusBar.Hide();
+        gameManager.UI.PlanningMenu.Show();
+        gameManager.Camera.SwitchToBoardCamera();
     }
 }

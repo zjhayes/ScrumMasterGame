@@ -13,13 +13,13 @@ public class ObjectPoolController : GameBehaviour
         objectPool = GetComponent<Container>();
     }
 
-    public Cartridge TakeOrCreateCartridge(Transform location, Task task)
+    public Cartridge TakeOrCreateCartridge(Transform location, Story story)
     {
         Cartridge cartridge;
         if(objectPool.TryGetFirst(out cartridge))
         {
             // Take cartridge from pool and move to desired location.
-            cartridge.Task = task;
+            cartridge.Story = story;
             cartridge.transform.SetPositionAndRotation(location.position, location.rotation);
             cartridge.gameObject.SetActive(true);
             return cartridge;
@@ -27,9 +27,12 @@ public class ObjectPoolController : GameBehaviour
         else
         {
             // Create new cartridge at desired location.
-            GameObject cartridgeObject = BehaviourFactory.Create<Cartridge, IGameManager>(cartridgePrefab, gameManager, location.position, location.rotation);
+            GameObject cartridgeObject = BehaviourBuilder.Create(cartridgePrefab)
+                .WithPosition(location.position)
+                .WithRotation(location.rotation)
+                .Build<Cartridge, IGameManager>(gameManager);
             cartridge = cartridgeObject.GetComponent<Cartridge>();
-            cartridge.Task = task;
+            cartridge.Story = story;
             return cartridgeObject.GetComponent<Cartridge>();
         }
     }
