@@ -44,10 +44,10 @@ public class RetrospectiveMenuController : MenuController
     {
         // Update Retrospective View with sprint outcomes.
         sprintNumberText.text = gameManager.Sprint.Current.Number.ToString();
-        List<Task> completeTasks = gameManager.Sprint.Current.CompleteTasks;
-        List<Task> incompleteTasks = gameManager.Sprint.Current.IncompleteTasks;
-        completedStoryPointsText.text = gameManager.Board.CountStoryPoints(completeTasks).ToString();
-        notCompletedStoryPointsText.text = gameManager.Board.CountStoryPoints(incompleteTasks).ToString();
+        List<Story> completeTasks = gameManager.Sprint.Current.CompleteTasks;
+        List<Story> incompleteTasks = gameManager.Sprint.Current.IncompleteTasks;
+        completedStoryPointsText.text = StoryService.CountStoryPoints(completeTasks).ToString();
+        notCompletedStoryPointsText.text = StoryService.CountStoryPoints(incompleteTasks).ToString();
         qualityText.text = gameManager.Sprint.Current.Quality.ToString("F0");
         defectRateText.text = gameManager.Sprint.Current.Defects.ToString();
         cycleTimeText.text = gameManager.Sprint.Current.CycleTime.ToString("F0");

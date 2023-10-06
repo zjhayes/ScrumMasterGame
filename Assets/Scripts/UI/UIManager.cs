@@ -3,15 +3,17 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    CharacterCard characterCard;
+    private CharacterCard characterCard;
     [SerializeField]
-    PlanningMenuController planningMenu;
+    private PlanningMenuController planningMenu;
     [SerializeField]
-    ScrumMenuController scrumMenu;
+    private ScrumMenuController scrumMenu;
     [SerializeField]
-    RetrospectiveMenuController retrospectiveMenu;
+    private RetrospectiveMenuController retrospectiveMenu;
     [SerializeField]
-    StatusBarController statusBar;
+    private StatusBarController statusBar;
+    [SerializeField]
+    private IconManager icons;
 
     public CharacterCard CharacterCard
     {
@@ -36,5 +38,10 @@ public class UIManager : MonoBehaviour
     public StatusBarController StatusBar
     {
         get { return statusBar; }
+    }
+
+    public IconManager Icons
+    {
+        get { return icons; }
     }
 }

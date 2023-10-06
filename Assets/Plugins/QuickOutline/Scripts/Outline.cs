@@ -108,7 +108,7 @@ public class Outline : MonoBehaviour {
       materials.Add(outlineMaskMaterial);
       materials.Add(outlineFillMaterial);
 
-      renderer.materials = materials.ToArray();
+      renderer.sharedMaterials = materials.ToArray();
     }
   }
 

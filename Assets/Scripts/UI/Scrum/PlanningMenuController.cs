@@ -4,25 +4,35 @@ using UnityEngine;
 public class PlanningMenuController : AbstractTaskMenu
 {
     [SerializeField]
-    SprintDetailsPanel sprintDetailsPanel;
+    private SprintDetailsPanel sprintDetailsPanel;
     [SerializeField]
-    Container backlogContainer;
+    private Container backlogContainer;
     [SerializeField]
-    Container inSprintContainer;
+    private Container inSprintContainer;
 
-    Dictionary<TaskStatus, Transform> statusContainerMap = new Dictionary<TaskStatus, Transform>();
+    private Dictionary<StoryStatus, Container> statusContainerMap;
 
     public override void SetUp()
     {
         sprintDetailsPanel.SetUp();
+
         // Listen to Begin Sprint button.
         sprintDetailsPanel.onBeginSprint += OnBeginSprintPressed;
 
-        //ValidateSprintReadiness();
-        statusContainerMap.Add(TaskStatus.BACKLOG, backlogContainer.gameObject.transform);
-        statusContainerMap.Add(TaskStatus.TO_DO, inSprintContainer.gameObject.transform);
-        statusContainerMap.Add(TaskStatus.IN_PROGRESS, inSprintContainer.gameObject.transform);
+        // Initialize status/swimlane relational map.
+        statusContainerMap = new()
+        {
+            { StoryStatus.BACKLOG, backlogContainer },
+            { StoryStatus.TO_DO, inSprintContainer },
+            { StoryStatus.IN_PROGRESS, inSprintContainer }
+        };
         base.SetUp();
+    }
+
+    public override void Show()
+    {
+        base.Show();
+        ValidateSprintReadiness();
     }
 
     private void OnBeginSprintPressed()
@@ -30,36 +40,43 @@ public class PlanningMenuController : AbstractTaskMenu
         gameManager.Sprint.BeginSprint();
     }
 
-    protected override void HandleLoadingTaskPanel(Task task)
+    protected override void HandleLoadingStoryPanel(Story story)
     {
-        if (statusContainerMap.TryGetValue(task.Status, out Transform containerLocation))
+        if (statusContainerMap.TryGetValue(story.Status, out Container container))
         {
-            TaskPanel taskPanel = CreateTaskPanel(task, containerLocation);
-            taskPanel.onSelected += OnTaskPanelSelected; // Listen to task clicked, show details on click.
-            taskPanelCache.Add(task, taskPanel);
-            taskPanel.onUpdated += UpdateTaskPanel;
+            StoryPanel storyPanel = CreateTaskPanel(story, container.transform);
+            storyPanel.OnSelected += OnStoryPanelSelected; // Listen to task clicked, show details on click.
+            storyPanelCache.Add(story, storyPanel);
+            storyPanel.OnAssigneeUpdated += UpdateStoryStatusOnAssigneeChanged;
+            storyPanel.OnStatusUpdated += MoveStoryOnStatusChanged;
         }
     }
 
-    private void UpdateTaskPanel(TaskPanel taskPanel)
+    private void UpdateStoryStatusOnAssigneeChanged(StoryPanel storyPanel)
     {
-        if(taskPanel.Task.Assignee != null)
+        if (storyPanel.Story.Assignee != null)
         {
             // Move to In Sprint if task assigned.
-            inSprintContainer.Add(taskPanel);
-            taskPanel.Task.Status = TaskStatus.TO_DO;
+            storyPanel.Story.Status = StoryStatus.TO_DO;
         }
         else
         {
             // Move to backlog if no assignee.
-            backlogContainer.Add(taskPanel);
-            taskPanel.Task.Status = TaskStatus.BACKLOG;
+            storyPanel.Story.Status = StoryStatus.BACKLOG;
+        }
+    }
+
+    private void MoveStoryOnStatusChanged(StoryPanel storyPanel)
+    {
+        if (statusContainerMap.TryGetValue(storyPanel.Story.Status, out Container containerLocation))
+        {
+            containerLocation.Add(storyPanel);
         }
 
         // Move Task Details Panel if associated with current task.
-        if(taskPanel.Task == taskDetailsPanel.Task)
+        if (storyPanel.Story == taskDetailsPanel.Story)
         {
-            MoveTaskDetailsPanelToTaskPanel(taskPanel);
+            MoveStoryDetailsPanelToStoryPanel(storyPanel);
         }
         ValidateSprintReadiness();
     }
@@ -68,11 +85,6 @@ public class PlanningMenuController : AbstractTaskMenu
     {
         // Disable 'Begin Sprint' when no tasks are in sprint.
         bool includeInactive = true;
-        sprintDetailsPanel.UpdateButtonInteraction(inSprintContainer.Contains<TaskPanel>(includeInactive));
-    }
-
-    private void OnEnable()
-    {
-        ValidateSprintReadiness();
+        sprintDetailsPanel.UpdateButtonInteraction(inSprintContainer.Contains<StoryPanel>(includeInactive));
     }
 }

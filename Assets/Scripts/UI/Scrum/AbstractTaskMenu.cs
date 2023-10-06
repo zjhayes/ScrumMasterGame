@@ -8,25 +8,22 @@ public abstract class AbstractTaskMenu : MenuController
     [SerializeField]
     protected GameObject taskPanelPrefab;
 
-    protected Dictionary<Task, TaskPanel> taskPanelCache;
+    protected Dictionary<Story, StoryPanel> storyPanelCache;
 
-    protected abstract void HandleLoadingTaskPanel(Task task);
+    protected abstract void HandleLoadingStoryPanel(Story story);
 
     public override void SetUp()
     {
         // Set up sub-panels.
         taskDetailsPanel.SetUp();
         taskDetailsPanel.Hide(); // Hidden by default.
-        taskDetailsPanel.onHide += OnHideTaskDetails;
-
-        // Reload task panels when global task cache is updated.
-        gameManager.Board.OnBoardUpdated += LoadTaskPanels;
+        taskDetailsPanel.onHide += OnHideStoryDetails;
     }
 
     public override void Show()
     {
         // Add tasks to board.
-        LoadTaskPanels();
+        LoadStoryPanels();
         base.Show();
     }
 
@@ -52,77 +49,81 @@ public abstract class AbstractTaskMenu : MenuController
         }
     }
 
-    protected void OnTaskPanelSelected(TaskPanel taskPanel)
+    protected void OnStoryPanelSelected(StoryPanel taskPanel)
     {
-        ShowPreviouslySelectedTaskPanel(); // Show previously selected task, if any.
+        ShowPreviouslySelectedStoryPanel(); // Show previously selected task, if any.
         // Replace task panel with task details panel.
-        MoveTaskDetailsPanelToTaskPanel(taskPanel);
+        MoveStoryDetailsPanelToStoryPanel(taskPanel);
         taskPanel.Hide();
-        taskDetailsPanel.Show(taskPanel.Task);
+        taskDetailsPanel.Show(taskPanel.Story);
     }
 
-    protected void OnHideTaskDetails(MenuController taskDetails)
+    protected void OnHideStoryDetails(MenuController storyDetails)
     {
         // Show hidden task panel.
-        ShowPreviouslySelectedTaskPanel();
+        ShowPreviouslySelectedStoryPanel();
     }
 
-    protected void LoadTaskPanels()
+    protected void LoadStoryPanels()
     {
         // Clear existing task panels.
         ClearBoard();
         // Add tasks to board.
-        taskPanelCache = new Dictionary<Task, TaskPanel>();
-        foreach (Task task in gameManager.Board.Tasks)
+        storyPanelCache = new Dictionary<Story, StoryPanel>();
+        foreach (Story story in gameManager.Board.Stories.Get())
         {
-            HandleLoadingTaskPanel(task);
+            HandleLoadingStoryPanel(story);
         }
     }
 
-    protected TaskPanel CreateTaskPanel(Task task, Transform parent)
+    protected StoryPanel CreateTaskPanel(Story story, Transform parent)
     {
-        taskPanelPrefab.GetComponent<TaskPanel>().Task = task;
-        TaskPanel taskPanel = Instantiate(taskPanelPrefab, parent).GetComponent<TaskPanel>();
-        return taskPanel;
+        GameObject storyPanelGameObject = BehaviourBuilder.Create(taskPanelPrefab)
+            .WithParent(parent)
+            .WithPosition(parent.position)
+            .WithRotation(parent.rotation)
+            .Build<StoryPanel, IGameManager>(gameManager);
+        StoryPanel storyPanel = storyPanelGameObject.GetComponent<StoryPanel>();
+        storyPanel.Story = story;
+        storyPanel.SetUp();
+        
+        return storyPanel;
     }
 
-    protected void MoveTaskDetailsPanelToTaskPanel(TaskPanel taskPanel)
+    protected void MoveStoryDetailsPanelToStoryPanel(StoryPanel storyPanel)
     {
-        taskDetailsPanel.gameObject.transform.SetParent(taskPanel.gameObject.transform.parent);
-        taskDetailsPanel.gameObject.transform.SetSiblingIndex(taskPanel.gameObject.transform.GetSiblingIndex());
+        taskDetailsPanel.gameObject.transform.SetParent(storyPanel.gameObject.transform.parent);
+        taskDetailsPanel.gameObject.transform.SetSiblingIndex(storyPanel.gameObject.transform.GetSiblingIndex());
     }
 
-    protected void ShowPreviouslySelectedTaskPanel()
+    protected void ShowPreviouslySelectedStoryPanel()
     {
         // Check if there's a selected task, then show it.
-        if (taskDetailsPanel.Task && taskPanelCache.ContainsKey(taskDetailsPanel.Task))
+        if (taskDetailsPanel.Story != null && storyPanelCache.ContainsKey(taskDetailsPanel.Story))
         {
             // Get and show task panel for current task in task details panel.
-            TaskPanel selectedTaskPanel = taskPanelCache[taskDetailsPanel.Task];
+            StoryPanel selectedTaskPanel = storyPanelCache[taskDetailsPanel.Story];
             selectedTaskPanel.Show();
         }
     }
 
     protected void ClearBoard()
     {
-        if (taskPanelCache == null)
-        {
-            return; // Already clear.
-        }
+        if(storyPanelCache == null) { return; } // Nothing to clear.
 
-        foreach (KeyValuePair<Task, TaskPanel> taskPanelPair in taskPanelCache)
+        foreach (KeyValuePair<Story, StoryPanel> taskPanelPair in storyPanelCache)
         {
             // Destroy task panel.
             Destroy(taskPanelPair.Value.gameObject);
         }
-        taskPanelCache = null;
+        storyPanelCache = null;
     }
-
-    protected TaskPanel GetPanelForTask(Task task)
+    
+    protected StoryPanel GetPanelForStory(Story story)
     {
-        if (taskPanelCache.TryGetValue(task, out TaskPanel taskPanel))
+        if (storyPanelCache.TryGetValue(story, out StoryPanel storyPanel))
         {
-            return taskPanel;
+            return storyPanel;
         }
         return null;
     }

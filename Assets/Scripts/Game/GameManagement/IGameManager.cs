@@ -21,4 +21,6 @@ public interface IGameManager : IService
     public ObjectPoolController ObjectPool { get; }
 
     public CameraController Camera { get; }
+
+    public void Quit();
 }

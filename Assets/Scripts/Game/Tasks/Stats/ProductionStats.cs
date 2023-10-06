@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ProductionStats : MonoBehaviour
+public class ProductionStats : MonoBehaviour, IProductionStats
 {
     [SerializeField]
     private int usability;
@@ -39,7 +39,7 @@ public class ProductionStats : MonoBehaviour
         set { maintainability = Mathf.Clamp(value, MINIMUM, maximumValue); } 
     }
 
-    public void Add(ProductionStats other)
+    public void Add(IProductionStats other)
     {
         this.Usability += other.Usability;
         this.Stability += other.Stability;
@@ -47,7 +47,7 @@ public class ProductionStats : MonoBehaviour
         this.Maintainability += other.Maintainability;
     }
 
-    public void Subtract(ProductionStats other)
+    public void Subtract(IProductionStats other)
     {
         this.Usability -= other.Usability;
         this.Stability -= other.Stability;

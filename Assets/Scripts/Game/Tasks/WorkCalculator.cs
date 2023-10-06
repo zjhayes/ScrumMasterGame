@@ -9,7 +9,7 @@ public class WorkCalculator
         return (characterStat1 + characterStat2) - productionStat;
     }
 
-    public static float CalculateOutcome(ProductionStats requirementStats, CharacterStats characterStats)
+    public static float CalculateOutcome(IProductionStats requirementStats, CharacterStats characterStats)
     {
         // Compare difference between production stats to character stats.
         float usability = CalculateUsabilityOutcome(requirementStats, characterStats);
@@ -21,7 +21,7 @@ public class WorkCalculator
         return usability + stability + functionality + maintainability;
     }
 
-    public static float CalculateCombinedOutcome(ProductionStats requirementStats, List<ICharacterController> developers)
+    public static float CalculateCombinedOutcome(IProductionStats requirementStats, List<ICharacterController> developers)
     {
         float outcome = 0;
         // Accumulate developer contributions to outcome.
@@ -34,22 +34,22 @@ public class WorkCalculator
         return outcome;
     }
 
-    public static float CalculateUsabilityOutcome(ProductionStats requirementStats, CharacterStats characterStats)
+    public static float CalculateUsabilityOutcome(IProductionStats requirementStats, CharacterStats characterStats)
     {
         return CalculateModifier(requirementStats.Usability, characterStats.Frontend, characterStats.TimeManagement);
     }
 
-    public static float CalculateStabilityOutcome(ProductionStats requirementStats, CharacterStats characterStats)
+    public static float CalculateStabilityOutcome(IProductionStats requirementStats, CharacterStats characterStats)
     {
         return CalculateModifier(requirementStats.Stability, characterStats.Backend, characterStats.TimeManagement);
     }
 
-    public static float CalculateFunctionalityOutcome(ProductionStats requirementStats, CharacterStats characterStats)
+    public static float CalculateFunctionalityOutcome(IProductionStats requirementStats, CharacterStats characterStats)
     {
         return CalculateModifier(requirementStats.Functionality, characterStats.Frontend, characterStats.ProblemSolving);
     }
 
-    public static float CalculateMaintainabilityOutcome(ProductionStats requirementStats, CharacterStats characterStats)
+    public static float CalculateMaintainabilityOutcome(IProductionStats requirementStats, CharacterStats characterStats)
     {
         return CalculateModifier(requirementStats.Maintainability, characterStats.Backend, characterStats.ProblemSolving);
     }

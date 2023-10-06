@@ -1,7 +1,8 @@
+using UnityEngine;
 
 public class Cartridge : Pickup
 {
-    private Task task;
+    private Story story;
 
     public override void InteractWith(ICharacterController character)
     {
@@ -11,7 +12,7 @@ public class Cartridge : Pickup
 
     public override int CalculatePriorityFor(ICharacterController character)
     {
-        if (gameObject.activeSelf && task.Assignee == character && !character.Inventory.Has<Cartridge>())
+        if (gameObject.activeSelf && story.Assignee == character && !character.Inventory.Has<Cartridge>())
         {
             // Task is assigned to character with free hands, pick it up.
             return PriorityScore.PICK_UP_ASSIGNED_CARTRIDGE;
@@ -20,12 +21,12 @@ public class Cartridge : Pickup
         return PriorityScore.NO_SCORE;
     }
 
-    public Task Task
+    public Story Story
     {
-        get { return task; }
+        get { return story; }
         set
         {
-            task = value;
+            story = value;
             // TODO: Update cartridge appearance based on task.
         }
     }
@@ -33,15 +34,15 @@ public class Cartridge : Pickup
     protected override void OnPickUpSuccess()
     {
         base.OnPickUpSuccess();
-        if (task.Outcome.StartTime <= 0f) // TODO: Handle start/end time elsewhere.
+        if (story.Outcome.StartTime <= 0f) // TODO: Handle start/end time elsewhere.
         {
-            task.Outcome.StartTime = gameManager.Sprint.Clock.CurrentTime;
+            story.Outcome.StartTime = gameManager.Sprint.Clock.CurrentTime;
         }
     }
 
     protected override void OnDisable()
     {
-        task.Outcome.EndTime = gameManager.Sprint.Clock.CurrentTime;
+        story.Outcome.EndTime = gameManager.Sprint.Clock.CurrentTime;
         base.OnDisable();
     }
 }

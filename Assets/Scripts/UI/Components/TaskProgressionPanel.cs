@@ -24,7 +24,7 @@ public class TaskProgressionPanel : MonoBehaviour
     [SerializeField]
     private Color negativeColor;
 
-    public void UpdateProgression(ProductionStats stats)
+    public void UpdateProgression(IProductionStats stats)
     {
         // Update fill of progress bars.
         usabilityProgressBar.CurrentFill = stats.Usability;
@@ -33,7 +33,7 @@ public class TaskProgressionPanel : MonoBehaviour
         maintainabilityProgressBar.CurrentFill = stats.Maintainability;
     }
 
-    public void UpdateModifiers(ProductionStats taskStats, CharacterStats assigneeStats)
+    public void UpdateModifiers(IProductionStats taskStats, CharacterStats assigneeStats)
     {
         // Update modifier text, comparing their stats.
         UpdateModifier(usabilityModifier, (int) WorkCalculator.CalculateUsabilityOutcome(taskStats, assigneeStats));

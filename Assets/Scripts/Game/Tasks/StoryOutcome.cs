@@ -1,14 +1,25 @@
-using UnityEngine;
-
-public class TaskOutcome
+/* The status and results of a task. */
+public class StoryOutcome
 {
+    private float completeness = 0f; // Percent of finished work.
     private float chanceOfErrors;
     private float startTime;
     private float endTime;
 
-    public TaskOutcome()
+    public StoryOutcome()
     {
         chanceOfErrors = Numeric.ONE_HUNDRED_PERCENT;
+    }
+
+    public float Completeness
+    {
+        get { return completeness; }
+        set { completeness = value; }
+    }
+
+    public bool IsReadyForProduction
+    {
+        get { return completeness >= Numeric.ONE_HUNDRED_PERCENT; }
     }
 
     public float ChanceOfErrors

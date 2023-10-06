@@ -3,10 +3,10 @@ public class ScrumBoardController : Interactable
 {
     public override void InteractWith(ICharacterController character)
     {
-        if(gameManager.Board.TryGetFirstTaskWithStatusAndAssignee(character, TaskStatus.TO_DO, out Task task))
+        if(gameManager.Board.Stories.AssignedTo(character).WithStatus(StoryStatus.TO_DO).TryGetFirst(out Story story))
         {
             // Character takes assigned task.
-            TakeTask(task, character);
+            TakeStoryCartridge(story, character);
         }
         else
         {
@@ -22,17 +22,17 @@ public class ScrumBoardController : Interactable
         return true; // Character can always interact with scrum board.
     }
 
-    public void InstantiateCartridge(Task task, ICharacterController character)
+    public void InstantiateCartridge(Story story, ICharacterController character)
     {
         // Get a cartridge for this task, give it to character.
-        Cartridge cartridge = gameManager.ObjectPool.TakeOrCreateCartridge(character.Inventory.transform, task);
+        Cartridge cartridge = gameManager.ObjectPool.TakeOrCreateCartridge(character.Inventory.transform, story);
         cartridge.InteractWith(character);
     }
 
     public override int CalculatePriorityFor(ICharacterController character)
     {
         // Advertise to characters with assigned tasks on the board.
-        if (gameManager.Board.TryGetFirstTaskWithStatusAndAssignee(character, TaskStatus.TO_DO, out _))
+        if (gameManager.Board.Stories.AssignedTo(character).WithStatus(StoryStatus.TO_DO).TryGetFirst(out _))
         {
             return PriorityScore.TAKE_TASK_FROM_BOARD;
         }
@@ -43,9 +43,9 @@ public class ScrumBoardController : Interactable
     }
 
     // Create cartridge, moving task to in progress.
-    private void TakeTask(Task task, ICharacterController character)
+    private void TakeStoryCartridge(Story story, ICharacterController character)
     {
-        InstantiateCartridge(task, character);
-        task.Status = TaskStatus.IN_PROGRESS;
+        InstantiateCartridge(story, character);
+        story.Status = StoryStatus.IN_PROGRESS;
     }
 }

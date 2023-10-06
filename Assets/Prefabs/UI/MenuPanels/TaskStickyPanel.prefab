@@ -953,8 +953,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   escapable: 0
-  tint: 0
-  task: {fileID: 0}
   taskTypeIcon: {fileID: 1215975917}
   summaryText: {fileID: 81929728}
   assigneeImage: {fileID: 7632604961074406819}
