@@ -27,7 +27,10 @@ public class ObjectPoolController : GameBehaviour
         else
         {
             // Create new cartridge at desired location.
-            GameObject cartridgeObject = BehaviourFactory.Create<Cartridge, IGameManager>(cartridgePrefab, gameManager, location.position, location.rotation);
+            GameObject cartridgeObject = BehaviourBuilder.Create(cartridgePrefab)
+                .WithPosition(location.position)
+                .WithRotation(location.rotation)
+                .Build<Cartridge, IGameManager>(gameManager);
             cartridge = cartridgeObject.GetComponent<Cartridge>();
             cartridge.Story = story;
             return cartridgeObject.GetComponent<Cartridge>();

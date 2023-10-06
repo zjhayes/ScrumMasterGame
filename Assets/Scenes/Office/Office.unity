@@ -7798,6 +7798,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprintTime: 120
+  sprintDetails:
+  - {fileID: 11400000, guid: 73cadf6655da6964e85ba769891ae927, type: 2}
+  - {fileID: 11400000, guid: aa955fc57f2ba0740bde3863452a7a2d, type: 2}
 --- !u!114 &1018710665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7910,15 +7913,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f2ec4cc00901a439545146e3f4287d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskContainer: {fileID: 0}
-  cacheInactive: 0
-  stories:
-  - {fileID: 11400000, guid: 20e21a30ef4863e4c9d3000ace2e5e4c, type: 2}
-  - {fileID: 11400000, guid: 90ace1a1a6aa5924898624d91977accc, type: 2}
-  - {fileID: 11400000, guid: 7a27537c735a4ab46ab3e15c6365009d, type: 2}
-  - {fileID: 11400000, guid: 6bfd8e16e31584b4095b08ed1d073ba6, type: 2}
-  - {fileID: 11400000, guid: c3b28929b5f5a2741b83aa7bde66e7fa, type: 2}
-  - {fileID: 11400000, guid: 738f2c672a4e10143b02e37054088ddc, type: 2}
 --- !u!114 &1018710674
 MonoBehaviour:
   m_ObjectHideFlags: 0

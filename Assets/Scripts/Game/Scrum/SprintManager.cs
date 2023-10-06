@@ -34,7 +34,7 @@ public class SprintManager : GameBehaviour
     {
         // Create new Sprint.
         currentSprint = NextSprint();
-        Debug.Log(currentSprint.Details);
+        
         sprintHistory.Add(currentSprint);
         currentSprint.Number = sprintHistory.Count;
 

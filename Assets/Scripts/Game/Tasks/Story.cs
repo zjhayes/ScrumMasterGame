@@ -13,6 +13,7 @@ public class Story
     {
         this.details = details;
         this.status = status;
+        outcome = new StoryOutcome();
     }
 
     public StoryDetails Details

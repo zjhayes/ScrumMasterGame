@@ -31,25 +31,16 @@ public class TaskPanel : MenuController, IContainable
         get { return story; }
         set { story = value; }
     }
-    private void Awake()
-    {
-        // Set up self on creation.
-        SetUp();
-    }
 
-    private void Start()
+    public override void SetUp() // Set Story first.
     {
+        button = GetComponent<ButtonController>();
+        button.OnClick += Selected;
         UpdateDetails();
         UpdateTaskTypeIcon();
         UpdateAssigneePortrait();
 
         story.OnAssigneeChanged += OnAssigneeChanged;
-    }
-
-    public override void SetUp()
-    {
-        button = GetComponent<ButtonController>();
-        button.OnClick += Selected;
     }
 
     public override void Show()

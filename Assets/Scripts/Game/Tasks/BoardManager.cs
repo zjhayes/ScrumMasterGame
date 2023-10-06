@@ -19,7 +19,7 @@ public class BoardManager : MonoBehaviour
         foreach (StoryDetails storyDetail in storyDetails)
         {
             Story story = new Story(storyDetail, StoryStatus.BACKLOG);
-            stories.Add(story); ;
+            stories.Add(story);
         }
     }
 

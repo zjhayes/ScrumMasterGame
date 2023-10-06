@@ -86,8 +86,15 @@ public abstract class AbstractTaskMenu : MenuController
 
     protected TaskPanel CreateTaskPanel(Story story, Transform parent)
     {
-        taskPanelPrefab.GetComponent<TaskPanel>().Story = story;
-        TaskPanel taskPanel = Instantiate(taskPanelPrefab, parent).GetComponent<TaskPanel>();
+        GameObject taskPanelGameObject = BehaviourBuilder.Create(taskPanelPrefab)
+            .WithParent(parent)
+            .WithPosition(parent.position)
+            .WithRotation(parent.rotation)
+            .Build<TaskPanel, IGameManager>(gameManager);
+        TaskPanel taskPanel = taskPanelGameObject.GetComponent<TaskPanel>();
+        taskPanel.Story = story;
+        taskPanel.SetUp();
+        
         return taskPanel;
     }
 
