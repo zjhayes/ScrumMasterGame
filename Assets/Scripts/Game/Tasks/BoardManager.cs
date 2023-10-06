@@ -5,8 +5,6 @@ public class BoardManager : MonoBehaviour
 {
     private List<Story> stories;
 
-    public event Events.GameEvent OnBoardUpdated;
-
     public StorySearchService Stories
     {
         get { return StorySearchService.Search(stories); }

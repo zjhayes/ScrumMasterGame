@@ -32,12 +32,7 @@ public class SprintManager : GameBehaviour
 
     public void BeginPlanning()
     {
-        // Create new Sprint.
-        currentSprint = NextSprint();
-        
-        sprintHistory.Add(currentSprint);
-        currentSprint.Number = sprintHistory.Count;
-
+        NextSprint();
         OnBeginPlanning?.Invoke();
     }
 
@@ -82,15 +77,19 @@ public class SprintManager : GameBehaviour
         get { return clock; }
     }
 
-    private Sprint NextSprint()
+    private void NextSprint()
     {
-        // End game when no more sprints.
-        if(sprintHistory.Count == sprintDetails.Count)
+        // End game when no more sprints. TODO: Add quit option to settings instead.
+        if (sprintHistory.Count == sprintDetails.Count)
         {
+            Debug.Log("No more Sprints, ending game.");
             gameManager.Quit();
+            return;
         }
 
-        // Return next sprint from sprint details.
-        return new Sprint(sprintDetails[sprintHistory.Count]);
+        // Set current sprint to next sprint.
+        currentSprint = new Sprint(sprintDetails[sprintHistory.Count]);
+        sprintHistory.Add(currentSprint);
+        currentSprint.Number = sprintHistory.Count;
     }
 }

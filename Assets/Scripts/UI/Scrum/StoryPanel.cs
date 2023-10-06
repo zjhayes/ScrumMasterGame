@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 
 [RequireComponent(typeof(ButtonController))]
-public class TaskPanel : MenuController, IContainable
+public class StoryPanel : MenuController, IContainable
 {
     [SerializeField]
     private Story story;
@@ -20,11 +20,10 @@ public class TaskPanel : MenuController, IContainable
 
     private ButtonController button;
 
-    public delegate void OnSelected(TaskPanel taskPanel);
-    public event OnSelected onSelected;
+    public event Events.MenuEvent<StoryPanel> OnSelected;
 
-    public delegate void OnUpdated(TaskPanel taskPanel);
-    public event OnUpdated onUpdated;
+    public event Events.MenuEvent<StoryPanel> OnAssigneeUpdated;
+    public event Events.MenuEvent<StoryPanel> OnStatusUpdated;
 
     public Story Story
     {
@@ -37,10 +36,11 @@ public class TaskPanel : MenuController, IContainable
         button = GetComponent<ButtonController>();
         button.OnClick += Selected;
         UpdateDetails();
-        UpdateTaskTypeIcon();
+        UpdateStoryTypeIcon();
         UpdateAssigneePortrait();
 
-        story.OnAssigneeChanged += OnAssigneeChanged;
+        story.OnAssigneeChanged += AssigneeUpdated;
+        story.OnStatusChanged += StatusUpdated;
     }
 
     public override void Show()
@@ -74,13 +74,18 @@ public class TaskPanel : MenuController, IContainable
 
     private void Selected()
     {
-        onSelected?.Invoke(this);
+        OnSelected?.Invoke(this);
     }
 
-    private void OnAssigneeChanged(ICharacterController assignee)
+    private void AssigneeUpdated(ICharacterController assignee)
     {
         UpdateAssigneePortrait();
-        onUpdated?.Invoke(this);
+        OnAssigneeUpdated?.Invoke(this);
+    }
+
+    private void StatusUpdated(Story story)
+    {
+        OnStatusUpdated?.Invoke(this);
     }
 
     private void UpdateDetails()
@@ -89,16 +94,14 @@ public class TaskPanel : MenuController, IContainable
         storyPointsText.text = story.StoryPoints.ToString();
     }
 
-    private void UpdateTaskTypeIcon()
+    private void UpdateStoryTypeIcon()
     {
         taskTypeIcon.sprite = gameManager.UI.Icons.GetIconForStoryType(story.Details.Type);
     }
 
     private void OnDestroy()
     {
-        // Clear listeners.
-        onSelected = null;
-        onUpdated = null;
-        story.OnAssigneeChanged -= OnAssigneeChanged;
+        story.OnAssigneeChanged -= AssigneeUpdated;
+        story.OnStatusChanged -= StatusUpdated;
     }
 }

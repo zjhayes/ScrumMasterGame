@@ -10,4 +10,5 @@ public class Events : MonoBehaviour
     public delegate void StoryEvent(Story story);
     public delegate void StationEvent();
     public delegate void UIEvent();
+    public delegate void MenuEvent<T>(T menu) where T : MenuController;
 }
