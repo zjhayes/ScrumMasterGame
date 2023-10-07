@@ -18,10 +18,6 @@ public class TaskDetailsPanel : MenuController
     TMP_Dropdown assigneeSelection;
     [SerializeField]
     TaskProgressionPanel taskProgressionPanel;
-    [SerializeField]
-    Button addToSprintButton;
-    [SerializeField]
-    Button removeFromSprintButton;
 
     Story story;
     Dictionary<int, ICharacterController> characterCache;
@@ -40,7 +36,6 @@ public class TaskDetailsPanel : MenuController
         this.story = story;
         UpdateDetails();
         UpdateAssignee();
-        UpdateActionButton();
 
         Show();
     }
@@ -77,7 +72,6 @@ public class TaskDetailsPanel : MenuController
             story.Assignee = null;
         }
         taskProgressionPanel.ClearModifiers();
-        UpdateActionButton();
     }
 
     public void UpdateAssignee()
@@ -85,7 +79,6 @@ public class TaskDetailsPanel : MenuController
         // Find task assignee's option index in character cache.
         int assigneeKey = characterCache.FirstOrDefault(x => x.Value == story.Assignee).Key;
         assigneeSelection.value = assigneeKey;
-        UpdateActionButton();
     }
 
     public void UpdateDetails()
@@ -114,24 +107,6 @@ public class TaskDetailsPanel : MenuController
     public void ClearModifiers()
     {
         taskProgressionPanel.ClearModifiers();
-    }
-
-    public void UpdateActionButton()
-    {
-        if(addToSprintButton == null || removeFromSprintButton == null) { return; } // TODO: Separate button logic from task detail panel.
-        if(story.Status == StoryStatus.BACKLOG)
-        {
-            addToSprintButton.gameObject.SetActive(true);
-            removeFromSprintButton.gameObject.SetActive(false);
-
-            // Button is only interactable when assignee is selected.
-            addToSprintButton.interactable = (story.Assignee != null);
-        }
-        else
-        {
-            addToSprintButton.gameObject.SetActive(false);
-            removeFromSprintButton.gameObject.SetActive(true);
-        }
     }
 
     private void AddCharactersToAssigneeOptions()
