@@ -7,6 +7,7 @@ public class GoToInteractableState : CharacterState
     {
         character = controller;
         character.Movement.GoTo(character.TargetInteractable.Position);
+        character.Movement.OnArrivedAtDestination += character.InteractWithTarget;
         base.Handle(controller);
     }
 
@@ -18,12 +19,12 @@ public class GoToInteractableState : CharacterState
             character.FindSomethingToDo();
             return;
         }
+    }
 
-        if(character.Movement.AtDestination())
-        {
-            // On arrival, interact.
-            character.InteractWithTarget();
-        }
+    public override void Exit()
+    {
+        character.Movement.OnArrivedAtDestination -= character.InteractWithTarget;
+        base.Exit();
     }
 
     public override string Status 
