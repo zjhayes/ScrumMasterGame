@@ -2,25 +2,19 @@ using System.Collections.Generic;
 
 public class Sprint
 {
-    private SprintDetails sprintDetails;
     private int sprintNumber;
     private List<Story> completeTasks;
     private List<Story> incompleteTasks;
     private float quality = 0f;
     private float averageCycleTime = 0f;
     private float remainingTime = 0f;
-    private int numberOfDefects = 0;
+    private List<StoryDetails> defects;
 
-    public Sprint(SprintDetails sprintDetails)
+    public Sprint()
     {
-        this.sprintDetails = sprintDetails;
         completeTasks = new List<Story>();
         incompleteTasks = new List<Story>();
-    }
-
-    public SprintDetails Details
-    {
-        get { return sprintDetails; }
+        defects = new List<StoryDetails>();
     }
 
     public int Number
@@ -59,9 +53,8 @@ public class Sprint
         set { remainingTime = value; }
     }
 
-    public int Defects
+    public List<StoryDetails> Defects
     {
-        get { return numberOfDefects; }
-        set { numberOfDefects = value; }
+        get { return defects; }
     }
 }

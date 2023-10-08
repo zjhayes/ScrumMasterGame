@@ -17,7 +17,7 @@ public abstract class AbstractTaskMenu : MenuController
         // Set up sub-panels.
         taskDetailsPanel.SetUp();
         taskDetailsPanel.Hide(); // Hidden by default.
-        taskDetailsPanel.onHide += OnHideStoryDetails;
+        taskDetailsPanel.OnHide += OnHideStoryDetails;
     }
 
     public override void Show()

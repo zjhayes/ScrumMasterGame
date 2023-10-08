@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Story", menuName = "Game/Story Details")]
@@ -12,6 +13,10 @@ public class StoryDetails : ScriptableObject
     private StoryType type;
     [SerializeField]
     private StoryRequirements requirements;
+    [SerializeField]
+    private List<StoryDetails> causes; // Stories this will add to backlog.
+    [SerializeField]
+    private StoryDetails risk; // Potential defect.
 
     public string Summary
     {
@@ -31,5 +36,15 @@ public class StoryDetails : ScriptableObject
     public StoryRequirements Requirements
     {
         get { return requirements; }
+    }
+
+    public List<StoryDetails> Causes
+    {
+        get { return causes; }
+    }
+
+    public StoryDetails Risk
+    {
+        get { return risk; }
     }
 }

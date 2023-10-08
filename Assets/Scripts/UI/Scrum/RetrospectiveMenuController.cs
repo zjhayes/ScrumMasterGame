@@ -49,7 +49,7 @@ public class RetrospectiveMenuController : MenuController
         completedStoryPointsText.text = StoryService.CountStoryPoints(completeTasks).ToString();
         notCompletedStoryPointsText.text = StoryService.CountStoryPoints(incompleteTasks).ToString();
         qualityText.text = gameManager.Sprint.Current.Quality.ToString("F0");
-        defectRateText.text = gameManager.Sprint.Current.Defects.ToString();
+        defectRateText.text = gameManager.Sprint.Current.Defects.Count.ToString();
         cycleTimeText.text = gameManager.Sprint.Current.CycleTime.ToString("F0");
         remainingTimeText.text = gameManager.Sprint.Current.RemainingTime.ToString("F0");
         SetProductionProgressBars();

@@ -9,14 +9,14 @@ public class ProductionServer : Computer
         {
             cartridge.Story.Status = StoryStatus.DONE;
 
-            if (cartridge.Story.Status == StoryStatus.DONE)
-            {
-                // Work is deployed, cache cartridge object.
-                gameManager.ObjectPool.PoolCartridge(cartridge);
-                gameManager.Sprint.EndSprintEarlyIfAllDone();
-            }
+            // Work is deployed, cache cartridge object.
+            gameManager.ObjectPool.PoolCartridge(cartridge);
+            gameManager.Sprint.EndSprintEarlyIfAllDone();
         }
-        Sleep();
+        else
+        {
+            Sleep();
+        }
     }
 
 
