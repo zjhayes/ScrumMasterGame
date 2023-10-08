@@ -39,8 +39,8 @@ public class Socket : Container
 
     protected virtual void ObjectRemovedAsChild()
     {
-        OnRemove?.Invoke(currentObject);
         currentObject = default;
+        OnRemove?.Invoke(currentObject);
     }
 
     // Listen for when object is removed as child of container.

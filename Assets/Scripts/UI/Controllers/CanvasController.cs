@@ -6,16 +6,16 @@ public class CanvasController : GameBehaviour
     [SerializeField]
     List<MenuController> menus;
 
-    public Events.UIEvent onShowFirstMenu;
-    public Events.UIEvent onHideLastMenu;
+    public Events.UIEvent OnShowFirstMenu;
+    public Events.UIEvent OnHideLastMenu;
 
     private void Awake()
     {
         // Initiate hidden menus.
         foreach (MenuController menu in menus)
         {
-            menu.onShow += ShowMenu;
-            menu.onHide += HideMenu;
+            menu.OnShow += ShowMenu;
+            menu.OnHide += HideMenu;
             menu.SetUp();
         }
     }
@@ -31,9 +31,8 @@ public class CanvasController : GameBehaviour
         // Check if menus not already open.
         if(ActiveCount <= 0)
         {
-            onShowFirstMenu?.Invoke();
+            OnShowFirstMenu?.Invoke();
         }
-        
         menu.SetActive(true);
     }
 
@@ -44,7 +43,7 @@ public class CanvasController : GameBehaviour
         // Check if all menus hidden.
         if(ActiveCount <= 0)
         {
-            onHideLastMenu?.Invoke();
+            OnHideLastMenu?.Invoke();
         }
     }
 

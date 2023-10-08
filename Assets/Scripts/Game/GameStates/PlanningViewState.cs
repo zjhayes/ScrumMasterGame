@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlanningViewState : GameState
@@ -8,7 +9,6 @@ public class PlanningViewState : GameState
     {
         controller = _controller;
 
-        UpdateBoard();
         UpdateView();
         base.Handle(controller);
     }
@@ -25,12 +25,6 @@ public class PlanningViewState : GameState
         gameManager.UI.ScrumMenu.Show();
         gameManager.UI.StatusBar.Show();
         base.Exit();
-    }
-
-    private void UpdateBoard()
-    {
-        gameManager.Board.ImportStoryDetails(gameManager.Sprint.Current.Details.Stories);
-        gameManager.Board.RemoveStoriesWithStatus(StoryStatus.DONE);
     }
 
     private void UpdateView()

@@ -40,11 +40,6 @@ public class InteractableManager : MonoBehaviour
         openInteractables.Remove(interactable);
     }
 
-    public List<Interactable> OpenInteractables
-    {
-        get { return openInteractables; }
-    }
-
     public IEnumerable<KeyValuePair<Interactable, int>> PrioritizeInteractablesFor(ICharacterController character)
     {
         // Get scores advertised to character by open interactables.

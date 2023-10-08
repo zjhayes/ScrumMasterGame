@@ -8,6 +8,8 @@ public class ContextManager : GameBehaviour, IContextManager
     private ICharacterController currentCharacter;
 
     [SerializeField]
+    private GameState setupState;
+    [SerializeField]
     private GameState defaultState;
     [SerializeField]
     private GameState scrumViewState;
@@ -21,7 +23,6 @@ public class ContextManager : GameBehaviour, IContextManager
     private void Awake()
     {
         stateContext = new StateContext<ContextManager>(this);
-        Default();
 
         // Listen to Sprint Manager.
         gameManager.Sprint.OnBeginPlanning += SwitchToPlanningView;
@@ -31,6 +32,16 @@ public class ContextManager : GameBehaviour, IContextManager
         // Listen to player controls.
         gameManager.Controls.OnEscape += EscapeCurrentState; // TODO: Just call default?
         gameManager.Controls.OnChangeView += ChangeView;
+    }
+
+    private void Start()
+    {
+        InitializeGame();
+    }
+
+    private void InitializeGame()
+    {
+        stateContext.Transition(setupState);
     }
 
     public void Default()

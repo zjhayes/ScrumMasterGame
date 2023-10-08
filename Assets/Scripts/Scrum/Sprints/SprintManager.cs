@@ -6,8 +6,6 @@ public class SprintManager : GameBehaviour
 {
     [SerializeField]
     private float sprintTime = 120.0f;
-    [SerializeField]
-    private List<SprintDetails> sprintDetails;
 
     private Sprint currentSprint;
     private List<Sprint> sprintHistory;
@@ -23,11 +21,6 @@ public class SprintManager : GameBehaviour
         clock = GetComponent<SprintClock>();
         clock.TotalTime = sprintTime;
         clock.OnExpiration += BeginRelease;
-    }
-
-    void Start()
-    {
-        BeginPlanning();
     }
 
     public void BeginPlanning()
@@ -52,7 +45,7 @@ public class SprintManager : GameBehaviour
         OnBeginRetrospective?.Invoke();
     }
 
-    public void EndEarly()
+    public void EndSprintEarly()
     {
         clock.Stop();
         BeginRelease();
@@ -60,10 +53,11 @@ public class SprintManager : GameBehaviour
 
     public void EndSprintEarlyIfAllDone()
     {
+        Debug.Log("Ending early");
         // Check if there are any incomplete stories in the sprint.
         if (gameManager.Board.Stories.WithStatus(StoryStatus.TO_DO, StoryStatus.IN_PROGRESS).Get().Count <= 0) // TODO: Move to GameState.
         {
-            EndEarly();
+            EndSprintEarly();
         }
     }
 
@@ -79,16 +73,16 @@ public class SprintManager : GameBehaviour
 
     private void NextSprint()
     {
-        // End game when no more sprints. TODO: Add quit option to settings instead.
-        if (sprintHistory.Count == sprintDetails.Count)
+/*        // End game when no more sprints. TODO: Add quit option to settings instead.
+        if (gameManager.Board.Stories?.Get().Count == 0)
         {
-            Debug.Log("No more Sprints, ending game.");
+            Debug.Log("No more Stories, ending game.");
             gameManager.Quit();
             return;
-        }
+        }*/
 
         // Set current sprint to next sprint.
-        currentSprint = new Sprint(sprintDetails[sprintHistory.Count]);
+        currentSprint = new Sprint();
         sprintHistory.Add(currentSprint);
         currentSprint.Number = sprintHistory.Count;
     }

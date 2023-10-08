@@ -9,9 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8db3cf367c284747a044edb09e8c95d, type: 3}
-  m_Name: sprint_02
+  m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
+  m_Name: bug_01
   m_EditorClassIdentifier: 
-  stories:
-  - {fileID: 11400000, guid: 738f2c672a4e10143b02e37054088ddc, type: 2}
-  - {fileID: 11400000, guid: c3b28929b5f5a2741b83aa7bde66e7fa, type: 2}
+  summary: Test bug
+  description: testing bugs
+  type: 1
+  requirements:
+    usability: 3
+    stability: 6
+    functionality: 4
+    maintainability: 5
+  causes: []
+  risk: {fileID: 0}

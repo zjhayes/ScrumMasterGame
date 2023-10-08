@@ -5,21 +5,19 @@ public abstract class MenuController : GameBehaviour
     [SerializeField]
     private bool escapable = false;
 
-    public delegate void OnShow(MenuController menu);
-    public OnShow onShow;
-    public delegate void OnHide(MenuController menu);
-    public OnHide onHide;
+    public Events.MenuEvent<MenuController> OnShow;
+    public Events.MenuEvent<MenuController> OnHide;
 
     public abstract void SetUp();
 
     public virtual void Show()
     {
-        onShow?.Invoke(this);
+        OnShow?.Invoke(this);
     }
 
     public virtual void Hide()
     {
-        onHide?.Invoke(this);
+        OnHide?.Invoke(this);
     }
 
     public virtual void Escape()
