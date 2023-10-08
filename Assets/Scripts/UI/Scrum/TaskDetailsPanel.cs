@@ -45,7 +45,7 @@ public class TaskDetailsPanel : MenuController
     {
         base.Show();
         SetActive(true);
-        StartCoroutine(SnapScrollNextFrame());
+        SnapScroll();
     }
 
     public override void Hide()
@@ -129,16 +129,17 @@ public class TaskDetailsPanel : MenuController
         get { return story; }
     }
 
-    private IEnumerator SnapScrollNextFrame()
+    public void SnapScroll()
     {
-        // Wait for the next frame
-        yield return null;
-        SnapScroll();
+        // Wait for the next frame so rect transform has updated.
+        StartCoroutine(SnapScrollNextFrame());
     }
 
     // Auto-scroll so this element is at the top of the viewport.
-    private void SnapScroll() // TODO: Move this to swimlane container.
+    private IEnumerator SnapScrollNextFrame() // TODO: Move this to new component.
     {
+        yield return null;
+
         ScrollRect scrollRect = transform.parent.parent.GetComponent<ScrollRect>();
         RectTransform content = scrollRect.content;
         RectTransform target = GetComponent<RectTransform>();

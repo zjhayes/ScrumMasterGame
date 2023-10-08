@@ -77,6 +77,7 @@ public class PlanningMenuController : AbstractTaskMenu
         if (storyPanel.Story == taskDetailsPanel.Story)
         {
             MoveStoryDetailsPanelToStoryPanel(storyPanel);
+            taskDetailsPanel.SnapScroll();
         }
         ValidateSprintReadiness();
     }
