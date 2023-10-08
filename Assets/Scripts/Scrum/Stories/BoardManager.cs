@@ -12,7 +12,7 @@ public class BoardManager : MonoBehaviour
 
     public void ImportStoryDetails(List<StoryDetails> storyDetails)
     {
-        stories = new List<Story>();
+        if(stories == null) { stories = new List<Story>(); }
 
         foreach (StoryDetails storyDetail in storyDetails)
         {

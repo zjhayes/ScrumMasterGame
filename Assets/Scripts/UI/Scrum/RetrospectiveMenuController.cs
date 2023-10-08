@@ -42,7 +42,6 @@ public class RetrospectiveMenuController : MenuController
 
     private void LoadDetails()
     {
-        Debug.Log("Loading");
         // Update Retrospective View with sprint outcomes.
         sprintNumberText.text = gameManager.Sprint.Current.Number.ToString();
         List<Story> completeTasks = gameManager.Sprint.Current.CompleteTasks;

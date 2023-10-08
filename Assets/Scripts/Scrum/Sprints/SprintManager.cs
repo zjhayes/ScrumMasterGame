@@ -53,7 +53,6 @@ public class SprintManager : GameBehaviour
 
     public void EndSprintEarlyIfAllDone()
     {
-        Debug.Log("Ending early");
         // Check if there are any incomplete stories in the sprint.
         if (gameManager.Board.Stories.WithStatus(StoryStatus.TO_DO, StoryStatus.IN_PROGRESS).Get().Count <= 0) // TODO: Move to GameState.
         {
@@ -73,13 +72,13 @@ public class SprintManager : GameBehaviour
 
     private void NextSprint()
     {
-/*        // End game when no more sprints. TODO: Add quit option to settings instead.
+        // End game when no more sprints. TODO: Add quit option to settings instead.
         if (gameManager.Board.Stories?.Get().Count == 0)
         {
             Debug.Log("No more Stories, ending game.");
             gameManager.Quit();
             return;
-        }*/
+        }
 
         // Set current sprint to next sprint.
         currentSprint = new Sprint();

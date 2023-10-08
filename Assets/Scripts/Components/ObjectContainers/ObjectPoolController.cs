@@ -39,7 +39,6 @@ public class ObjectPoolController : GameBehaviour
     
     public void PoolCartridge(Cartridge cartridge)
     {
-        Debug.Log("Pool " + cartridge);
         // Move cartridge to pool and deactivate.
         cartridge.gameObject.SetActive(false);
         cartridge.transform.SetPositionAndRotation(transform.position, transform.rotation);
