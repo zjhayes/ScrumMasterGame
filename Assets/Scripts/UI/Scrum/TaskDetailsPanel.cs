@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class TaskDetailsPanel : MenuController
 {
@@ -44,6 +45,7 @@ public class TaskDetailsPanel : MenuController
     {
         base.Show();
         SetActive(true);
+        StartCoroutine(SnapScrollNextFrame());
     }
 
     public override void Hide()
@@ -125,5 +127,30 @@ public class TaskDetailsPanel : MenuController
     public Story Story
     {
         get { return story; }
+    }
+
+    private IEnumerator SnapScrollNextFrame()
+    {
+        // Wait for the next frame
+        yield return null;
+        SnapScroll();
+    }
+
+    // Auto-scroll so this element is at the top of the viewport.
+    private void SnapScroll() // TODO: Move this to swimlane container.
+    {
+        ScrollRect scrollRect = transform.parent.parent.GetComponent<ScrollRect>();
+        RectTransform content = scrollRect.content;
+        RectTransform target = GetComponent<RectTransform>();
+        Vector3 targetPosition = target.anchoredPosition;
+
+        // Calculate the position of the target element relative to the content.
+        float lengthFromTopOfTargetToTopOfContent = Mathf.Abs(targetPosition.y);
+        float differenceBetweenContentHeightAndTargetHeight = content.rect.height - target.rect.height;
+        float targetScrollPosition = 1 - (lengthFromTopOfTargetToTopOfContent / differenceBetweenContentHeightAndTargetHeight);
+        float normalizedScrollPosition = Mathf.Clamp01(targetScrollPosition);
+
+        // Set the vertical scroll position.
+        scrollRect.verticalNormalizedPosition = normalizedScrollPosition;
     }
 }
