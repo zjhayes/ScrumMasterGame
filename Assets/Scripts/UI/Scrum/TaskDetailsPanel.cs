@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class TaskDetailsPanel : MenuController
 {
@@ -18,10 +19,6 @@ public class TaskDetailsPanel : MenuController
     TMP_Dropdown assigneeSelection;
     [SerializeField]
     TaskProgressionPanel taskProgressionPanel;
-    [SerializeField]
-    Button addToSprintButton;
-    [SerializeField]
-    Button removeFromSprintButton;
 
     Story story;
     Dictionary<int, ICharacterController> characterCache;
@@ -40,7 +37,6 @@ public class TaskDetailsPanel : MenuController
         this.story = story;
         UpdateDetails();
         UpdateAssignee();
-        UpdateActionButton();
 
         Show();
     }
@@ -49,6 +45,7 @@ public class TaskDetailsPanel : MenuController
     {
         base.Show();
         SetActive(true);
+        SnapScroll();
     }
 
     public override void Hide()
@@ -77,7 +74,6 @@ public class TaskDetailsPanel : MenuController
             story.Assignee = null;
         }
         taskProgressionPanel.ClearModifiers();
-        UpdateActionButton();
     }
 
     public void UpdateAssignee()
@@ -85,7 +81,6 @@ public class TaskDetailsPanel : MenuController
         // Find task assignee's option index in character cache.
         int assigneeKey = characterCache.FirstOrDefault(x => x.Value == story.Assignee).Key;
         assigneeSelection.value = assigneeKey;
-        UpdateActionButton();
     }
 
     public void UpdateDetails()
@@ -116,24 +111,6 @@ public class TaskDetailsPanel : MenuController
         taskProgressionPanel.ClearModifiers();
     }
 
-    public void UpdateActionButton()
-    {
-        if(addToSprintButton == null || removeFromSprintButton == null) { return; } // TODO: Separate button logic from task detail panel.
-        if(story.Status == StoryStatus.BACKLOG)
-        {
-            addToSprintButton.gameObject.SetActive(true);
-            removeFromSprintButton.gameObject.SetActive(false);
-
-            // Button is only interactable when assignee is selected.
-            addToSprintButton.interactable = (story.Assignee != null);
-        }
-        else
-        {
-            addToSprintButton.gameObject.SetActive(false);
-            removeFromSprintButton.gameObject.SetActive(true);
-        }
-    }
-
     private void AddCharactersToAssigneeOptions()
     {
         characterCache = new Dictionary<int, ICharacterController>();
@@ -150,5 +127,31 @@ public class TaskDetailsPanel : MenuController
     public Story Story
     {
         get { return story; }
+    }
+
+    public void SnapScroll()
+    {
+        // Wait for the next frame so rect transform has updated.
+        StartCoroutine(SnapScrollNextFrame());
+    }
+
+    // Auto-scroll so this element is at the top of the viewport.
+    private IEnumerator SnapScrollNextFrame() // TODO: Move this to new component.
+    {
+        yield return null;
+
+        ScrollRect scrollRect = transform.parent.parent.GetComponent<ScrollRect>();
+        RectTransform content = scrollRect.content;
+        RectTransform target = GetComponent<RectTransform>();
+        Vector3 targetPosition = target.anchoredPosition;
+
+        // Calculate the position of the target element relative to the content.
+        float lengthFromTopOfTargetToTopOfContent = Mathf.Abs(targetPosition.y);
+        float differenceBetweenContentHeightAndTargetHeight = content.rect.height - target.rect.height;
+        float targetScrollPosition = 1 - (lengthFromTopOfTargetToTopOfContent / differenceBetweenContentHeightAndTargetHeight);
+        float normalizedScrollPosition = Mathf.Clamp01(targetScrollPosition);
+
+        // Set the vertical scroll position.
+        scrollRect.verticalNormalizedPosition = normalizedScrollPosition;
     }
 }

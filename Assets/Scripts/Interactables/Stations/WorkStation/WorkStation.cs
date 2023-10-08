@@ -28,9 +28,9 @@ public class WorkStation : Station
 
     public override int CalculatePriorityFor(ICharacterController character)
     {
-        if(CharacterCanWorkOnTask(character))
+        if(CharacterCanWorkOnTask(character) && CountOccupants() == 0)
         {
-            // Advertise that character can work on task here.
+            // Advertise that character can work on task here, unoccupied.
             return PriorityScore.WORK_ON_TASK;
         }
         else if(CharacterCanPairProgram(character) && !character.Inventory.Has<Cartridge>())

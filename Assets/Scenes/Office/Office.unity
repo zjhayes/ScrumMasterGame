@@ -1098,6 +1098,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 128054894}
   m_CullTransparentMesh: 1
+--- !u!224 &154955140 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1264545624402238485, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
+    type: 3}
+  m_PrefabInstance: {fileID: 1623768792}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &164370180
 GameObject:
   m_ObjectHideFlags: 0
@@ -2870,8 +2876,6 @@ MonoBehaviour:
   storyPointsText: {fileID: 0}
   assigneeSelection: {fileID: 0}
   taskProgressionPanel: {fileID: 0}
-  addToSprintButton: {fileID: 0}
-  removeFromSprintButton: {fileID: 0}
 --- !u!222 &365370450
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13329,6 +13333,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264545624402238485, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
         type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264545624402238485, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
+        type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
@@ -13349,14 +13358,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264545624402238485, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
         type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0000371933
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264545624402238485, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
+        type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 300.83334
+      value: 300.83322
       objectReference: {fileID: 0}
     - target: {fileID: 1264545624402238485, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -445.5
+      value: -104.99985
       objectReference: {fileID: 0}
+    - target: {fileID: 1615108455840182498, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
+        type: 3}
+      propertyPath: m_Viewport
+      value: 
+      objectReference: {fileID: 154955140}
     - target: {fileID: 1978940741909683560, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -13574,8 +13593,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4752958437341315206, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
         type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752958437341315206, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752958437341315206, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 581.6666
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752958437341315206, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
+        type: 3}
       propertyPath: m_SizeDelta.y
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752958437341315206, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5931392941726719325, guid: 0d22d20af8a4df64fa33d7f6cb5d9186,
         type: 3}
@@ -15576,8 +15615,6 @@ MonoBehaviour:
   storyPointsText: {fileID: 1521646635}
   assigneeSelection: {fileID: 1451070028}
   taskProgressionPanel: {fileID: 1185826944}
-  addToSprintButton: {fileID: 1642134149}
-  removeFromSprintButton: {fileID: 298758953}
 --- !u!114 &1882289189
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -49,13 +49,13 @@ public abstract class AbstractTaskMenu : MenuController
         }
     }
 
-    protected void OnStoryPanelSelected(StoryPanel taskPanel)
+    protected void OnStoryPanelSelected(StoryPanel storyPanel)
     {
         ShowPreviouslySelectedStoryPanel(); // Show previously selected task, if any.
         // Replace task panel with task details panel.
-        MoveStoryDetailsPanelToStoryPanel(taskPanel);
-        taskPanel.Hide();
-        taskDetailsPanel.Show(taskPanel.Story);
+        MoveStoryDetailsPanelToStoryPanel(storyPanel);
+        storyPanel.Hide();
+        taskDetailsPanel.Show(storyPanel.Story);
     }
 
     protected void OnHideStoryDetails(MenuController storyDetails)
