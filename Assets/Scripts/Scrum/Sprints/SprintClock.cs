@@ -22,10 +22,14 @@ public class SprintClock : MonoBehaviour
         }
     }
 
-    public void Begin()
+    public void StartTime()
+    {
+        this.enabled = true;
+    }
+
+    public void ResetTime()
     {
         currentTime = totalTime;
-        this.enabled = true;
     }
 
     public void Stop()

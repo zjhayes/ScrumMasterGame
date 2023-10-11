@@ -12,13 +12,19 @@ public class ContextManager : GameBehaviour, IContextManager
     [SerializeField]
     private GameState defaultState;
     [SerializeField]
+    private GameState pauseState;
+    [SerializeField]
     private GameState scrumViewState;
     [SerializeField]
     private GameState planningViewState;
     [SerializeField]
+    private GameState releaseState;
+    [SerializeField]
     private GameState retrospectiveViewState;
     [SerializeField]
     private GameState selectedCharacterState;
+
+    private GameState previousState;
 
     private void Awake()
     {
@@ -27,6 +33,7 @@ public class ContextManager : GameBehaviour, IContextManager
         // Listen to Sprint Manager.
         gameManager.Sprint.OnBeginPlanning += SwitchToPlanningView;
         gameManager.Sprint.OnBeginSprint += Default;
+        gameManager.Sprint.OnRelease += SwitchToReleaseState;
         gameManager.Sprint.OnBeginRetrospective += SwitchToRetrospectiveView;
 
         // Listen to player controls.
@@ -41,27 +48,42 @@ public class ContextManager : GameBehaviour, IContextManager
 
     private void InitializeGame()
     {
-        stateContext.Transition(setupState);
+        Transition(setupState);
     }
 
     public void Default()
     {
-        stateContext.Transition(defaultState);
+        Transition(defaultState);
+    }
+
+    public void Pause()
+    {
+        Transition(pauseState);
     }
 
     public void SwitchToScrumView()
     {
-        stateContext.Transition(scrumViewState);
+        Transition(scrumViewState);
     }
 
     public void SwitchToPlanningView()
     {
-        stateContext.Transition(planningViewState);
+        Transition(planningViewState);
+    }
+
+    public void SwitchToReleaseState()
+    {
+        Transition(releaseState);
     }
 
     public void SwitchToRetrospectiveView()
     {
-        stateContext.Transition(retrospectiveViewState);
+        Transition(retrospectiveViewState);
+    }
+
+    public void SwitchToPreviousState()
+    {
+        Transition(previousState);
     }
 
     public void CharacterSelected(ICharacterController character)
@@ -69,7 +91,7 @@ public class ContextManager : GameBehaviour, IContextManager
         DeselectCharacter();
         currentCharacter = character;
         gameManager.Interactables.EnableInteractables();
-        stateContext.Transition(selectedCharacterState);
+        Transition(selectedCharacterState);
     }
 
     public void DeselectCharacter()
@@ -104,14 +126,12 @@ public class ContextManager : GameBehaviour, IContextManager
         set { currentCharacter = value; }
     }
 
-    // Quit game.
-    public void Exit()
+    private void Transition(GameState nextState)
     {
-#if UNITY_EDITOR
-        EditorApplication.ExitPlaymode();
-#else
-        Application.Quit();
-#endif
+        previousState = CurrentState != null ? CurrentState : null;
+
+        stateContext.Transition(nextState);
+
     }
 
     private void OnDisable()
