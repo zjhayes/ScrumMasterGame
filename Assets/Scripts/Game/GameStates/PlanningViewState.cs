@@ -1,21 +1,19 @@
-using System.Collections.Generic;
-using UnityEngine;
 
 public class PlanningViewState : GameState
 {
-    private ContextManager controller;
+    private ContextManager gameContext;
 
     public override void Handle(ContextManager _controller)
     {
-        controller = _controller;
+        gameContext = _controller;
 
         UpdateView();
-        base.Handle(controller);
+        base.Handle(gameContext);
     }
 
     public override void OnEscaped()
     {
-        // TODO: Show settings menu.
+        gameContext.Pause();
     }
 
     public override void Exit()

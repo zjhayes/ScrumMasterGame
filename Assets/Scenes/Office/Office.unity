@@ -2687,7 +2687,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &714590646
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3797,6 +3797,7 @@ MonoBehaviour:
   pauseState: {fileID: 1596050636}
   scrumViewState: {fileID: 1596050632}
   planningViewState: {fileID: 1596050631}
+  releaseState: {fileID: 1596050637}
   retrospectiveViewState: {fileID: 1596050634}
   selectedCharacterState: {fileID: 1596050629}
 --- !u!114 &1018710671
@@ -5347,6 +5348,7 @@ GameObject:
   - component: {fileID: 1596050631}
   - component: {fileID: 1596050632}
   - component: {fileID: 1596050629}
+  - component: {fileID: 1596050637}
   - component: {fileID: 1596050634}
   m_Layer: 0
   m_Name: GameStates
@@ -5457,6 +5459,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec94f20fafe9dd14b91426e0846aac22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1596050637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596050628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e32ff7e5b01304d992afe9208ddb11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1623768792

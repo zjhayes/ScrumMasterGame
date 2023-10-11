@@ -19,7 +19,7 @@ public class SetupState : GameState
 
     public override void OnEscaped()
     {
-        // Do nothing.
+        // Do nothing, cannot escape.
     }
 
     public override void Exit()

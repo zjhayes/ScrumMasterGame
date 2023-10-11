@@ -21,14 +21,15 @@ public class PauseState : GameState
 
     public void Resume()
     {
+        // Resume previous state.
         gameManager.UI.PauseMenu.Hide();
         Time.timeScale = 1f;
-        gameManager.Context.Default();
+        gameManager.Context.SwitchToPreviousState();
     }
 
     private void Pause()
     {
-
+        // Freeze game progression and show pause menu.
         Time.timeScale = 0f;
         gameManager.UI.PauseMenu.Show();
     }

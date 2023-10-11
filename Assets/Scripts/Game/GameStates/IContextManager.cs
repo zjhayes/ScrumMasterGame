@@ -6,7 +6,9 @@ public interface IContextManager : IController
     public void SwitchToScrumView();
 
     public void SwitchToPlanningView();
+    public void SwitchToReleaseState();
     public void SwitchToRetrospectiveView();
+    public void SwitchToPreviousState();
 
     public void CharacterSelected(ICharacterController character);
     public void DeselectCharacter();
@@ -14,8 +16,6 @@ public interface IContextManager : IController
     public void ChangeView();
 
     public void EscapeCurrentState();
-
-    public void Exit();
 
     public GameState CurrentState { get; }
 

@@ -13,6 +13,7 @@ public class SprintManager : GameBehaviour
 
     public event Events.GameEvent OnBeginPlanning;
     public event Events.GameEvent OnBeginSprint;
+    public event Events.GameEvent OnRelease;
     public event Events.GameEvent OnBeginRetrospective;
 
     void Awake()
@@ -25,19 +26,20 @@ public class SprintManager : GameBehaviour
 
     public void BeginPlanning()
     {
+        clock.ResetTime();
         NextSprint();
         OnBeginPlanning?.Invoke();
     }
 
     public void BeginSprint()
     {
-        clock.Begin();
+        clock.StartTime();
         OnBeginSprint?.Invoke();
     }
 
     public void BeginRelease()
     {
-        BeginRetrospective(); // TODO: Add release state.
+        OnRelease?.Invoke();
     }
 
     public void BeginRetrospective()
@@ -72,8 +74,9 @@ public class SprintManager : GameBehaviour
 
     private void NextSprint()
     {
-        // End game when no more sprints. TODO: Add quit option to settings instead.
-        if (gameManager.Board.Stories?.Get().Count == 0)
+        // End game when no more sprints. TODO: Add End Game state.
+        Debug.Log(gameManager.Board.Stories?.WithStatus(StoryStatus.BACKLOG).Get().Count);
+        if (gameManager.Board.Stories?.WithStatus(StoryStatus.BACKLOG).Get().Count == 0)
         {
             Debug.Log("No more Stories, ending game.");
             gameManager.Quit();
