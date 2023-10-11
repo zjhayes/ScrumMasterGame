@@ -5,6 +5,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private CharacterCard characterCard;
     [SerializeField]
+    private PauseMenuController pauseMenu;
+    [SerializeField]
     private PlanningMenuController planningMenu;
     [SerializeField]
     private ScrumMenuController scrumMenu;
@@ -18,6 +20,11 @@ public class UIManager : MonoBehaviour
     public CharacterCard CharacterCard
     {
         get { return characterCard; }
+    }
+
+    public PauseMenuController PauseMenu
+    {
+        get { return pauseMenu; }
     }
 
     public PlanningMenuController PlanningMenu

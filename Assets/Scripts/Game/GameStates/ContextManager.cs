@@ -12,6 +12,8 @@ public class ContextManager : GameBehaviour, IContextManager
     [SerializeField]
     private GameState defaultState;
     [SerializeField]
+    private GameState pauseState;
+    [SerializeField]
     private GameState scrumViewState;
     [SerializeField]
     private GameState planningViewState;
@@ -47,6 +49,11 @@ public class ContextManager : GameBehaviour, IContextManager
     public void Default()
     {
         stateContext.Transition(defaultState);
+    }
+
+    public void Pause()
+    {
+        stateContext.Transition(pauseState);
     }
 
     public void SwitchToScrumView()

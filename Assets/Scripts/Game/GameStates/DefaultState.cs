@@ -2,25 +2,25 @@ using UnityEngine;
 
 public class DefaultState : GameState
 { 
-    private ContextManager controller;
+    private ContextManager gameContext;
 
     public override void Handle(ContextManager _controller)
     {
-        controller = _controller;
+        gameContext = _controller;
 
-        controller.CurrentCharacter = null;
+        gameContext.CurrentCharacter = null;
         gameManager.Camera.SwitchToOverworldCamera();
-        base.Handle(controller);
+        base.Handle(gameContext);
     }
 
     public override void ChangeView()
     {
         // Enter Scrum Board view.
-        controller.SwitchToScrumView();
+        gameContext.SwitchToScrumView();
     }
 
     public override void OnEscaped()
     {
-        // TODO: Show settings menu.
+        gameContext.Pause();
     }
 }
