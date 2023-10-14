@@ -1,24 +1,38 @@
 fileFormatVersion: 2
-guid: d3a86b231bea9324e8321c60ae6c2662
+guid: 6ea5a5a3f98f3e14fa52afba6aca7b53
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -8945691123924629249
+    second: Armature|Idle
+  - first:
+      74: -7551964380084998518
+    second: Armature|Run
+  - first:
+      74: 8349542763059015795
+    second: Armature|Walk
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Outfit2
-    second: {fileID: 2100000, guid: 0a3dcc2600031894686d3e2076da1928, type: 2}
+      name: BlackPlastic
+    second: {fileID: 2100000, guid: b2c19ee0cad9ff34eb9339314e9e7083, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: RedHair
-    second: {fileID: 2100000, guid: cb85eb113e327af4bbd9a99cffdcf275, type: 2}
+      name: Outfit4
+    second: {fileID: 2100000, guid: 003721924971ea948b2f2f80117042df, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Skin2
-    second: {fileID: 2100000, guid: 26d7c6c77c100fb449da4ce556f3e635, type: 2}
+      name: PurpleHair
+    second: {fileID: 2100000, guid: 03a9f6bc07242a74083cf3d4babdacb9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skin4
+    second: {fileID: 2100000, guid: 5f1f361214445ec4a91bb87e090d4d1a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
