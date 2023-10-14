@@ -13,11 +13,6 @@ public class CertificationStationProgression : StationProgression
         base.Awake();
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void Teach(ICharacterController student)
     {
         this.enabled = true;
