@@ -75,7 +75,6 @@ public class SprintManager : GameBehaviour
     private void NextSprint()
     {
         // End game when no more sprints. TODO: Add End Game state.
-        Debug.Log(gameManager.Board.Stories?.WithStatus(StoryStatus.BACKLOG).Get().Count);
         if (gameManager.Board.Stories?.WithStatus(StoryStatus.BACKLOG).Get().Count == 0)
         {
             Debug.Log("No more Stories, ending game.");

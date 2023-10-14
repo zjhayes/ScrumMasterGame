@@ -77,4 +77,9 @@ public class CharacterMovement : MonoBehaviour
 		get { return baseSpeed; }
     }
 
+	public NavMeshAgent Agent
+    {
+		get { return agent; }
+    }
+
 }
