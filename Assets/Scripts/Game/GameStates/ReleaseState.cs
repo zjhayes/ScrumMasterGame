@@ -57,6 +57,9 @@ public class ReleaseState : GameState
         // Capture remaining time.
         gameManager.Sprint.Current.RemainingTime = gameManager.Sprint.Clock.CurrentTime;
 
+        // Update number of users. Scales with quality, availability and required functionality.
+        gameManager.Production.UserCount += (int)(gameManager.Sprint.Current.Quality * gameManager.Production.Availability * gameManager.Production.Stats.Functionality / gameManager.Production.Stats.Maximum);
+
         UpdateBoard();
     }
 

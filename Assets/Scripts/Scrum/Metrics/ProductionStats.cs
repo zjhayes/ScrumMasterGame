@@ -68,5 +68,6 @@ public class ProductionStats : MonoBehaviour, IProductionStats
     public int Maximum
     {
         get { return maximumValue; }
+        set { maximumValue = value; }
     }
 }

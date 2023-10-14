@@ -4,9 +4,9 @@ using TMPro;
 public class UIClock : GameBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI timeText;
+    private TextMeshProUGUI timeText;
 
-    void Update()
+    private void Update()
     {
         timeText.text = gameManager.Sprint.Clock.BeautifulTime;
     }
