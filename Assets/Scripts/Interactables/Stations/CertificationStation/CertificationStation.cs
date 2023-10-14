@@ -19,7 +19,7 @@ public class CertificationStation : Station
     }
 
     protected override void OnChairUnoccupied(ICharacterController occupant)
-    {   
+    {
         if (CountOccupants() <= 0)
         { // This is the last occupant.
             Unoccupied(occupant);
