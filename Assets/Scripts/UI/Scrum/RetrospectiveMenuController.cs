@@ -70,10 +70,14 @@ public class RetrospectiveMenuController : MenuController
         userCountText.text = gameManager.Production.UserCount.ToString();
         userCountModifierText.text = $"(+{gameManager.Sprint.Current.NewUserCount})";
 
-        // Update production properties.
+        // Update progress bars with production stat values and maximum.
+        usabilityBar.Maximum = gameManager.Production.Stats.Maximum;
         usabilityBar.CurrentFill = gameManager.Production.Stats.Usability;
+        stabilityBar.Maximum = gameManager.Production.Stats.Maximum;
         stabilityBar.CurrentFill = gameManager.Production.Stats.Stability;
+        functionalityBar.Maximum = gameManager.Production.Stats.Maximum;
         functionalityBar.CurrentFill = gameManager.Production.Stats.Functionality;
+        maintainabilityBar.Maximum = gameManager.Production.Stats.Maximum;
         maintainabilityBar.CurrentFill = gameManager.Production.Stats.Maintainability;
     }
 
