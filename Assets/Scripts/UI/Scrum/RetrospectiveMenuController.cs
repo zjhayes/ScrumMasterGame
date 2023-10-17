@@ -5,27 +5,31 @@ using TMPro;
 public class RetrospectiveMenuController : MenuController
 {
     [SerializeField]
-    TextMeshProUGUI sprintNumberText;
+    private TextMeshProUGUI sprintNumberText;
     [SerializeField]
-    TextMeshProUGUI completedStoryPointsText;
+    private TextMeshProUGUI completedStoryPointsText;
     [SerializeField]
-    TextMeshProUGUI notCompletedStoryPointsText;
+    private TextMeshProUGUI notCompletedStoryPointsText;
     [SerializeField]
-    TextMeshProUGUI qualityText;
+    private TextMeshProUGUI qualityText;
     [SerializeField]
-    TextMeshProUGUI defectRateText;
+    private TextMeshProUGUI defectRateText;
     [SerializeField]
-    TextMeshProUGUI cycleTimeText;
+    private TextMeshProUGUI cycleTimeText;
+    [SerializeField]
+    private TextMeshProUGUI userCountText;
+    [SerializeField]
+    private TextMeshProUGUI userCountModifierText;
     [SerializeField]
     TextMeshProUGUI remainingTimeText;
     [SerializeField]
-    ProgressBar usabilityBar;
+    private ProgressBar usabilityBar;
     [SerializeField]
-    ProgressBar stabilityBar;
+    private ProgressBar stabilityBar;
     [SerializeField]
-    ProgressBar functionalityBar;
+    private ProgressBar functionalityBar;
     [SerializeField]
-    ProgressBar maintainabilityBar;
+    private ProgressBar maintainabilityBar;
     [SerializeField]
     private ButtonController nextSprintButton;
 
@@ -43,6 +47,12 @@ public class RetrospectiveMenuController : MenuController
     private void LoadDetails()
     {
         // Update Retrospective View with sprint outcomes.
+        SetSprintDetails();
+        SetProductionDetails();
+    }
+
+    private void SetSprintDetails()
+    {
         sprintNumberText.text = gameManager.Sprint.Current.Number.ToString();
         List<Story> completeTasks = gameManager.Sprint.Current.CompleteTasks;
         List<Story> incompleteTasks = gameManager.Sprint.Current.IncompleteTasks;
@@ -52,11 +62,15 @@ public class RetrospectiveMenuController : MenuController
         defectRateText.text = gameManager.Sprint.Current.Defects.Count.ToString();
         cycleTimeText.text = gameManager.Sprint.Current.CycleTime.ToString("F0");
         remainingTimeText.text = gameManager.Sprint.Current.RemainingTime.ToString("F0");
-        SetProductionProgressBars();
     }
 
-    private void SetProductionProgressBars()
+    private void SetProductionDetails()
     {
+        // Update user count.
+        userCountText.text = gameManager.Production.UserCount.ToString();
+        userCountModifierText.text = $"(+{gameManager.Sprint.Current.NewUserCount})";
+
+        // Update production properties.
         usabilityBar.CurrentFill = gameManager.Production.Stats.Usability;
         stabilityBar.CurrentFill = gameManager.Production.Stats.Stability;
         functionalityBar.CurrentFill = gameManager.Production.Stats.Functionality;
