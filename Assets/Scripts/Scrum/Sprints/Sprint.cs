@@ -9,6 +9,7 @@ public class Sprint
     private float averageCycleTime = 0f;
     private float remainingTime = 0f;
     private List<StoryDetails> defects;
+    private int newUsers = 0;
 
     public Sprint()
     {
@@ -56,5 +57,11 @@ public class Sprint
     public List<StoryDetails> Defects
     {
         get { return defects; }
+    }
+
+    public int NewUserCount
+    {
+        get { return newUsers; }
+        set { newUsers = value; }
     }
 }

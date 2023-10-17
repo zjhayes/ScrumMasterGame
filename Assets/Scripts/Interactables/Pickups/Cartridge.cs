@@ -4,6 +4,8 @@ public class Cartridge : Pickup
 {
     private Story story;
 
+    public event Events.GameEvent OnStoryUpdated;
+
     public override void InteractWith(ICharacterController character)
     {
         base.InteractWith(character);
@@ -27,7 +29,7 @@ public class Cartridge : Pickup
         set
         {
             story = value;
-            // TODO: Update cartridge appearance based on task.
+            OnStoryUpdated.Invoke();
         }
     }
 
