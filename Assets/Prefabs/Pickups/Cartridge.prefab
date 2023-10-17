@@ -76,7 +76,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 21300000, guid: ca9b950d41e3f5d4aa72b7dc13ad1cb3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 1
+  m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
@@ -272,11 +272,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storyIcon: {fileID: 3233385508952958271}
   cartridgeRenderer: {fileID: 2682219116366849208}
-  taskColor: {r: 0.03529412, g: 0.5176471, b: 0.8901961, a: 0}
+  taskColor: {r: 0.02745098, g: 0.41568628, b: 0.7137255, a: 0}
   taskIcon: {fileID: 21300000, guid: ca9b950d41e3f5d4aa72b7dc13ad1cb3, type: 3}
-  bugColor: {r: 0.8392157, g: 0.1882353, b: 0.19215687, a: 0}
+  bugColor: {r: 0.6862745, g: 0.13725491, b: 0.13725491, a: 0}
   bugIcon: {fileID: 21300000, guid: 21e35e6c7b6796045a6952fbc916564d, type: 3}
-  requestColor: {r: 0, g: 0.72156864, b: 0.5803922, a: 0}
+  requestColor: {r: 0, g: 0.5764706, b: 0.4627451, a: 0}
   requestIcon: {fileID: 21300000, guid: 81b9e328f90b7974fbbc88a613f2b277, type: 3}
 --- !u!1001 &4126665468385549236
 PrefabInstance:

@@ -52,7 +52,9 @@ public class CartridgeAppearance : MonoBehaviour
 
     private void Set(Color color, Sprite icon)
     {
-        cartridgeRenderer.materials[0].color = color;
+        Material targetMaterial = cartridgeRenderer.materials[0];
+        targetMaterial.color = color;
+
         storyIcon.sprite = icon;
     }
 }

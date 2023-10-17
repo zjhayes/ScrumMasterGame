@@ -9,7 +9,7 @@ public class OutlineController : MonoBehaviour
     [SerializeField]
     private Selectable selectability;
 
-    private void Start()
+    private void Awake()
     {
         selectability.OnHoverEnter += Show;
         selectability.OnHoverExit += Hide;

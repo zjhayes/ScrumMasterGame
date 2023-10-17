@@ -20,11 +20,10 @@ public class TaskComputer : Computer
         {
             if (developers.Count <= 0) { return; } // No developers.
 
+            // Progress faster with more developers, fewer story points, and a more maintainable production.
             float difficulty = (1f / cartridge.Story.StoryPoints); // Inverse of story points.
-
-            // Progress faster with more developers and fewer story points.
-            float progress = developers.Count * difficulty;
-            cartridge.Story.Outcome.Completeness += progress * baseSpeed * Time.deltaTime;
+            float progress = CalculateDeveloperProductivity() * difficulty;
+            cartridge.Story.Outcome.Completeness += progress * Time.deltaTime;
 
             // Update chance of errors based on developer proficiency compared to task difficulty.
             float outcome = proficiency * difficulty;
@@ -61,5 +60,18 @@ public class TaskComputer : Computer
         {
             proficiency = WorkCalculator.CalculateCombinedOutcome(cartridge.Story.Details.Requirements, developers);
         }
+    }
+
+    private float CalculateDeveloperProductivity()
+    {
+        float developmentSpeed = developers.Count * baseSpeed;
+        float maintainability = CalculateMaintainabilityBuff();
+        return developmentSpeed * maintainability;
+    }
+
+    private float CalculateMaintainabilityBuff()
+    {
+        // Maintainability increases development by up to double.
+        return (gameManager.Production.Stats.Maintainability / gameManager.Production.Stats.Maximum) + Numeric.ONE;
     }
 }
