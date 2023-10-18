@@ -72,6 +72,6 @@ public class TaskComputer : Computer
     private float CalculateMaintainabilityBuff()
     {
         // Maintainability increases development by up to double.
-        return (gameManager.Production.Stats.Maintainability / gameManager.Production.Stats.Maximum) + Numeric.ONE;
+        return (gameManager.Production.Stats.Maintainability / (float) gameManager.Production.Stats.Maximum) + Numeric.ONE;
     }
 }
