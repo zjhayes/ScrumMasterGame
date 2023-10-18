@@ -1,13 +1,17 @@
 using UnityEngine;
 
 [RequireComponent(typeof(ProductionServer))]
+[RequireComponent(typeof(ProductionStats))]
 public class ProductionServerStation : Station
 {
     private ProductionServer computer;
+    private ProductionStats stats;
 
     private void Awake()
     {
         computer = GetComponent<ProductionServer>();
+        stats = GetComponent<ProductionStats>();
+
         computer.OnSleep += DismissAll;
     }
 
@@ -49,5 +53,15 @@ public class ProductionServerStation : Station
     protected override void OnCharacterDismiss(ICharacterController occupant)
     {
         occupant.FindSomethingToDo();
+    }
+
+    public ProductionServer Server
+    {
+        get { return computer; }
+    }
+
+    public ProductionStats Stats
+    {
+        get { return stats; }
     }
 }

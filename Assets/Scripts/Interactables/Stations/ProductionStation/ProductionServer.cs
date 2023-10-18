@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(ProductionStats))]
 public class ProductionServer : Computer
 {
+    public Events.GameEvent OnDeployed;
+
     protected override void IterateWork()
     {
         if(cartridgeReceptacle.TryGet(out Cartridge cartridge))
@@ -11,7 +13,9 @@ public class ProductionServer : Computer
 
             // Work is deployed, cache cartridge object.
             gameManager.ObjectPool.PoolCartridge(cartridge);
-            gameManager.Sprint.EndSprintEarlyIfAllDone();
+            OnDeployed?.Invoke();
+
+            gameManager.Sprint.EndSprintEarlyIfAllDone(); // TODO: Move this to SprintManager.
         }
         else
         {
