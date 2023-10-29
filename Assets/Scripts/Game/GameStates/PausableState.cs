@@ -5,7 +5,7 @@ public abstract class PausableState : EscapableState
 {
     protected bool isPaused = false;
 
-    public PausableState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context){}
+    public PausableState(IGameManager _gameManager) : base(_gameManager){}
 
     public override void Enter()
     {

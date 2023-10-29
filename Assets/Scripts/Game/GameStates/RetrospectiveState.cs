@@ -3,7 +3,7 @@ using HierarchicalStateMachine;
 public class RetrospectiveState : PausableState
 {
 
-    public RetrospectiveState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context) {}
+    public RetrospectiveState(IGameManager _gameManager) : base(_gameManager) {}
 
     public override void Enter()
     {

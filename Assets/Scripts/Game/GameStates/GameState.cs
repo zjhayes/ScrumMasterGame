@@ -4,7 +4,7 @@ public abstract class GameState : BaseState
 {
     protected IGameManager gameManager;
 
-    protected GameState(IGameManager _gameManager, StateMachine _context) : base(_context)
+    protected GameState(IGameManager _gameManager) : base(_gameManager.Context as IStateMachine)
     {
         gameManager = _gameManager;
     }

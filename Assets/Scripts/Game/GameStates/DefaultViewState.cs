@@ -3,7 +3,7 @@ using HierarchicalStateMachine;
 public class DefaultViewState : GameState
 {
 
-    public DefaultViewState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context) {}
+    public DefaultViewState(IGameManager _gameManager) : base(_gameManager) {}
 
     public override void Enter()
     {

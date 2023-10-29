@@ -2,9 +2,8 @@ using HierarchicalStateMachine;
 using System.Collections.Generic;
 
 /* Controls the game state. */
-public class ContextManager : GameBehaviour, IContextManager
+public class ContextManager : GameBehaviour, IContextManager, IStateMachine
 {
-    private StateMachine context;
     private Dictionary<GameStates,GameState> states;
     private ICharacterController currentCharacter;
 
@@ -13,17 +12,16 @@ public class ContextManager : GameBehaviour, IContextManager
 
     private void Awake()
     {
-        context = new StateMachine();
         states = new Dictionary<GameStates, GameState>
         {
-            { GameStates.PLANNING, new PlanningState(gameManager, context) },
-            { GameStates.SCRUM, new ScrumState(gameManager, context) },
-            { GameStates.DEFAULT_VIEW, new DefaultViewState(gameManager, context) },
-            { GameStates.RELEASE, new ReleaseState(gameManager, context) },
-            { GameStates.RETROSPECTIVE, new RetrospectiveState(gameManager, context) },
-            { GameStates.BOARD_VIEW, new BoardViewState(gameManager, context) },
-            { GameStates.SELECTED_CHARACTER, new SelectedCharacterState(gameManager, context) },
-            { GameStates.STATIC, new StaticGameState(gameManager, context) }
+            { GameStates.PLANNING, new PlanningState(gameManager) },
+            { GameStates.SCRUM, new ScrumState(gameManager) },
+            { GameStates.DEFAULT_VIEW, new DefaultViewState(gameManager) },
+            { GameStates.RELEASE, new ReleaseState(gameManager) },
+            { GameStates.RETROSPECTIVE, new RetrospectiveState(gameManager) },
+            { GameStates.BOARD_VIEW, new BoardViewState(gameManager) },
+            { GameStates.SELECTED_CHARACTER, new SelectedCharacterState(gameManager) },
+            { GameStates.STATIC, new StaticGameState(gameManager) }
         };
     }
 
@@ -40,7 +38,7 @@ public class ContextManager : GameBehaviour, IContextManager
 
     private void Update()
     {
-        context.CurrentState.Update();
+        CurrentState.Update();
     }
 
     public GameState GetState(GameStates stateEnum)
@@ -83,11 +81,13 @@ public class ContextManager : GameBehaviour, IContextManager
         set { currentCharacter = value; }
     }
 
+    public BaseState CurrentState { get; set; }
+
     private void Transition(GameStates nextStateEnum)
     {
         if(TryGetState(nextStateEnum, out GameState nextState))
         {
-            context.CurrentState.SwitchState(nextState);
+            CurrentState.SwitchState(nextState);
         }
         else
         {
@@ -97,8 +97,8 @@ public class ContextManager : GameBehaviour, IContextManager
 
     private void InitializeGame()
     {
-        context.CurrentState = new SetupState(gameManager, context);
-        context.CurrentState.Enter();
+        CurrentState = new SetupState(gameManager);
+        CurrentState.Enter();
     }
 
     private void TransitionToPlanning()

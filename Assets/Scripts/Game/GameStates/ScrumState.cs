@@ -5,7 +5,7 @@ public class ScrumState : PausableState
 {
     bool isViewingBoard = false;
 
-    public ScrumState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context) {}
+    public ScrumState(IGameManager _gameManager) : base(_gameManager) {}
 
     public override void Enter()
     {

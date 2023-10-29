@@ -2,7 +2,7 @@ namespace HierarchicalStateMachine
 {
     public abstract class BaseState : IState, IStateProperties<BaseState>, IStateEvents<BaseState>
     {
-        public StateMachine Context { get; private set; }
+        public IStateMachine Context { get; private set; }
         public BaseState SuperState { get; private set; }
         public BaseState SubState { get; private set; }
 
@@ -10,7 +10,7 @@ namespace HierarchicalStateMachine
         public event StateEvent<BaseState> OnUpdate;
         public event StateEvent<BaseState> OnExit;
 
-        public BaseState(StateMachine _context)
+        public BaseState(IStateMachine _context)
         {
             Context = _context;
         }

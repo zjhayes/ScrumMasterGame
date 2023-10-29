@@ -3,7 +3,7 @@ using HierarchicalStateMachine;
 
 public abstract class EscapableState : GameState
 {
-    protected EscapableState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context){}
+    protected EscapableState(IGameManager _gameManager) : base(_gameManager){}
 
     public override void Enter()
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ReleaseState : GameState
 {
-    public ReleaseState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context) {}
+    public ReleaseState(IGameManager _gameManager) : base(_gameManager) {}
 
     public override void Enter()
     {

@@ -4,7 +4,7 @@ public class SelectedCharacterState : GameState
 {
     private ICharacterController selectedCharacter;
 
-    public SelectedCharacterState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context) {}
+    public SelectedCharacterState(IGameManager _gameManager) : base(_gameManager) {}
 
     public override void Enter()
     {

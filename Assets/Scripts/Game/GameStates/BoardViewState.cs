@@ -2,7 +2,7 @@ using HierarchicalStateMachine;
 
 public class BoardViewState : GameState
 {
-    public BoardViewState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context) {}
+    public BoardViewState(IGameManager _gameManager) : base(_gameManager) {}
 
     public override void Enter()
     {

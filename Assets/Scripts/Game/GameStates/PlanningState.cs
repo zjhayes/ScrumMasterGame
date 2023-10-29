@@ -2,7 +2,7 @@ using HierarchicalStateMachine;
 
 public class PlanningState : PausableState
 {
-    public PlanningState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context) {}
+    public PlanningState(IGameManager _gameManager) : base(_gameManager) {}
 
     public override void Enter()
     {
