@@ -1,6 +1,4 @@
 
-using HierarchicalStateMachine;
-
 public abstract class EscapableState : GameState
 {
     protected EscapableState(IGameManager _gameManager) : base(_gameManager){}

@@ -1,6 +1,4 @@
 
-using HierarchicalStateMachine;
-
 public class ScrumState : PausableState
 {
     bool isViewingBoard = false;

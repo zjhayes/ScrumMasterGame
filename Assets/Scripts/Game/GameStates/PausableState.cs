@@ -1,4 +1,3 @@
-using HierarchicalStateMachine;
 using UnityEngine;
 
 public abstract class PausableState : EscapableState

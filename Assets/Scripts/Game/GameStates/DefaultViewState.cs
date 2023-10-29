@@ -1,4 +1,3 @@
-using HierarchicalStateMachine;
 
 public class DefaultViewState : GameState
 {

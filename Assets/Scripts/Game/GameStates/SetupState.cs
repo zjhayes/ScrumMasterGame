@@ -1,9 +1,6 @@
 
-using HierarchicalStateMachine;
-
 public class SetupState : GameState
 {
-
     public SetupState(IGameManager _gameManager) : base(_gameManager) {}
 
     public override void Enter()
