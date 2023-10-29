@@ -60,26 +60,6 @@ public class ContextManager : GameBehaviour, IContextManager
         return states.TryGetValue(stateEnum, out state);
     }
 
-    public void TransitionToPlanning()
-    {
-        Transition(GameStates.PLANNING);
-    }
-
-    public void TransitionToScrum()
-    {
-        Transition(GameStates.SCRUM);
-    }
-
-    public void TransitionToRelease()
-    {
-        Transition(GameStates.RELEASE);
-    }
-
-    public void TransitionToRetrospective()
-    {
-        Transition(GameStates.RETROSPECTIVE);
-    }
-
     public void CharacterSelected(ICharacterController character)
     {
         DeselectCharacter();
@@ -113,12 +93,31 @@ public class ContextManager : GameBehaviour, IContextManager
         {
             throw new StateNotFoundException();
         }
-
     }
 
     private void InitializeGame()
     {
         context.CurrentState = new SetupState(gameManager, context);
         context.CurrentState.Enter();
+    }
+
+    private void TransitionToPlanning()
+    {
+        Transition(GameStates.PLANNING);
+    }
+
+    private void TransitionToScrum()
+    {
+        Transition(GameStates.SCRUM);
+    }
+
+    private void TransitionToRelease()
+    {
+        Transition(GameStates.RELEASE);
+    }
+
+    private void TransitionToRetrospective()
+    {
+        Transition(GameStates.RETROSPECTIVE);
     }
 }
