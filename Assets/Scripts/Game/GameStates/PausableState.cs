@@ -9,12 +9,14 @@ public abstract class PausableState : EscapableState
 
     public override void Enter()
     {
+        gameManager.UI.PauseMenu.ResumeButton.OnClick += Resume;
         base.Enter();
     }
 
     public override void Exit()
     {
         base.Exit();
+        gameManager.UI.PauseMenu.ResumeButton.OnClick -= Resume;
         Resume();
     }
 
@@ -25,8 +27,7 @@ public abstract class PausableState : EscapableState
 
     private void TogglePause()
     {
-        isPaused = !isPaused;
-        if (isPaused)
+        if (!isPaused)
         {
             Pause();
         }
@@ -41,6 +42,7 @@ public abstract class PausableState : EscapableState
         // Resume previous state.
         gameManager.UI.PauseMenu.Hide();
         Time.timeScale = 1f;
+        isPaused = false;
     }
 
     private void Pause()
@@ -48,5 +50,6 @@ public abstract class PausableState : EscapableState
         // Freeze game progression and show pause menu.
         Time.timeScale = 0f;
         gameManager.UI.PauseMenu.Show();
+        isPaused = true;
     }
 }

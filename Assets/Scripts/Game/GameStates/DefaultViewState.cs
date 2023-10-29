@@ -2,23 +2,8 @@ using HierarchicalStateMachine;
 
 public class DefaultViewState : GameState
 {
-    private readonly GameState noSelectedCharacterState;
-    private readonly GameState selectedCharacterSubState;
 
-    public DefaultViewState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context)
-    {
-        // Cache selected character state.
-        if (gameManager.Context.TryGetState(GameStates.STATIC, out GameState _staticState) &&
-            gameManager.Context.TryGetState(GameStates.CHARACTER_SELECTED, out GameState _selectedCharacterState))
-        {
-            selectedCharacterSubState = _selectedCharacterState;
-            noSelectedCharacterState = _staticState;
-        }
-        else
-        {
-            throw new StateNotFoundException();
-        }
-    }
+    public DefaultViewState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context) {}
 
     public override void Enter()
     {
@@ -26,7 +11,6 @@ public class DefaultViewState : GameState
         gameManager.Context.DeselectCharacter();
         gameManager.Context.OnCharacterSelect += SwitchToSelectedCharacterSubState;
         gameManager.Context.OnCharacterDeselect += SwitchToNoSelectedCharacterSubState;
-        InitializeSubState();
         base.Enter();
     }
 
@@ -46,17 +30,17 @@ public class DefaultViewState : GameState
 
     private void SwitchToSelectedCharacterSubState()
     {
-        currentSubState.SwitchState(selectedCharacterSubState);
+        SubState.SwitchState(gameManager.Context.GetState(GameStates.SELECTED_CHARACTER));
     }
 
     private void SwitchToNoSelectedCharacterSubState()
     {
-        currentSubState.SwitchState(noSelectedCharacterState);
+        SubState.SwitchState(gameManager.Context.GetState(GameStates.STATIC));
     }
 
-    private void InitializeSubState()
+    protected override void InitializeSubState()
     {
-        SetSubState(noSelectedCharacterState);
+        SetSubState(gameManager.Context.GetState(GameStates.STATIC));
     }
 }
 

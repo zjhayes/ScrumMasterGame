@@ -1,15 +1,12 @@
-using UnityEngine;
 using HierarchicalStateMachine;
+using System.Collections.Generic;
 
 /* Controls the game state. */
 public class ContextManager : GameBehaviour, IContextManager
 {
-    private ICharacterController currentCharacter;
-
-    [SerializeField]
-    private GameStateDictionary states;
-
     private StateMachine context;
+    private Dictionary<GameStates,GameState> states;
+    private ICharacterController currentCharacter;
 
     public event Events.GameEvent OnCharacterSelect;
     public event Events.GameEvent OnCharacterDeselect;
@@ -17,19 +14,28 @@ public class ContextManager : GameBehaviour, IContextManager
     private void Awake()
     {
         context = new StateMachine();
-        //states.Add(GameStates.PLANNING, new PlanningState(gameManager, context));
-        //states.Add(GameStates.BOARD_VIEW, new BoardViewState(gameManager, context));
+        states = new Dictionary<GameStates, GameState>
+        {
+            { GameStates.PLANNING, new PlanningState(gameManager, context) },
+            { GameStates.SCRUM, new ScrumState(gameManager, context) },
+            { GameStates.DEFAULT_VIEW, new DefaultViewState(gameManager, context) },
+            { GameStates.RELEASE, new ReleaseState(gameManager, context) },
+            { GameStates.RETROSPECTIVE, new RetrospectiveState(gameManager, context) },
+            { GameStates.BOARD_VIEW, new BoardViewState(gameManager, context) },
+            { GameStates.SELECTED_CHARACTER, new SelectedCharacterState(gameManager, context) },
+            { GameStates.STATIC, new StaticGameState(gameManager, context) }
+        };
     }
 
     private void Start()
     {
-        InitializeGame();
-
         // Listen to Sprint Manager.
         gameManager.Sprint.OnBeginPlanning += TransitionToPlanning;
         gameManager.Sprint.OnBeginSprint += TransitionToScrum;
         gameManager.Sprint.OnRelease += TransitionToRelease;
         gameManager.Sprint.OnBeginRetrospective += TransitionToRetrospective;
+
+        InitializeGame();
     }
 
     private void Update()
@@ -37,14 +43,21 @@ public class ContextManager : GameBehaviour, IContextManager
         context.CurrentState.Update();
     }
 
+    public GameState GetState(GameStates stateEnum)
+    {
+        if (TryGetState(stateEnum, out GameState state))
+        {
+            return state;
+        }
+        else
+        {
+            throw new StateNotFoundException();
+        }
+    }
+
     public bool TryGetState(GameStates stateEnum, out GameState state)
     {
         return states.TryGetValue(stateEnum, out state);
-    }
-
-    private void InitializeGame()
-    {
-        context.CurrentState = new SetupState(gameManager, context);
     }
 
     public void TransitionToPlanning()
@@ -101,5 +114,11 @@ public class ContextManager : GameBehaviour, IContextManager
             throw new StateNotFoundException();
         }
 
+    }
+
+    private void InitializeGame()
+    {
+        context.CurrentState = new SetupState(gameManager, context);
+        context.CurrentState.Enter();
     }
 }

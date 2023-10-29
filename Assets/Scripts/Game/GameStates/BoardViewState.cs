@@ -16,6 +16,11 @@ public class BoardViewState : GameState
         gameManager.UI.ScrumMenu.Escape(); // Reset scrum board.
     }
 
+    protected override void InitializeSubState()
+    {
+        SetSubState(gameManager.Context.GetState(GameStates.STATIC));
+    }
+
     private void MoveCameraToBoard()
     {
         gameManager.UI.StatusBar.Hide();

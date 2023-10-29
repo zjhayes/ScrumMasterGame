@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class ReleaseState : GameState
 {
-
     public ReleaseState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context) {}
 
     public override void Enter()
     {
         ReleaseSprint();
+        UpdateBoard();
         gameManager.Sprint.BeginRetrospective(); // Immediately go to retrospective.
-
-        base.Enter();
     }
 
     private void ReleaseSprint()
@@ -62,8 +60,6 @@ public class ReleaseState : GameState
         // Update number of users. Scales with quality, availability and required functionality.
         gameManager.Sprint.Current.NewUserCount = (int)(gameManager.Sprint.Current.Quality * gameManager.Production.Availability * gameManager.Production.Stats.Functionality / gameManager.Production.Stats.Maximum);
         gameManager.Production.UserCount += gameManager.Sprint.Current.NewUserCount;
-
-        UpdateBoard();
     }
 
     private bool HasDefect(StoryOutcome outcome)

@@ -8,4 +8,6 @@ public abstract class GameState : BaseState
     {
         gameManager = _gameManager;
     }
+
+    protected override void InitializeSubState() {}
 }

@@ -11,11 +11,5 @@ public class SetupState : GameState
         // Initialize game.
         gameManager.Board.Initialize();
         gameManager.Sprint.BeginPlanning(); // Transition immediately to Planning.
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 }

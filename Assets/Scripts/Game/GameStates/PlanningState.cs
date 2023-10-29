@@ -2,24 +2,13 @@ using HierarchicalStateMachine;
 
 public class PlanningState : PausableState
 {
-    private readonly GameState boardViewSubState;
-
-    public PlanningState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context)
-    {
-        // Cache board view sub-state and scrum transition state.
-        if (gameManager.Context.TryGetState(GameStates.BOARD_VIEW, out GameState _boardViewState))
-        {
-            boardViewSubState = _boardViewState;
-        }
-        else
-        {
-            throw new StateNotFoundException();
-        }
-    }
+    public PlanningState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context) {}
 
     public override void Enter()
     {
-        InitializeSubState();
+        gameManager.UI.PlanningMenu.Show();
+        gameManager.UI.ScrumMenu.Hide();
+        gameManager.UI.StatusBar.Hide();
         base.Enter();
     }
 
@@ -33,8 +22,8 @@ public class PlanningState : PausableState
         gameManager.UI.StatusBar.Show();
     }
 
-    private void InitializeSubState()
+    protected override void InitializeSubState()
     {
-        SetSubState(boardViewSubState);
+        SetSubState(gameManager.Context.GetState(GameStates.BOARD_VIEW));
     }
 }

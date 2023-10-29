@@ -1,14 +1,12 @@
 
 public enum GameStates
 {
-    STATIC,
-    INITIALIZE,
     PLANNING,
     SCRUM,
     RELEASE,
     RETROSPECTIVE,
-    PAUSED,
     DEFAULT_VIEW,
     BOARD_VIEW,
-    CHARACTER_SELECTED
+    SELECTED_CHARACTER,
+    STATIC
 }
