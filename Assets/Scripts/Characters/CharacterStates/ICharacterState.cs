@@ -1,3 +1,4 @@
+using StateSystem;
 
 public interface ICharacterState : IState<ICharacterController>
 {

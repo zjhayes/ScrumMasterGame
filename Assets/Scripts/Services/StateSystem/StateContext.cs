@@ -1,36 +1,39 @@
-using UnityEngine;
-
-public class StateContext<T> where T : IController
+namespace StateSystem
 {
-    public Events.GameEvent OnTransition;
+    using UnityEngine;
 
-    public IState<T> CurrentState
+    public class StateContext<T> where T : IController
     {
-        get; set;
-    }
+        public Events.GameEvent OnTransition;
 
-    private readonly T controller;
-
-    public StateContext(T _controller)
-    {
-        controller = _controller;
-    }
-
-    public void Transition()
-    {
-        CurrentState.Handle(controller);
-        OnTransition?.Invoke();
-    }
-
-    public void Transition<U>(U state) where U : Component, IState<T>
-    {
-        if (CurrentState != null)
+        public IState<T> CurrentState
         {
-            CurrentState.Exit();
+            get; set;
         }
 
-        CurrentState = state;
-        CurrentState.Handle(controller);
-        OnTransition?.Invoke();
+        private readonly T controller;
+
+        public StateContext(T _controller)
+        {
+            controller = _controller;
+        }
+
+        public void Transition()
+        {
+            CurrentState.Handle(controller);
+            OnTransition?.Invoke();
+        }
+
+        public void Transition<U>(U state) where U : Component, IState<T>
+        {
+            if (CurrentState != null)
+            {
+                CurrentState.Exit();
+            }
+
+            CurrentState = state;
+            CurrentState.Handle(controller);
+            OnTransition?.Invoke();
+        }
     }
 }

@@ -1,21 +1,11 @@
-using UnityEngine;
+using HierarchicalStateMachine;
 
-public abstract class GameState : GameBehaviour, IState<ContextManager>
+public abstract class GameState : BaseState
 {
-    public virtual void Handle(ContextManager controller)
-    {
-        this.enabled = true;
-    }
+    protected IGameManager gameManager;
 
-    public abstract void OnEscaped();
-
-    public virtual void ChangeView()
+    protected GameState(IGameManager _gameManager, StateMachine _context) : base(_context)
     {
-        // Override if view can be changed during state.
-    }
-
-    public virtual void Exit()
-    {
-        this.enabled = false;
+        gameManager = _gameManager;
     }
 }

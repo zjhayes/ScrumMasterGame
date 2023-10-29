@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
+    [SerializeField]
+    private List<StoryDetails> starterStories; // TODO: Move these.
     private List<Story> stories;
 
     public StorySearchService Stories
@@ -25,5 +27,10 @@ public class BoardManager : MonoBehaviour
     {
         List<Story> storiesToRemove = Stories.WithStatus(status).Get();
         stories.RemoveAll(story => storiesToRemove.Contains(story));
+    }
+
+    public void Initialize()
+    {
+        ImportStoryDetails(starterStories);
     }
 }

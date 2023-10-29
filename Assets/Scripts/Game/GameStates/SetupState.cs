@@ -1,25 +1,17 @@
-using System.Collections.Generic;
-using UnityEngine;
+
+using HierarchicalStateMachine;
 
 public class SetupState : GameState
 {
-    [SerializeField]
-    private List<StoryDetails> starterStories;
-    private ContextManager controller;
 
-    public override void Handle(ContextManager _controller)
+    public SetupState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context) {}
+
+    public override void Enter()
     {
-        controller = _controller;
-        base.Handle(controller);
-        
         // Initialize game.
-        gameManager.Board.ImportStoryDetails(starterStories);
-        gameManager.Sprint.BeginPlanning();
-    }
-
-    public override void OnEscaped()
-    {
-        // Do nothing, cannot escape.
+        gameManager.Board.Initialize();
+        gameManager.Sprint.BeginPlanning(); // Transition immediately to Planning.
+        base.Enter();
     }
 
     public override void Exit()

@@ -1,18 +1,11 @@
-namespace StateMachine
+namespace HierarchicalStateMachine
 {
-    using UnityEngine;
-
-    public class StateMachine : MonoBehaviour
+    public class StateMachine
     {
         private BaseState currentState;
 
-        private void Update()
+        public BaseState CurrentState
         {
-            currentState.UpdateStates();
-        }
-
-        public BaseState CurrentState 
-        { 
             get { return currentState; }
             set { currentState = value; }
         }

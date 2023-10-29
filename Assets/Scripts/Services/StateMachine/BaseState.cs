@@ -1,55 +1,74 @@
-namespace StateMachine
+namespace HierarchicalStateMachine
 {
-    public abstract class BaseState
+    public abstract class BaseState : IState, IStateEvents<BaseState>
     {
         protected StateMachine context;
-        protected StateFactory factory;
         protected BaseState currentSuperState;
         protected BaseState currentSubState;
-        protected bool isRoot = false;
 
-        public BaseState(StateMachine _context, StateFactory _factory)
+        public event StateEvent<BaseState> OnEnter;
+        public event StateEvent<BaseState> OnUpdate;
+        public event StateEvent<BaseState> OnExit;
+
+        public BaseState(StateMachine _context)
         {
             context = _context;
-            factory = _factory;
         }
 
-        public abstract void Enter();
-        public abstract void Update();
-        public abstract void Exit();
-        public abstract void CheckSwitchStates();
-        public abstract void InitializeSubState();
-        public void UpdateStates() 
+        public virtual void Enter()
         {
-            Update();
-            currentSubState?.Update();
-            CheckSwitchStates();
+            currentSubState?.Enter();
+            OnEnter?.Invoke(this);
         }
-        private void SwitchState(BaseState newState)
+
+        public virtual void Update()
+        {
+            currentSubState?.Update();
+            OnUpdate?.Invoke(this);
+        }
+
+        public virtual void Exit()
+        {
+            currentSubState?.Exit();
+            OnExit?.Invoke(this);
+        }
+
+        public void SwitchState(BaseState newState)
         {
             Exit(); // Exit current state.
             newState.Enter();
-            if(isRoot)
+            if(currentSuperState == null)
             {
                 context.CurrentState = newState;
             }
-            else if(currentSuperState != null)
+            else
             {
                 currentSuperState.SetSubState(newState);
             }
         }
 
-        protected void SetSuperState(BaseState newSuperState) 
+        protected void SetSubState(BaseState newSubState) 
+        {
+            currentSubState = newSubState; // Change current state.
+            currentSubState.SetSuperState(this);
+        }
+
+        // Adds sub-state to end of heirarchy.
+        protected void AddSubState(BaseState newSubState)
+        {
+            if (currentSubState == null)
+            {
+                SetSubState(newSubState);
+            }
+            else
+            {
+                currentSubState.AddSubState(newSubState);
+            }
+        }
+
+        private void SetSuperState(BaseState newSuperState)
         {
             currentSuperState = newSuperState;
         }
-
-        protected void SetSubState(BaseState newSubState) 
-        {
-            currentSubState = newSubState;
-            newSubState.SetSuperState(this);
-        }
-
     }
-
 }

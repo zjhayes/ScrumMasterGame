@@ -1,16 +1,18 @@
+using HierarchicalStateMachine;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ReleaseState : GameState
 {
-    private ContextManager gameContext;
 
-    public override void Handle(ContextManager _controller)
+    public ReleaseState(IGameManager _gameManager, StateMachine _context) : base(_gameManager, _context) {}
+
+    public override void Enter()
     {
-        gameContext = _controller;
         ReleaseSprint();
-        base.Handle(gameContext);
         gameManager.Sprint.BeginRetrospective(); // Immediately go to retrospective.
+
+        base.Enter();
     }
 
     private void ReleaseSprint()
@@ -84,10 +86,5 @@ public class ReleaseState : GameState
         newStoryDetails.AddRange(gameManager.Sprint.Current.Defects); // Add bugs.
         gameManager.Board.ImportStoryDetails(newStoryDetails);
         gameManager.Board.RemoveStoriesWithStatus(StoryStatus.DONE); // Remove completed stories from board.
-    }
-
-    public override void OnEscaped()
-    {
-        // Do nothing, cannot be escapted.
     }
 }

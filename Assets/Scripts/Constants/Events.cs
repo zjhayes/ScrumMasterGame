@@ -1,6 +1,5 @@
-using UnityEngine;
 
-public class Events : MonoBehaviour
+public class Events
 {
     public delegate void GameEvent();
     public delegate void PlayerEvent();
