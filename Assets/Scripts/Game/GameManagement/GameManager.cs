@@ -1,6 +1,6 @@
 using UnityEngine;
 // Game Service Locator
-[RequireComponent(typeof(IContextManager))]
+[RequireComponent(typeof(ContextManager))]
 [RequireComponent(typeof(UIManager))]
 [RequireComponent(typeof(InteractableManager))]
 [RequireComponent(typeof(PlayerControls))]

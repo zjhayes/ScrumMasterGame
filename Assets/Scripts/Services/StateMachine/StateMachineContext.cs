@@ -8,6 +8,7 @@ namespace HierarchicalStateMachine
         where TStateEnum : Enum
     {
         private Dictionary<TStateEnum, TState> states;
+        private TStateEnum defaultState;
         private TState currentState;
 
         public delegate void StateMachineEvent();
@@ -16,7 +17,12 @@ namespace HierarchicalStateMachine
         protected StateMachineContext(Dictionary<TStateEnum, TState> initialStateDictionary, TStateEnum defaultState)
         {
             states = initialStateDictionary;
-            CurrentState = GetState(defaultState);
+            this.defaultState = defaultState;
+        }
+
+        public void Start()
+        {
+            TransitionTo(defaultState); // Enter default state.
         }
 
         public TState CurrentState
@@ -57,8 +63,8 @@ namespace HierarchicalStateMachine
         
         private void SwitchState(TState newState)
         {
-            CurrentState.Exit(); // Exit current state.
-            if (CurrentState.SuperState == null)
+            CurrentState?.Exit(); // Exit current state.
+            if (CurrentState == null || CurrentState.SuperState == null)
             {
                 CurrentState = newState;
             }

@@ -1,7 +1,4 @@
-using HierarchicalStateMachine;
-using System.Collections.Generic;
 
-/* Controls the game state. */
 public class ContextManager : GameBehaviour
 {
     private GameContext context;
@@ -22,6 +19,7 @@ public class ContextManager : GameBehaviour
         gameManager.Sprint.OnBeginSprint += TransitionToScrum;
         gameManager.Sprint.OnRelease += TransitionToRelease;
         gameManager.Sprint.OnBeginRetrospective += TransitionToRetrospective;
+        context.Start();
     }
 
     private void Update()
