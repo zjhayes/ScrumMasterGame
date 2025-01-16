@@ -8,6 +8,7 @@ public enum GameStates
     RETROSPECTIVE,
     DEFAULT_VIEW,
     BOARD_VIEW,
+    TOGGLE_VIEW,
     SELECTED_CHARACTER,
     STATIC
 }

@@ -47,16 +47,6 @@ public class ContextManager : GameBehaviour
         context.TransitionTo(GameStates.RETROSPECTIVE);
     }
 
-    public void TransitionToBoardView()
-    {
-        context.CurrentState.SetSubState(gameManager.Context.StateMachine.GetState(GameStates.BOARD_VIEW));
-    }
-
-    public void TransitionToDefaultView()
-    {
-        context.CurrentState.SetSubState(gameManager.Context.StateMachine.GetState(GameStates.DEFAULT_VIEW));
-    }
-
     public void CharacterSelected(ICharacterController character)
     {
         DeselectCharacter();

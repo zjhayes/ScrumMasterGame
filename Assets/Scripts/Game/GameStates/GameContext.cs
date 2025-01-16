@@ -13,6 +13,7 @@ public class GameContext : StateMachineContext<GameState, GameStates>
             { GameStates.RELEASE, new ReleaseState(gameManager) },
             { GameStates.RETROSPECTIVE, new RetrospectiveState(gameManager) },
             { GameStates.BOARD_VIEW, new BoardViewState(gameManager) },
+            { GameStates.TOGGLE_VIEW, new ToggleViewState(gameManager) },
             { GameStates.SELECTED_CHARACTER, new SelectedCharacterState(gameManager) },
             { GameStates.STATIC, new StaticGameState(gameManager) }
         }, defaultState)

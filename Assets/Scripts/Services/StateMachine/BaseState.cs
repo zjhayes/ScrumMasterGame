@@ -31,6 +31,13 @@ namespace HierarchicalStateMachine
 
         protected abstract void InitializeSubState();
 
+        public void SwitchSubState(T newSubState)
+        {
+            SubState?.Exit();
+            SetSubState(newSubState);
+            SubState.Enter();
+        }
+
         public void SetSubState(T newSubState)
         {
             SubState = newSubState; // Change current state.
