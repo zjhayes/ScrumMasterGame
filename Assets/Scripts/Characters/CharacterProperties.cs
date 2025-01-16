@@ -7,11 +7,15 @@ public class CharacterProperties : MonoBehaviour
     [SerializeField]
     private OverheadElement idleBubble;
     [SerializeField]
+    private OverheadElement frustrationBubble;
+    [SerializeField]
     private float paceSpeed = 0.5f;
     [SerializeField]
     private float minWaitTime = 2.0f;
     [SerializeField]
     private float maxWaitTime = 10.0f;
+    [SerializeField]
+    private float emoteTime = 2.0f;
 
     public int NumberOfPrioritiesConsidered
     {
@@ -22,24 +26,30 @@ public class CharacterProperties : MonoBehaviour
     public OverheadElement IdleBubble
     {
         get { return idleBubble; }
-        set { idleBubble = value; }
+    }
+
+    public OverheadElement FrustrationBubble
+    {
+        get { return frustrationBubble; }
     }
 
     public float PaceSpeed
     {
         get { return paceSpeed; }
-        set { paceSpeed = value; }
     }
 
     public float MinWaitTime
     {
         get { return minWaitTime; }
-        set { minWaitTime = value; }
     }
 
     public float MaxWaitTime
     {
         get { return maxWaitTime; }
-        set { maxWaitTime = value; }
+    }
+
+    public float EmoteTime
+    {
+        get { return emoteTime; }
     }
 }

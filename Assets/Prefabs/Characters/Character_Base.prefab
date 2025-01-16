@@ -273,10 +273,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfPrioritiesConsidered: 3
   idleBubble: {fileID: 7026099750404510769}
-  paceBoundary: {fileID: 0}
+  frustrationBubble: {fileID: 4796066872417238238}
   paceSpeed: 0.5
   minWaitTime: 2
   maxWaitTime: 10
+  emoteTime: 2
 --- !u!1001 &1022303823294172965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -498,6 +499,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4778962657791473260}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4796066872417238238 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 62281146644744882, guid: e04b0154e245dcc4998d77bfd04da477,
+    type: 3}
+  m_PrefabInstance: {fileID: 4778962657791473260}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56d9413add4966f4f987024b29c49bde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7026099750404510769 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2581672306708718173, guid: e04b0154e245dcc4998d77bfd04da477,
