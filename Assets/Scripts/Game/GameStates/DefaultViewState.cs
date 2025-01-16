@@ -1,8 +1,11 @@
 
+using System.Diagnostics;
+using UnityEngine;
+
 public class DefaultViewState : GameState
 {
 
-    public DefaultViewState(IGameManager _gameManager) : base(_gameManager) {}
+    public DefaultViewState(IGameManager gameManager) : base(gameManager) {}
 
     public override void Enter()
     {
@@ -29,17 +32,17 @@ public class DefaultViewState : GameState
 
     private void SwitchToSelectedCharacterSubState()
     {
-        SubState.SwitchState(gameManager.Context.GetState(GameStates.SELECTED_CHARACTER));
+        //SubState.SwitchState(gameManager.Context.GetState(GameStates.SELECTED_CHARACTER));
     }
 
     private void SwitchToNoSelectedCharacterSubState()
     {
-        SubState.SwitchState(gameManager.Context.GetState(GameStates.STATIC));
+        //SubState.SwitchState(gameManager.Context.GetState(GameStates.STATIC));
     }
 
     protected override void InitializeSubState()
     {
-        SetSubState(gameManager.Context.GetState(GameStates.STATIC));
+        SetSubState(gameManager.Context.StateMachine.GetState(GameStates.STATIC));
     }
 }
 

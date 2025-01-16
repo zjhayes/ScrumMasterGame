@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
   m_Name: bug_01
   m_EditorClassIdentifier: 
-  summary: Test bug
-  description: testing bugs
+  summary: User Error
+  description: I'm pretty sure this is the user's fault, but let's make the UI a
+    little simpler for them.
   type: 1
   requirements:
     usability: 3
-    stability: 6
-    functionality: 4
-    maintainability: 5
+    stability: 0
+    functionality: 0
+    maintainability: 0
   causes: []
   risk: {fileID: 0}

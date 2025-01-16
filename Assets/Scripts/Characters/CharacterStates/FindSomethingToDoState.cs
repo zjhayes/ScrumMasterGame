@@ -18,15 +18,15 @@ public class FindSomethingToDoState : CharacterState
     [SerializeField]
     private float maxWaitTime = 10.0f;
 
-    protected ICharacterController character;
     private Coroutine waitAndFindSomethingToDoAction;
 
-    public override void Handle(ICharacterController controller)
+    public FindSomethingToDoState(ICharacterController character, IGameManager gameManager) : base(character, gameManager){}
+
+    public override void Enter()
     {
-        character = controller;
         character.Movement.OnArrivedAtDestination += AfterPacing;
         FindSomethingToDo();
-        base.Handle(controller);
+        base.Enter();
     }
 
     public override void Exit()
@@ -83,7 +83,8 @@ public class FindSomethingToDoState : CharacterState
     private void AfterPacing()
     {
         StartIdleEmote();
-        waitAndFindSomethingToDoAction = StartCoroutine(WaitAndFindSomethingToDo());
+        //waitAndFindSomethingToDoAction = character.StartCoroutine(WaitAndFindSomethingToDo());
+        Debug.Log("Fix");
     }
 
     private IEnumerator WaitAndFindSomethingToDo()
@@ -105,8 +106,9 @@ public class FindSomethingToDoState : CharacterState
     {
         if(waitAndFindSomethingToDoAction != null)
         {
-            StopCoroutine(waitAndFindSomethingToDoAction);
+            //StopCoroutine(waitAndFindSomethingToDoAction);
             waitAndFindSomethingToDoAction = null;
+            Debug.Log("Fix");
         }
     }
 

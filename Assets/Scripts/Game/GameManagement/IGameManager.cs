@@ -10,7 +10,7 @@ public interface IGameManager : IService
 
     public BoardManager Board { get; }
 
-    public IContextManager Context { get; }
+    public ContextManager Context { get; }
 
     public TeamManager Team { get; }
 

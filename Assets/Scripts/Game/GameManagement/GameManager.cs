@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour, IGameManager
     PlayerControls controls;
     SprintManager sprint;
     BoardManager board;
-    IContextManager context;
+    ContextManager context;
     TeamManager teamManager;
     ProductionManager productionManager;
     InteractableManager interactables;
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour, IGameManager
         // Inject gameManager into dependents.
         ServiceInjector.Resolve<IGameManager, GameBehaviour>(this);
 
-        context = GetComponent<IContextManager>();
+        context = GetComponent<ContextManager>();
         ui = GetComponent<UIManager>();
         interactables = GetComponent<InteractableManager>();
         controls = GetComponent<PlayerControls>();
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour, IGameManager
         cameraController = FindObjectOfType<CameraController>();
     }
 
-    public IContextManager Context
+    public ContextManager Context
     {
         get { return context; }
     }

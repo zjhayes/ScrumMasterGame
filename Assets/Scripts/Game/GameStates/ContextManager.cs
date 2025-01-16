@@ -2,9 +2,9 @@ using HierarchicalStateMachine;
 using System.Collections.Generic;
 
 /* Controls the game state. */
-public class ContextManager : GameBehaviour, IContextManager, IStateMachine
+public class ContextManager : GameBehaviour
 {
-    private Dictionary<GameStates,GameState> states;
+    private GameContext context;
     private ICharacterController currentCharacter;
 
     public event Events.GameEvent OnCharacterSelect;
@@ -12,17 +12,7 @@ public class ContextManager : GameBehaviour, IContextManager, IStateMachine
 
     private void Awake()
     {
-        states = new Dictionary<GameStates, GameState>
-        {
-            { GameStates.PLANNING, new PlanningState(gameManager) },
-            { GameStates.SCRUM, new ScrumState(gameManager) },
-            { GameStates.DEFAULT_VIEW, new DefaultViewState(gameManager) },
-            { GameStates.RELEASE, new ReleaseState(gameManager) },
-            { GameStates.RETROSPECTIVE, new RetrospectiveState(gameManager) },
-            { GameStates.BOARD_VIEW, new BoardViewState(gameManager) },
-            { GameStates.SELECTED_CHARACTER, new SelectedCharacterState(gameManager) },
-            { GameStates.STATIC, new StaticGameState(gameManager) }
-        };
+        context = new GameContext(gameManager);
     }
 
     private void Start()
@@ -32,30 +22,41 @@ public class ContextManager : GameBehaviour, IContextManager, IStateMachine
         gameManager.Sprint.OnBeginSprint += TransitionToScrum;
         gameManager.Sprint.OnRelease += TransitionToRelease;
         gameManager.Sprint.OnBeginRetrospective += TransitionToRetrospective;
-
-        InitializeGame();
     }
 
     private void Update()
     {
-        CurrentState.Update();
+        context.CurrentState.Update();
     }
 
-    public GameState GetState(GameStates stateEnum)
+    private void TransitionToPlanning()
     {
-        if (TryGetState(stateEnum, out GameState state))
-        {
-            return state;
-        }
-        else
-        {
-            throw new StateNotFoundException();
-        }
+        context.TransitionTo(GameStates.PLANNING);
     }
 
-    public bool TryGetState(GameStates stateEnum, out GameState state)
+    private void TransitionToScrum()
     {
-        return states.TryGetValue(stateEnum, out state);
+        context.TransitionTo(GameStates.SCRUM);
+    }
+
+    private void TransitionToRelease()
+    {
+        context.TransitionTo(GameStates.RELEASE);
+    }
+
+    private void TransitionToRetrospective()
+    {
+        context.TransitionTo(GameStates.RETROSPECTIVE);
+    }
+
+    public void TransitionToBoardView()
+    {
+        context.CurrentState.SetSubState(gameManager.Context.StateMachine.GetState(GameStates.BOARD_VIEW));
+    }
+
+    public void TransitionToDefaultView()
+    {
+        context.CurrentState.SetSubState(gameManager.Context.StateMachine.GetState(GameStates.DEFAULT_VIEW));
     }
 
     public void CharacterSelected(ICharacterController character)
@@ -67,7 +68,7 @@ public class ContextManager : GameBehaviour, IContextManager, IStateMachine
 
     public void DeselectCharacter()
     {
-        if(currentCharacter != null)
+        if (currentCharacter != null)
         {
             currentCharacter.Deselect();
             currentCharacter = null;
@@ -81,43 +82,8 @@ public class ContextManager : GameBehaviour, IContextManager, IStateMachine
         set { currentCharacter = value; }
     }
 
-    public BaseState CurrentState { get; set; }
-
-    private void Transition(GameStates nextStateEnum)
+    public GameContext StateMachine
     {
-        if(TryGetState(nextStateEnum, out GameState nextState))
-        {
-            CurrentState.SwitchState(nextState);
-        }
-        else
-        {
-            throw new StateNotFoundException();
-        }
-    }
-
-    private void InitializeGame()
-    {
-        CurrentState = new SetupState(gameManager);
-        CurrentState.Enter();
-    }
-
-    private void TransitionToPlanning()
-    {
-        Transition(GameStates.PLANNING);
-    }
-
-    private void TransitionToScrum()
-    {
-        Transition(GameStates.SCRUM);
-    }
-
-    private void TransitionToRelease()
-    {
-        Transition(GameStates.RELEASE);
-    }
-
-    private void TransitionToRetrospective()
-    {
-        Transition(GameStates.RETROSPECTIVE);
+        get { return context; }
     }
 }

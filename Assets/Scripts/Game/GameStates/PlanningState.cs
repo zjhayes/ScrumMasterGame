@@ -23,6 +23,6 @@ public class PlanningState : PausableState
 
     protected override void InitializeSubState()
     {
-        SetSubState(gameManager.Context.GetState(GameStates.BOARD_VIEW));
+        SetSubState(gameManager.Context.StateMachine.GetState(GameStates.BOARD_VIEW));
     }
 }

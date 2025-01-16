@@ -17,7 +17,7 @@ public class BoardViewState : GameState
 
     protected override void InitializeSubState()
     {
-        SetSubState(gameManager.Context.GetState(GameStates.STATIC));
+        SetSubState(gameManager.Context.StateMachine.GetState(GameStates.STATIC));
     }
 
     private void MoveCameraToBoard()

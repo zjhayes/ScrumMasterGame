@@ -12,7 +12,7 @@ public class SelectedCharacterState : GameState
 
         // Listen to character and update status when state changed.
         selectedCharacter = gameManager.Context.CurrentCharacter;
-        selectedCharacter.StateContext.OnTransition += OnCharacterStateChange;
+        selectedCharacter.Context.OnTransition += OnCharacterStateChange;
 
         // Show selected character details card.
         gameManager.UI.CharacterCard.UpdateCard(selectedCharacter);
@@ -26,7 +26,7 @@ public class SelectedCharacterState : GameState
         base.Exit();
 
         // Stop listening to character.
-        selectedCharacter.StateContext.OnTransition -= OnCharacterStateChange;
+        selectedCharacter.Context.OnTransition -= OnCharacterStateChange;
         selectedCharacter.Deselect();
 
         // Revert state.

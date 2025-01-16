@@ -1,62 +1,43 @@
+
 namespace HierarchicalStateMachine
 {
-    public abstract class BaseState : IState, IStateProperties<BaseState>, IStateEvents<BaseState>
+    public abstract class BaseState<T> : IState, IStateProperties<T>, IStateEvents<T> where T : BaseState<T>
     {
-        public IStateMachine Context { get; private set; }
-        public BaseState SuperState { get; private set; }
-        public BaseState SubState { get; private set; }
+        public T SuperState { get; private set; }
+        public T SubState { get; private set; }
 
-        public event StateEvent<BaseState> OnEnter;
-        public event StateEvent<BaseState> OnUpdate;
-        public event StateEvent<BaseState> OnExit;
-
-        public BaseState(IStateMachine _context)
-        {
-            Context = _context;
-        }
+        public event StateEvent<T> OnEnter;
+        public event StateEvent<T> OnUpdate;
+        public event StateEvent<T> OnExit;
 
         public virtual void Enter()
         {
             InitializeSubState();
             SubState?.Enter();
-            OnEnter?.Invoke(this);
+            OnEnter?.Invoke((T)this);
         }
 
         public virtual void Update()
         {
             SubState?.Update();
-            OnUpdate?.Invoke(this);
+            OnUpdate?.Invoke((T)this);
         }
 
         public virtual void Exit()
         {
             SubState?.Exit();
-            OnExit?.Invoke(this);
-        }
-
-        public void SwitchState(BaseState newState)
-        {
-            Exit(); // Exit current state.
-            if(SuperState == null)
-            {
-                Context.CurrentState = newState;
-            }
-            else
-            {
-                SuperState.SetSubState(newState);
-            }
-            newState.Enter();
+            OnExit?.Invoke((T)this);
         }
 
         protected abstract void InitializeSubState();
 
-        public void SetSubState(BaseState newSubState) 
+        public void SetSubState(T newSubState)
         {
             SubState = newSubState; // Change current state.
-            SubState.SetSuperState(this);
+            SubState.SetSuperState((T)this);
         }
 
-        private void SetSuperState(BaseState newSuperState)
+        private void SetSuperState(T newSuperState)
         {
             SuperState = newSuperState;
         }

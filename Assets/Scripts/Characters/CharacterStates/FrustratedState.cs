@@ -10,14 +10,14 @@ public class FrustratedState : CharacterState
 
     Coroutine waitAndFindSomethingToDoAction;
 
-    ICharacterController character;
+    public FrustratedState(ICharacterController character, IGameManager gameManager) : base(character, gameManager) {}
 
-    public override void Handle(ICharacterController controller)
+    public override void Enter()
     {
-        this.character = controller;
-        base.Handle(controller);
         frustrationBubble.Show();
-        waitAndFindSomethingToDoAction = StartCoroutine(WaitAndFindSomethingToDo()); // Wait and then end frustration.
+        //waitAndFindSomethingToDoAction = StartCoroutine(WaitAndFindSomethingToDo()); // Wait and then end frustration.
+        base.Enter();
+        Debug.Log("Fix");
     }
 
     public override void Exit()
@@ -44,7 +44,8 @@ public class FrustratedState : CharacterState
     {
         if (waitAndFindSomethingToDoAction != null)
         {
-            StopCoroutine(waitAndFindSomethingToDoAction);
+            //StopCoroutine(waitAndFindSomethingToDoAction);
+            Debug.Log("Fix");
             waitAndFindSomethingToDoAction = null;
         }
     }

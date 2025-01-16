@@ -8,4 +8,5 @@ public interface IContextManager : IController
     public void CharacterSelected(ICharacterController character);
     public void DeselectCharacter();
     public ICharacterController CurrentCharacter { get; }
+    public GameContext StateMachine { get; }
 }

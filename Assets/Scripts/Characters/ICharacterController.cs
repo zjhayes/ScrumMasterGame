@@ -1,4 +1,3 @@
-using StateSystem;
 using UnityEngine;
 
 public interface ICharacterController : IController
@@ -14,6 +13,7 @@ public interface ICharacterController : IController
     public void Frustrated();
     public void Deselect();
     public void EnablePhysics(bool enable);
+    public void ClearTargetInteractable();
 
     public CharacterStats Stats { get; }
 
@@ -23,7 +23,7 @@ public interface ICharacterController : IController
 
     public Interactable TargetInteractable { get; }
 
-    public StateContext<ICharacterController> StateContext { get; }
+    public CharacterContext Context { get; }
 
     public CharacterState State { get; }
 

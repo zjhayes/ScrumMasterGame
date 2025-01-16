@@ -1,12 +1,12 @@
 using HierarchicalStateMachine;
 
-public abstract class GameState : BaseState
+public abstract class GameState : BaseState<GameState>
 {
     protected IGameManager gameManager;
 
-    protected GameState(IGameManager _gameManager) : base(_gameManager.Context as IStateMachine)
+    protected GameState(IGameManager gameManager) : base()
     {
-        gameManager = _gameManager;
+        this.gameManager = gameManager;
     }
 
     protected override void InitializeSubState() {}

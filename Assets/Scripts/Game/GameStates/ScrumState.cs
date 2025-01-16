@@ -1,4 +1,5 @@
 
+
 public class ScrumState : PausableState
 {
     bool isViewingBoard = false;
@@ -23,17 +24,17 @@ public class ScrumState : PausableState
         if(isViewingBoard)
         {
             // View board.
-            SubState.SwitchState(gameManager.Context.GetState(GameStates.BOARD_VIEW));
+            gameManager.Context.TransitionToBoardView();
         }
         else
         {
             // Return to default view.
-            SubState.SwitchState(gameManager.Context.GetState(GameStates.DEFAULT_VIEW));
+            gameManager.Context.TransitionToBoardView();
         }
     }
 
     protected override void InitializeSubState()
     {
-        SetSubState(gameManager.Context.GetState(GameStates.DEFAULT_VIEW));
+        SetSubState(gameManager.Context.StateMachine.GetState(GameStates.DEFAULT_VIEW));
     }
 }

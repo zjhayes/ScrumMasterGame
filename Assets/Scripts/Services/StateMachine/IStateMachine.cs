@@ -1,7 +1,7 @@
 namespace HierarchicalStateMachine
 {
-    public interface IStateMachine
+    public interface IStateMachine<T> where T : IState
     {
-        public BaseState CurrentState { get; set; }
+        public T CurrentState { get; set; }
     }
 }

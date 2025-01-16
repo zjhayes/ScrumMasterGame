@@ -1,4 +1,3 @@
-using StateSystem;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -27,14 +26,14 @@ public class CharacterController : GameBehaviour, ICharacterController, ISocketa
 
     private CharacterStats stats;
     private CharacterMovement movement;
-    private StateContext<ICharacterController> stateContext;
+    private CharacterContext context;
     private Interactable targetInteractable;
 
     private void Awake()
     {
         stats = GetComponent<CharacterStats>();
         movement = GetComponent<CharacterMovement>();
-        stateContext = new StateContext<ICharacterController>(this);
+        context = new CharacterContext(this, gameManager);
     }
 
     private void Start()
@@ -57,32 +56,31 @@ public class CharacterController : GameBehaviour, ICharacterController, ISocketa
 
     public void Idle()
     {
-        ClearTargetInteractable();
-        stateContext.Transition(idleState);
+        context.TransitionTo(CharacterStates.IDLE);
     }
 
     public void FindSomethingToDo()
     {
         ClearTargetInteractable();
-        stateContext.Transition(findSomethingToDoState);
+        context.TransitionTo(CharacterStates.FIND_SOMETHING_TO_DO);
     }
 
     // Character moves to interactable to interact.
     public void GoInteractWith(Interactable interactable)
     {
         targetInteractable = interactable;
-        stateContext.Transition(goToInteractableState);
+        context.TransitionTo(CharacterStates.GO_TO_INTERACTABLE);
     }
 
     public void InteractWithTarget()
     {
-        stateContext.Transition(interactionState);
+        context.TransitionTo(CharacterStates.INTERACT);
     }
 
     public void Frustrated()
     {
         ClearTargetInteractable();
-        stateContext.Transition(frustratedState);
+        context.TransitionTo(CharacterStates.FRUSTRATED);
     }
 
     public void ClearTargetInteractable()
@@ -110,14 +108,14 @@ public class CharacterController : GameBehaviour, ICharacterController, ISocketa
         get { return targetInteractable; }
     }
 
-    public StateContext<ICharacterController> StateContext
+    public CharacterContext Context
     {
-        get { return stateContext; }
+        get { return context; }
     }
 
     public CharacterState State
     {
-        get { return stateContext.CurrentState as CharacterState; }
+        get { return context.CurrentState; }
     }
 
     public Sprite Portrait

@@ -1,13 +1,13 @@
-using UnityEngine;
 
 public class IdleState : CharacterState
 {
-    private ICharacterController character;
 
-    public override void Handle(ICharacterController controller)
+    public IdleState(ICharacterController character, IGameManager gameManager) : base(character, gameManager) {}
+
+    public override void Enter()
     {
-        character = controller;
-        base.Handle(controller);
+        character.ClearTargetInteractable();
+        base.Enter();
     }
 
     public override string Status

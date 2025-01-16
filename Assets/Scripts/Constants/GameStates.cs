@@ -1,6 +1,7 @@
 
 public enum GameStates
 {
+    SETUP,
     PLANNING,
     SCRUM,
     RELEASE,
