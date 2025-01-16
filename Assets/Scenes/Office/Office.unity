@@ -661,6 +661,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179245013}
   m_CullTransparentMesh: 1
+--- !u!20 &206587913 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8955580300220210090, guid: f22bd2cde7376324bae6121547d992f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8955580300011294307}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &216361632
 GameObject:
   m_ObjectHideFlags: 0
@@ -8002,6 +8008,11 @@ PrefabInstance:
       propertyPath: paceBoundary
       value: 
       objectReference: {fileID: 2079800302}
+    - target: {fileID: 4361377816467713239, guid: dc572c4523986534b8566425481b12a2,
+        type: 3}
+      propertyPath: paceBoundary
+      value: 
+      objectReference: {fileID: 2079800302}
     - target: {fileID: 4680933028903102826, guid: dc572c4523986534b8566425481b12a2,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -8092,6 +8103,11 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1103561359399260670, guid: 3071926b16b174c4793068e9a44d1fbf,
+        type: 3}
+      propertyPath: paceBoundary
+      value: 
+      objectReference: {fileID: 2079800302}
+    - target: {fileID: 2162042809886914195, guid: 3071926b16b174c4793068e9a44d1fbf,
         type: 3}
       propertyPath: paceBoundary
       value: 
@@ -10715,6 +10731,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character_Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 7226434966735646777, guid: b0ad1bde130aaa745b79e5e5961ed239,
+        type: 3}
+      propertyPath: paceBoundary
+      value: 
+      objectReference: {fileID: 2079800302}
     - target: {fileID: 8437715033472194388, guid: b0ad1bde130aaa745b79e5e5961ed239,
         type: 3}
       propertyPath: paceBoundary
@@ -10729,7 +10750,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 269623527751147274, guid: 6639ef869c3f5674c89070df9a566170,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 206587913}
     - target: {fileID: 344965960238898700, guid: 6639ef869c3f5674c89070df9a566170,
+        type: 3}
+      propertyPath: paceBoundary
+      value: 
+      objectReference: {fileID: 2079800302}
+    - target: {fileID: 1556044214851877217, guid: 6639ef869c3f5674c89070df9a566170,
         type: 3}
       propertyPath: paceBoundary
       value: 

@@ -16,6 +16,7 @@ public interface IGameManager : IService
     public ProductionManager Production { get; }
 
     public InteractableManager Interactables { get; }
+    public ActionManager Actions { get; }
 
     public ObjectPoolController ObjectPool { get; }
 

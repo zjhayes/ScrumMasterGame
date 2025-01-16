@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(ContextManager))]
 [RequireComponent(typeof(UIManager))]
 [RequireComponent(typeof(InteractableManager))]
+[RequireComponent(typeof(ActionManager))]
 [RequireComponent(typeof(PlayerControls))]
 [RequireComponent(typeof(SprintManager))]
 [RequireComponent(typeof(BoardManager))]
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour, IGameManager
     TeamManager teamManager;
     ProductionManager productionManager;
     InteractableManager interactables;
+    ActionManager actionManager;
     ObjectPoolController objectPool;
     CameraController cameraController;
 
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour, IGameManager
         context = GetComponent<ContextManager>();
         ui = GetComponent<UIManager>();
         interactables = GetComponent<InteractableManager>();
+        actionManager = GetComponent<ActionManager>();
         controls = GetComponent<PlayerControls>();
         sprint = GetComponent<SprintManager>();
         board = GetComponent<BoardManager>();
@@ -53,6 +56,11 @@ public class GameManager : MonoBehaviour, IGameManager
     public InteractableManager Interactables
     {
         get { return interactables; }
+    }
+
+    public ActionManager Actions
+    {
+        get { return actionManager; }
     }
 
     public PlayerControls Controls

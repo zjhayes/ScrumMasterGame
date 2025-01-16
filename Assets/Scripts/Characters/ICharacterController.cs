@@ -18,6 +18,7 @@ public interface ICharacterController : IController
     public CharacterStats Stats { get; }
 
     public CharacterMovement Movement { get; }
+    public CharacterProperties Properties { get; }
 
     public Inventory Inventory { get; }
 

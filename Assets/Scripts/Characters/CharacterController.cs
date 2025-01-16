@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(CharacterStats))]
 [RequireComponent(typeof(CharacterMovement))]
+[RequireComponent(typeof(CharacterProperties))]
 public class CharacterController : GameBehaviour, ICharacterController, ISocketable
 {
     [SerializeField]
@@ -10,22 +11,13 @@ public class CharacterController : GameBehaviour, ICharacterController, ISocketa
     [SerializeField]
     private Inventory inventory;
     [SerializeField]
-    private CharacterState idleState;
-    [SerializeField]
-    private CharacterState goToInteractableState;
-    [SerializeField]
-    private CharacterState interactionState;
-    [SerializeField]
-    private CharacterState findSomethingToDoState;
-    [SerializeField]
-    private CharacterState frustratedState;
-    [SerializeField]
     private Selectable selectability;
     [SerializeField]
     private OverheadElement selectIcon;
 
     private CharacterStats stats;
     private CharacterMovement movement;
+    private CharacterProperties properties;
     private CharacterContext context;
     private Interactable targetInteractable;
 
@@ -33,6 +25,7 @@ public class CharacterController : GameBehaviour, ICharacterController, ISocketa
     {
         stats = GetComponent<CharacterStats>();
         movement = GetComponent<CharacterMovement>();
+        properties = GetComponent<CharacterProperties>();
         context = new CharacterContext(this, gameManager);
     }
 
@@ -96,6 +89,11 @@ public class CharacterController : GameBehaviour, ICharacterController, ISocketa
     public CharacterMovement Movement
     {
         get { return movement; }
+    }
+
+    public CharacterProperties Properties
+    {
+        get { return properties; }
     }
 
     public Inventory Inventory
