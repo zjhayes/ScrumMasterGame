@@ -1,32 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class FindSomethingToDoState : CharacterState
 {
-    [SerializeField]
-    private int numberOfPrioritiesConsidered = 3; // Increasing this number makes the character's actions more random.
-    [SerializeField]
-    private OverheadElement idleBubble;
-    [SerializeField]
-    private Boundary paceBoundary;
-    [SerializeField]
-    private float paceSpeed = 0.5f;
-    [SerializeField]
-    private float minWaitTime = 2.0f;
-    [SerializeField]
-    private float maxWaitTime = 10.0f;
-
-    protected ICharacterController character;
     private Coroutine waitAndFindSomethingToDoAction;
 
-    public override void Handle(ICharacterController controller)
+    public FindSomethingToDoState(ICharacterController character, IGameManager gameManager) : base(character, gameManager){}
+
+    public override void Enter()
     {
-        character = controller;
         character.Movement.OnArrivedAtDestination += AfterPacing;
         FindSomethingToDo();
-        base.Handle(controller);
+        base.Enter();
     }
 
     public override void Exit()
@@ -45,7 +31,7 @@ public class FindSomethingToDoState : CharacterState
     private void FindSomethingToDo()
     {
         // Take a given number of this character's highest priority items, the smaller the number the better the character's choice will be.
-        IEnumerable<KeyValuePair<Interactable, int>> priorities = gameManager.Interactables.PrioritizeInteractablesFor(character).Take(numberOfPrioritiesConsidered);
+        IEnumerable<KeyValuePair<Interactable, int>> priorities = gameManager.Interactables.PrioritizeInteractablesFor(character).Take(character.Properties.NumberOfPrioritiesConsidered);
         Interactable priority = WeighPriorityDecision(priorities); // Choose randomly from high priority items, factoring in priority score.
 
         if (priority != null)
@@ -83,40 +69,33 @@ public class FindSomethingToDoState : CharacterState
     private void AfterPacing()
     {
         StartIdleEmote();
-        waitAndFindSomethingToDoAction = StartCoroutine(WaitAndFindSomethingToDo());
-    }
 
-    private IEnumerator WaitAndFindSomethingToDo()
-    {
-        float delayTime = Random.Range(minWaitTime, maxWaitTime);
-        
-        yield return new WaitForSeconds(delayTime);
-        
-        FindSomethingToDo();
+        float delayTime = Random.Range(character.Properties.MinWaitTime, character.Properties.MaxWaitTime);
+        waitAndFindSomethingToDoAction = gameManager.Actions.StartDelayedAction(delayTime, FindSomethingToDo);
     }
 
     private void Pace()
     {
         // Move to randomly position within pacing boundary.
-        character.Movement.GoToBoundary(paceBoundary, character.Movement.BaseSpeed * paceSpeed);
+        character.Movement.GoToBoundary(gameManager.Team.PaceBoundary, character.Movement.BaseSpeed * character.Properties.PaceSpeed);
     }
 
     private void CancelWaitAndFindSomethingToDo()
     {
         if(waitAndFindSomethingToDoAction != null)
         {
-            StopCoroutine(waitAndFindSomethingToDoAction);
+            gameManager.Actions.StopCoroutine(waitAndFindSomethingToDoAction);
             waitAndFindSomethingToDoAction = null;
         }
     }
 
     private void StartIdleEmote()
     {
-        idleBubble.Show();
+        character.Properties.IdleBubble.Show();
     }
 
     private void StopIdleEmote()
     {
-        idleBubble.Hide();
+        character.Properties.IdleBubble.Hide();
     }
 }

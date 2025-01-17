@@ -1,123 +1,67 @@
-using UnityEngine;
-using UnityEditor;
 
-/* Controls the current game state. */
-public class ContextManager : GameBehaviour, IContextManager
+public class ContextManager : GameBehaviour
 {
-    private StateContext<ContextManager> stateContext;
+    private GameContext context;
     private ICharacterController currentCharacter;
 
-    [SerializeField]
-    private GameState setupState;
-    [SerializeField]
-    private GameState defaultState;
-    [SerializeField]
-    private GameState pauseState;
-    [SerializeField]
-    private GameState scrumViewState;
-    [SerializeField]
-    private GameState planningViewState;
-    [SerializeField]
-    private GameState releaseState;
-    [SerializeField]
-    private GameState retrospectiveViewState;
-    [SerializeField]
-    private GameState selectedCharacterState;
-
-    private GameState previousState;
+    public event Events.GameEvent OnCharacterSelect;
+    public event Events.GameEvent OnCharacterDeselect;
 
     private void Awake()
     {
-        stateContext = new StateContext<ContextManager>(this);
-
-        // Listen to Sprint Manager.
-        gameManager.Sprint.OnBeginPlanning += SwitchToPlanningView;
-        gameManager.Sprint.OnBeginSprint += Default;
-        gameManager.Sprint.OnRelease += SwitchToReleaseState;
-        gameManager.Sprint.OnBeginRetrospective += SwitchToRetrospectiveView;
-
-        // Listen to player controls.
-        gameManager.Controls.OnEscape += EscapeCurrentState; // TODO: Just call default?
-        gameManager.Controls.OnChangeView += ChangeView;
+        context = new GameContext(gameManager);
     }
 
     private void Start()
     {
-        InitializeGame();
+        // Listen to Sprint Manager.
+        gameManager.Sprint.OnBeginPlanning += TransitionToPlanning;
+        gameManager.Sprint.OnBeginSprint += TransitionToScrum;
+        gameManager.Sprint.OnRelease += TransitionToRelease;
+        gameManager.Sprint.OnBeginRetrospective += TransitionToRetrospective;
+        context.Start();
     }
 
-    private void InitializeGame()
+    private void Update()
     {
-        Transition(setupState);
+        context.CurrentState.Update();
     }
 
-    public void Default()
+    private void TransitionToPlanning()
     {
-        Transition(defaultState);
+        context.TransitionTo(GameStates.PLANNING);
     }
 
-    public void Pause()
+    private void TransitionToScrum()
     {
-        Transition(pauseState);
+        context.TransitionTo(GameStates.SCRUM);
     }
 
-    public void SwitchToScrumView()
+    private void TransitionToRelease()
     {
-        Transition(scrumViewState);
+        context.TransitionTo(GameStates.RELEASE);
     }
 
-    public void SwitchToPlanningView()
+    private void TransitionToRetrospective()
     {
-        Transition(planningViewState);
-    }
-
-    public void SwitchToReleaseState()
-    {
-        Transition(releaseState);
-    }
-
-    public void SwitchToRetrospectiveView()
-    {
-        Transition(retrospectiveViewState);
-    }
-
-    public void SwitchToPreviousState()
-    {
-        Transition(previousState);
+        context.TransitionTo(GameStates.RETROSPECTIVE);
     }
 
     public void CharacterSelected(ICharacterController character)
     {
         DeselectCharacter();
         currentCharacter = character;
-        gameManager.Interactables.EnableInteractables();
-        Transition(selectedCharacterState);
+        OnCharacterSelect?.Invoke();
     }
 
     public void DeselectCharacter()
     {
-        if(currentCharacter != null)
+        if (currentCharacter != null)
         {
             currentCharacter.Deselect();
             currentCharacter = null;
-            gameManager.Interactables.DisableInteractables();
-            gameManager.UI.CharacterCard.Hide();
+            OnCharacterDeselect?.Invoke();
         }
-    }
-    
-    public void ChangeView()
-    {
-        CurrentState.ChangeView();
-    }
-
-    public void EscapeCurrentState()
-    {
-        CurrentState.OnEscaped();
-    }
-
-    public GameState CurrentState
-    {
-        get { return stateContext.CurrentState as GameState; }
     }
 
     public ICharacterController CurrentCharacter
@@ -126,20 +70,8 @@ public class ContextManager : GameBehaviour, IContextManager
         set { currentCharacter = value; }
     }
 
-    private void Transition(GameState nextState)
+    public GameContext StateMachine
     {
-        previousState = CurrentState != null ? CurrentState : null;
-
-        stateContext.Transition(nextState);
-
-    }
-
-    private void OnDisable()
-    {
-        // Stop listening to Sprint Manager.
-        gameManager.Sprint.OnBeginPlanning -= SwitchToPlanningView;
-        gameManager.Sprint.OnBeginSprint -= Default;
-        gameManager.Controls.OnEscape -= EscapeCurrentState;
-        gameManager.Controls.OnChangeView -= ChangeView;
+        get { return context; }
     }
 }

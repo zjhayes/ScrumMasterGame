@@ -1,17 +1,17 @@
 /* This character state directs a character to an interactable, and interacts on arrival. */
 public class GoToInteractableState : CharacterState
 {
-    protected ICharacterController character;
 
-    public override void Handle(ICharacterController controller)
+    public GoToInteractableState(ICharacterController character, IGameManager gameManager) : base(character, gameManager) {}
+
+    public override void Enter()
     {
-        character = controller;
         character.Movement.GoTo(character.TargetInteractable.Position);
         character.Movement.OnArrivedAtDestination += character.InteractWithTarget;
-        base.Handle(controller);
+        base.Enter();
     }
 
-    void Update()
+    public override void Update()
     {
         if(character.TargetInteractable == null || !character.TargetInteractable.isActiveAndEnabled)
         {

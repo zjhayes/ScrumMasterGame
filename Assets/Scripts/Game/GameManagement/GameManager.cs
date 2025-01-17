@@ -1,8 +1,9 @@
 using UnityEngine;
 // Game Service Locator
-[RequireComponent(typeof(IContextManager))]
+[RequireComponent(typeof(ContextManager))]
 [RequireComponent(typeof(UIManager))]
 [RequireComponent(typeof(InteractableManager))]
+[RequireComponent(typeof(ActionManager))]
 [RequireComponent(typeof(PlayerControls))]
 [RequireComponent(typeof(SprintManager))]
 [RequireComponent(typeof(BoardManager))]
@@ -14,10 +15,11 @@ public class GameManager : MonoBehaviour, IGameManager
     PlayerControls controls;
     SprintManager sprint;
     BoardManager board;
-    IContextManager context;
+    ContextManager context;
     TeamManager teamManager;
     ProductionManager productionManager;
     InteractableManager interactables;
+    ActionManager actionManager;
     ObjectPoolController objectPool;
     CameraController cameraController;
 
@@ -26,9 +28,10 @@ public class GameManager : MonoBehaviour, IGameManager
         // Inject gameManager into dependents.
         ServiceInjector.Resolve<IGameManager, GameBehaviour>(this);
 
-        context = GetComponent<IContextManager>();
+        context = GetComponent<ContextManager>();
         ui = GetComponent<UIManager>();
         interactables = GetComponent<InteractableManager>();
+        actionManager = GetComponent<ActionManager>();
         controls = GetComponent<PlayerControls>();
         sprint = GetComponent<SprintManager>();
         board = GetComponent<BoardManager>();
@@ -39,7 +42,7 @@ public class GameManager : MonoBehaviour, IGameManager
         cameraController = FindObjectOfType<CameraController>();
     }
 
-    public IContextManager Context
+    public ContextManager Context
     {
         get { return context; }
     }
@@ -53,6 +56,11 @@ public class GameManager : MonoBehaviour, IGameManager
     public InteractableManager Interactables
     {
         get { return interactables; }
+    }
+
+    public ActionManager Actions
+    {
+        get { return actionManager; }
     }
 
     public PlayerControls Controls

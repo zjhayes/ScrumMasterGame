@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class ReleaseState : GameState
 {
-    private ContextManager gameContext;
+    public ReleaseState(IGameManager _gameManager) : base(_gameManager) {}
 
-    public override void Handle(ContextManager _controller)
+    public override void Enter()
     {
-        gameContext = _controller;
         ReleaseSprint();
-        base.Handle(gameContext);
+        UpdateBoard();
         gameManager.Sprint.BeginRetrospective(); // Immediately go to retrospective.
     }
 
@@ -60,8 +59,6 @@ public class ReleaseState : GameState
         // Update number of users. Scales with quality, availability and required functionality.
         gameManager.Sprint.Current.NewUserCount = (int)(gameManager.Sprint.Current.Quality * gameManager.Production.Availability * gameManager.Production.Stats.Functionality / gameManager.Production.Stats.Maximum);
         gameManager.Production.UserCount += gameManager.Sprint.Current.NewUserCount;
-
-        UpdateBoard();
     }
 
     private bool HasDefect(StoryOutcome outcome)
@@ -84,10 +81,5 @@ public class ReleaseState : GameState
         newStoryDetails.AddRange(gameManager.Sprint.Current.Defects); // Add bugs.
         gameManager.Board.ImportStoryDetails(newStoryDetails);
         gameManager.Board.RemoveStoriesWithStatus(StoryStatus.DONE); // Remove completed stories from board.
-    }
-
-    public override void OnEscaped()
-    {
-        // Do nothing, cannot be escapted.
     }
 }

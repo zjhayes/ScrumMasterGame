@@ -2,13 +2,10 @@
 
 public class InteractionState : CharacterState
 {
-    ICharacterController character;
+    public InteractionState(ICharacterController character, IGameManager gameManager) : base(character, gameManager) {}
 
-    public override void Handle(ICharacterController controller)
+    public override void Enter()
     {
-        character = controller;
-        base.Handle(controller);
-
         // Character tries interacting with its current target interactable.
         if (CharacterCanInteract(character.TargetInteractable))
         {
@@ -18,6 +15,7 @@ public class InteractionState : CharacterState
         {
             character.Frustrated();
         }
+        base.Enter();
     }
 
     private bool CharacterCanInteract(Interactable interactable)

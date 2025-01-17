@@ -1,0 +1,14 @@
+
+public enum GameStates
+{
+    SETUP,
+    PLANNING,
+    SCRUM,
+    RELEASE,
+    RETROSPECTIVE,
+    DEFAULT_VIEW,
+    BOARD_VIEW,
+    TOGGLE_VIEW,
+    SELECTED_CHARACTER,
+    STATIC
+}

@@ -1,6 +1,10 @@
 
+using UnityEngine;
+
 public class PauseMenuController : MenuController
 {
+    [SerializeField]
+    ButtonController resumeButton;
 
     public override void SetUp()
     {
@@ -17,5 +21,10 @@ public class PauseMenuController : MenuController
     {
         SetActive(false);
         base.Hide();
+    }
+
+    public ButtonController ResumeButton
+    {
+        get { return resumeButton; }
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +5,9 @@ public class TeamManager : GameBehaviour
 {
     [SerializeField]
     List<CharacterController> characters;
+    [SerializeField]
+    private Boundary paceBoundary;
+
 
     void Start()
     {
@@ -35,5 +37,11 @@ public class TeamManager : GameBehaviour
     public List<CharacterController> Characters
     {
         get { return characters; }
+    }
+
+    public Boundary PaceBoundary
+    {
+        get { return paceBoundary; }
+        set { paceBoundary = value; }
     }
 }

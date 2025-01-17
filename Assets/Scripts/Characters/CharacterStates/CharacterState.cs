@@ -1,23 +1,18 @@
 
-public abstract class CharacterState : GameBehaviour, ICharacterState
-{
-    private ICharacterController character;
+using HierarchicalStateMachine;
 
-    public event Events.CharacterEvent OnHandle;
-    public event Events.CharacterEvent OnExit;
+public abstract class CharacterState : BaseState<CharacterState>
+{
+    protected ICharacterController character;
+    protected IGameManager gameManager;
 
     public abstract string Status { get; }
 
-    public virtual void Handle(ICharacterController controller)
+    public CharacterState(ICharacterController character, IGameManager gameManager) : base()
     {
-        character = controller;
-        OnHandle?.Invoke(character);
-        this.enabled = true;
+        this.character = character;
+        this.gameManager = gameManager;
     }
 
-    public virtual void Exit()
-    {
-        OnExit?.Invoke(character);
-        this.enabled = false;
-    }
+    protected override void InitializeSubState() { }
 }

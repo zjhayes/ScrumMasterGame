@@ -1,4 +1,3 @@
-using UnityEngine;
 
 public interface IGameManager : IService
 {
@@ -10,13 +9,14 @@ public interface IGameManager : IService
 
     public BoardManager Board { get; }
 
-    public IContextManager Context { get; }
+    public ContextManager Context { get; }
 
     public TeamManager Team { get; }
 
     public ProductionManager Production { get; }
 
     public InteractableManager Interactables { get; }
+    public ActionManager Actions { get; }
 
     public ObjectPoolController ObjectPool { get; }
 

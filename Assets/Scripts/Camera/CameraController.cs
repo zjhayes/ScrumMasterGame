@@ -5,6 +5,8 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     Camera mainCamera;
     [SerializeField]
+    Transform overworldCameraTransform;
+    [SerializeField]
     private Animator cameraStateAnimator; // Controls state driven camera.
 
     public const string OVERWORLD_STATE = "OverworldCamera";
@@ -23,5 +25,10 @@ public class CameraController : MonoBehaviour
     public Camera MainCamera
     {
         get { return mainCamera; }
+    }
+
+    public Transform OverworldCameraTransform
+    {
+        get { return overworldCameraTransform; }
     }
 }

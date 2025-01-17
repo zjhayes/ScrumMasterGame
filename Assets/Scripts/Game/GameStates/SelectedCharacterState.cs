@@ -1,52 +1,41 @@
-using UnityEngine;
+using HierarchicalStateMachine;
 
 public class SelectedCharacterState : GameState
 {
-    private ContextManager controller;
     private ICharacterController selectedCharacter;
 
-    public override void Handle(ContextManager _controller)
-    {
-        controller = _controller;
+    public SelectedCharacterState(IGameManager _gameManager) : base(_gameManager) {}
 
+    public override void Enter()
+    {
         gameManager.Interactables.EnableInteractables();
 
         // Listen to character and update status when state changed.
-        selectedCharacter = controller.CurrentCharacter;
-        selectedCharacter.StateContext.OnTransition += OnCharacterStateChange;
+        selectedCharacter = gameManager.Context.CurrentCharacter;
+        selectedCharacter.Context.OnTransition += OnCharacterStateChange;
 
+        // Show selected character details card.
         gameManager.UI.CharacterCard.UpdateCard(selectedCharacter);
         gameManager.UI.CharacterCard.Show();
 
-        gameManager.Camera.SwitchToOverworldCamera();
-        base.Handle(controller);
+        base.Enter();
     }
 
-    public override void ChangeView()
+    public override void Exit()
     {
-        // Enter Scrum Board view.
-        controller.SwitchToScrumView();
-    }
+        base.Exit();
 
-    public override void OnEscaped()
-    {
-        controller.Default();
+        // Stop listening to character.
+        selectedCharacter.Context.OnTransition -= OnCharacterStateChange;
+        selectedCharacter.Deselect();
+
+        // Revert state.
+        gameManager.Interactables.DisableInteractables();
+        gameManager.UI.CharacterCard.Hide();
     }
 
     private void OnCharacterStateChange()
     {
         gameManager.UI.CharacterCard.UpdateStatus(selectedCharacter);
-    }
-
-    public override void Exit()
-    {
-        // Stop listening to character.
-        selectedCharacter.StateContext.OnTransition -= OnCharacterStateChange;
-        selectedCharacter.Deselect();
-        // Revert state.
-        gameManager.Interactables.DisableInteractables();
-        gameManager.UI.CharacterCard.Hide();
-
-        base.Exit();
     }
 }
