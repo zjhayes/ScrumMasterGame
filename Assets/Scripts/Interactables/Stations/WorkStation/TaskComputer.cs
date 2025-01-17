@@ -21,13 +21,11 @@ public class TaskComputer : Computer
             if (developers.Count <= 0) { return; } // No developers.
 
             // Progress faster with more developers, fewer story points, and a more maintainable production.
-            float difficulty = (1f / cartridge.Story.StoryPoints); // Inverse of story points.
-            float progress = CalculateDeveloperProductivity() * difficulty;
+            float progress = CalculateDeveloperProductivity() * (1f / cartridge.Story.StoryPoints);
             cartridge.Story.Outcome.Completeness += progress * Time.deltaTime;
 
-            // Update chance of errors based on developer proficiency compared to task difficulty.
-            float outcome = proficiency * difficulty;
-            cartridge.Story.Outcome.ChanceOfErrors -= outcome * Time.deltaTime;
+            // Update chance of errors based on developer proficiency compared.
+            cartridge.Story.Outcome.ChanceOfErrors -= proficiency * progress * Time.deltaTime;
             
             if (cartridge.Story.Outcome.IsReadyForProduction)
             {
@@ -58,7 +56,7 @@ public class TaskComputer : Computer
         // Compare developer(s) stats to current task requirements and score proficiency.
         if (cartridgeReceptacle.TryGet(out Cartridge cartridge))
         {
-            proficiency = WorkCalculator.CalculateCombinedOutcome(cartridge.Story.Details.Requirements, developers);
+            proficiency = WorkCalculator.CalculateProficiency(cartridge.Story.Details.Requirements, developers);
         }
     }
 

@@ -138,6 +138,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: b70cd8789b9e9bf4b8ac075a26540409,
         type: 3}
+    - target: {fileID: 7311766226144581395, guid: 071a156a41665834a99241b956a7f2d2,
+        type: 3}
+      propertyPath: stats.backend
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311766226144581395, guid: 071a156a41665834a99241b956a7f2d2,
+        type: 3}
+      propertyPath: stats.frontend
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311766226144581395, guid: 071a156a41665834a99241b956a7f2d2,
+        type: 3}
+      propertyPath: stats.problemSolving
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311766226144581395, guid: 071a156a41665834a99241b956a7f2d2,
+        type: 3}
+      propertyPath: stats.timeManagement
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7311766226144581398, guid: 071a156a41665834a99241b956a7f2d2,
         type: 3}
       propertyPath: m_Name

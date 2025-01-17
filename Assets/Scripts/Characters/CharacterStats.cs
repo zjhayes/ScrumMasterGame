@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class CharacterStats : MonoBehaviour
+[System.Serializable]
+public class CharacterStats
 {
     public const int MINIMUM = Numeric.ZERO;
     public const int MAXIMUM = 10;
@@ -48,5 +49,29 @@ public class CharacterStats : MonoBehaviour
     public int Velocity
     {
         get { return frontend + backend + problemSolving + timeManagement; }
+    }
+
+    public void Add(CharacterStats other)
+    {
+        Frontend = Mathf.Clamp(Frontend + other.Frontend, MINIMUM, MAXIMUM);
+        Backend = Mathf.Clamp(Backend + other.Backend, MINIMUM, MAXIMUM);
+        ProblemSolving = Mathf.Clamp(ProblemSolving + other.ProblemSolving, MINIMUM, MAXIMUM);
+        TimeManagement = Mathf.Clamp(TimeManagement + other.TimeManagement, MINIMUM, MAXIMUM);
+    }
+
+    public void Subtract(CharacterStats other)
+    {
+        Frontend = Mathf.Clamp(Frontend - other.Frontend, MINIMUM, MAXIMUM);
+        Backend = Mathf.Clamp(Backend - other.Backend, MINIMUM, MAXIMUM);
+        ProblemSolving = Mathf.Clamp(ProblemSolving - other.ProblemSolving, MINIMUM, MAXIMUM);
+        TimeManagement = Mathf.Clamp(TimeManagement - other.TimeManagement, MINIMUM, MAXIMUM);
+    }
+
+    public void TakeLargest(CharacterStats other)
+    {
+        Frontend = Mathf.Clamp(Mathf.Max(Frontend, other.Frontend), MINIMUM, MAXIMUM);
+        Backend = Mathf.Clamp(Mathf.Max(Backend, other.Backend), MINIMUM, MAXIMUM);
+        ProblemSolving = Mathf.Clamp(Mathf.Max(ProblemSolving, other.ProblemSolving), MINIMUM, MAXIMUM);
+        TimeManagement = Mathf.Clamp(Mathf.Max(TimeManagement, other.TimeManagement), MINIMUM, MAXIMUM);
     }
 }

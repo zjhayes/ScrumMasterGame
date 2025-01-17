@@ -6,7 +6,9 @@ public class WorkCalculator
     public static float CalculateModifier(float productionStat, float characterStat1, float characterStat2 = 0)
     {
         // Calculate difference of character's stats against required stats.
-        return (characterStat1 + characterStat2) - productionStat;
+        float difference = (characterStat1 + characterStat2) - productionStat;
+
+        return difference > 0 ? 0 : difference; // Character can't outperform.
     }
 
     public static float CalculateOutcome(IProductionStats requirementStats, CharacterStats characterStats)
@@ -23,15 +25,23 @@ public class WorkCalculator
 
     public static float CalculateCombinedOutcome(IProductionStats requirementStats, List<ICharacterController> developers)
     {
-        float outcome = 0;
+        CharacterStats combinedStats = new CharacterStats();
+        
         // Accumulate developer contributions to outcome.
         foreach (ICharacterController developer in developers)
         {
-            // Calculate score by comparing developer stats to requirements.
-            outcome += CalculateOutcome(requirementStats, developer.Stats);
+            combinedStats.TakeLargest(developer.Stats);
         }
 
-        return outcome;
+        return CalculateOutcome(requirementStats, combinedStats); ;
+    }
+
+    public static float CalculateProficiency(IProductionStats productionStats, List<ICharacterController> developers)
+    {
+        // Rate developer's combined proficiency.
+        float outcome = CalculateCombinedOutcome(productionStats, developers);
+        float normalizedOutcome = 1f + (outcome / 10f);
+        return Mathf.Clamp01(normalizedOutcome); // Normalize proficiency to 0-1.
     }
 
     public static float CalculateUsabilityOutcome(IProductionStats requirementStats, CharacterStats characterStats)

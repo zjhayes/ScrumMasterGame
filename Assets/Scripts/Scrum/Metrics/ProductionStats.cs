@@ -41,18 +41,20 @@ public class ProductionStats : MonoBehaviour, IProductionStats
 
     public void Add(IProductionStats other)
     {
-        this.Usability += other.Usability;
-        this.Stability += other.Stability;
-        this.Functionality += other.Functionality;
-        this.Maintainability += other.Maintainability;
+        // Add each stat, then clamp to MINIMUM
+        this.Usability = Mathf.Max(this.Usability + other.Usability, MINIMUM);
+        this.Stability = Mathf.Max(this.Stability + other.Stability, MINIMUM);
+        this.Functionality = Mathf.Max(this.Functionality + other.Functionality, MINIMUM);
+        this.Maintainability = Mathf.Max(this.Maintainability + other.Maintainability, MINIMUM);
     }
 
     public void Subtract(IProductionStats other)
     {
-        this.Usability -= other.Usability;
-        this.Stability -= other.Stability;
-        this.Functionality -= other.Functionality;
-        this.Maintainability -= other.Maintainability;
+        // Subtract each stat, then clamp to MINIMUM
+        this.Usability = Mathf.Max(this.Usability - other.Usability, MINIMUM);
+        this.Stability = Mathf.Max(this.Stability - other.Stability, MINIMUM);
+        this.Functionality = Mathf.Max(this.Functionality - other.Functionality, MINIMUM);
+        this.Maintainability = Mathf.Max(this.Maintainability - other.Maintainability, MINIMUM);
     }
 
     public int Total

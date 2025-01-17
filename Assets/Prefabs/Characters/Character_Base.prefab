@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 7311766226144581393}
   - component: {fileID: 3028050744800272857}
   - component: {fileID: 7311766226144581395}
-  - component: {fileID: 2025796840576347535}
   - component: {fileID: 3028050744800272862}
   - component: {fileID: 51818233955821412}
   - component: {fileID: 8361268364746536968}
@@ -202,22 +201,11 @@ MonoBehaviour:
   inventory: {fileID: 8177061993143236849}
   selectability: {fileID: 1644563669271942033}
   selectIcon: {fileID: 7880778505083913166}
---- !u!114 &2025796840576347535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7311766226144581398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35213c272c0ee5e44bd3f1b6b1c3747f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  frontend: 0
-  backend: 0
-  problemSolving: 0
-  timeManagement: 0
+  stats:
+    frontend: 0
+    backend: 0
+    problemSolving: 0
+    timeManagement: 0
 --- !u!114 &3028050744800272862
 MonoBehaviour:
   m_ObjectHideFlags: 0

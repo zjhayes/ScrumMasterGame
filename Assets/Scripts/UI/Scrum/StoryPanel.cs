@@ -55,18 +55,6 @@ public class StoryPanel : MenuController, IContainable
         SetActive(false);
     }
 
-    public void UpdateAssigneePortrait()
-    {
-        if (story.Assignee != null)
-        {
-            assigneeImage.sprite = story.Assignee.Portrait;
-        }
-        else
-        {
-            assigneeImage.sprite = defaultAssigneePortrait;
-        }
-    }
-
     public ButtonController Button
     {
         get { return button; }
@@ -97,6 +85,18 @@ public class StoryPanel : MenuController, IContainable
     private void UpdateStoryTypeIcon()
     {
         taskTypeIcon.sprite = gameManager.UI.Icons.GetIconForStoryType(story.Details.Type);
+    }
+
+    private void UpdateAssigneePortrait()
+    {
+        if (story.Assignee != null)
+        {
+            assigneeImage.sprite = story.Assignee.Portrait;
+        }
+        else
+        {
+            assigneeImage.sprite = defaultAssigneePortrait;
+        }
     }
 
     private void OnDestroy()

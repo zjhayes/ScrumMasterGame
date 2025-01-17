@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(CharacterStats))]
 [RequireComponent(typeof(CharacterMovement))]
 [RequireComponent(typeof(CharacterProperties))]
 public class CharacterController : GameBehaviour, ICharacterController, ISocketable
@@ -14,8 +13,9 @@ public class CharacterController : GameBehaviour, ICharacterController, ISocketa
     private Selectable selectability;
     [SerializeField]
     private OverheadElement selectIcon;
-
+    [SerializeField]
     private CharacterStats stats;
+
     private CharacterMovement movement;
     private CharacterProperties properties;
     private CharacterContext context;
@@ -23,7 +23,6 @@ public class CharacterController : GameBehaviour, ICharacterController, ISocketa
 
     private void Awake()
     {
-        stats = GetComponent<CharacterStats>();
         movement = GetComponent<CharacterMovement>();
         properties = GetComponent<CharacterProperties>();
         context = new CharacterContext(this, gameManager);
