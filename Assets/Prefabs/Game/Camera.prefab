@@ -534,6 +534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 8955580300220210090}
+  overworldCameraTransform: {fileID: 8955580300247323909}
   cameraStateAnimator: {fileID: 8955580301948350042}
 --- !u!1 &8955580301429228582
 GameObject:
