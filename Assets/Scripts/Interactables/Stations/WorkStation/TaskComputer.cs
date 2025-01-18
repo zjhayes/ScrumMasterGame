@@ -5,7 +5,7 @@ public class TaskComputer : Computer
 {
     private List<ICharacterController> developers;
     private float proficiency = 0f; // Score based on developer(s) proficiency at current task.
-    private readonly float baseSpeed = 10f;
+    private readonly float BASE_SPEED = 40f;
 
     protected override void Awake()
     {
@@ -24,9 +24,9 @@ public class TaskComputer : Computer
             float progress = CalculateDeveloperProductivity() * (1f / cartridge.Story.StoryPoints);
             cartridge.Story.Outcome.Completeness += progress * Time.deltaTime;
 
-            // Update chance of errors based on developer proficiency compared.
+            // Update chance of errors based on developer proficiency.
             cartridge.Story.Outcome.ChanceOfErrors -= proficiency * progress * Time.deltaTime;
-            
+
             if (cartridge.Story.Outcome.IsReadyForProduction)
             {
                 // Work is complete.
@@ -62,7 +62,7 @@ public class TaskComputer : Computer
 
     private float CalculateDeveloperProductivity()
     {
-        float developmentSpeed = developers.Count * baseSpeed;
+        float developmentSpeed = developers.Count * BASE_SPEED;
         float maintainability = CalculateMaintainabilityBuff();
         return developmentSpeed * maintainability;
     }

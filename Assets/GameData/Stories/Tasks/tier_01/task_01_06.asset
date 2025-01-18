@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
+  m_Name: task_01_06
+  m_EditorClassIdentifier: 
+  summary: Set-up Service Desk
+  description: We need a way for users to report bugs and make feature requests for
+    whatever wild idea pops up in their head.
+  type: 0
+  requirements:
+    usability: 2
+    stability: 0
+    functionality: 1
+    maintainability: 3
+  causes: []
+  risk: {fileID: 0}

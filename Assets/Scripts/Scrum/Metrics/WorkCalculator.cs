@@ -27,20 +27,20 @@ public class WorkCalculator
     {
         CharacterStats combinedStats = new CharacterStats();
         
-        // Accumulate developer contributions to outcome.
+        // Combine the best stats from each developer.
         foreach (ICharacterController developer in developers)
         {
             combinedStats.TakeLargest(developer.Stats);
         }
 
-        return CalculateOutcome(requirementStats, combinedStats); ;
+        return CalculateOutcome(requirementStats, combinedStats);
     }
 
-    public static float CalculateProficiency(IProductionStats productionStats, List<ICharacterController> developers)
+    public static float CalculateProficiency(IProductionStats requirementStats, List<ICharacterController> developers)
     {
         // Rate developer's combined proficiency.
-        float outcome = CalculateCombinedOutcome(productionStats, developers);
-        float normalizedOutcome = 1f + (outcome / 10f);
+        float outcome = CalculateCombinedOutcome(requirementStats, developers);
+        float normalizedOutcome = 1f + (outcome / CharacterStats.MAXIMUM);
         return Mathf.Clamp01(normalizedOutcome); // Normalize proficiency to 0-1.
     }
 

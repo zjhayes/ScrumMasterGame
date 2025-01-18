@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
-  m_Name: task_03
+  m_Name: task_01_05
   m_EditorClassIdentifier: 
-  summary: Set-up Security and Authentication
-  description: Spare no expense with security, let's not forget the time <sprite
-    name=character-green> let the Dilophasaurus loose.
+  summary: Name the New Product
+  description: <sprite name=character-purple> looked into it and feels fairly confident
+    we can legally use the word "Scrum" in our product's name.
   type: 0
   requirements:
-    usability: 1
-    stability: 3
-    functionality: 1
-    maintainability: 2
+    usability: 5
+    stability: 0
+    functionality: 0
+    maintainability: 0
   causes: []
-  risk: {fileID: 11400000, guid: cb9492759d8a9f147a46ff1818302613, type: 2}
+  risk: {fileID: 0}

@@ -5,6 +5,7 @@ public class Story
     private StoryStatus status;
     private ICharacterController assignee;
     private StoryOutcome outcome;
+    private int storyPoints = 0;
 
     public event Events.CharacterEvent OnAssigneeChanged;
     public event Events.StoryEvent OnStatusChanged;
@@ -14,6 +15,7 @@ public class Story
         this.details = details;
         this.status = status;
         outcome = new StoryOutcome();
+        storyPoints = details.Requirements.MinkowskiP3;
     }
 
     public StoryDetails Details
@@ -23,7 +25,7 @@ public class Story
 
     public int StoryPoints
     {
-        get { return details.Requirements.Average; }
+        get { return storyPoints; }
     }
 
     public StoryStatus Status

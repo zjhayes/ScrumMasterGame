@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
-  m_Name: task_02
+  m_Name: task_01_08
   m_EditorClassIdentifier: 
-  summary: Create User Interface Prototype
-  description: As a user I'd like something to use. It's essential to my role.
+  summary: Establish Version Control
+  description: Now that we're on version asdf-04_copy_copy_1, we should consider
+    creating a Git repository.
   type: 0
   requirements:
-    usability: 3
+    usability: 0
     stability: 0
-    functionality: 2
-    maintainability: 1
+    functionality: 0
+    maintainability: 4
   causes: []
-  risk: {fileID: 11400000, guid: cb9492759d8a9f147a46ff1818302613, type: 2}
+  risk: {fileID: 0}
