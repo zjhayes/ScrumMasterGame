@@ -46,6 +46,12 @@ public class ScrumBoardController : Interactable
     private void TakeStoryCartridge(Story story, ICharacterController character)
     {
         InstantiateCartridge(story, character);
+        InitializeStory(story);
+    }
+
+    private void InitializeStory(Story story)
+    {
         story.Status = StoryStatus.IN_PROGRESS;
+        story.Outcome.StartTime = gameManager.Sprint.Clock.CurrentTime;
     }
 }

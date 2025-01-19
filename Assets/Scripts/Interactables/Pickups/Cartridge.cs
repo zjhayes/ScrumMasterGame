@@ -1,4 +1,3 @@
-using UnityEngine;
 
 public class Cartridge : Pickup
 {
@@ -29,22 +28,17 @@ public class Cartridge : Pickup
         set
         {
             story = value;
+            story.OnAssigneeChanged += CacheOnUnassigned;
             OnStoryUpdated.Invoke();
         }
     }
 
-    protected override void OnPickUpSuccess()
+    private void CacheOnUnassigned(ICharacterController character)
     {
-        base.OnPickUpSuccess();
-        if (story.Outcome.StartTime <= 0f) // TODO: Handle start/end time elsewhere.
+        if (character == null)
         {
-            story.Outcome.StartTime = gameManager.Sprint.Clock.CurrentTime;
+            // Cache cartridge object.
+            gameManager.ObjectPool.PoolCartridge(this);
         }
-    }
-
-    protected override void OnDisable()
-    {
-        story.Outcome.EndTime = gameManager.Sprint.Clock.CurrentTime;
-        base.OnDisable();
     }
 }

@@ -9,7 +9,7 @@ public class ProductionServer : Computer
     {
         if(cartridgeReceptacle.TryGet(out Cartridge cartridge))
         {
-            cartridge.Story.Status = StoryStatus.DONE;
+            ResolveStory(cartridge.Story);
 
             // Work is deployed, cache cartridge object.
             gameManager.ObjectPool.PoolCartridge(cartridge);
@@ -23,5 +23,9 @@ public class ProductionServer : Computer
         }
     }
 
-
+    private void ResolveStory(Story story)
+    {
+        story.Status = StoryStatus.DONE;
+        story.Outcome.EndTime = gameManager.Sprint.Clock.CurrentTime;
+    }
 }

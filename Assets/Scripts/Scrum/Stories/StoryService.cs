@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using UnityEngine;
 
-public class StoryService : MonoBehaviour
+public class StoryService
 {
     public static int CountStoryPoints(List<Story> stories)
     {
