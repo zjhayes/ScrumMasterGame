@@ -37,6 +37,7 @@ public class Cartridge : Pickup
     {
         if (character == null)
         {
+            story.Status = StoryStatus.TO_DO;
             // Cache cartridge object.
             gameManager.ObjectPool.PoolCartridge(this);
         }
