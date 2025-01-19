@@ -15,7 +15,7 @@ public class WorkStation : Station
 
     public override void InteractWith(ICharacterController character)
     {
-        if(CharacterCanWorkOnTask(character) || CharacterCanPairProgram(character))
+        if(computer.HasCartridge() || CharacterCanWorkOnTask(character))
         {
             // Character can either work on their own task, or help the current developer.
             base.InteractWith(character);
