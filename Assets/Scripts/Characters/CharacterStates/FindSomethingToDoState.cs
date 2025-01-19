@@ -2,30 +2,24 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class FindSomethingToDoState : CharacterState
+public class FindSomethingToDoState : PacingState
 {
-    private Coroutine waitAndFindSomethingToDoAction;
-
     public FindSomethingToDoState(ICharacterController character, IGameManager gameManager) : base(character, gameManager){}
-
-    public override void Enter()
-    {
-        character.Movement.OnArrivedAtDestination += AfterPacing;
-        FindSomethingToDo();
-        base.Enter();
-    }
 
     public override void Exit()
     {
-        character.Movement.OnArrivedAtDestination -= AfterPacing;
         StopIdleEmote();
-        CancelWaitAndFindSomethingToDo();
         base.Exit();
     }
 
     public override string Status
     {
-        get { return "Dilly-Dallying"; }
+        get { return "Need something to do..."; }
+    }
+
+    protected override void OnBegin()
+    {
+        FindSomethingToDo();
     }
 
     private void FindSomethingToDo()
@@ -41,7 +35,7 @@ public class FindSomethingToDoState : CharacterState
         else
         {
             // Dilly dally, continue looking for something to do.
-            Pace();
+            base.Pace();
         }
     }
 
@@ -66,27 +60,15 @@ public class FindSomethingToDoState : CharacterState
         return priority;
     }
 
-    private void AfterPacing()
+    protected override void WaitAfterPacing()
     {
         StartIdleEmote();
-
-        float delayTime = Random.Range(character.Properties.MinWaitTime, character.Properties.MaxWaitTime);
-        waitAndFindSomethingToDoAction = gameManager.Actions.StartDelayedAction(delayTime, FindSomethingToDo);
+        base.WaitAfterPacing();
     }
 
-    private void Pace()
+    protected override void AfterWait()
     {
-        // Move to randomly position within pacing boundary.
-        character.Movement.GoToBoundary(gameManager.Team.PaceBoundary, character.Movement.BaseSpeed * character.Properties.PaceSpeed);
-    }
-
-    private void CancelWaitAndFindSomethingToDo()
-    {
-        if(waitAndFindSomethingToDoAction != null)
-        {
-            gameManager.Actions.StopCoroutine(waitAndFindSomethingToDoAction);
-            waitAndFindSomethingToDoAction = null;
-        }
+        FindSomethingToDo();
     }
 
     private void StartIdleEmote()

@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
-  m_Name: task_01_06
+  m_Name: Implement Basic Logging and Monitoring
   m_EditorClassIdentifier: 
-  summary: Set-up Service Desk
-  description: We need a way for users to report bugs and make feature requests for
-    whatever wild idea pops up in their head.
+  summary: Implement Basic Logging and Monitoring
+  description: We need to tracks errors, performance, and user interactions so we
+    can spot problems early, or at least know who to blame.
   type: 0
+  storyPoints: 2
   requirements:
-    usability: 2
-    stability: 0
-    functionality: 1
-    maintainability: 3
+    usability: 0
+    stability: 3
+    functionality: 0
+    maintainability: 2
   causes: []
   risk: {fileID: 0}

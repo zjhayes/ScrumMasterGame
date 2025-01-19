@@ -4,34 +4,31 @@ using UnityEngine;
 public class TeamManager : GameBehaviour
 {
     [SerializeField]
-    List<CharacterController> characters;
+    private List<CharacterController> characters;
     [SerializeField]
     private Boundary paceBoundary;
 
 
-    void Start()
+    private void Start()
     {
-        gameManager.Sprint.OnBeginPlanning += RallyAtScrumBoard;
+        gameManager.Sprint.OnBeginRetrospective += RallyTeam;
         gameManager.Sprint.OnBeginSprint += Scrum;
     }
 
-    void RallyAtScrumBoard()
+    public void RallyTeam()
     {
-        // TODO: Have character huddle around scrum board.
+        foreach(CharacterController character in characters)
+        {
+            character.Rally();
+        }
     }
 
-    void Scrum()
+    public void Scrum()
     {
         foreach(CharacterController character in characters)
         {
             character.FindSomethingToDo();
         }
-    }
-
-    void OnDisable()
-    {
-        gameManager.Sprint.OnBeginPlanning -= RallyAtScrumBoard;
-        gameManager.Sprint.OnBeginSprint -= Scrum;
     }
 
     public List<CharacterController> Characters

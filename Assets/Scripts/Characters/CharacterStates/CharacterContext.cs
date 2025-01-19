@@ -7,6 +7,7 @@ public class CharacterContext : StateMachineContext<CharacterState, CharacterSta
         : base(new Dictionary<CharacterStates, CharacterState>
         {
             { CharacterStates.IDLE,  new IdleState(character, gameManager) },
+            { CharacterStates.PACING, new PacingState(character, gameManager) },
             { CharacterStates.FIND_SOMETHING_TO_DO,  new FindSomethingToDoState(character, gameManager) },
             { CharacterStates.FRUSTRATED,  new FrustratedState(character, gameManager) },
             { CharacterStates.GO_TO_INTERACTABLE,  new GoToInteractableState(character, gameManager) },

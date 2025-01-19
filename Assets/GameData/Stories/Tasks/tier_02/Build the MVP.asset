@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
-  m_Name: task_01_04
+  m_Name: Build the MVP
   m_EditorClassIdentifier: 
-  summary: Conduct Market Research
-  description: 'I know <sprite name=character-red> thinks our Product needs a flamethrower,
-    but let''s prioritize features that users will find valuable. '
+  summary: Build the MVP
+  description: '"That''s ''Minimum Viable Product''. We all know <sprite name=character-purple>
+    is the real MVP in the office." -<sprite name=character-purple>'
   type: 0
+  storyPoints: 6
   requirements:
     usability: 3
-    stability: 0
-    functionality: 3
-    maintainability: 0
-  causes: []
+    stability: 1
+    functionality: 1
+    maintainability: 3
+  causes:
+  - {fileID: 11400000, guid: ef9cfc14960a0fe498b0e6563e60d64a, type: 2}
   risk: {fileID: 11400000, guid: cb9492759d8a9f147a46ff1818302613, type: 2}

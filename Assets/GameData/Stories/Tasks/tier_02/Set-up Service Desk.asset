@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
-  m_Name: task_01_07
+  m_Name: Set-up Service Desk
   m_EditorClassIdentifier: 
-  summary: Configure Basic Database
-  description: '''); DROP TABLE tasks; --'
+  summary: Set-up Service Desk
+  description: We need a way for users to report bugs and make feature requests for
+    whatever wild idea pops up in their head.
   type: 0
+  storyPoints: 4
   requirements:
     usability: 2
-    stability: 1
-    functionality: 3
-    maintainability: 3
+    stability: 0
+    functionality: 0
+    maintainability: 2
   causes: []
   risk: {fileID: 0}

@@ -8,7 +8,7 @@ public class StoryService : MonoBehaviour
         int total = 0;
         foreach (Story story in stories)
         {
-            total += story.StoryPoints;
+            total += story.Details.StoryPoints;
         }
         return total;
     }

@@ -51,7 +51,6 @@ public abstract class Station : Interactable
         return count;
     }
 
-    // Returns true if character is able to sit.
     protected virtual void FindSeat(ICharacterController occupant)
     {
         foreach (Chair chair in chairs)

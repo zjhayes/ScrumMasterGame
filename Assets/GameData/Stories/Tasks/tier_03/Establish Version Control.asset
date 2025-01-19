@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
-  m_Name: bug_01
+  m_Name: Establish Version Control
   m_EditorClassIdentifier: 
-  summary: User Error
-  description: I'm pretty sure this is the user's fault, but let's make the UI a
-    little simpler for them.
-  type: 1
+  summary: Establish Version Control
+  description: Now that we're on version mvp-04asdf_copy_copy_1, we should consider
+    creating a Git repository.
+  type: 0
+  storyPoints: 2
   requirements:
-    usability: 3
-    stability: 0
+    usability: 0
+    stability: 1
     functionality: 0
-    maintainability: 0
+    maintainability: 3
   causes: []
   risk: {fileID: 0}

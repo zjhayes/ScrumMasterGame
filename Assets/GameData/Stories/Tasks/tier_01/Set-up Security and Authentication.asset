@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
-  m_Name: task_02_01
+  m_Name: Set-up Security and Authentication
   m_EditorClassIdentifier: 
-  summary: Build the MVP
-  description: '"That''s ''Minimum Viable Product''. We all know <sprite name=character-purple>
-    is the real MVP in the office." -<sprite name=character-purple>'
+  summary: Set-up Security and Authentication
+  description: Spare no expense with security, let's not forget the time <sprite
+    name=character-green> let the Dilophasaurus loose.
   type: 0
+  storyPoints: 4
   requirements:
-    usability: 3
-    stability: 1
-    functionality: 1
-    maintainability: 3
+    usability: 0
+    stability: 4
+    functionality: 0
+    maintainability: 2
   causes:
-  - {fileID: 11400000, guid: 738f2c672a4e10143b02e37054088ddc, type: 2}
-  - {fileID: 11400000, guid: c3b28929b5f5a2741b83aa7bde66e7fa, type: 2}
+  - {fileID: 11400000, guid: 6055d0e9f8b14ca48a7d44ea98c042a0, type: 2}
   risk: {fileID: 11400000, guid: cb9492759d8a9f147a46ff1818302613, type: 2}

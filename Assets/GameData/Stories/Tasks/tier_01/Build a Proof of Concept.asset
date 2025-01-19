@@ -10,17 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
-  m_Name: task_01_01
+  m_Name: Build a Proof of Concept
   m_EditorClassIdentifier: 
   summary: Build a Proof of Concept
   description: Some of these requirements might break the known Laws of Physics,
     so we better start small.
   type: 0
+  storyPoints: 4
   requirements:
-    usability: 2
-    stability: 0
+    usability: 1
+    stability: 2
     functionality: 5
-    maintainability: 1
+    maintainability: 2
   causes:
   - {fileID: 11400000, guid: 20e21a30ef4863e4c9d3000ace2e5e4c, type: 2}
+  - {fileID: 11400000, guid: c5faf988fc1423048a391e9903465c6e, type: 2}
   risk: {fileID: 0}

@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
-  m_Name: test_easy
+  m_Name: Design Initial Branding Guidelines
   m_EditorClassIdentifier: 
-  summary: Testing the Lower Bounds
-  description: Just relax on this one.
+  summary: Design Branding Guidelines
+  description: <sprite name=character-blue> and <sprite name=character-purple> already
+    came up with a color palette, and it includes a lot of eggshell.
   type: 0
-  storyPoints: 1
+  storyPoints: 0
   requirements:
-    usability: 1
-    stability: 1
-    functionality: 1
-    maintainability: 1
+    usability: 0
+    stability: 0
+    functionality: 0
+    maintainability: 0
   causes: []
   risk: {fileID: 0}

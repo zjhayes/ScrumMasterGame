@@ -88,7 +88,7 @@ public class TaskDetailsPanel : MenuController
         taskTypeIcon.sprite = gameManager.UI.Icons.GetIconForStoryType(story.Details.Type);
         summaryText.text = story.Details.Summary;
         descriptionText.text = story.Details.Description;
-        storyPointsText.text = story.StoryPoints.ToString();
+        storyPointsText.text = story.Details.StoryPoints.ToString();
         taskProgressionPanel.UpdateProgression(story.Details.Requirements);
         ClearModifiers();
     }

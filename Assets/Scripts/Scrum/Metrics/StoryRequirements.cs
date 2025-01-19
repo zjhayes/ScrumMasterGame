@@ -54,22 +54,4 @@ public class StoryRequirements : IProductionStats
     {
         get { return MAXIMUM; }
     }
-
-    public int MinkowskiP3
-    {
-        get
-        {
-            // Cube each value before summing.
-            float sumOfCubes =
-                Mathf.Pow(usability, 3) +
-                Mathf.Pow(stability, 3) +
-                Mathf.Pow(functionality, 3) +
-                Mathf.Pow(maintainability, 3);
-
-            // Take the cube root of the total.
-            float scaledComplexity = Mathf.Pow(sumOfCubes, 1f / 3f);
-
-            return Mathf.RoundToInt(scaledComplexity);
-        }
-    }
 }

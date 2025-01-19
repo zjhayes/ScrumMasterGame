@@ -12,6 +12,9 @@ public class StoryDetails : ScriptableObject
     [SerializeField]
     private StoryType type;
     [SerializeField]
+    [Range(1, 10)]
+    private int storyPoints;
+    [SerializeField]
     private StoryRequirements requirements;
     [SerializeField]
     private List<StoryDetails> causes; // Stories this will add to backlog.
@@ -31,6 +34,11 @@ public class StoryDetails : ScriptableObject
     public StoryType Type
     {
         get { return type; }
+    }
+
+    public int StoryPoints
+    {
+        get { return storyPoints; }
     }
 
     public StoryRequirements Requirements

@@ -6,6 +6,7 @@ public class RetrospectiveState : PausableState
 
     public override void Enter()
     {
+        gameManager.Team.RallyTeam();
         gameManager.UI.ScrumMenu.Hide();
         gameManager.UI.RetrospectiveMenu.Show();
         

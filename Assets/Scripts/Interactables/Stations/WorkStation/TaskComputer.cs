@@ -5,7 +5,7 @@ public class TaskComputer : Computer
 {
     private List<ICharacterController> developers;
     private float proficiency = 0f; // Score based on developer(s) proficiency at current task.
-    private readonly float BASE_SPEED = 40f;
+    private readonly float BASE_SPEED = 10f;
 
     protected override void Awake()
     {
@@ -21,7 +21,7 @@ public class TaskComputer : Computer
             if (developers.Count <= 0) { return; } // No developers.
 
             // Progress faster with more developers, fewer story points, and a more maintainable production.
-            float progress = CalculateDeveloperProductivity() * (1f / cartridge.Story.StoryPoints);
+            float progress = CalculateDeveloperProductivity() * (1f / cartridge.Story.Details.StoryPoints);
             cartridge.Story.Outcome.Completeness += progress * Time.deltaTime;
 
             // Update chance of errors based on developer proficiency.
@@ -69,7 +69,7 @@ public class TaskComputer : Computer
 
     private float CalculateMaintainabilityBuff()
     {
-        // Maintainability increases development by up to double.
-        return (gameManager.Production.Stats.Maintainability / (float) gameManager.Production.Stats.Maximum) + Numeric.ONE;
+        // Maintainability increases development by 1 to 10.
+        return (gameManager.Production.Stats.Maintainability / (float) gameManager.Production.Stats.Maximum) * 9f + Numeric.ONE;
     }
 }

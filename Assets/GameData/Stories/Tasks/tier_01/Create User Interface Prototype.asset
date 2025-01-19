@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
-  m_Name: test_impossible
+  m_Name: Create User Interface Prototype
   m_EditorClassIdentifier: 
-  summary: Do The Impossible
-  description: '"This is called Chaos Engineering!" -<sprite name=character-blue>'
+  summary: Create User Interface Prototype
+  description: As a user I'd like something to use. It's essential to my role.
   type: 0
-  storyPoints: 10
+  storyPoints: 4
   requirements:
-    usability: 10
-    stability: 10
-    functionality: 10
-    maintainability: 10
-  causes: []
+    usability: 4
+    stability: 0
+    functionality: 2
+    maintainability: 0
+  causes:
+  - {fileID: 11400000, guid: a31ab5519058b0a4192cb7d63f20a5a1, type: 2}
+  - {fileID: 11400000, guid: d735f767837d8c44590807260d2095a6, type: 2}
   risk: {fileID: 11400000, guid: cb9492759d8a9f147a46ff1818302613, type: 2}

@@ -79,7 +79,7 @@ public class StoryPanel : MenuController, IContainable
     private void UpdateDetails()
     {
         summaryText.text = story.Details.Summary;
-        storyPointsText.text = story.StoryPoints.ToString();
+        storyPointsText.text = story.Details.StoryPoints.ToString();
     }
 
     private void UpdateStoryTypeIcon()

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.TextCore.Text;
 
 [RequireComponent(typeof(CharacterMovement))]
 [RequireComponent(typeof(CharacterProperties))]
@@ -73,6 +74,12 @@ public class CharacterController : GameBehaviour, ICharacterController, ISocketa
     {
         ClearTargetInteractable();
         context.TransitionTo(CharacterStates.FRUSTRATED);
+    }
+
+    public void Rally()
+    {
+        ClearTargetInteractable();
+        context.TransitionTo(CharacterStates.PACING);
     }
 
     public void ClearTargetInteractable()

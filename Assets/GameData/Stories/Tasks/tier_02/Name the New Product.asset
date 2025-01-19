@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
-  m_Name: task_01_08
+  m_Name: Name the New Product
   m_EditorClassIdentifier: 
-  summary: Establish Version Control
-  description: Now that we're on version asdf-04_copy_copy_1, we should consider
-    creating a Git repository.
+  summary: Name the New Product
+  description: <sprite name=character-purple> looked into it and feels fairly confident
+    we can legally use the word "Scrum" in our product's name.
   type: 0
+  storyPoints: 4
   requirements:
-    usability: 0
+    usability: 3
     stability: 0
     functionality: 0
-    maintainability: 4
+    maintainability: 0
   causes: []
   risk: {fileID: 0}
