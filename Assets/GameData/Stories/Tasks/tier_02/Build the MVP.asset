@@ -18,10 +18,11 @@ MonoBehaviour:
   type: 0
   storyPoints: 6
   requirements:
-    usability: 3
+    usability: 4
     stability: 1
-    functionality: 1
-    maintainability: 3
+    functionality: 2
+    maintainability: 4
   causes:
   - {fileID: 11400000, guid: ef9cfc14960a0fe498b0e6563e60d64a, type: 2}
+  - {fileID: 11400000, guid: 542b30078bbe6204293f5ff4d250d7ea, type: 2}
   risk: {fileID: 11400000, guid: cb9492759d8a9f147a46ff1818302613, type: 2}

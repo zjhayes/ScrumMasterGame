@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545143e81514ebc42a740a16e204332f, type: 3}
-  m_Name: Establish Version Control
+  m_Name: Set Up Automated Testing
   m_EditorClassIdentifier: 
-  summary: Establish Version Control
-  description: Now that we're on version mvp-04asdf_copy_copy_1, we should consider
-    creating a Git repository.
+  summary: Set Up Automated Testing
+  description: Be sure to also write automated tests for the automated tests.
   type: 0
-  storyPoints: 3
+  storyPoints: 4
   requirements:
     usability: 0
-    stability: 3
+    stability: 4
     functionality: 0
-    maintainability: 4
+    maintainability: 0
   causes: []
   risk: {fileID: 0}

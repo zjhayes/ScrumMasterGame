@@ -16,9 +16,9 @@ MonoBehaviour:
   description: <sprite name=character-purple> looked into it and feels fairly confident
     we can legally use the word "Scrum" in our product's name.
   type: 0
-  storyPoints: 4
+  storyPoints: 2
   requirements:
-    usability: 3
+    usability: 5
     stability: 0
     functionality: 0
     maintainability: 0

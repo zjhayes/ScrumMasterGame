@@ -56,8 +56,8 @@ public class ReleaseState : GameState
         // Capture remaining time.
         gameManager.Sprint.Current.RemainingTime = gameManager.Sprint.Clock.CurrentTime;
 
-        // Update number of users. Scales with quality, availability and required functionality.
-        gameManager.Sprint.Current.NewUserCount = (int)(gameManager.Sprint.Current.Quality * gameManager.Production.Availability * gameManager.Production.Stats.Functionality / gameManager.Production.Stats.Maximum);
+        // Update number of users.
+        gameManager.Sprint.Current.NewUserCount = CalculateUserGrowth();
         gameManager.Production.UserCount += gameManager.Sprint.Current.NewUserCount;
     }
 
@@ -81,5 +81,11 @@ public class ReleaseState : GameState
         newStoryDetails.AddRange(gameManager.Sprint.Current.Defects); // Add bugs.
         gameManager.Board.ImportStoryDetails(newStoryDetails);
         gameManager.Board.RemoveStoriesWithStatus(StoryStatus.DONE); // Remove completed stories from board.
+    }
+
+    private int CalculateUserGrowth()
+    {
+        // Scales with quality, availability and required functionality.
+        return (int)(gameManager.Sprint.Current.Quality * gameManager.Production.Availability * gameManager.Production.Stats.Functionality / gameManager.Production.Stats.Maximum);
     }
 }

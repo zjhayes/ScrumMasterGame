@@ -22,5 +22,6 @@ MonoBehaviour:
     stability: 3
     functionality: 0
     maintainability: 2
-  causes: []
+  causes:
+  - {fileID: 11400000, guid: a308b1ae8c40e8245b04f49aa0fe4148, type: 2}
   risk: {fileID: 0}

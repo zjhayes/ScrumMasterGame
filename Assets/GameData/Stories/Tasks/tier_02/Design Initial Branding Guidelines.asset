@@ -16,10 +16,10 @@ MonoBehaviour:
   description: <sprite name=character-blue> and <sprite name=character-purple> already
     came up with a color palette, and it includes a lot of eggshell.
   type: 0
-  storyPoints: 0
+  storyPoints: 2
   requirements:
-    usability: 0
-    stability: 0
+    usability: 4
+    stability: 1
     functionality: 0
     maintainability: 0
   causes: []
