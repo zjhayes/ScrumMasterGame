@@ -26,6 +26,8 @@ public interface ICharacterController : IController
 
     public CharacterContext Context { get; }
 
+    public CertificationProgress CertificationProgress { get; }
+
     public CharacterState State { get; }
 
     public Sprite Portrait { get; }

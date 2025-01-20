@@ -12,6 +12,7 @@ public class ProgressBar : MonoBehaviour
 
     public float CurrentFill
     {
+        get {  return current; }
         set 
         { 
             current = value; 

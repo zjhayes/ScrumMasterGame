@@ -10,9 +10,10 @@ public class SelectedCharacterState : GameState
     {
         gameManager.Interactables.EnableInteractables();
 
-        // Listen to character and update status when state changed.
+        // Listen to character and update when state and stats change.
         selectedCharacter = gameManager.Context.CurrentCharacter;
-        selectedCharacter.Context.OnTransition += OnCharacterStateChange;
+        selectedCharacter.Context.OnTransition += OnCharacterStateTransition;
+        selectedCharacter.Stats.OnStatUpdated += OnCharacterStatsUpdated;
 
         // Show selected character details card.
         gameManager.UI.CharacterCard.UpdateCard(selectedCharacter);
@@ -26,7 +27,8 @@ public class SelectedCharacterState : GameState
         base.Exit();
 
         // Stop listening to character.
-        selectedCharacter.Context.OnTransition -= OnCharacterStateChange;
+        selectedCharacter.Context.OnTransition -= OnCharacterStateTransition;
+        selectedCharacter.Stats.OnStatUpdated -= OnCharacterStatsUpdated;
         selectedCharacter.Deselect();
 
         // Revert state.
@@ -34,8 +36,13 @@ public class SelectedCharacterState : GameState
         gameManager.UI.CharacterCard.Hide();
     }
 
-    private void OnCharacterStateChange()
+    private void OnCharacterStateTransition()
     {
         gameManager.UI.CharacterCard.UpdateStatus(selectedCharacter);
+    }
+
+    private void OnCharacterStatsUpdated(CharacterStat stat)
+    {
+        gameManager.UI.CharacterCard.UpdateProgress(selectedCharacter);
     }
 }

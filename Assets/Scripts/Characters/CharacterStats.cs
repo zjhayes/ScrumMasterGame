@@ -22,28 +22,46 @@ public class CharacterStats
     [Range(0, 10)]
     private int timeManagement;
 
+    public Events.CharacterStatEvent OnStatUpdated;
+
     public int Frontend
     {
         get { return frontend; }
-        set { frontend = Mathf.Clamp(value, MINIMUM, MAXIMUM); }
+        set 
+        { 
+            frontend = Mathf.Clamp(value, MINIMUM, MAXIMUM);
+            OnStatUpdated?.Invoke(CharacterStat.FRONTEND);
+        }
     }
 
     public int Backend
     {
         get { return backend; }
-        set { backend = Mathf.Clamp(value, MINIMUM, MAXIMUM); }
+        set 
+        { 
+            backend = Mathf.Clamp(value, MINIMUM, MAXIMUM);
+            OnStatUpdated?.Invoke(CharacterStat.BACKEND);
+        }
     }
 
     public int ProblemSolving
     {
         get { return problemSolving; }
-        set { problemSolving = Mathf.Clamp(value, MINIMUM, MAXIMUM); }
+        set 
+        { 
+            problemSolving = Mathf.Clamp(value, MINIMUM, MAXIMUM);
+            OnStatUpdated?.Invoke(CharacterStat.PROBLEM_SOLVING);
+        }
     }
 
     public int TimeManagement
     {
         get { return timeManagement; }
-        set { timeManagement = Mathf.Clamp(value, MINIMUM, MAXIMUM); }
+        set 
+        { 
+            timeManagement = Mathf.Clamp(value, MINIMUM, MAXIMUM);
+            OnStatUpdated?.Invoke(CharacterStat.TIME_MANAGEMENT);
+        }
     }
 
     public int Velocity

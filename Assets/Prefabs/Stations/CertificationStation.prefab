@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 8836276681719049937}
   - component: {fileID: 4442605120380452576}
   - component: {fileID: 836550021418154995}
+  - component: {fileID: 7328790882888030611}
   m_Layer: 0
   m_Name: CertificationStation
   m_TagString: Untagged
@@ -152,6 +153,7 @@ MonoBehaviour:
   - {fileID: 6583792133846723051}
   closedBook: {fileID: 8530287197981798686}
   openBook: {fileID: 8530287196900958284}
+  lesson: 0
 --- !u!114 &4442605120380452576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +182,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressBar: {fileID: 8513292224643105332}
+--- !u!114 &7328790882888030611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8836276681719050031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e2e39fd13ee7f44bdf748e8826257c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  learningCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2.5
+      inSlope: -0.4
+      outSlope: -0.4
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 5
+      value: 0.5
+      inSlope: -0.15
+      outSlope: -0.15
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10
+      value: 1
+      inSlope: 0.1
+      outSlope: 0.1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  learnRate: 0.25
 --- !u!1 &8836276682071413215
 GameObject:
   m_ObjectHideFlags: 0

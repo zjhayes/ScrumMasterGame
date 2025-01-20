@@ -3,6 +3,7 @@ public class Events
 {
     public delegate void GameEvent();
     public delegate void PlayerEvent();
+    public delegate void CharacterStatEvent(CharacterStat statEnum);
     public delegate void CharacterEvent(ICharacterController character);
     public delegate void InteractableEvent<T>(T interactable) where T : Interactable;
     public delegate void ContainerEvent(IContainable containable);

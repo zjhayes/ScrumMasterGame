@@ -6,6 +6,8 @@ public class CertificationStation : Station
     private GameObject closedBook;
     [SerializeField]
     private GameObject openBook;
+    [SerializeField]
+    private CharacterStat lesson;
 
     public event Events.CharacterEvent OnFirstOccupant;
     public event Events.CharacterEvent OnUnoccupied;
@@ -63,5 +65,10 @@ public class CertificationStation : Station
     {
         closedBook.GetComponent<Renderer>().enabled = false;
         openBook.GetComponent<Renderer>().enabled = true;
+    }
+
+    public CharacterStat Lesson
+    {
+        get { return lesson; }
     }
 }

@@ -20,6 +20,7 @@ public class CharacterController : GameBehaviour, ICharacterController, ISocketa
     private CharacterMovement movement;
     private CharacterProperties properties;
     private CharacterContext context;
+    private CertificationProgress certificationProgress;
     private Interactable targetInteractable;
 
     private void Awake()
@@ -27,6 +28,7 @@ public class CharacterController : GameBehaviour, ICharacterController, ISocketa
         movement = GetComponent<CharacterMovement>();
         properties = GetComponent<CharacterProperties>();
         context = new CharacterContext(this, gameManager);
+        certificationProgress = new CertificationProgress(stats);
     }
 
     private void Start()
@@ -115,6 +117,11 @@ public class CharacterController : GameBehaviour, ICharacterController, ISocketa
     public CharacterContext Context
     {
         get { return context; }
+    }
+
+    public CertificationProgress CertificationProgress
+    {
+        get { return certificationProgress; }
     }
 
     public CharacterState State

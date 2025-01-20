@@ -11066,8 +11066,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: CertificationStation
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7012913067380459764, guid: 5817d472666e3b74dae820b9908c2c5e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5817d472666e3b74dae820b9908c2c5e, type: 3}
 --- !u!1001 &8955580300011294307
 PrefabInstance:

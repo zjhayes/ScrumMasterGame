@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 0
     width: 614
     height: 1299
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -408,22 +408,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/GameData/Stories/Tasks/tier_02
+    - Assets/Scripts/UI/HUD
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/GameData/Stories/Tasks/tier_02
+  - Assets/Scripts/UI/HUD
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\zacha\Unity\ScrumMasterGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 80}
-    m_SelectedIDs: 06950000
-    m_LastClickedID: 38150
-    m_ExpandedIDs: 00000000ae940000b0940000b2940000b4940000b6940000b8940000ba940000bc940000be940000c0940000c294000000ca9a3b
+    scrollPos: {x: 0, y: 300}
+    m_SelectedIDs: 32960000
+    m_LastClickedID: 38450
+    m_ExpandedIDs: 00000000b2940000b6940000b8940000ba940000bc940000c0940000c2940000c4940000c69400002096000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -451,7 +451,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ae940000b0940000b2940000b4940000b6940000b8940000ba940000bc940000be940000c0940000c2940000
+    m_ExpandedIDs: 00000000b2940000b4940000b6940000b8940000ba940000bc940000be940000c0940000c2940000c4940000c6940000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -478,7 +478,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -581,9 +581,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: fa6f0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 12fbffff
+      m_ExpandedIDs: f4e6feff5ee4ffffaee4ffffb6e4ffffbee4ffffa4e8ffffaee8ffff9ee9ffffa8e9ffff12fbffff4e6e0000146f0000386f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -833,9 +833,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.21717058, y: -1.7421956, z: -9.163174}
+    m_Target: {x: -1.1753266, y: -1.3235703, z: -8.43475}
     speed: 2
-    m_Value: {x: 0.21717058, y: -1.7421956, z: -9.163174}
+    m_Value: {x: -1.1753266, y: -1.3235703, z: -8.43475}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -882,9 +882,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.0051198737, y: -0.9590228, z: 0.28285664, w: 0.017561212}
+    m_Target: {x: 0.0035912194, y: -0.9556639, z: 0.294374, w: 0.011758081}
     speed: 2
-    m_Value: {x: 0.0051197014, y: -0.9589906, z: 0.28284714, w: 0.017560622}
+    m_Value: {x: 0.0035910388, y: -0.9556158, z: 0.29435918, w: 0.011757489}
   m_Size:
     m_Target: 14.727653
     speed: 2

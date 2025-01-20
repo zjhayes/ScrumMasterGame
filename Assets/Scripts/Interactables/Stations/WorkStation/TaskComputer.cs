@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TaskComputer : Computer
@@ -29,6 +30,8 @@ public class TaskComputer : Computer
 
             if (cartridge.Story.Outcome.IsReadyForProduction)
             {
+                ShareKnowledge();
+
                 // Work is complete.
                 Sleep();
             }
@@ -71,5 +74,24 @@ public class TaskComputer : Computer
     {
         // Maintainability increases development by 1 to 10.
         return (gameManager.Production.Stats.Maintainability / (float) gameManager.Production.Stats.Maximum) * 9f + Numeric.ONE;
+    }
+
+    private void ShareKnowledge()
+    {
+        if (developers.Count < 2) { return; }
+
+        // Each developer receives the sum of all other developers' stats.
+        foreach (var developer in developers)
+        {
+            var sharedStats = developers
+                .Where(otherDev => otherDev != developer) // Exclude self.
+                .Aggregate(new CharacterStats(), (total, otherDev) =>
+                {
+                    total.Add(otherDev.Stats);
+                    return total;
+                });
+
+            developer.CertificationProgress.AddProgress(sharedStats);
+        }
     }
 }
