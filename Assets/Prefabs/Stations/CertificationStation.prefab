@@ -227,7 +227,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  learnRate: 0.25
+  learnRate: 0.1
 --- !u!1 &8836276682071413215
 GameObject:
   m_ObjectHideFlags: 0

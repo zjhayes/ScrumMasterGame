@@ -6,7 +6,7 @@ public class CertificationController : GameBehaviour
     [SerializeField]
     private AnimationCurve learningCurve;
     [SerializeField]
-    private float learnRate = 0.25f;
+    private float learnRate = 0.1f;
 
     private CertificationStation certificationStation;
     private ICharacterController student;

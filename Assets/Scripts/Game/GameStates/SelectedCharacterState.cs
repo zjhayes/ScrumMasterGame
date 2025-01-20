@@ -1,6 +1,6 @@
-using HierarchicalStateMachine;
 
-public class SelectedCharacterState : GameState
+
+public class SelectedCharacterState : EscapableState
 {
     private ICharacterController selectedCharacter;
 
@@ -34,6 +34,11 @@ public class SelectedCharacterState : GameState
         // Revert state.
         gameManager.Interactables.DisableInteractables();
         gameManager.UI.CharacterCard.Hide();
+    }
+
+    protected override void Escape()
+    {
+        gameManager.Context.DeselectCharacter();
     }
 
     private void OnCharacterStateTransition()

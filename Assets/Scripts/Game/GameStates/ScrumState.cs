@@ -1,6 +1,5 @@
 
-
-public class ScrumState : PausableState
+public class ScrumState : GameState
 {
     public ScrumState(IGameManager _gameManager) : base(_gameManager) {}
 
