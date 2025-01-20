@@ -8,6 +8,6 @@ public class UIClock : GameBehaviour
 
     private void Update()
     {
-        timeText.text = gameManager.Sprint.Clock.BeautifulTime;
+        timeText.text = gameManager.Sprint.Clock.SimpleTime.ToString();
     }
 }

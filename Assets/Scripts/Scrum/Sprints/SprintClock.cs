@@ -48,6 +48,11 @@ public class SprintClock : MonoBehaviour
         get { return currentTime; }
     }
 
+    public int SimpleTime
+    {
+        get { return (int) currentTime; }
+    }
+
     public string BeautifulTime
     {
         get
