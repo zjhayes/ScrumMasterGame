@@ -16,7 +16,7 @@ public class ObjectPoolController : GameBehaviour
     public Cartridge TakeOrCreateCartridge(Transform location, Story story)
     {
         Cartridge cartridge;
-        if(objectPool.TryGetFirst(out cartridge))
+        if(objectPool.TryGetFirst(out cartridge, true))
         {
             // Take cartridge from pool and move to desired location.
             cartridge.Story = story;
