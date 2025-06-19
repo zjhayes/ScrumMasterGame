@@ -29,7 +29,7 @@ public class Cartridge : Pickup
         set
         {
             story = value;
-            OnStoryUpdated.Invoke();
+            OnStoryUpdated?.Invoke();
         }
     }
 
